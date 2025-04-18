@@ -1,0 +1,49 @@
+{
+  "name": "@roxy/language-localization",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./*": "./dist/*",
+    "./vite": {
+      "import": "./dist/vite/index.mjs"
+    }
+  },
+  "bin": {
+    "roxy-language-localization": "dist/bin/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "pnpm build:lib & vite build",
+    "build:lib": "vite build --config vite.lib.config.ts",
+    "stub": "pnpm stub:lib & vite build --watch",
+    "stub:lib": "vite build --config vite.lib.config.ts --watch"
+  },
+  "dependencies": {
+    "@roxy/puppeteer-google-translate": "workspace:*",
+    "body-parser": "^1.20.3",
+    "es-toolkit": "^1.32.0",
+    "glob": "^11.0.1",
+    "p-limit": "^3.1.0",
+    "serve-static": "^1.16.2"
+  },
+  "devDependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@types/body-parser": "^1.19.5",
+    "@types/formidable": "^3.4.5",
+    "@types/serve-static": "^1.15.7",
+    "@unocss/reset": "^66.0.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "element-plus": "^2.9.5",
+    "sass-embedded": "^1.85.1",
+    "typescript": "catalog:",
+    "unocss": "^66.0.0",
+    "unplugin-auto-import": "^19.1.1",
+    "unplugin-vue-components": "^28.4.1",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.4"
+  }
+}
