@@ -1,6 +1,6 @@
 <template>
   <div class="mt-[144px] mb-[40px]">
-    <roxy-container v-if="status === 'success'" class="flex gap-[34px]">
+    <div v-if="status === 'success'" class="flex gap-[34px]">
       <main class="flex-1">
         <nav class="flex items-center gap-2 flex-wrap">
           <span 
@@ -90,47 +90,41 @@
           </div>
         </div>
       </aside>
-    </roxy-container>
+    </div>
     <div v-else>
       <div v-if="status === 'pending'">加载中...</div>
       <div v-if="status === 'error'">加载失败</div>
     </div>
 
     <div class="mt-[80px]">
-      <roxy-container class="flex flex-col gap-[60px]">
+      <div class="flex flex-col gap-[60px]">
         <div class="text-center text-[#042144] text-[40px] font-700 font-[Archivo]">{{ $t('更多文章') }}</div>
         
         <div class="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 lg:gap-x-4 md:gap-x-3 gap-y-[60px] mt-[32px] more-articles">
           <Card v-for="article in relatedPosts" :article="article" hideExcerpt />
         </div>
 
-        <roxy-row>
-          <roxy-col span="6" offset="3">
-            <NuxtLinkLocale 
-              to="/blog" 
-              class="h-[52px] flex items-center justify-center text-[#34393D] text-[16px] font-700 font-[Archivo] border border-[#C7D1D6] rounded-[8px] border-solid"
-            >
-              {{ $t('查看所有博客') }}
-            </NuxtLinkLocale>
-          </roxy-col>
-        </roxy-row>
-      </roxy-container>
+        <NuxtLinkLocale 
+          to="/blog" 
+          class="h-[52px] flex items-center justify-center text-[#34393D] text-[16px] font-700 font-[Archivo] border border-[#C7D1D6] rounded-[8px] border-solid"
+        >
+          {{ $t('查看所有博客') }}
+        </NuxtLinkLocale>
+      </div>
     </div>
   </div>
-
-  <HomeSection6 />
 </template>
 
 <script setup lang="ts">
 import { formatArticleReadingTime } from './utils'
 import Card from './components/card.vue'
 import { useRoxySeoMeta } from '@/layouts/hooks/useRoxySeoMeta'
-import { useRoxyI18n } from '~/composables/useRoxyI18n'
+import { useRxI18n } from '~/composables/useRxI18n'
 import { ghost } from '@/api';
 const route = useRoute()
 const slug = route.params.slug;
 const { $md, $extractKeywords } = useNuxtApp()
-const { locale, $t } = useRoxyI18n()
+const { locale, $t } = useRxI18n()
 
 const visibleTitle = ref({})
 

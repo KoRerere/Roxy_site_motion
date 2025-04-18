@@ -1,37 +1,34 @@
 <template>
-  <roxy-container class="relative z-2">
+  <div class="relative z-2">
     <div class="mt-[164px]">
       <div class="flex flex-col gap-2">
         <div class="text-[#12A3FC] text-center text-[16px] font-700 font-[Archivo]">Antidetect Browser</div>
         <h1 class="text-[#2E3A48] text-center text-[56px] font-700 font-[Archivo]">RoxyBrowser Blog</h1>
         <div class="text-center text-[#042144] text-[16px]">Keeps you stay ahead in digital security</div>
       </div>
+      
       <div class="mt-[60px] flex justify-center">
         <Search />
       </div>
-      <roxy-row>
-        <roxy-col lg="10" offset-lg="1" xs="12">
-          <div class="mt-[32px] flex justify-center">
-            <TagsBar :tags="tags" />
-          </div>
-        </roxy-col>
-      </roxy-row>
+
+      <div class="mt-[32px] flex justify-center">
+        <TagsBar :tags="tags" />
+      </div>
+      
       <div class="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 lg:gap-x-4 md:gap-x-3 gap-y-[60px] mt-[32px]">
         <Card v-for="article in posts.posts" :article="article" :key="article.id" />
       </div>
       <div class="mt-[60px] flex justify-center">
         <div class="w-[320px] blog-pagination">
-          <v-pagination :length="posts.meta?.pagination?.pages" @update:model-value="updatePage"></v-pagination>
+          <!-- <v-pagination :length="posts.meta?.pagination?.pages" @update:model-value="updatePage"></v-pagination> -->
         </div>
       </div>
     </div>
-  </roxy-container>
+  </div>
 
   <div class="absolute top-0 left-0 w-full h-[465px] z-1">
     <div class="bg-gradient"></div>
   </div>
-
-  <HomeSection6 />
 </template>
 
 <script setup lang="ts">
@@ -97,7 +94,7 @@ const { data: posts } = useAsyncData('posts', async () => {
   }
 }, {
   default: () => ({ posts: [] }),
-  watch: [requestParams, route.fullPath]
+  watch: [requestParams, route]
 })
 
 const { data: tags } = useAsyncData('tags', async () => {
@@ -111,7 +108,7 @@ const { data: tags } = useAsyncData('tags', async () => {
   }
 }, {
   default: () => [],
-  watch: [locale.value]
+  watch: [locale]
 })
 </script>
 

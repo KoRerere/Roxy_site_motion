@@ -1,8 +1,8 @@
 import type { UseSeoMetaInput } from '@unhead/vue'
-import { useRoxyI18n } from '~/composables/useRoxyI18n'
+import { useRxI18n } from '~/composables/useRxI18n'
 
 export const useRoxySeoMeta = (options?: UseSeoMetaInput) => {
-  const { $t } = useRoxyI18n()
+  const { $t } = useRxI18n()
 
   useSeoMeta({
     title: () => $t('Roxy指纹浏览器⚡️最佳工作流-防关联浏览器-多账号管理-跨境电商浏览器，免费试用'),

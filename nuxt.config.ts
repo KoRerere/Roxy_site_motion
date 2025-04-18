@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   sitemap: {
     exclude: ['/invite/**', '/auth/**', '/dev-auth/**', '/login/**']
   },
+  css: ['~/assets/css/global.css'],
   sourcemap: {
     client: false,
     server: false

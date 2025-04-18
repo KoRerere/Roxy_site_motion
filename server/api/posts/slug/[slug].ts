@@ -1,6 +1,6 @@
 // server/api/posts.ts
 import { defineEventHandler } from 'h3'
-import { ghostApi } from '../../../utils/api'
+import { ghostApi } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
   const params = event.context.params;

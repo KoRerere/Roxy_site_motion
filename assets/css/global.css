@@ -1,0 +1,28 @@
+:root {
+  --zhFamily: -apple-system, BlinkMacSystemFont, "Inter", "Microsoft YaHei", "PingFang SC", "Helvetica Neue", "Segoe Ul", "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif, "Apple Color Emoji", "Segoe Ul Emoji", "Segoe Ul Symbol";
+  --enFamily: -apple-system, BlinkMacSystemFont, "Inter", "Arial", "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --ruFamily: -apple-system, BlinkMacSystemFont, "Arial", "Segoe UI", "Inter", "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+p,
+span,
+a {
+  font-family: var(--family, var(--zhFamily));
+}
+
+a {
+  text-decoration: none;
+  text-decoration-line: none;
+  -webkit-text-decoration-line: none;
+}
+
+html, body {
+  touch-action: manipulation;
+}

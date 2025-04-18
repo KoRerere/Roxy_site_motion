@@ -1,6 +1,6 @@
 <template>
   <div class="tags-bar w-full">
-    <RoxyTabs 
+    <RxTabs 
       :tabs="tabs" 
       v-model="activeTagSlug" 
       class="w-full"
@@ -14,7 +14,7 @@
           ]"
         >{{tab.label}}</NuxtLinkLocale>
       </template>
-    </RoxyTabs>
+    </RxTabs>
   </div>
 </template>
 

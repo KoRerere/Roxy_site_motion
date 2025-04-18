@@ -24,7 +24,7 @@ instance.interceptors.request.use(config => {
 
   config.headers.Authorization = `Ghost ${token}`
 
-  // console.log({ query: config.params, url: config.url })
+  // console.log({ query: config.params, url: config.url, headers: config.headers })
   
   return config
 })

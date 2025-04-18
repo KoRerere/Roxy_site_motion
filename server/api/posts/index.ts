@@ -1,7 +1,7 @@
 // server/api/posts.ts
 import { defineEventHandler } from 'h3'
-import { ghostApi } from '../../utils/api'
-import { DEFAULT_BLOG_POST_LIMIT } from '~/constants/langs'
+import { ghostApi } from '~/server/utils/api'
+import { DEFAULT_BLOG_POST_LIMIT } from '~/constants'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)

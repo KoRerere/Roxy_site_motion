@@ -1,7 +1,6 @@
 <template>
   <div class="search-box">
     <input ref="inputRef" type="text" placeholder="Search..." v-model="modelValue" @keyup.enter="search" @blur="search" @click="saveOldSearchText"/>
-    <svgo_rx_ic_magnify class="search-icon" />
     <div class="search-shade"></div>
   </div>
 </template>

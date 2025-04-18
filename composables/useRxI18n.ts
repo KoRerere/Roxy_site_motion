@@ -1,4 +1,4 @@
-export const useRoxyI18n = () => {
+export const useRxI18n = () => {
   const { t, ...rest } = useI18n();
   return {
     $t: t,

@@ -41,7 +41,7 @@ function $myFetch(url: string, options: any) {
     ...options,
     headers: {
       ...options.headers,
-      language: lang,
+      language: lang.value,
     },
   });
 }
