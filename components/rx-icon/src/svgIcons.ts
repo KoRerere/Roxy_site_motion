@@ -1,6 +1,10 @@
-export const svgIcons = import.meta.glob<Component>('../../../assets/svgs/**/*.svg', {
-  query: '?component',
-  eager: false,
+import { defineAsyncComponent } from 'vue'
+
+const modules = import.meta.glob<Component>('../../../assets/svgs/**/*.svg', {
+  query: '?component',eager: false
 })
 
-// import "../../../assets/svgs"
+export const svgIcons = Object.entries(modules).reduce((acc, [key, value]) => {
+  acc[key] = defineAsyncComponent(value)
+  return acc
+}, {} as Record<string, Component>)

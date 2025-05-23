@@ -36,7 +36,7 @@
     "@unocss/reset": "^66.0.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "element-plus": "^2.9.5",
-    "sass-embedded": "^1.85.1",
+    "sass-embedded": "1.86.3",
     "typescript": "catalog:",
     "unocss": "^66.0.0",
     "unplugin-auto-import": "^19.1.1",

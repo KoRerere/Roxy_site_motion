@@ -1,8 +1,19 @@
 <script setup>
+import Toast from 'primevue/toast'
+
+const { extractCode } = useChannelReport()
+const { locale } = useRxI18n()
+
+if (import.meta.client) {
+  extractCode()
+}
+
+onBeforeMount(() => {
+  document.querySelector(':root').style.setProperty('--family', getFontFamily(locale.value))
+})
 </script>
 
 <template>
-  <v-app>
-    <slot></slot>
-  </v-app>
+  <slot></slot>
+  <Toast position="top-center" />
 </template>

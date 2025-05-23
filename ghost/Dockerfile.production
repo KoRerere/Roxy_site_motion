@@ -1,0 +1,21 @@
+# 使用官方 Ghost 镜像作为基础镜像
+FROM ghost:5-alpine
+
+# 设置环境变量
+ENV database__connection__password='4q7+,2c=!E8H^nmxY-L:'
+ENV database__connection__host=127.0.0.1
+ENV database__connection__user=root
+ENV database__connection__database=db_blog_server
+ENV url=https://roxybrowser.com/ghost/
+ENV NODE_ENV=production
+
+# 将内容和配置文件挂载到容器内的相应路径
+VOLUME /var/lib/ghost/content
+VOLUME /var/lib/ghost/config.production.json
+
+# 将宿主机的配置文件挂载到容器内的对应位置（注意：这一步需要在 `docker run` 时映射）
+# 在 Dockerfile 中无法直接指定宿主机路径
+# 如果需要配置文件，建议使用 Docker volumes 或者 `docker-compose.yml` 来管理
+
+# 启动 Ghost 服务
+CMD ["ghost", "run"]

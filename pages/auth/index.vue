@@ -1,13 +1,15 @@
 <script setup lang="ts">
 const route = useRoute()
 
+const { public: { LAUNCH_PROTOCOL } } = useRuntimeConfig()
+
 definePageMeta({
   layout: 'basic'
 }) 
 
 function launchApp() {
   if (import.meta.client) {
-    location.href = `${import.meta.env.VITE_APP_LAUNCH_PROTOCOL}//oauth2callback${location.search}`
+    location.href = `${LAUNCH_PROTOCOL}//oauth2callback${location.search}`
   }
 }
 

@@ -19,20 +19,30 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  containerClass: {
+    type: String,
+    default: '',
+  }
 })
 
 const fontSize = computed(() => {
   const { size } = props
-  return Number.isNaN(Number(size)) ? size : CSS.px(size as number).toString()
+  // if (typeof window === 'undefined') {
+  //   // SSR 环境下直接返回像素值
+  //   return Number.isNaN(Number(size)) ? size : `${size}px`
+  // }
+  // return Number.isNaN(Number(size)) ? size : `${size}px`
+  return Number.isNaN(Number(size)) ? size : `${size}px`
 })
 
 const SvgComponent = computed(() => {
-  return defineAsyncComponent(svgIcons[`../../../assets/svgs/${props.name}.svg`] ?? svgIcons[`../../../assets/svgs/${props.fallback}.svg`])
+  return svgIcons[`../../../assets/svgs/${props.name}.svg`] ?? svgIcons[`../../../assets/svgs/${props.fallback}.svg`]
 })
 </script>
 
 <template>
-  <SvgComponent class="svg" :data-name="name" v-bind="$attrs" />
+  <component :is="SvgComponent" class="svg" :data-name="name" v-bind="$attrs" />
+  <!-- <SvgComponent class="svg" :data-name="name" v-bind="$attrs" /> -->
 </template>
 
 <style lang="scss" scoped>

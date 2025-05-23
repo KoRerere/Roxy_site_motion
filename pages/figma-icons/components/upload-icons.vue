@@ -73,7 +73,7 @@ function openFile() {
     <summary>
       解压成功： <a class="cursor-pointer" @click="openFile">{{ uploadResult.saveDir }}</a>
     </summary>
-    <div class="flex gap-2 flex-wrap h-[300px] overflow-auto">
+    <div class="flex gap-2 flex-wrap h-300px overflow-auto">
       <template v-for="(name, index) in uploadResult.files" :key="name">
         <div>
           <button> {{ index + 1 }}. {{ name }}</button>

@@ -1,53 +1,101 @@
 <template>
-  <div class="relative z-2">
-    <div class="mt-[164px]">
-      <div class="flex flex-col gap-2">
-        <div class="text-[#12A3FC] text-center text-[16px] font-700 font-[Archivo]">Antidetect Browser</div>
-        <h1 class="text-[#2E3A48] text-center text-[56px] font-700 font-[Archivo]">RoxyBrowser Blog</h1>
-        <div class="text-center text-[#042144] text-[16px]">Keeps you stay ahead in digital security</div>
-      </div>
-      
-      <div class="mt-[60px] flex justify-center">
-        <Search />
-      </div>
+  <BgEffect />
 
-      <div class="mt-[32px] flex justify-center">
-        <TagsBar :tags="tags" />
-      </div>
-      
-      <div class="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 lg:gap-x-4 md:gap-x-3 gap-y-[60px] mt-[32px]">
-        <Card v-for="article in posts.posts" :article="article" :key="article.id" />
-      </div>
-      <div class="mt-[60px] flex justify-center">
-        <div class="w-[320px] blog-pagination">
-          <!-- <v-pagination :length="posts.meta?.pagination?.pages" @update:model-value="updatePage"></v-pagination> -->
-        </div>
-      </div>
+  <main class="relative z-2 pt-[132px]" ref="mainRef">
+    <div v-if="status === 'pending'" class="flex justify-center items-center w-full h-[calc(100dvh-132px)]">
+      <ProgressSpinner 
+        style="width: 50px; height: 50px" 
+        strokeWidth="8" 
+        fill="transparent"
+        animationDuration=".5s" 
+        aria-label="Loading..."
+      />
     </div>
-  </div>
+    <template v-else-if="status === 'success'">
+      <!-- 当没有文章的时候 -->
+      <template v-if="blogUnpublish">
+        <div class="flex flex-col items-center justify-center">
+          <img src="/blog-coming-soon.png" />
+          <p class="text-primary text-28px leading-[1.2] md:text-h3 font-700 font-[Archivo]">Coming Soon</p>
+          <p class="text-primary font-400 text-4 md:text-body">The project is coming soon, please stay tuned</p>
+          <NuxtLinkLocale to="/" class="mt-6 mb-150px text-sub-title text-white py-3 px-6 bg-[#11A3FD] rounded-2">
+            {{ $t('返回首页') }}
+          </NuxtLinkLocale>
+        </div>
+      </template>
+      
+      <template v-else>
+        <section class="flex flex-col gap-4">
+          <div class="text-[#12A3FC] text-center text-[16px] font-700 font-[Archivo]">
+            <span class="inline-block py-1 px-6 border-1 border-[#12A3FC] border-solid rounded-50px bg-[rgba(18_163_252/0.1)]">
+              {{ $t('指纹浏览器') }}
+            </span>
+          </div>
+          <h1 class="text-primary text-center text-28px leading-[1.2] md:text-h2 font-700 font-[Archivo]">
+            RoxyBrowser Blog
+          </h1>
+          <div class="text-center text-primary text-4 md:text-body">
+            Keeps you stay ahead in digital security
+          </div>
+        </section>
+        
+        <section class="mt-10 flex justify-center">
+          <Search v-model="requestParams.search" />
+        </section>
 
-  <div class="absolute top-0 left-0 w-full h-[465px] z-1">
-    <div class="bg-gradient"></div>
-  </div>
+        <section class="fqa-container pt-10 pb-8">
+          <div class="flex justify-center">
+            <TagsBar :tags="tags" v-model="requestParams.tag" />
+          </div>
+        </section>
+
+        <Container tag="section">
+          <div class="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 lg:gap-x-4 md:gap-x-3 gap-y-15">
+            <Card v-for="article in posts.posts" :article="article" :key="article.id" />
+          </div>
+          <div class="my-15 flex justify-center blog-pagination">
+            <Paginator 
+              :alwaysShow="false"
+              :totalRecords="totalRecords"
+              @page="updatePage" 
+              :rows="9" 
+            />
+          </div>
+        </Container>
+
+        <PanelDownload2 tag="section" />
+      </template>
+    </template>
+    <template v-else-if="status === 'error'">
+      <Error />
+    </template>
+  </main>
 </template>
 
 <script setup lang="ts">
-import Search from './components/search.vue'
-import TagsBar from './components/tags-bar.vue'
-import { ghost } from '@/api'
+import Search from '@/components/page-blog/search.vue'
+import TagsBar from '@/components/page-blog/tags-bar.vue'
 import { DEFAULT_BLOG_POST_LIMIT } from '@/constants/langs'
-import Card from './components/card.vue'
+import Card from '@/components/page-blog/card.vue'
+import Paginator from 'primevue/paginator'
+import Error from '@/components/page-blog/error.vue'
 
-const { locale } = useRoxyI18n()
+const { locale } = useRxI18n()
 const route = useRoute()
 const router = useRouter()
+const { $ghost } = useNuxtApp()
+const localePath = useLocalePath()
 
-const requestParams = reactive({
+useBackTop(useTemplateRef('mainRef'))
+
+const defaultQuery = {
   page: 1,
   limit: DEFAULT_BLOG_POST_LIMIT,
   tag: '',
   search: ''
-});
+}
+
+const requestParams = reactive({ ...defaultQuery });
 
 const loading = ref(false);
 
@@ -55,35 +103,30 @@ function updatePage(page) {
   router.push({
     query: {
       ...route.query,
-      page: page
+      page: page.page + 1
     }
   })
 }
 
 watch(() => route.query, () => {
-  if (route.query) {
-    Object.entries(route.query).forEach(([key, value]) => {
-      if (requestParams[key] !== value) {
-        requestParams[key] = value; 
-      }
-    })
-  }
-})
+  requestParams.tag = route.query.tag || defaultQuery.tag;
+  requestParams.page = route.query.page || defaultQuery.page;
+  requestParams.search = route.query.search || defaultQuery.search;
+}, { immediate: true })
 
-const { data: posts } = useAsyncData('posts', async () => {
+const { data: posts, status } = useAsyncData('posts', async () => {
   try {
     loading.value = true;
     
     const params = toRaw(requestParams)
     if (!import.meta.client) { // 在服务端的时候还要再处理一次
-      // Object.entries(route.query).forEach(([key, value]) => {
-      //   if (params[key] !== value) {
-      //     params[key] = value; 
-      //   }
-      // })
       Object.assign(params, route.query)
     }
-    const response = await ghost.posts.browse(params);
+
+    const response = await $ghost.posts.browse(params, {
+      language: locale.value
+    });
+
     return response;
   } catch (err) {
     console.error('Error fetching posts:', err);
@@ -94,13 +137,39 @@ const { data: posts } = useAsyncData('posts', async () => {
   }
 }, {
   default: () => ({ posts: [] }),
-  watch: [requestParams, route]
+  watch: [requestParams]
+})
+
+const totalRecords = computed(() => {
+  return posts.value.meta?.pagination?.total || 0
 })
 
 const { data: tags } = useAsyncData('tags', async () => {
   try {
-    const response = await ghost.tags.browse();
-    console.log("response", response)
+    const response = await $ghost.tags.browse({}, {
+      language: locale.value
+    });
+
+    if (requestParams.tag !== '' && !response.find(tag => tag.slug === requestParams.tag)) {
+      if (import.meta.client) {
+        router.push({
+          path: localePath('/blog'),
+          query: {
+            ...route.query,
+            tag: ''
+          }
+        })
+      } else {
+        await navigateTo({
+          path: localePath('/blog'),
+          query: {
+            ...route.query,
+            tag: ''
+          }
+        })
+      }
+    }
+
     return response;
   } catch (err) {
     console.error('Error fetching tags:', err);
@@ -108,7 +177,11 @@ const { data: tags } = useAsyncData('tags', async () => {
   }
 }, {
   default: () => [],
-  watch: [locale]
+  watch: [requestParams]
+})
+
+const blogUnpublish = computed(() => {
+  return !requestParams.tag && totalRecords.value === 0
 })
 </script>
 
@@ -119,56 +192,46 @@ const { data: tags } = useAsyncData('tags', async () => {
 }
 
 .blog-pagination {
-  :deep(.v-btn--size-default) {
-    --v-btn-height: 24px;
+  :deep(.p-paginator-first) {
+    display: none;
+  }
+  :deep(.p-paginator-last) {
+    display: none;
   }
 
-  :deep(.v-btn__overlay) {
-    z-index: 0;
+  :deep(.p-paginator-next) {
+    color: black;
+    border-radius: 8px;
   }
 
-  :deep(.v-pagination__prev),
-  :deep(.v-pagination__item),
-  :deep(.v-pagination__next) {
-    margin: 0;
+  :deep(.p-paginator-prev) {
+    color: black;
+    border-radius: 8px;
   }
 
-  :deep(.v-pagination__list) {
-    align-items: center;
-    gap: 6px;
+  :deep(.p-paginator-prev.p-disabled) {
+    cursor: not-allowed;
+    color: rgba(0, 0, 0, 0.2);
   }
 
-  :deep(.v-pagination__item--is-active .v-btn__overlay) {
-    background: var(--blue-500, #11A3FD);
-    opacity: 1;
+  :deep(.p-paginator-next.p-disabled) {
+    cursor: not-allowed;
+    color: rgba(0, 0, 0, 0.2);
   }
 
-  :deep(.v-btn--disabled) {
-    border: none !important;
+  :deep(.p-paginator-page) {
+    border-radius: 8px;
+    border: 1px solid #C7D1D6;
   }
 
-  :deep(.v-btn) {
-    border: 1px solid var(--border-border-inactive, #C7D1D6);
-  }
-
-  :deep(.v-pagination__item--is-active .v-btn),
-  :deep(.v-pagination__next .v-btn),
-  :deep(.v-pagination__prev .v-btn) {
+  :deep(.p-paginator-page.p-paginator-page-selected) {
+    background: #11A3FD;
+    color: #FFF;
     border: none;
   }
 
-  :deep(.v-pagination__item--is-active .v-btn__content) {
-    z-index: 1;
-    color: #FFF;
-  }
-
-  :deep(.v-btn__content) {
-    font-size: 12px;
-  }
-
-  :deep(.v-pagination__item) {
-    border-radius: 8px;
-    background: #FFF;
+  :deep(.p-paginator) {
+    padding: 0;
   }
 }
 </style>

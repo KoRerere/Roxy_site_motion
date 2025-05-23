@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useToast } from 'primevue/usetoast'
-import { RxSvgIcon, svgIcons, type SvgNames } from '@/components/rx-icon'
+import { RxIcon, svgIcons, type SvgNames } from '@/components/rx-icon'
 import { copyText } from '@/utils'
 import UploadIcons from './upload-icons.vue'
 
@@ -73,11 +73,11 @@ import { RxIcon } from '@/components/rx-icon'
           <div v-if="currentIcon">
             <div class="flex items-center">
               当前选中的图标：
-              <RxSvgIcon :name="currentIcon" :size="48" />
+              <RxIcon :name="currentIcon" :size="48" />
             </div>
             <pre class="m-0 h-[80px]">
           <code>
-&lt;RxSvgIcon name="{{ currentIcon }}" /&gt;
+&lt;RxIcon name="{{ currentIcon }}" /&gt;
           </code>
         </pre>
           </div>
@@ -96,7 +96,7 @@ import { RxIcon } from '@/components/rx-icon'
             <div class="flex flex-wrap gap-4 text-center">
               <template v-for="item in list" :key="item.path">
                 <div class="icon-item" :title="item.filename" @click="handleCopyText(item.path)">
-                  <RxSvgIcon :name="item.path" :size="48" />
+                  <RxIcon :name="item.path" :size="48" />
                   <!-- <div>{{ item.filename }}</div> -->
                 </div>
               </template>

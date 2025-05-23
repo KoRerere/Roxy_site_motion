@@ -4,6 +4,7 @@ import { lang } from '@/store'
 export default defineNuxtPlugin(nuxtApp => {
   // called right before setting a new locale
   nuxtApp.hook('i18n:beforeLocaleSwitch', ({ oldLocale, newLocale, initialSetup, context }) => {
-    // lang.value = newLocale
+    console.log('当前语言：', newLocale)
+    lang.value = newLocale
   })
 })

@@ -1,134 +1,163 @@
 <template>
-  <div class="mt-[144px] mb-[40px]">
-    <div v-if="status === 'success'" class="flex gap-[34px]">
-      <main class="flex-1">
-        <nav class="flex items-center gap-2 flex-wrap">
-          <span 
-            v-for="(breadcrumb, index) in breadcrumbs" 
-            :key="breadcrumb.to"
-            class="flex items-center"
-          >
-            <template v-if="breadcrumb.separator">
-              <svgo_rx_ic_chevron_right class="!mb-0 w-[16px] h-[16px] text-[#7D8387]" />
-            </template>
-            <template v-else>
-              <NuxtLinkLocale 
-                v-if="index < breadcrumbs.length - 1" 
-                :to="breadcrumb.to"
-                class="text-[#7D8387]"
-              >
-                {{ breadcrumb.text }}
-              </NuxtLinkLocale> 
-              <span v-else>{{ breadcrumb.text }}</span>
-            </template>
-          </span>
-        </nav>
-        <article>
-          <header>
-            <h1 v-show="false">{{ article?.title }}</h1>
-            <img :src="article?.feature_image" :alt="article?.title" class="w-full my-[24px]" />
-            <div class="mb-[20px] text-[#7D8387] text-[14px]">
-              {{ formatArticleReadingTime(article) }}
-            </div>
-          </header>
-          <section v-html="article?.article" class="blog-article"></section>
-        </article>
-      </main>
+  <BgEffect />
 
-      <aside class="xl:w-[308px] lg:w-[290px] sticky top-[90px] h-[calc(100vh-90px-48px)] lg:block xs:hidden">
-        <div class="flex flex-col gap-[8px] h-full">
-          <div 
-            class="lg:h-[310px] mt-[48px] rounded-[8px] bg-[url(@/assets/img/blog/aside.png)] bg-no-repeat bg-center bg-cover p-[24px]"
-          >
-            <div class="flex flex-col justify-between h-full">
-              <div class="flex flex-col gap-[24px]">
-                <div class="flex items-center gap-[8px]">
-                  <img src="/img/logo.svg" alt="Roxybrowser" />
-                  <div class="text-[18px] font-700 font-[Archivo]"> {{ $t('RoxyBrowser') }} </div>
+  <Container class="relative z-2">
+    <div class="pt-25 md:pt-[112px] mb-10" ref="mainRef">
+      <div v-if="status === 'pending'" class="flex justify-center items-center h-screen">
+        <ProgressSpinner 
+          style="width: 50px; height: 50px" 
+          strokeWidth="8" 
+          fill="transparent"
+          animationDuration=".5s" 
+          aria-label="Loading..."
+        />
+      </div>
+      <template v-else-if="status === 'success'">
+        <div class="flex gap-[34px]">
+          <main class="flex-1">
+            <nav aria-label="breadcrumb">
+              <ol class="list-none flex items-center gap-2 flex-wrap">
+                <li 
+                  v-for="(breadcrumb, index) in breadcrumbs" 
+                  :key="breadcrumb.to"
+                  class="flex items-center"
+                >
+                  <template v-if="breadcrumb.separator">
+                    <RxIcon name="base/rx_ic_chevron_right" color="#7D8387" />
+                  </template>
+                  <template v-else>
+                    <NuxtLinkLocale 
+                      v-if="index < breadcrumbs.length - 1" 
+                      :to="breadcrumb.to"
+                      class="text-[#7D8387]"
+                    >
+                      {{ breadcrumb.text }}
+                    </NuxtLinkLocale> 
+                    <span v-else>{{ breadcrumb.text }}</span>
+                  </template>
+                </li>
+              </ol>
+            </nav>
+            <article>
+              <header>
+                <h1 v-show="false">{{ article?.title }}</h1>
+                <img :src="article?.feature_image" :alt="article?.title" class="w-full my-6" />
+                <div class="mb-5 text-[#7D8387] text-[14px]">
+                  {{ formatArticleReadingTime(article) }}
                 </div>
-                <ul class="list-none">
-                  <li class="aside-plan-li">Top Anti-Correlation Tech</li>
-                  <li class="aside-plan-li">Boost work efficiency</li>
-                  <li class="aside-plan-li">Pro Fingerprint Management</li>
-                </ul>
+              </header>
+              <section v-html="article?.article" class="blog-article"></section>
+            </article>
+          </main>
+
+          <aside class="xl:w-[308px] lg:w-[290px] sticky top-[90px] h-[calc(100vh-90px-48px)] hidden lg:block">
+            <div class="flex flex-col gap-2 h-full">
+              <div 
+                class="lg:h-[310px] mt-12 rounded-2 bg-[url(/blog-aside.png)] bg-no-repeat bg-center bg-cover p-6"
+              >
+                <div class="flex flex-col justify-between h-full">
+                  <div class="flex flex-col gap-6">
+                    <div class="flex items-center gap-2">
+                      <img src="/logo.svg" alt="Roxybrowser" />
+                      <div class="text-[18px] font-700 font-[Archivo]"> {{ $t('RoxyBrowser') }} </div>
+                    </div>
+                    <p class="text-[#2C2E30] font-500 leading-[160%]">
+                      Advanced antidetect browser safeguarding digital identities while optimizing business workflows.
+                    </p>
+                    <!-- <ul class="list-none">
+                      <li class="aside-plan-li">Top Anti-Correlation Tech</li>
+                      <li class="aside-plan-li">Boost work efficiency</li>
+                      <li class="aside-plan-li">Pro Fingerprint Management</li>
+                    </ul> -->
+                  </div>
+
+                  <NuxtLinkLocale 
+                    to="/download" 
+                    class="mt-15 w-full h-10 flex items-center justify-center rounded-6px bg-[#33A9FF] text-white"
+                  >
+                    {{ $t('免费下载') }}
+                  </NuxtLinkLocale>
+                </div>
               </div>
 
-              <NuxtLinkLocale to="/download" class="w-full">
-                <LbButton class="w-full" type="primary">
-                  Download for Free
-                </LbButton>
+              <div class="p-3 flex-1 flex-col flex overflow-hidden">
+                <div class="text-6 font-600 font-[Archivo] py-5 border-bottom">
+                  Content
+                </div>
+
+                <ul class="overflow-y-auto flex-1 directory-ul" ref="scrollRef">
+                  <li 
+                    v-for="(item, index) in article?.directory" 
+                    :key="item.id" 
+                    :style="{ paddingLeft: calculateDirectory(item.level) }"
+                    class="list-none cursor-pointer"
+                    :id="'li:' + item.anchor"
+                  >
+                    <NuxtLink 
+                      :to="`#${item.anchor}`" 
+                      :class="[
+                        'w-full ',
+                        item.level > 2 ? 'sub-directory' : 'directory border-top',
+                        activeTitle === item.anchor ? 'aside-tip' : ''
+                      ]"
+                      :style="{
+                        paddingBottom: calculatePadding(article.directory[index + 1])
+                      }"
+                    >{{ item.title }}</NuxtLink>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="mt-10 md:mt-20">
+          <div class="flex flex-col gap-10 md:gap-15">
+            <div class="text-center text-[#042144] text-5 leading-[1.2] md:text-10 font-700 font-[Archivo]">
+              {{ $t('更多文章') }}
+            </div>
+            
+            <div 
+              class="grid xl:grid-cols-3 md:grid-cols-2 lg:gap-x-4 md:gap-x-3 gap-y-15 mt-8 more-articles"
+            >
+              <Card v-for="article in relatedPosts" :article="article" hideExcerpt />
+            </div>
+
+            <div class="flex justify-center">
+              <NuxtLinkLocale 
+                to="/blog" 
+                class="h-[52px] w-full max-w-416px flex items-center justify-center text-[#34393D] text-4 font-700 font-[Archivo] border border-[#C7D1D6] rounded-2 border-solid"
+              >
+                {{ $t('查看所有博客') }}
               </NuxtLinkLocale>
             </div>
           </div>
-
-          <div class="p-3 flex-1 flex-col flex overflow-hidden">
-            <div class="text-[24px] font-600 font-[Archivo] py-[20px] border-bottom">
-              Content
-            </div>
-
-            <ul class="overflow-y-auto flex-1 directory-ul" ref="scrollRef">
-              <li 
-                v-for="(item, index) in article?.directory" 
-                :key="item.id" 
-                :style="{ paddingLeft: calculateDirectory(item.level) }"
-                class="list-none cursor-pointer"
-                :id="'li:' + item.anchor"
-              >
-                <NuxtLink 
-                  :to="`#${item.anchor}`" 
-                  :class="[
-                    'w-full ',
-                    item.level > 2 ? 'sub-directory' : 'directory border-top',
-                    activeTitle === item.anchor ? 'aside-tip' : ''
-                  ]"
-                  :style="{
-                    paddingBottom: calculatePadding(article.directory[index + 1])
-                  }"
-                >{{ item.title }}</NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </aside>
-    </div>
-    <div v-else>
-      <div v-if="status === 'pending'">加载中...</div>
-      <div v-if="status === 'error'">加载失败</div>
-    </div>
-
-    <div class="mt-[80px]">
-      <div class="flex flex-col gap-[60px]">
-        <div class="text-center text-[#042144] text-[40px] font-700 font-[Archivo]">{{ $t('更多文章') }}</div>
-        
-        <div class="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 lg:gap-x-4 md:gap-x-3 gap-y-[60px] mt-[32px] more-articles">
-          <Card v-for="article in relatedPosts" :article="article" hideExcerpt />
         </div>
 
-        <NuxtLinkLocale 
-          to="/blog" 
-          class="h-[52px] flex items-center justify-center text-[#34393D] text-[16px] font-700 font-[Archivo] border border-[#C7D1D6] rounded-[8px] border-solid"
-        >
-          {{ $t('查看所有博客') }}
-        </NuxtLinkLocale>
-      </div>
+        <PanelDownload2 />
+      </template>
+      <Error v-else />
     </div>
-  </div>
+  </Container>
 </template>
 
 <script setup lang="ts">
-import { formatArticleReadingTime } from './utils'
-import Card from './components/card.vue'
+import { formatArticleReadingTime } from '@/components/page-blog/utils'
+import Card from '@/components/page-blog/card.vue'
 import { useRoxySeoMeta } from '@/layouts/hooks/useRoxySeoMeta'
-import { useRxI18n } from '~/composables/useRxI18n'
-import { ghost } from '@/api';
-const route = useRoute()
-const slug = route.params.slug;
-const { $md, $extractKeywords } = useNuxtApp()
+import { RxIcon } from '@/components/rx-icon'
+import Error from '@/components/page-blog/error.vue'
+
+useBackTop(useTemplateRef('mainRef'))
+
+const { $md, $extractKeywords, $ghost } = useNuxtApp()
 const { locale, $t } = useRxI18n()
 
+const route = useRoute()
+const slug = route.params.slug as string
 const visibleTitle = ref({})
-
 const scrollRef = ref(null)
+const localePath = useLocalePath()
 
 useRoxySeoMeta({
   // 重置掉这个字段，拿文章内部的keywords去实现
@@ -149,16 +178,20 @@ watch(activeTitle, (newVal) => {
   }
 })
 
-const { data: article, status } = useAsyncData('article', async () => {
+const { data: article, status } = useAsyncData('article' + locale.value, async () => {
   try {
-    const response = await ghost.posts.read(slug);
+    const response = await $ghost.posts.read(slug, {
+      language: locale.value
+    });
+    if (!response?.lexical) return {};
     const lexical = JSON.parse(response.lexical);
 
-    const keywords = [];
+    const keywords: string[] = [];
     lexical.root.children.forEach(item => {
       if (item.type === 'paragraph') {
         item.children.forEach(child => {
-          keywords.push($extractKeywords(child.text))
+          const r = $extractKeywords(child.text);
+          r && keywords.push(r)
         })
       }
     })
@@ -201,12 +234,11 @@ const { data: article, status } = useAsyncData('article', async () => {
       ...response
     }
   } catch (err) {
-    console.error('Error fetching article:', err);
-    return null;
+    return navigateTo(localePath('/blog'))
   }
 }, {
   default: () => ({ article: '', title: '', directory: [] }),
-  watch: [slug]
+  watch: [locale]
 })
 
 // 文章的tags
@@ -234,7 +266,7 @@ const breadcrumbs = computed(() => {
     defaultBreadcrumbs.push({ separator: true })
     defaultBreadcrumbs.push({
       text: articleTag.value.name,
-      to: `/blog?tag=${articleTag.value.slug}`
+      to: `/blog?tag=${articleTag.value?.slug}`
     })
   }
 
@@ -242,7 +274,7 @@ const breadcrumbs = computed(() => {
     defaultBreadcrumbs.push({ separator: true })
     defaultBreadcrumbs.push({
       text: article.value.title,
-      to: `/blog/${article.value.slug}`
+      to: `/blog/${article.value?.slug}`
     })
   }
 
@@ -251,9 +283,12 @@ const breadcrumbs = computed(() => {
 
 const relatedPosts = ref([])
 watchEffect(async () => {
-  const response = await ghost.posts.browse({
-    tag: articleTag.value.slug,
-    limit: 10
+  const response = await $ghost.posts.browse({
+    tag: articleTag.value?.slug,
+    limit: 10,
+    page: 1
+  }, {
+    language: locale.value
   });
   // 随机在文章列表里面取三个文章出来
   relatedPosts.value = response.posts.sort(() => Math.random() - 0.5).slice(0, 3)
@@ -290,7 +325,7 @@ function scrollToElement(element) {
 let observer = null
 onMounted(() => {
   if (import.meta.client) {
-    if (article.value) {
+    if (article.value && article.value?.article) {
       observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -343,7 +378,7 @@ html {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  font-family: Inter;
+  
   font-size: 16px;
 
   h1 {
@@ -498,7 +533,7 @@ html {
   font-size: 18px;
   color: #000;
   font-weight: 500;
-  font-family: Inter;
+  
   white-space: nowrap;
 }
 

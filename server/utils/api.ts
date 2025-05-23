@@ -2,8 +2,10 @@
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 
+const config = useRuntimeConfig()
+
 // Admin API key goes here
-const key = process.env.NUXT_GHOST_API_KEY as string;
+const key = config.ghostKey as string;
 // const key = '67e50e55fb582b0001fae020:ed4ac49d5b650ce64000de93345573e3540a06543a125c4bcf0a1695c4af28f8'
 
 // Split the key into ID and SECRET
@@ -11,7 +13,7 @@ const [id, secret] = key.split(':');
 
 // Create the token (including decoding secret)
 const instance = axios.create({
-  baseURL: `${process.env.NUXT_BLOG_SERVER_URL}/ghost/api/admin`
+  baseURL: `${config.ghostUrl}/ghost/api/admin`
 })
 
 instance.interceptors.request.use(config => {
@@ -24,22 +26,17 @@ instance.interceptors.request.use(config => {
 
   config.headers.Authorization = `Ghost ${token}`
 
-  // console.log({ query: config.params, url: config.url, headers: config.headers })
+  // console.log({ query: config.params, url: config.url })
   
   return config
 })
 
 instance.interceptors.response.use(response => {
-  // console.log(response.data)
   return response
 }, error => {
   console.error(error)
   return Promise.reject(error)
 })
-
-// Make an authenticated request to create a post
-// const url = `${process.env.BLOG_SERVER_URL}/ghost/api/admin`;
-// const headers = { Authorization: `Ghost ${token}` };
 
 export const langTags = ['en', 'zh', 'ru']
 

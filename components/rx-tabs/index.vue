@@ -1,59 +1,53 @@
 <template>
   <div 
-    :class="[
-      'tabs-wrapper',
-      overflowTabs.length ? 'tabs-wrapper-after' : ''
-    ]" 
+    :class="cn('flex items-start relative', {
+      'h-9 overflow-hidden': !showAll
+    })" 
     v-bind="$attrs"
+    ref="wrapperRef"
   >
-    <div 
-      class='tabs-container' 
-      ref="scrollRef" 
-      @scroll="handleScroll"
-    >
-      <div
+    <div class="inline-flex items-center flex-wrap gap-2 relative" ref="contentRef">
+      <NuxtLinkLocale
         v-for="tab in tabs"
-        :ref="el => tabRefs.set(tab.key, el)"
-        :key="tab.key"
-        class="tab-item"
+        :class="cn('tab-item h-9 flex items-center justify-center py-2 px-14px rounded-2 cursor-pointer', {
+          'bg-[#F1F5F8]': modelValue === tab.key
+        })"
+        :to="tab.to"
         @click="modelValue = tab.key"
       >
-        <slot name="tab-item" :tab="tab">
-          {{ tab.label }}
-        </slot>
-      </div>
-    </div>
+        {{ tab.label }}
+      </NuxtLinkLocale>
+      <div v-if="showMore" class="absolute top-0 right-0 w-1px h-9 shadow-[-2px_0_6px_0_rgba(0_0_0/0.3)]"></div>
+    </div> 
 
-    <button 
-      v-if="overflowTabs.length" 
-      @click="handleMouseEnter" 
-      @mouseenter="handleMouseEnter" 
-      @mouseleave="handleMouseLeave" 
-      class="more-button"
+    <motion.button 
+      @click="handleClick" 
+      :class="cn('relative size-9 bg-white border-none flex items-center justify-center cursor-pointer')"
+      v-if="showMore"
     >
-      :
-      <div v-show="dropdownVisible" class="dropdown" @mouseleave="handleMouseLeave" @mouseenter="handleMouseEnter">
-        <div
-          v-for="tab in overflowTabs"
-          :key="tab.key"
-          @click="scrollToTab($event, tab.key)"
-          class="dropdown-item"
-        >
-          <slot name="tab-item" :tab="tab">
-            {{ tab.label }}
-          </slot>
-        </div>
-      </div>
-    </button>
+      <!--  -->
+      <motion.div
+        :animate="{ rotate: showAll ? 180 : 0 }"
+      >
+        <RxIcon name="base/rx_ic_chevron_down" />
+      </motion.div>
+    </motion.button>
   </div>
 </template>
 
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue';
+import { motion } from 'motion-v';
+import { RxIcon } from '@/components/rx-icon';
+import { ref } from 'vue';
 
-const scrollRef = ref<HTMLDivElement>();
-const tabRefs = new Map();
+const showAll = ref(false);
+const showMore = ref(true);
+const wrapperRef = useTemplateRef<HTMLDivElement>('wrapperRef');
+const contentRef = useTemplateRef<HTMLDivElement>('contentRef');
+
+const breakpoints = useRxBreakpoints();
+const mdWidth = breakpoints.smallerOrEqual('md')
 
 type Tab = {
   key: string;
@@ -68,128 +62,35 @@ const props = withDefaults(defineProps<{
 
 const modelValue = defineModel();
 
-const overflowTabs = ref<Tab[]>([]);
-const dropdownVisible = ref(false);
-
-const calculateOverflow = () => {
-  const newOverflowTabs = [];
-  const scrollRect = scrollRef.value!.getBoundingClientRect();
-
-  for (const tab of props.tabs) {
-    const el = tabRefs.get(tab.key);
-    if (!el) continue;
-    const tabRect = el.getBoundingClientRect();
-
-    if (
-      tabRect.right > scrollRect.right || // 完全或部分被遮挡
-      tabRect.left < scrollRect.left
-    ) {
-      newOverflowTabs.push(tab);
-    }
-  }
-  console.log('scrollRect', scrollRect)
-  overflowTabs.value = newOverflowTabs;
-};
-
-let timer: NodeJS.Timeout | null = null;
-const handleScroll = () => {
-  timer && clearTimeout(timer);
-  timer = setTimeout(() => {
-    calculateOverflow();
-  }, 100)
-}
-
-const scrollToTab = (event: MouseEvent, key: string) => {
-  modelValue.value = key;
-  event.stopPropagation();
-  dropdownVisible.value = false;
-  const el = tabRefs.get(key);
-  if (el) {
-    el.scrollIntoView({ inline: 'nearest', block: 'nearest' });
-    setTimeout(() => {
-      calculateOverflow();
-    }, 200)
-  }
-};
-
-let mouseLeaveTimer: NodeJS.Timeout | null = null;
-const handleMouseLeave = (e: MouseEvent) => {
+const handleClick = (e: MouseEvent) => {
   e.stopPropagation();
-  mouseLeaveTimer && clearTimeout(mouseLeaveTimer);
-  mouseLeaveTimer = setTimeout(() => {
-    dropdownVisible.value = false;
-  }, 500)
+  showAll.value = !showAll.value;
 }
 
-const handleMouseEnter = (e: MouseEvent) => {
-  e.stopPropagation();
-  mouseLeaveTimer && clearTimeout(mouseLeaveTimer);
-  dropdownVisible.value = true;
+const resize = () => {
+  const wrapper = wrapperRef.value!;
+  const content = contentRef.value!;
+  if (wrapper.getBoundingClientRect().width <= content.getBoundingClientRect().width + 36 && !mdWidth.value) {
+    showMore.value = true
+  } else {
+    showMore.value = false
+  }
 }
+
+watch(mdWidth, () => {
+  showAll.value = mdWidth.value;
+})
+
+watch(() => props.tabs, () => {
+  nextTick(resize)
+});
 
 onMounted(() => {
-  nextTick(() => {
-    calculateOverflow();
-    window.addEventListener('resize', calculateOverflow);
-  });
-
-  onBeforeUnmount(() => {
-    window.removeEventListener('resize', calculateOverflow);
+  showAll.value = mdWidth.value;
+  resize()
+  window.addEventListener('resize', resize)
+  onUnmounted(() => {
+    window.removeEventListener('resize', resize)
   })
-});
+})
 </script>
-
-
-<style lang="scss">
-.tabs-wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.more-button {
-  position: relative;
-  padding: 0 8px;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  background: #FFF;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 100;
-  max-height: 200px;
-  overflow-y: auto;
-  height: 200px;
-  white-space: nowrap;
-}
-
-.tabs-container {
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  height: 36px;
-  align-items: center;
-  position: relative;
-}
-
-.tabs-wrapper-after::after {
-  content: '';
-  position: absolute;
-  right: 36px;
-  height: 100%;
-  width: 36px;
-  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.08);
-}
-
-.tab-item {
-  padding: 0 12px;
-  white-space: nowrap;
-  flex-shrink: 0;
-
-}
-
-</style>

@@ -33,7 +33,6 @@ export const getEcosystemConfigs = (envFile: string) => {
         max_size: '10M',                        // 单个日志文件最大大小
         keep_files: 5,                          // 保留的日志文件数量
         log_date_format: 'YYYY-MM-DD HH:mm:ss', // 日志时间格式
-        env: parseEnvFile(envFile)              // 环境变量
       }
     ]
   }

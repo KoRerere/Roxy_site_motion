@@ -1,7 +1,7 @@
-import { isDev } from '@/constants'
-
 export const useScripts = () => {
   const scripts = reactive<any[]>([]);
+  const { public: { ENV } } = useRuntimeConfig()
+  const isDev = ENV == 'development';
 
   if (isDev) {
     // 测试环境下使用 ahrefs 做 seo 分析

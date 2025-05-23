@@ -1,0 +1,19 @@
+<svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="11">
+<g id="Vector 1156" opacity="0.5" filter="url(#filter0_f_18681_114572)">
+<path d="M16.9766 9.46249L6.36894 29.1996C4.93673 31.8645 6.867 35.0933 9.89231 35.0933H31.1077C34.133 35.0933 36.0633 31.8645 34.6311 29.1996L24.0234 9.46249C22.514 6.65399 18.486 6.654 16.9766 9.46249Z" fill="#D92E22"/>
+</g>
+<path id="Vector 1157" d="M17.1051 6.35538L4.0603 27.2914C2.40018 29.9558 4.31597 33.4067 7.45523 33.4067H33.5448C36.684 33.4067 38.5998 29.9558 36.9397 27.2914L23.8949 6.35538C22.3292 3.84245 18.6708 3.84245 17.1051 6.35538Z" fill="#D92E22"/>
+<g id="Group 900">
+<path id="Rectangle 3173" d="M18.1716 15.5697C18.0016 14.1723 19.0923 12.9409 20.5 12.9409C21.9077 12.9409 22.9984 14.1723 22.8284 15.5697L21.984 22.5113C21.8927 23.2616 21.2558 23.8257 20.5 23.8257C19.7442 23.8257 19.1073 23.2616 19.016 22.5113L18.1716 15.5697Z" fill="white"/>
+<circle id="Ellipse 544" cx="20.4999" cy="26.7767" r="1.57947" fill="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_18681_114572" x="1.88672" y="3.3562" width="37.2266" height="35.7371" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2" result="effect1_foregroundBlur_18681_114572"/>
+</filter>
+</defs>
+</svg>
