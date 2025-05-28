@@ -33,4 +33,13 @@ onBeforeMount(() => {
   document.querySelector(':root').style.setProperty('--family', getFontFamily(locale.value))
 })
 
+const hostname = ['www.roxybrowser.com', 'roxybrowser.com', 'gatetest.roxybrowser.co', '47.242.33.58', 'localhost', '127.0.0.1'];
+
+if (import.meta.client) {
+  const isInHost = hostname.includes(window.location.hostname)
+  if (!isInHost) {
+    window.location.href = 'https://roxybrowser.com'
+  }
+}
+
 </script>

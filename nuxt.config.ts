@@ -14,6 +14,8 @@ import { imagetools } from 'vite-imagetools'
 
 const svgIconTypesPath = './components/rx-icon/src/svg-icon-types.ts';
 
+const isDev = process.env.ENV === 'development'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -73,10 +75,25 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
-    'motion-v/nuxt'
+    'motion-v/nuxt',
+    '@nuxtjs/robots'
   ],
+  robots: {
+    disallow: isDev ? '/' : ['/anbin', '/login', '/figma-icons'],
+  },
   build: {
     transpile: ['vue-countup-v3'],
+    analyze: {
+      enabled: true,
+      reportFilename: '.nuxt/analyze/report.html',
+      analyzerMode: 'server',
+      open: true,
+      port: 3001,
+      generateStatsFile: true,
+      statsFilename: '.nuxt/analyze/stats.json',
+      statsOptions: null,
+      logLevel: 'info',
+    }
   },
   primevue: {
     options: {
@@ -147,7 +164,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    exclude: ['/invite/**', '/auth/**', '/login/**', '/experimental/**', '/figma-icons/**', '/blog/**']
+    exclude: ['/invite/**', '/no-auth', '/auth', '/login', '/anbin/**', '/figma-icons/**', '/blog/**']
   },
   css: ['./assets/styles/global.css'],
   components: [
@@ -191,7 +208,7 @@ export default defineNuxtConfig({
     locales: [
       { code: 'zh', language: 'zh-CN', file: 'zh.json' },
       { code: 'en', language: 'en-US', file: 'en.json' },
-      { code: 'ru', language: 'RU', file: 'ru.json' },
+      // { code: 'ru', language: 'RU', file: 'ru.json' },
     ],
     defaultLocale: 'en',
     strategy: 'prefix_and_default',
@@ -227,6 +244,8 @@ export default defineNuxtConfig({
       },
       rollupOptions: {
         output: {
+          chunkFileNames: '_nuxt/[name]-[hash].js',
+          entryFileNames: '_nuxt/[name]-[hash].js',
           manualChunks: {
             'three-vendor': ['three'],
             'three-globe': ['three-globe'],

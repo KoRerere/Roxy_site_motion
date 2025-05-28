@@ -13,17 +13,17 @@
               <ul class="grid grid-cols-4 md:grid-cols-3 justify-center gap-y-2 md:gap-y-8 gap-x-8 list-none">
                 <li class="col-span-2 md:col-span-1">
                   <a href="https://www.g2.com/products/roxybrowser/reviews" target="_blank">
-                    <img src="/home/g2.svg" alt="" draggable="false">
+                    <img src="/home/g2.svg" alt="" draggable="false" class="select-none">
                   </a>
                 </li>
                 <li class="col-span-2 md:col-span-1">
                   <a href="https://www.producthunt.com/products/roxybrowser/reviews" target="_blank">
-                    <img src="/home/ph.svg" alt="" draggable="false">
+                    <img src="/home/ph.svg" alt="" draggable="false" class="select-none">
                   </a>
                 </li>
                 <li class="col-span-4 md:col-span-1 flex justify-center">
                   <a href="https://uk.trustpilot.com/review/roxybrowser.com"  target="_blank">
-                    <img src="/home/tp.svg" alt="" class="w-auto md:w-full" draggable="false">
+                    <img src="/home/tp.svg" alt="" class="w-auto md:w-full select-none" draggable="false">
                   </a>
                 </li>
               </ul>
@@ -77,7 +77,7 @@
               <Marquee class="[--duration:20s]" v-else>
                 <ul class="list-none items-center flex gap-5">
                   <li v-for="item in platformList">
-                    <img :src="item" alt="" />
+                    <img :src="item" alt="" draggable="false" class="select-none" />
                   </li>
                 </ul>
               </Marquee>

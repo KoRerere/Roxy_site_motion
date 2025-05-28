@@ -59,7 +59,7 @@
           :src="platform.url" 
           :alt="platform.alt" 
           draggable="false" 
-          class="size-11 sm:size-12 wh-full object-cover"
+          class="size-11 sm:size-12 wh-full object-cover select-none"
         />
       </div>
     </Container>

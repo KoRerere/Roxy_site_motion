@@ -32,7 +32,7 @@
                     :to="i.link" 
                     :class="cn(i.icon ? 'flex items-center gap-2' : '', i.class, 'font-300')"
                   >
-                    <img v-if="i.icon" :src="i.icon" :alt="i.name" />
+                    <img v-if="i.icon" :src="i.icon" :alt="i.name" draggable="false" class="select-none" />
                     {{ i.name }}
                   </NuxtLinkLocale>
                 </li>

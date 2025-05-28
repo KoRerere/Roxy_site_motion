@@ -15,9 +15,10 @@
         <div class="flex flex-row items-center gap-3">
           <img
             :src="item.avatar"
-            class="rounded-full"
+            class="rounded-full select-none"
             width="44"
             height="44"
+            draggable="false"
             alt=""
           />
           <div class="flex flex-col gap-6px">

@@ -8,7 +8,7 @@
         class="h-10 md:h-[66px] flex items-center justify-center bg-white rounded-10px lg:rounded-3"
         :style="{ width: item.w + 'px' }"
       >
-        <img :src="`/pricing/rx_ic_${item.icon}.svg`" :alt="item.alt" :style="{ width: item.size + 'px' }" />
+        <img :src="`/pricing/rx_ic_${item.icon}.svg`" :alt="item.alt" :style="{ width: item.size + 'px' }" draggable="false" class="select-none" />
       </div>
     </div>
   </div>

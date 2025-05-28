@@ -15,7 +15,7 @@
 
     <div class="bg-white rounded-t-3 flex-1 flex flex-col">
       <div class="py-3 px-4 w-full flex items-center gap-10px border-1 border-solid border-[#DFE5F3] border-t-0 border-x-0">
-        <img :src="data.labelImage" alt="" />
+        <img :src="data.labelImage" alt="" class="select-none" draggable="false" />
         <span class="text-18px font-[Archivo]">{{ data.label }}</span>
       </div>
 
@@ -29,7 +29,7 @@
           >
             <RxResponsiveImage :name='data.userImage' class="rounded-full w-full h-full" />
             <div 
-              class="absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[rgba(217_46_34/.3)] flex items-center justify-center" 
+              class="absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[rgba(217_46_34/.3)] flex items-center justify-center text-10" 
               v-if="setp == 'useBefore'"
             >
               <RxIcon name="base/rx_ic_error2" size="34" />

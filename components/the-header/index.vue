@@ -39,20 +39,22 @@
       </div>
 
       <div class="flex items-center gap-2">
-        <button class="gap-2 hidden lg:flex items-center cursor-pointer border-none bg-transparent text-inherit" @click="toggleLang">
-          <RxIcon 
-            name="base/rx_ic_world" 
-            size="14" 
-            :color="textColor" 
-          />
-          <span class="text-14px text-inherit">{{ currentLang }}</span>
-
-          <TieredMenu class="!min-w-150px" ref="langMenu" id="overlay_tmenu" :model="langItems" popup>
-            <template #itemicon="{ item }">
-              <RxIcon :name="item.icon" />
-            </template>
-          </TieredMenu>
-        </button>
+        
+        <RxDownloadMenu :model="langItems">
+          <template #default="{ toggle }">
+            <button 
+              class="gap-2 hidden lg:flex items-center cursor-pointer border-none bg-transparent text-inherit" 
+              @click="toggle"
+            >
+              <RxIcon 
+                name="base/rx_ic_world" 
+                size="14" 
+                :color="textColor" 
+              />
+              <span class="text-14px text-inherit">{{ currentLang }}</span>
+            </button>
+          </template>
+        </RxDownloadMenu>
 
         <button class="lg:hidden border-none bg-transparent">
           <RxIcon 
@@ -130,6 +132,7 @@ import ToggleSwitch from 'primevue/toggleswitch';
 import { motion, AnimatePresence } from 'motion-v';
 import MobileMenu from './mobile.vue';
 import { useMenuConfigs } from './config';
+import RxDownloadMenu from '@/components/rx-download-menu.vue';
 
 const { locale } = useRxI18n()
 const switchLanguage = useSwitchLanguage()
@@ -142,21 +145,15 @@ const currentLang = computed(() => {
   return (SUPPORTED_LANGUAGES.find(lang => lang.code === locale.value)?.code || 'EN').toUpperCase()
 })
 
-const langMenu = ref();
 const langItems = computed(() => {
   return SUPPORTED_LANGUAGES.map(lang => ({
     label: lang.title,
-    // icon: lang.icon,
     command: () => switchLanguage(lang.code, (query) => {
       delete query.page
       return query
     })
   }))
 })
-
-const toggleLang = (event: Event) => {
-  langMenu.value.toggle(event);
-};
 
 const activeMageMenu = ref('');
 const mageMenusContents = ref<Record<string, HTMLElement>>({});

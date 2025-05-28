@@ -47,7 +47,7 @@
             >
               <div class="w-full flex gap-4">
                 <div class="h-25px flex items-center justify-center">
-                  <img src="/home/tech-icon.svg" alt="" />
+                  <img src="/home/tech-icon.svg" alt="" class="select-none" draggable="false" />
                 </div>
                 <div class="flex flex-col gap-2px">
                   <h3 class="text-5 text-nowrap font-400 text-chivo-mono">

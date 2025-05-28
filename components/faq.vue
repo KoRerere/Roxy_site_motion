@@ -88,7 +88,7 @@ const Comp = () => <div class='flex gap-3 sm:gap-4'>
   >
     <div class='size-8 sm:size-56px overflow-hidden'>
       <NuxtLink to={telegramLink.value} target="_blank">
-        <img src="/home/rx_ic_telegram2.svg" class={'w-full h-full object-cover'} alt="telegram" />
+        <img src="/home/rx_ic_telegram2.svg" class={'w-full h-full object-cover select-none'} draggable="false" alt="telegram" />
       </NuxtLink>
     </div>
     <div class='font-[Archivo] text-13px md:text-5 font-500 pt-4 text-black text-primary'>Telegram</div>
@@ -102,7 +102,7 @@ const Comp = () => <div class='flex gap-3 sm:gap-4'>
   >
     <LiveChat>
       <div class='size-8 sm:size-56px overflow-hidden'>
-        <img src="/home/rx_ic_livechat2.svg" class={'w-full h-full object-cover'} alt="Live-chat" />
+        <img src="/home/rx_ic_livechat2.svg" class={'w-full h-full object-cover select-none'} draggable="false" alt="Live-chat" />
       </div>
     </LiveChat>
     <div class='font-[Archivo] text-13px md:text-5 font-500 pt-4 text-black text-primary'>Live-chat</div>

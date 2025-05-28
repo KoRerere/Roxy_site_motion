@@ -36,7 +36,7 @@
           class="px-6 sm:px-8 py-8 flex flex-col items-center sm:items-start sm:flex-row gap-11 download-card"
         >
           <div>
-            <img :src="item.icon" />
+            <img :src="item.icon" draggable="false" class="select-none" />
           </div>
 
           <div class="flex flex-col gap-3">
@@ -94,11 +94,14 @@ const { $t }  = useRxI18n()
 const roxy_partner = ref('')
 const code = ref('')
 
+const date = '2025/05/28'
+const version = '3.4.8'
+
 const downloadVersion = computed(() => {
   return [
     {
-      latestVersion: $t('最新版本: v3.4.6'),
-      releaseDate: $t('发布日期: 2025/05/13'),
+      latestVersion: $t('最新版本：{version}', { version: version }),
+      releaseDate: $t('发布日期：{date}', { date: date }),
       download: [
         {
           text: $t('64 bits'),
@@ -116,8 +119,8 @@ const downloadVersion = computed(() => {
       icon: '/download/os_windows.svg'
     },
     {
-      latestVersion: $t('最新版本: v3.4.6'),
-      releaseDate: $t('发布日期: 2025/05/13'),
+      latestVersion: $t('最新版本：{version}', { version: version }),
+      releaseDate: $t('发布日期：{date}', { date: date }),
       download: [
         {
           text: 'Apple Silicon',

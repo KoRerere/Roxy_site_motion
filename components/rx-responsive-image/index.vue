@@ -2,7 +2,7 @@
   <picture>
     <source :srcset="imageUrls.avif" type="image/avif">
     <source :srcset="imageUrls.webp" type="image/webp">
-    <img :src="imageUrls.png" loading="lazy" draggable="false" v-bind="$attrs" />
+    <img :src="imageUrls.png" loading="lazy" class="select-none" draggable="false" v-bind="$attrs" />
   </picture>
 </template>
 

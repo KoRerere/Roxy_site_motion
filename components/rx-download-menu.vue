@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <slot name="default" :toggle="toggle" />
+    <slot :toggle="toggle" />
 
     <AnimatePresence>
       <motion.div
@@ -11,8 +11,12 @@
         :transition="{ duration: 0.2 }"
         class="absolute mt-2 w-40 bg-white shadow-lg rounded border z-10"
       >
-        <ul class="py-1 list-none">
-          <li v-for="item in model" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+        <ul class="p-1 list-none">
+          <li 
+            v-for="item in model" 
+            class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-primary" 
+            @click="handleClick(item)"
+          >
             {{ item.label }}
           </li>
         </ul>
@@ -37,7 +41,23 @@ defineProps({
 
 const isOpen = ref(false)
 
-function toggle() {
+function toggle(event?: Event) {
+  event?.stopPropagation()
   isOpen.value = !isOpen.value
 }
+
+function handleClick(item: { command?: () => void }) {
+  item.command?.()
+  isOpen.value = false
+}
+
+onMounted(() => {
+  const handleWinClick = () => {
+    isOpen.value = false
+  }
+  window.addEventListener('click', handleWinClick)
+  onUnmounted(() => {
+    window.removeEventListener('click', handleWinClick)
+  })
+})
 </script>

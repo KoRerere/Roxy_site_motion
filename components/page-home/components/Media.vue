@@ -19,7 +19,7 @@
               ease: [0.85, 0, 0.15, 1],
             }"
           >
-            <img :src="item" alt="" class="object-cover w-full" />
+            <img :src="item" alt="" class="object-cover w-full select-none" draggable="false" />
           </motion.div>
         </li>
       </ul>
@@ -42,7 +42,7 @@
               opacity: 0
             }"
           >
-            <img :src="item" alt="" class="object-cover w-full img" />
+            <img :src="item" alt="" class="object-cover w-full img select-none" draggable="false" />
           </motion.div>
         </li>
       </ul>

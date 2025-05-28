@@ -3,14 +3,14 @@
     <div class="w-full xl:w-1/2 flex flex-col justify-between p-5">
       <div class="flex flex-col gap-3">
         <div class="hidden lg:block">
-          <img :src="icon" alt="" />
+          <img :src="icon" alt="" draggable="false" class="select-none" />
         </div>
         <h3 :class="titleClasses">{{ title }}</h3>
         <p :class="descClasses">{{ desc }}</p>
       </div>
 
       <div class="hidden xl:block">
-        <img :src="decorateIcon" alt="" />
+        <img :src="decorateIcon" alt="" draggable="false" class="select-none" />
       </div>
     </div>
     <div class="w-full xl:w-1/2 min-w-234px">

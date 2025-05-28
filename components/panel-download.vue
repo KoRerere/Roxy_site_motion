@@ -21,10 +21,10 @@
       </NuxtLinkLocale>
     </div>
 
-    <img :src="svg" class="absolute top-0 left-0 w-full h-full object-cover" alt="" />
+    <img :src="svg" class="absolute top-0 left-0 w-full h-full object-cover select-none" alt="" />
     <img 
       src="/panel-download-noise.svg" 
-      class="absolute top-0 left-0 w-full h-full object-cover opacity-10" 
+      class="absolute top-0 left-0 w-full h-full object-cover opacity-10 select-none" 
       alt="" 
     />
   </div>

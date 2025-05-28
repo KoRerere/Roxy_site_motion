@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import BgCanvas from './bg-canvas.vue'
 import LanguageSelect from './language-select.vue'
 
 const { $t } = useRxI18n()
 const localePath = useLocalePath()
+
 </script>
 
 <template>
   <client-only>
     <div class="login-container">
-      <BgCanvas class="absolute top-0 left-0 w-full h-full" />
+      <RxLazy class="absolute top-0 left-0 w-full h-full" :syncCompImport="() => import('./bg-canvas.vue')" />
       <div class="login-header">
         <NuxtLinkLocale to="/" class="flex items-center gap-[10px] z-10">
           <img class="logo" src="/logo.svg" alt="Roxybrowser" />

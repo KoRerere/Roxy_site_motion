@@ -50,7 +50,7 @@
 
             <div class="flex flex-col">
               <div class="hidden lg:block">
-                <img src="/home/profile-template.svg" alt="" />
+                <img src="/home/profile-template.svg" alt="" draggable="false" class="select-none" />
               </div>
               <h3 :class="cn(CSS.title, 'mt-3')">
                 {{ $t('窗口模板') }}
@@ -183,7 +183,7 @@
 
             <div class="flex flex-col pr-6">
               <div class="hidden lg:block">
-                <img src="/home/api-flow-icon.svg" alt="" />
+                <img src="/home/api-flow-icon.svg" alt="" draggable="false" class="select-none" />
               </div>
               <h3 :class="cn(CSS.title, 'mt-3')">{{ $t('API 流程') }}</h3>
               <p :class="cn(CSS.description, 'mt-3')">

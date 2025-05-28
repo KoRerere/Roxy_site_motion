@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build --envName=production",
-    "build:dev": "nuxt build --envName=development",
+    "build:dev": "cross-env ENV=development nuxt build --envName=development",
     "dev": "nuxt dev --envName=development",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -29,6 +29,7 @@
     "@vueuse/core": "^13.1.0",
     "axios": "^1.8.4",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
     "currency.js": "^2.0.4",
     "easing-js": "^1.1.2",
     "es-toolkit": "^1.35.0",
