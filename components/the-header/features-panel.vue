@@ -11,7 +11,7 @@
       </div>
     </NuxtLinkLocale>
 
-    <div class="mt-3 relative w-255px h-214px">
+    <div class="mt-3 relative w-255px aspect-476/400">
       <div class="absolute p-3 top-0 left-0 flex flex-col gap-6px">
         <div class="text-14px leading-18px font-600 font-[Archivo]">{{ $t('窗口投送') }}</div>
         <div class="text-note font-400">{{ $t('快速分享完整窗口环境，无缝处理团队协作') }}</div>

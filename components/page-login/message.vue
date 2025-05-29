@@ -11,18 +11,16 @@ const message = defineModel()
 </script>
 
 <template>
-  <client-only>
-    <div class="flex flex-col mt-8 gap-2 py-3 pl-9 pr-7 message" v-if="message">
-      <div class="flex items-center position-relative">
-      <svgo-rx_ic_info_fill class="absolute alert-icon"></svgo-rx_ic_info_fill>
-      <span class="message-text">{{ title }}</span>
-      <svgo-rx_ic_delete class="absolute close-icon" @click="message = false"></svgo-rx_ic_delete>
-      </div>
-      <div class="message-description">
-        <slot />
-      </div>
+  <div class="flex flex-col mt-8 gap-2 py-3 pl-9 pr-7 message" v-if="message">
+    <div class="flex items-center position-relative">
+    <svgo-rx_ic_info_fill class="absolute alert-icon"></svgo-rx_ic_info_fill>
+    <span class="message-text">{{ title }}</span>
+    <svgo-rx_ic_delete class="absolute close-icon" @click="message = false"></svgo-rx_ic_delete>
     </div>
-  </client-only>
+    <div class="message-description">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

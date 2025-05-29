@@ -57,7 +57,7 @@
 import currency from 'currency.js';
 import PricingInputNumber2 from './pricing-input-number2.vue';
 import { profileSteps } from './configs';
-import Illustrate from '~/components/page-pricing/illustrate.vue'
+import Illustrate from './illustrate.vue'
 import { RxIcon } from '@/components/rx-icon'
 
 const props = defineProps({

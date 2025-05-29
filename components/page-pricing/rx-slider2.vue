@@ -318,7 +318,7 @@ onMounted(() => {
   outline: none;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateZ(0);
   transition: transform .2s;
 }
 

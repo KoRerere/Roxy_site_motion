@@ -160,6 +160,7 @@
             :class="cn(
               'absolute z-0 transform',
               'top-1/2 -translate-y-60% sm:-translate-y-1/2',
+              '3xl:size-[clamp(1800px,100vw,2200px)] 3xl:-right-974px',
               'xl:size-[clamp(1600px,100vw,1800px)] xl:-right-40vw',
               'lg:size-120vw lg:-right-50vw',
               'md:size-130vw md:-right-50vw',
@@ -279,43 +280,6 @@ const fqaList = [
     "desc": $t('订阅过期后，您的配置文件和数据仍安全存储。此期间无法启动配置文件，但所有设置完整保留。随时续费即可恢复完整访问，无需重新配置，无数据丢失。')
   }
 ]
-
-// 优化LCP指标，该资源需要提前加载
-// useHead({
-//   link: [
-//     {
-//       rel: 'preload',
-//       as: 'image',
-//       href: '/home/app_screen.avif',
-//       type: 'image/avif',
-//       fetchpriority: 'high'
-//     }
-//   ]
-// })
-
-// const { $eventBus } = useNuxtApp();
-
-// const lightRef = useTemplateRef('lightRef')
-// useIntersectionObserver(lightRef, ([entry]) => {
-//   if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
-//     $eventBus.emit('backTopReached', entry.boundingClientRect)
-//   } else {
-//     $eventBus.emit('backTopReached', false)
-//   }
-// }, {
-//   threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-// })
-
-// const lightRef2 = useTemplateRef('lightRef2')
-// useIntersectionObserver(lightRef2, ([entry]) => {
-//   if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
-//     $eventBus.emit('backTopReached', entry.boundingClientRect)
-//   } else {
-//     $eventBus.emit('backTopReached', false)
-//   }
-// }, {
-//   threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-// })
 </script>
 
 <style lang="scss" scoped>

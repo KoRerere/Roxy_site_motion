@@ -1,6 +1,6 @@
 <template>
   <Container>
-    <div class="relative">
+    <div class="relative translate-z-0">
       <ul class="flex justify-between list-none">
         <li v-for="(item, index) in oneList">
           <motion.div 

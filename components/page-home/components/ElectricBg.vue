@@ -274,7 +274,7 @@ onMounted(() => {
   visibility: hidden;
 
   &.electric-bg-right {
-    transform: translateX(calc(50vw));
+    transform: translateX(calc(50vw)) translateZ(0);
     .electric-line {
       transform-origin: 0 0;
       background-image: linear-gradient(
@@ -286,7 +286,7 @@ onMounted(() => {
     }
   }
   &.electric-bg-left {
-    transform: translateX(calc(-75vw));
+    transform: translateX(calc(-75vw)) translateZ(0);
     .electric-line {
       transform-origin: 100% 0;
       background-image: linear-gradient(

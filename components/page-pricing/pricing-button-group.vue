@@ -1,19 +1,19 @@
 <template>
-  <div class="p-2 md:p-6px bg-white/20 rounded-4 inline-flex gap-1">
+  <div class="flex justify-center gap-3" v-bind="$attrs">
     <button
       v-for="item in group"
       :key="item.value"
       :class="cn(
-        'border-0 px-14px md:px-5 py-2 md:py-9px rounded-10px cursor-pointer font-600 bg-transparent relative text-sub-title',
+        'w-134px lg:w-190px h-46px rounded-t-2 relative bg-[#8E95A9] border-none text-white cursor-pointer',
         {
-          'bg-[#11A3FD]': modelValue === item.value,
+          'bg-white text-black': modelValue === item.value,
         }
       )"
       @click="modelValue = item.value"
     >
-      <span class="text-white text-nowrap">{{ item.text }}</span>
-      <div class="absolute top-[-18px] right-[-18px] z-10" v-if="item.icon">
-        <img :src="item.icon" />
+      <span class="whitespace-pre-line font-600 text-18px">{{ item.text }}</span>
+      <div class="absolute -top-3 -right-2 z-10" v-if="item.icon">
+        <img :src="item.icon" class="select-none" draggable="false" />
       </div>
     </button>
   </div>
@@ -22,7 +22,7 @@
 <script setup lang="ts">
 
 const modelValue = defineModel<number>('modelValue', {
-  default: 30
+  default: 360
 })
 
 const group = computed(() => [

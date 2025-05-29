@@ -127,8 +127,8 @@
                     <div class="whitespace-pre text-[#A3A9AD] text-3">
                       <rx-i18n-t 
                         :keypath="$t('窗口单价 （{min}-{max} 数量区间）', { 
-                          min: panelData.min, 
-                          max: panelData.max 
+                          min: panelData.min.toLocaleString(), 
+                          max: panelData.max.toLocaleString() 
                         })" 
                       />
                     </div>
@@ -236,7 +236,7 @@ import { motion } from 'motion-v'
 import { useThrottleFn } from '@vueuse/core'
 import PricingInputNumber from './pricing-input-number.vue'
 import currency from 'currency.js'
-import Illustrate from '../page-pricing/illustrate.vue'
+import Illustrate from './illustrate.vue'
 
 const { $t } = useRxI18n()
 
@@ -737,7 +737,6 @@ onMounted(() => {
 
 .feature-desc {
   color: var(--Color-neutrals-300, #C7CDD1);
-  font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;

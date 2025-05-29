@@ -1,11 +1,11 @@
 <template>
-  <div class="inline-flex items-center gap-2 p-10px bg-white/20 rounded-2 border-1 border-white/60 border-solid">
-    <span class="cursor-pointer" @click="decrease">
-      <RxIcon name="base/rx_ic_minus" color="#FFF" />
+  <div class="inline-flex items-center gap-2">
+    <span class="p-1 border-1 border-solid border-[#AFB7BB] rounded-1 cursor-pointer flex items-center justify-center" @click="decrease">
+      <RxIcon name="base/rx_ic_minus" color="#575D60" />
     </span>
     <input 
       :class="cn(
-        'text-5 sm:text-4 bg-transparent border-0 outline-none text-white text-center h-5 w-[160px] sm:w-[120px] input-number',
+        'text-5 sm:text-6 font-700 bg-transparent border-0 outline-none text-center h-5 w-[110px] input-number h-full',
         inputClass
       )" 
       v-model="__moduleValue" 
@@ -17,8 +17,8 @@
       @keydown.enter="handleBlur"
       @input="handleInput"
     />
-    <span class="cursor-pointer" @click="increase">
-      <RxIcon name="base/rx_ic_plus" color="#FFF" />
+    <span class="p-1 border-1 border-solid border-[#AFB7BB] rounded-1 cursor-pointer flex items-center justify-center" @click="increase">
+      <RxIcon name="base/rx_ic_plus" color="#575D60" />
     </span>
   </div>
 </template>
@@ -88,6 +88,10 @@ const handleNumber = (v: number) => {
     return props.min;
   }
 
+  if (v > 0 && v < 10) {
+    return 10;
+  }
+
   if (v > props.max) {
     return props.max;
   }
@@ -122,7 +126,11 @@ const increase = () => {
   const idx = stepNumber.findIndex(key => modelValue.value < key)
   const curr = stepNumber[idx - 1];
   const plus = props.step[curr]
-  modelValue.value += plus;
+  if (plus < 10) {
+    modelValue.value = 10;
+  } else {
+    modelValue.value += plus;
+  }
 }
 
 // -
@@ -134,6 +142,11 @@ const decrease = () => {
   const idx = stepNumber.findIndex(key => key < modelValue.value)
   const curr = stepNumber[idx];
   const plus = props.step[curr]
-  modelValue.value -= plus;
+  if (plus < 10) {
+    modelValue.value = 0;
+  } else {
+    modelValue.value -= plus;
+  }
+  
 }
 </script>

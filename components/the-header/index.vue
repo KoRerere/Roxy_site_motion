@@ -114,7 +114,7 @@
     </motion.div>
   </AnimatePresence>
   
-  <!-- invisible  -->
+  <!-- invisible v-if="!initedMageMenusWidths" -->
   <div class="invisible absolute top-0 left-0 z-200" v-if="!initedMageMenusWidths">
     <div class="relative inline-block" v-for="m in mageMenus" :ref="(el) => mageMenusContents[m.value] = el">
       <div class="box-shadow rounded-3 flex gap-3 p-4 bg-white">

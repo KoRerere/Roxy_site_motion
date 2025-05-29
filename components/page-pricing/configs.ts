@@ -1,91 +1,19 @@
 import currency from 'currency.js';
-import { useRxI18n } from '@/composables/useRxI18n'
 
-export const getPackagePrice = () => {
-  const { $t } = useRxI18n()
-
-  return [
-    {
-      "name": $t("免费版"),
-      "buttonText": $t("免费体验"),
-      "id": "free",
-      "price": "0.00",
-      min: 0,
-      max: 5,
-      children: [],
-    },
-    {
-      "name": $t("基础版"),
-      "buttonText": $t("获取基础版"),
-      "id": "basic",
-      "price": "0.20",
-      min: 10,
-      max: 100,
-      children: [
-        '窗口投送',
-        '窗口模板',
-        '窗口导出',
-        '项目数量',
-        '操作日志',
-      ]
-    },
-    {
-      "name": $t("专业版"),
-      "buttonText": $t("获取专业版"),
-      "id": "pro",
-      "price": "0.12",
-      min: 100,
-      max: 1000,
-      children: [
-        '窗口投送',
-        '窗口模板',
-        '窗口导出',
-        '项目数量',
-        '操作日志',
-      ]
-    },
-    {
-      "name": $t("商业版"),
-      "buttonText": $t("获取商业版"),
-      "id": "business",
-      "price": "0.08",
-      min: 1000,
-      max: 10000,
-      children: [
-        '窗口投送',
-        '窗口模板',
-        '窗口导出',
-        '项目数量',
-        '操作日志',
-      ]
-    },
-    {
-      "name": $t("企业版"),
-      "buttonText": $t("获取企业版"),
-      "id": "enterprise",
-      "price": "0.03",
-      min: 10000,
-      max: 100000,
-      children: [
-        '窗口投送',
-        '窗口模板',
-        '窗口导出',
-        '项目数量',
-        '操作日志',
-      ]
-    }
-  ]
-}
-
-export const profileMarks = [0, 10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000];
+export const profileMarks = [0, 5, 10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000];
 export const profileSteps = {
-  0: 10, 10: 40, 50: 50, 100: 100,
+  0: 5, 5: 5, 10: 40, 50: 50, 100: 100,
   500: 100, 1000: 100, 5000: 100,
   10000: 100, 50000: 100, 100000: 100
 }
 
 export const markFormatter = (mark: number) => {
-  return mark >= 1000 ? `${(mark / 1000).toFixed(1)}k` : mark
+  return mark >= 1000 ? `${(mark / 1000).toFixed(0)}k` : mark
+}
+
+export const popupFormatter = (mark: number) => {
+  const __mark = mark >= 1000 ? `${(mark / 1000).toFixed(1)}k` : mark
+  return $t('{num} 个窗口', { num: __mark })
 }
 
 /**
@@ -102,6 +30,12 @@ export enum SubLevelEnum {
 }
 
 export const tierList = [
+  {
+    windowPrice: 0.80,
+    minWindows: 0,
+    maxWindows: 5,
+    subLevel: SubLevelEnum.Free,
+  },
   {
     windowPrice: 0.80,
     minWindows: 0,
@@ -194,44 +128,48 @@ export function discountCalculate(discounts: number[]) {
 
 export const usePricing = () => {
   const profile = ref(10);
-  const ratioValue = ref(30);
+  const ratioValue = ref(360);
   const sliderRatio = [30, 90, 180, 360];
-  const sliderRatioValue = [0, 15, 25, 40]
+  const sliderRatioValue = [0, 15, 25, 40];
 
-  const currPrice = computed(() => {
+  const monthPrice = computed(() => {
     const tier = tierCalculate(profile.value)
     const idx = sliderRatio.findIndex(v => ratioValue.value === v)
-    return tier.value * discountCalculate([sliderRatioValue[idx]]) * (ratioValue.value / 30)
+    return tier.value * discountCalculate([sliderRatioValue[idx]]);
   })
 
-  const originPrice = computed(() => {
+  const monthOriginPrice = computed(() => {
     const tier = tierCalculate(profile.value)
-    return tier.value * (ratioValue.value / 30)
+    return tier.value
   })
 
   // 优惠了多少
-  const save = computed(() => {
-    return Math.abs(currency(originPrice.value).subtract(currPrice.value).value)
+  const monthSave = computed(() => {
+    return Math.abs(currency(monthOriginPrice.value).subtract(monthPrice.value).value)
   })
 
-  const packages = computed(() => getPackagePrice())
-
-  const activePackage = computed({
-    get() {
-      return packages.value.find(item => item.min < profile.value && item.max >= profile.value) || packages.value[1]
-    },
-    set(packageItem: any) {
-      profile.value = packageItem.max;
+  const packData = computed(() => {
+    if (profile.value === 0) {
+      return {
+        min: 0,
+        max: 5,
+        price: 0.80
+      }
+    }
+    const tier = tierList.find(item => item.minWindows < profile.value && item.maxWindows >= profile.value)!
+    return {
+      min: tier.minWindows,
+      max: tier.maxWindows,
+      price: tier.windowPrice
     }
   })
 
   return {
     ratioValue,
     profile,
-    currPrice,
-    save,
-    activePackage,
-    packages,
-    originPrice
+    monthPrice,
+    monthOriginPrice,
+    monthSave,
+    packData
   }
 }

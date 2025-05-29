@@ -151,7 +151,7 @@ export const useText = (type: string) => {
             },
             {
               title: $t('团队多项目管理'),
-              desc: $t('根据团队管理需求，灵活增加\"工作空间\" 和\"项目\"数量，按需分配已有平台账号、代理信息级拓展。'),
+              desc: $t('根据团队管理需求，灵活增加"工作空间" 和"项目"数量，按需分配已有平台账号、代理信息级拓展。'),
               label: 'Assignment',
               labelType: 'outlined',
               wrapClass: "bg-white",

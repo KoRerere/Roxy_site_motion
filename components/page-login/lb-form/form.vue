@@ -64,8 +64,7 @@ defineExpose({
 </script>
 
 <template>
-<client-only> 
-  <form @submit.prevent="handleSubmit" class="lb-form">
+<form @submit.prevent="handleSubmit" class="lb-form">
     <template v-for="schema in schemas" :key="schema.field">
       <FormItem 
         :schema="schema" 
@@ -75,7 +74,6 @@ defineExpose({
       />
     </template>
   </form>
-</client-only>
 </template>
 
 <style lang="scss" scoped>

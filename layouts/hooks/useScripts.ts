@@ -12,28 +12,28 @@ export const useScripts = () => {
       async: true
     })
   } else {
-    // 生产环境加载的脚本
+    // 需要使用 Cookie 通知弹窗（Cookie Consent Banner），用户点击确认才加载脚本，否则会违反隐私法规
 
     // google 分析用户行为 
-    scripts.push({
-      src: 'https://www.googletagmanager.com/gtag/js?id=G-7D8MGG4CHF',
-      async: true
-    })
-    scripts.push({
-      innerHTML: `
-        window.dataLayer = window.dataLayer || []; 
-        function gtag(){dataLayer.push(arguments);} 
-        gtag('js', new Date()); 
-        gtag('config', 'G-7D8MGG4CHF');
-      `
-    })
+    // scripts.push({
+    //   src: 'https://www.googletagmanager.com/gtag/js?id=G-7D8MGG4CHF',
+    //   async: true
+    // })
+    // scripts.push({
+    //   innerHTML: `
+    //     window.dataLayer = window.dataLayer || []; 
+    //     function gtag(){dataLayer.push(arguments);} 
+    //     gtag('js', new Date()); 
+    //     gtag('config', 'G-7D8MGG4CHF');
+    //   `
+    // })
 
     // ahrefs 分析用户量
-    scripts.push({
-      src: 'https://analytics.ahrefs.com/analytics.js',
-      'data-key': 'QYmnMtFWzDAGlkP8hAbbDw',
-      async: true
-    })
+    // scripts.push({
+    //   src: 'https://analytics.ahrefs.com/analytics.js',
+    //   'data-key': 'QYmnMtFWzDAGlkP8hAbbDw',
+    //   async: true
+    // })
   }
 
   return scripts

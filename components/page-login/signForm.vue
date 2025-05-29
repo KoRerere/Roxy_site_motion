@@ -2,7 +2,6 @@
 import { useLoginContext } from './hooks/useLoginContext'
 import { getFormSchemas } from './schemas'
 import LBForm from './lb-form/form.vue'
-import Message from './message.vue'
 import {useToast} from 'primevue/usetoast';
 import Alert from '@/components/page-invite/Alert.vue'
 
@@ -23,7 +22,7 @@ const { setSignFormData, setCurrentComponent, toSignIn, afterLogin } = useLoginC
 
 const authWindow = ref<Window | null>(null)
 const submitLoading = ref(false)
-const rememberMe = ref(!!localStorage.getItem('password'))
+const rememberMe = ref(false)
 const formSchemas = ref(getFormSchemas(props.type === 'signUp'))
 const isRegister = ref(props.type === 'signUp')
 const formInstance = useTemplateRef('formInstance')
@@ -124,18 +123,21 @@ function switchFormMode(val: boolean) {
   formInstance.value?.clearValidateMessages()
 }
 
+onMounted(() => {
+  rememberMe.value = !!localStorage.getItem('password')
+})
+
 onUnmounted(() => {
   window.removeEventListener('message', handleAuthMessage, false)
 })
 </script>
 
 <template>
-<client-only>
-  <div class="w-[384px] px-[32px] py-[24px]">
+  <div class="w-[384px] px-8 py-6">
     <div class="signin">
       {{ isRegister ? $t('创建账号') : $t('登录') }}
     </div>
-    <div class="signinDesc mb-[32px]">
+    <div class="signinDesc mb-8">
       {{ isRegister ? $t('创建账号以体验 RoxyBrowser 提供的服务') : $t('登录账号以体验 RoxyBrowser 提供的服务') }}
     </div>
 
@@ -216,7 +218,6 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
-</client-only>
 </template>
 
 <style lang="scss" scoped>

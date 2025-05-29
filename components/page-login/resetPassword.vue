@@ -89,59 +89,59 @@ onUnmounted(() => {
 </script>
 
 <template>
-   <client-only>
-  <template v-if="currentStep == 'step1'">
-    <div class="reset-password">
-      <div class="box">
-        <div class="title">
-          {{ $t('重置密码') }}
+  <div>
+    <template v-if="currentStep == 'step1'">
+      <div class="reset-password">
+        <div class="box">
+          <div class="title">
+            {{ $t('重置密码') }}
+          </div>
+          <div class="desc">{{ $t('请输入您的邮箱，我们将向您发送验证码') }}</div>
+          <div class="flex flex-col gap-2 w-full">
+            <LBLable>{{ $t('邮箱') }}</LBLable>
+            <LBInput id="email" v-model="email" :placeholder="$t('请输入您的邮箱')" />
+          </div>
         </div>
-        <div class="desc">{{ $t('请输入您的邮箱，我们将向您发送验证码') }}</div>
-        <div class="flex flex-col gap-2 w-full">
-          <LBLable>{{ $t('邮箱') }}</LBLable>
-          <LBInput id="email" v-model="email" :placeholder="$t('请输入您的邮箱')" />
-        </div>
-      </div>
-      <RxButton class="w-full" @click="sendEmailForgetVerifyCodeList">
-        {{ $t('前往验证') }}
-      </RxButton>
-      <RxButton class="w-full btn-outline" outlined @click="backToSignIn">
-        {{ $t('返回登录') }}
-      </RxButton>
-    </div>
-  </template>
-
-  <template v-if="currentStep === 'step2'">
-    <EmailCodeInputOtp 
-      type="resetPassword" 
-      :email 
-      :time="countdown"
-      @ok="receiveEmailCode" 
-      @back="currentStep = 'step1'" 
-      @resend="sendEmailForgetVerifyCodeList"
-    />
-  </template>
-
-  <template v-if="currentStep === 'step3'">
-    <div class="reset-password">
-      <div class="box">
-        <div class="title">{{ $t('重置密码') }}</div>
-        <div class="desc">{{ $t('请在下方设置您的新密码') }}</div>
-        <div class="flex flex-col gap-2 w-full">
-          <LBForm 
-            ref="rxForm" 
-            v-model="resetPwdFormData" 
-            :schemas="getResetPasswordSchemas()" 
-            @keydown.enter="handleSubmit" 
-          />
-        </div>
-        <RxButton class="w-full" @click="handleSubmit">
-          {{ $t('确定') }}
+        <RxButton class="w-full" @click="sendEmailForgetVerifyCodeList">
+          {{ $t('前往验证') }}
+        </RxButton>
+        <RxButton class="w-full btn-outline" outlined @click="backToSignIn">
+          {{ $t('返回登录') }}
         </RxButton>
       </div>
-    </div>
-  </template>
-</client-only>
+    </template>
+
+    <template v-if="currentStep === 'step2'">
+      <EmailCodeInputOtp 
+        type="resetPassword" 
+        :email 
+        :time="countdown"
+        @ok="receiveEmailCode" 
+        @back="currentStep = 'step1'" 
+        @resend="sendEmailForgetVerifyCodeList"
+      />
+    </template>
+
+    <template v-if="currentStep === 'step3'">
+      <div class="reset-password">
+        <div class="box">
+          <div class="title">{{ $t('重置密码') }}</div>
+          <div class="desc">{{ $t('请在下方设置您的新密码') }}</div>
+          <div class="flex flex-col gap-2 w-full">
+            <LBForm 
+              ref="rxForm" 
+              v-model="resetPwdFormData" 
+              :schemas="getResetPasswordSchemas()" 
+              @keydown.enter="handleSubmit" 
+            />
+          </div>
+          <RxButton class="w-full" @click="handleSubmit">
+            {{ $t('确定') }}
+          </RxButton>
+        </div>
+      </div>
+    </template>
+  </div>
 </template>
 
 <style lang="scss" scoped>

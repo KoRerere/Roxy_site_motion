@@ -4,18 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    typescript:
-      specifier: ^5.8.3
-      version: 5.8.3
-    vite:
-      specifier: ^6.2.6
-      version: 6.3.2
-    vite-plugin-dts:
-      specifier: ^4.5.3
-      version: 4.5.3
-
 importers:
 
   .:
@@ -56,9 +44,6 @@ importers:
       currency.js:
         specifier: ^2.0.4
         version: 2.0.4
-      easing-js:
-        specifier: ^1.1.2
-        version: 1.1.2
       es-toolkit:
         specifier: ^1.35.0
         version: 1.35.0
@@ -95,9 +80,6 @@ importers:
       qs:
         specifier: ^6.14.0
         version: 6.14.0
-      smooth-scrollbar:
-        specifier: ^8.8.4
-        version: 8.8.4
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
@@ -147,12 +129,6 @@ importers:
       '@unocss/nuxt':
         specifier: 66.1.0-beta.11
         version: 66.1.0-beta.11(magicast@0.3.5)(postcss@8.5.3)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(sass-embedded@1.86.3)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))(webpack@5.99.6)
-      '@unocss/preset-wind3':
-        specifier: 66.1.0-beta.12
-        version: 66.1.0-beta.12
-      '@unocss/preset-wind4':
-        specifier: 66.1.0-beta.12
-        version: 66.1.0-beta.12
       '@unocss/transformer-directives':
         specifier: 66.1.0-beta.12
         version: 66.1.0-beta.12
@@ -2186,14 +2162,8 @@ packages:
   '@unocss/preset-wind3@66.1.0-beta.11':
     resolution: {integrity: sha512-whSdd4XEac+3HFTJel+IDXRYofk5vpotGn38RChRfxC5sfYodXqtDVKqw6Um1nHhGLcwsZFG3+x8JDeAwS2EkA==}
 
-  '@unocss/preset-wind3@66.1.0-beta.12':
-    resolution: {integrity: sha512-vjSH7K3mHrcfOarzhnRu4oz6MjtvKYCMNnvufhpntq+lQ6IyeAfFP/zuBhGxKQZg0Amwt+peChF3AysbJHxQOQ==}
-
   '@unocss/preset-wind4@66.1.0-beta.11':
     resolution: {integrity: sha512-gbw8z2+NMPEsZfeNsIAdm60lAWRHoDJfJV/BkOmNmSf49rUhcezoCsIN4zdAWjkYrLWiZxlCMGBw/4AERWx6gQ==}
-
-  '@unocss/preset-wind4@66.1.0-beta.12':
-    resolution: {integrity: sha512-n/0ohR52bQkfFLYd9+wRSvvxmKHqsvivn6tYVWdiyiv2FV+UMz2zwB6gv7meJzILVOfmXUGfwbTFTh1S6lClVg==}
 
   '@unocss/preset-wind@66.0.0':
     resolution: {integrity: sha512-FtvGpHnGC7FiyKJavPnn5y9lsaoWRhXlujCqlT5Bw63kKhMNr0ogKySBpenUhJOhWhVM0OQXn2nZ3GZRxW2qpw==}
@@ -3005,9 +2975,6 @@ packages:
     resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
     engines: {node: '>=12.13'}
 
-  core-js@3.41.0:
-    resolution: {integrity: sha512-SJ4/EHwS36QMJd6h/Rg+GyR4A5xE0FSI3eZ+iBVpfqf1x0eTSg1smWLHrA+2jQThZSh97fmSgFSU8B61nxosxA==}
-
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
@@ -3383,9 +3350,6 @@ packages:
 
   earcut@3.0.1:
     resolution: {integrity: sha512-0l1/0gOjESMeQyYaK5IDiPNvFeu93Z/cO0TjZh9eZ1vyCtZnA7KMZ8rQggpsJHIbGSdrqYq9OhuveadOVHCshw==}
-
-  easing-js@1.1.2:
-    resolution: {integrity: sha512-vUVabF3LRgG051fseOO1xG+lW65F9HD3lJTPikfFfcyh02m6fr/ORNpFZFgful+u7rx9zetVFBi17R3NilP+EA==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -5783,9 +5747,6 @@ packages:
 
   smob@1.5.0:
     resolution: {integrity: sha512-g6T+p7QO8npa+/hNx9ohv1E5pVCmWrVCUzUXJyLdMmftX6ER0oiWY/w9knEonLpnOp6b6FenKnMfR8gqwWdwig==}
-
-  smooth-scrollbar@8.8.4:
-    resolution: {integrity: sha512-Wn2Q/iE+PE1ef4EfhFMhgaIMfSrjJl2LalRu0hBWSrw5nZKGsUIjWFWHnLB/Lpx7N+a1pJH6+wkQzBr+5nWPUg==}
 
   socks-proxy-agent@8.0.5:
     resolution: {integrity: sha512-HehCEsotFqbPW9sJ8WVYB6UbmIMv7kUUORIF2Nncq4VQvBfNBLibW9YZR5dlYCSUhwcD628pRllm7n+E+YTzJw==}
@@ -8902,23 +8863,11 @@ snapshots:
       '@unocss/preset-mini': 66.1.0-beta.11
       '@unocss/rule-utils': 66.1.0-beta.11
 
-  '@unocss/preset-wind3@66.1.0-beta.12':
-    dependencies:
-      '@unocss/core': 66.1.0-beta.12
-      '@unocss/preset-mini': 66.1.0-beta.12
-      '@unocss/rule-utils': 66.1.0-beta.12
-
   '@unocss/preset-wind4@66.1.0-beta.11':
     dependencies:
       '@unocss/core': 66.1.0-beta.11
       '@unocss/extractor-arbitrary-variants': 66.1.0-beta.11
       '@unocss/rule-utils': 66.1.0-beta.11
-
-  '@unocss/preset-wind4@66.1.0-beta.12':
-    dependencies:
-      '@unocss/core': 66.1.0-beta.12
-      '@unocss/extractor-arbitrary-variants': 66.1.0-beta.12
-      '@unocss/rule-utils': 66.1.0-beta.12
 
   '@unocss/preset-wind@66.0.0':
     dependencies:
@@ -9919,8 +9868,6 @@ snapshots:
     dependencies:
       is-what: 4.1.16
 
-  core-js@3.41.0: {}
-
   core-util-is@1.0.3: {}
 
   countup.js@2.8.0: {}
@@ -10276,8 +10223,6 @@ snapshots:
   duplexer@0.1.2: {}
 
   earcut@3.0.1: {}
-
-  easing-js@1.1.2: {}
 
   eastasianwidth@0.2.0: {}
 
@@ -13091,11 +13036,6 @@ snapshots:
   smart-buffer@4.2.0: {}
 
   smob@1.5.0: {}
-
-  smooth-scrollbar@8.8.4:
-    dependencies:
-      core-js: 3.41.0
-      tslib: 1.14.1
 
   socks-proxy-agent@8.0.5:
     dependencies:

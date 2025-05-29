@@ -84,9 +84,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <client-only>
   <div class="wrapper">
-
     <div class="title">{{ $t('请检查您的邮箱') }}</div>
     <div class="py-[8px]">
       <div class="tips">
@@ -130,7 +128,6 @@ async function handleSubmit() {
       </rx-i18n-t>
     </div>
   </div>
-</client-only>
 </template>
 
 <style lang="scss" scoped>

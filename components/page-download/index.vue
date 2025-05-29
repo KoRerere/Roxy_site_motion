@@ -56,7 +56,7 @@
                 >
                   {{ btn.text }}
                 </DownloadBtn>
-                <button 
+                <div 
                   v-else
                   :class="cn('download-btn', btn.class)"
                 >
@@ -64,7 +64,7 @@
                     <RxIcon name="base/rx_ic_download" />
                     {{ btn.text }}
                   </a>
-                </button>
+                </div>
               </template>
               
             </div>
@@ -173,7 +173,7 @@ if (import.meta.client) {
 }
 
 .download-btn {
-  @apply text-14px text-center text-white font-3 font-500 rounded-2 w-142px h-10 border-none cursor-pointer !p-0 justify-center items-center;
+  @apply flex text-14px text-center text-white font-3 font-500 rounded-2 w-142px h-10 border-none cursor-pointer !p-0 justify-center items-center;
 }
 </style>
 

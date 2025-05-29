@@ -34,7 +34,9 @@
       <Reasons :list="reasonsList" :title="reasonsTitle" v-if="reasonsTitle" />
     </Container>
 
-    <PanelDownload2 />
+    <Container>
+      <PanelDownload2 />
+    </Container>
   </div>
 </template>
 

@@ -1,5 +1,4 @@
 import { defineConfig } from 'unocss'
-// import presetWind4 from '@unocss/preset-wind4'
 import transformerDirectives from '@unocss/transformer-directives'
 
 export default defineConfig({
@@ -21,6 +20,7 @@ export default defineConfig({
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
+      '3xl': '2200px',
     },
     colors: {
       primary: 'var(--color-text-primary)',

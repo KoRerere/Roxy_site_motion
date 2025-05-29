@@ -17,25 +17,71 @@ const svgIconTypesPath = './components/rx-icon/src/svg-icon-types.ts';
 const isDev = process.env.ENV === 'development'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const prerender = [
+  '/', 
+  '/copyright/privacy', 
+  '/copyright/refund', 
+  '/copyright/user',
+  '/copyright/renewal',
+  '/auth', 
+  '/auth/app_vk', 
+  '/auth/web_vk', 
+  '/download', 
+  '/features/profile-template', 
+  '/features/proxy-panel', 
+  '/features/team-space', 
+  '/features/account-hub', 
+  '/features/window-sync',
+  '/features/api-flow', 
+  '/pricing', 
+  '/invite', 
+  '/login', 
+  '/no-auth', 
+  '/solutions/privacy-defense',
+  '/solutions/social-networks',
+  '/solutions/affiliate-market',
+  '/solutions/web-scraping',
+  '/solutions/e-commerce',
+  '/solutions/crypto-gains',
+  '/solutions/traffic-trade',
+  '/solutions/ad-strategy',
+]
+const ssr = ['/blog/**']
+
+const routeRules: Record<string, any> = {
+  
+}
+
+prerender.forEach(path => {
+  routeRules[path] = { prerender: true }
+  routeRules['/zh' + path] = { prerender: true }
+})
+
+ssr.forEach(path => {
+  routeRules[path] = { ssr: true }
+  routeRules['/zh' + path] = { ssr: true }
+})
+console.log('routeRules', routeRules)
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  routeRules: {
-    '/': { prerender: true },
-    '/copyright/**': { prerender: true },
-    '/auth': { prerender: true },
-    '/auth/app_vk': { prerender: true },
-    '/auth/web_vk': { prerender: true },
-    '/download': { prerender: true },
-    '/features/**': { prerender: true },
-    '/pricing': { prerender: true },
-    '/invite': { prerender: true },
-    '/login': { prerender: true },
-    '/no-auth': { prerender: true },
-    '/solutions/**': { prerender: true },
-    '/blog/**': { ssr: true }
-  },
-  // 使用这种方式来获取环境变量，才能确保pnpm preview能够正常运行
+  routeRules,
+  // routeRules: {
+  //   '/': { prerender: true },
+  //   '/copyright/**': { prerender: true },
+  //   '/auth': { prerender: true },
+  //   '/auth/app_vk': { prerender: true },
+  //   '/auth/web_vk': { prerender: true },
+  //   '/download': { prerender: true },
+  //   '/features/**': { prerender: true },
+  //   '/pricing': { prerender: true },
+  //   '/invite': { prerender: true },
+  //   '/login': { prerender: true },
+  //   '/no-auth': { prerender: true },
+  //   '/solutions/**': { prerender: true },
+  //   '/blog/**': { ssr: true },
+  //   '/zh/**': { prerender: true },
+  // },
   // devServer: {
   //   host: '0.0.0.0',
   //   port: 3000,
@@ -87,7 +133,7 @@ export default defineNuxtConfig({
       enabled: true,
       reportFilename: '.nuxt/analyze/report.html',
       analyzerMode: 'server',
-      open: true,
+      open: isDev,
       port: 3001,
       generateStatsFile: true,
       statsFilename: '.nuxt/analyze/stats.json',
@@ -164,7 +210,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    exclude: ['/invite/**', '/no-auth', '/auth', '/login', '/anbin/**', '/figma-icons/**', '/blog/**']
+    exclude: ['/invite/**', '/no-auth', '/auth', '/login', '/anbin/**', '/figma-icons/**']
   },
   css: ['./assets/styles/global.css'],
   components: [
@@ -238,8 +284,8 @@ export default defineNuxtConfig({
       cssMinify: true,
       terserOptions: {
         compress: {
-          drop_console: false, // 去除 console 语句
-          drop_debugger: true, // 去除 debugger 语句
+          drop_console: !isDev, // 去除 console 语句
+          drop_debugger: !isDev, // 去除 debugger 语句
         }
       },
       rollupOptions: {
@@ -311,8 +357,5 @@ export default defineNuxtConfig({
       ViteCompression({ algorithm: 'brotliCompress' }),
       imagetools()
     ],
-    // optimizeDeps: {
-    //   include: ['three', 'three-globe', 'ogl', 'motion-v']
-    // }
   }
 })

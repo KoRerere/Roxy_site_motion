@@ -26,7 +26,7 @@ const signFormData = ref<LoginCreatePayload>({
   password: '',
 })
 
-if (import.meta.client) {
+onMounted(async () => {
   await loginAuth();
   
   const { code, data } = await $API.base.userGetUserInfoList()
@@ -42,7 +42,7 @@ if (import.meta.client) {
   if (password) {
     signFormData.value.password = atob(password)
   }
-}
+})
 
 const time = ref(60)
 let timer: NodeJS.Timeout | null = null
@@ -118,24 +118,24 @@ onUnmounted(() => timer && clearInterval(timer))
 </script>
 
 <template>
-  <client-only> 
-    <LoginLayout>
+  <LoginLayout>
+    <div>
       <SignForm 
-        v-if="currentComp === 'signForm'" 
-        v-model="signFormData" 
-        v-bind="currentCompProps" 
-        :type="route.query.type == 'sign-up' ? 'signUp' : 'signIn'"
-      /> 
-      <EmailCodeInputOtp 
-        v-else-if="currentComp === 'emailCodeInputOtp'" 
-        type="signUp" 
-        v-bind="currentCompProps"
-        :time="time" 
-        @resend="handleResend"
-      />
-      <ResetPassword v-else-if="currentComp === 'resetPassword'" v-bind="currentCompProps" />
-    </LoginLayout>
-  </client-only>
+          v-if="currentComp === 'signForm'" 
+          v-model="signFormData" 
+          v-bind="currentCompProps" 
+          :type="route.query.type == 'sign-up' ? 'signUp' : 'signIn'"
+        /> 
+        <EmailCodeInputOtp 
+          v-else-if="currentComp === 'emailCodeInputOtp'" 
+          type="signUp" 
+          v-bind="currentCompProps"
+          :time="time" 
+          @resend="handleResend"
+        />
+        <ResetPassword v-else-if="currentComp === 'resetPassword'" v-bind="currentCompProps" />
+    </div>
+  </LoginLayout>
 </template>
 
 <style lang="scss" scoped>

@@ -2,7 +2,9 @@
 
 ### 开起Gzip和Http2
 ```
-http {
+server {
+  listen 443 ssl http2;  # 开启http2
+
   gzip on;                      #开启gzip
   gzip_static on;               #如果已有.gz文件，则直接返回，没有就使用动态压缩
   gzip_min_length   10k;        #最小压缩大小
@@ -13,8 +15,16 @@ http {
   gzip_types text/plain text/css application/javascript application/json text/xml application/xml application/xml+rss text/javascript image/svg+xml font/woff2;
   gzip_vary on; # 确保压缩后的内容能够被客户端正常缓存
 
-  server {
-    listen 443 ssl http2;
+  # 禁止缓存.html文件
+  location ~* \.html$ {
+    add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
+    add_header Last-Modified $date_gmt;
+    add_header Pragma "no-cache";
+    expires -1;
+
+    # 强制浏览器重新验证
+    etag off;
+    if_modified_since off;
   }
 }
 ```

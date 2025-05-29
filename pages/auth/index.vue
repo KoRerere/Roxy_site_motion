@@ -28,11 +28,9 @@ if (import.meta.client) {
 
 
 <template>
-  <client-only>
-    <div>
-      Authorization successful! The client application will be launched shortly... If it doesn't launch, please click <a style="color: #0053FF;cursor: pointer;" @click="launchApp">here</a>
-    </div>
-  </client-only>
+  <div>
+    Authorization successful! The client application will be launched shortly... If it doesn't launch, please click <a style="color: #0053FF;cursor: pointer;" @click="launchApp">here</a>
+  </div>
 </template>
 
 <style scoped></style>

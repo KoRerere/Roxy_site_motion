@@ -18,7 +18,7 @@ export const useChannelReport = () => {
   // 通过邀请链接进入
   async function checkLinkCode() {
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code')
+    const code = route.params.val ?? urlParams.get('code')
     const name = `Splcc_${code}`
 
     if (code && !getRoxyCookie(name)) {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LanguageSelect from './language-select.vue'
+import BgCanvas from './bg-canvas.vue'
 
 const { $t } = useRxI18n()
 const localePath = useLocalePath()
@@ -7,43 +8,43 @@ const localePath = useLocalePath()
 </script>
 
 <template>
-  <client-only>
-    <div class="login-container">
-      <RxLazy class="absolute top-0 left-0 w-full h-full" :syncCompImport="() => import('./bg-canvas.vue')" />
-      <div class="login-header">
-        <NuxtLinkLocale to="/" class="flex items-center gap-[10px] z-10">
-          <img class="logo" src="/logo.svg" alt="Roxybrowser" />
-          <h1 class="title">RoxyBrowser</h1>
-        </NuxtLinkLocale>
+  <div class="login-container">
+    <ClientOnly>
+      <BgCanvas class="absolute top-0 left-0 w-full h-full"  />
+    </ClientOnly>
+    <div class="login-header">
+      <NuxtLinkLocale to="/" class="flex items-center gap-[10px] z-10">
+        <img class="logo" src="/logo.svg" alt="Roxybrowser" />
+        <h1 class="title">RoxyBrowser</h1>
+      </NuxtLinkLocale>
 
-        <div class="language z-10">
-          <LanguageSelect />
-        </div>
-      </div>
-
-      <div class="login-body">
-        <slot></slot>
-      </div>
-      <div class="footer">
-        <rx-i18n-t :keypath="$t('注册或登录即表示您同意我们的 {terms} 和 {policy} 。', { terms: '{terms}', policy: '{policy}' })">
-          <template #terms>
-            <NuxtLink
-              :to="localePath('/copyright/user')" 
-              target="_blank"
-              class="text-[#AFB7BB] copyright-link"
-            >{{ $t('用户协议') }}</NuxtLink>
-          </template>
-          <template #policy>
-            <NuxtLink 
-              :to="localePath('/copyright/privacy')" 
-              target="_blank"
-              class="text-[#AFB7BB] copyright-link"
-            >{{ $t('隐私政策') }}</NuxtLink>
-          </template>
-        </rx-i18n-t>
+      <div class="language z-10">
+        <LanguageSelect />
       </div>
     </div>
-  </client-only>
+
+    <div class="login-body">
+      <slot></slot>
+    </div>
+    <div class="footer">
+      <rx-i18n-t :keypath="$t('注册或登录即表示您同意我们的 {terms} 和 {policy} 。', { terms: '{terms}', policy: '{policy}' })">
+        <template #terms>
+          <NuxtLink
+            :to="localePath('/copyright/user')" 
+            target="_blank"
+            class="text-[#AFB7BB] copyright-link"
+          >{{ $t('用户协议') }}</NuxtLink>
+        </template>
+        <template #policy>
+          <NuxtLink 
+            :to="localePath('/copyright/privacy')" 
+            target="_blank"
+            class="text-[#AFB7BB] copyright-link"
+          >{{ $t('隐私政策') }}</NuxtLink>
+        </template>
+      </rx-i18n-t>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -12,7 +12,7 @@
     </NuxtLinkLocale>
 
     <NuxtLinkLocale to="/solutions/social-networks">
-      <div class="mt-3 relative w-255px h-214px">
+      <div class="mt-3 relative w-255px aspect-476/400">
         <div class="absolute p-3 top-0 left-0 flex flex-col gap-6px">
           <div class="text-14px leading-18px font-600 font-[Archivo]">{{ $t('社媒营销') }}</div>
           <div class="text-note font-400">

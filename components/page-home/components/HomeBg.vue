@@ -2,13 +2,13 @@
   <div 
     class="bg-container w-full" 
     :style="{ 
-      transform: `rotate3d(1, 0, 0, ${deg}deg)`
+      transform: `rotate3d(1, 0, 0, ${deg}deg) translateZ(0)`
     }"
   >
     <picture>
       <source :srcset="avif" type="image/avif">
       <source :srcset="webp" type="image/webp">
-      <img :src="png" class="w-full aspect-[3088/2100] object-cover" alt="" draggable="false" />
+      <img :src="png" class="w-full aspect-[3088/2100] object-cover select-none" alt="" draggable="false" />
     </picture>
   </div>
 </template>

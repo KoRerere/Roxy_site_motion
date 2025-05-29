@@ -81,16 +81,13 @@
 </template>
 
 <script setup lang="ts">
-import PricingButtonGroup2 from '@/components/page-pricing-2/pricing-button-group2.vue'
-import PricingButtonGroup from '@/components/page-pricing-2/pricing-button-group.vue'
-import PricingTable from '@/components/page-pricing-2/pricing-table.vue'
+import PricingButtonGroup2 from '~/components/page-pricing/pricing-button-group2.vue'
+import PricingButtonGroup from '~/components/page-pricing/pricing-button-group.vue'
+import PricingTable from '~/components/page-pricing/pricing-table.vue'
 import PlayMode from '~/components/page-pricing/play-mode.vue'
 import RisingStar from "~/components/page-home/components/RisingStar.vue";
-import { RxIcon } from '@/components/rx-icon'
-import Illustrate from '~/components/page-pricing/illustrate.vue'
-import { usePricing } from '@/components/page-pricing-2/configs'
-import currency from 'currency.js';
-import PanelLG from '@/components/page-pricing-2/panel-lg.vue'
+import { usePricing } from '~/components/page-pricing/configs'
+import PanelLG from '~/components/page-pricing/panel-lg.vue'
 
 const {
   profile,
