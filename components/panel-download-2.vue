@@ -1,5 +1,5 @@
 <template>
-  <Container class="rounded-3 lg:rounded-10 overflow-hidden relative my-8 lg:my-10">
+  <Container class="rounded-3 lg:rounded-10 overflow-hidden relative my-8 lg:my-15">
     <div class="absolute top-0 left-0 right-0 bottom-0 z-9">
       <RxResponsiveImage 
         name="download/panel-bg" 

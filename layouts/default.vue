@@ -4,14 +4,13 @@
     <slot></slot>
     <TheFooter />
     <BackTop />
+    <CookieBanner />
   </div>
-  <!-- <Toast position="top-center" /> -->
 </template>
 
 <script setup lang="ts">
 import { useCustomHead } from './hooks/useCustomHead'
 import { useRoxySeoMeta } from './hooks/useRoxySeoMeta'
-import Toast from 'primevue/toast'
 import TheFooter from '@/components/the-footer.vue'
 import BackTop from '@/components/back-top.vue'
 

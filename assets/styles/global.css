@@ -7,10 +7,6 @@
   --text-secondary: #34393D;
 }
 
-html {
-  font-family: var(--family, var(--zhFamily));
-}
-
 a {
   text-decoration: none;
   text-decoration-line: none;
@@ -50,4 +46,8 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+html {
+  font-family: var(--family);
 }
