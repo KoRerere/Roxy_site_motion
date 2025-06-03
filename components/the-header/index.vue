@@ -1,79 +1,79 @@
 <template>
   <div class="rx-header fixed top-5 md:top-6 left-0 right-0 z-100">
-    <header 
-      :class="cn(
-        'box-border flex items-center justify-between h-12', 
-        'header',
-        'pl-2 pr-5'
-      )"
-      :style="{ color: textColor }"
-    >
-      <div class="flex items-center gap-6">
-        <NuxtLinkLocale to="/" class="flex items-center gap-2">
-          <RxIcon name="base/rx_ic_logo" size="38" />
-          <span class="text-4 md:text-18px font-700 font-[Archivo]">RoxyBrowser</span>
-        </NuxtLinkLocale>
+    <div class="bg-black/30 md:bg-black/25 backdrop-blur-md rounded-3">
+      <header 
+        :class="cn(
+          'box-border flex items-center justify-between h-12 text-white pl-2 pr-5', 
+          ''
+        )"
+      >
+        <div class="flex items-center gap-6">
+          <NuxtLinkLocale to="/" class="flex items-center gap-2">
+            <RxIcon name="base/rx_ic_logo" size="38" />
+            <span class="text-4 md:text-18px font-700 font-[Archivo]">RoxyBrowser</span>
+          </NuxtLinkLocale>
 
-        <menu class="items-center gap-3 hidden lg:flex">
-          <li 
-            class="menu-item menu-item-link" 
-            v-for="menu in mageMenus" :key="menu.title" 
-            @mouseenter="(e) => handleEnter(menu.value, e)"
-            @mouseleave="handleLeave"
-          >
-            <span class="text-14px">{{ menu.title }}</span>
-            <RxIcon 
-              name="base/rx_ic_chevron_down" :size="14" 
-            />
-          </li>
-          <li 
-            class="menu-item" 
-            v-for="menu in menus" 
-            :key="menu.title"
-          >
-            <NuxtLinkLocale :to="menu.link" class="menu-item-link color-inherit text-14px">
-              {{ menu.title }}
-            </NuxtLinkLocale>
-          </li>
-        </menu>
-      </div>
-
-      <div class="flex items-center gap-2">
-        
-        <RxDownloadMenu :model="langItems">
-          <template #default="{ toggle }">
-            <button 
-              class="gap-2 hidden lg:flex items-center cursor-pointer border-none bg-transparent text-inherit" 
-              @click="toggle"
+          <menu class="items-center gap-3 hidden lg:flex">
+            <li 
+              class="menu-item menu-item-link" 
+              v-for="menu in mageMenus" :key="menu.title" 
+              @mouseenter="(e) => handleEnter(menu.value, e)"
+              @mouseleave="handleLeave"
             >
+              <span class="text-14px">{{ menu.title }}</span>
               <RxIcon 
-                name="base/rx_ic_world" 
-                size="14" 
-                :color="textColor" 
+                name="base/rx_ic_chevron_down" :size="14" 
               />
-              <span class="text-14px text-inherit">{{ currentLang }}</span>
-            </button>
-          </template>
-        </RxDownloadMenu>
+            </li>
+            <li 
+              class="menu-item" 
+              v-for="menu in menus" 
+              :key="menu.title"
+            >
+              <NuxtLinkLocale :to="menu.link" class="menu-item-link color-inherit text-14px">
+                {{ menu.title }}
+              </NuxtLinkLocale>
+            </li>
+          </menu>
+        </div>
 
-        <button class="lg:hidden border-none bg-transparent">
-          <RxIcon 
-            :name="showMobileMenu ? 'base/rx_ic_delete' : 'base/rx_ic_menu'" 
-            class="cursor-pointer" 
-            @click="showMobileMenu = !showMobileMenu" 
-            :color="textColor"
-          />
-        </button>
+        <div class="flex items-center gap-2">
+          
+          <RxDownloadMenu :model="langItems">
+            <template #default="{ toggle }">
+              <button 
+                class="gap-2 hidden lg:flex items-center cursor-pointer border-none bg-transparent text-inherit" 
+                @click="toggle"
+              >
+                <RxIcon 
+                  name="base/rx_ic_world" 
+                  size="14" 
+                  :color="textColor" 
+                />
+                <span class="text-14px text-inherit">{{ currentLang }}</span>
+              </button>
+            </template>
+          </RxDownloadMenu>
 
-        <DevOnly>
-          <ToggleSwitch :value="isDark" @change="toggle" />
-        </DevOnly>
-      </div>
-    </header>
+          <button class="lg:hidden border-none bg-transparent">
+            <RxIcon 
+              :name="showMobileMenu ? 'base/rx_ic_delete' : 'base/rx_ic_menu'" 
+              class="cursor-pointer" 
+              @click="showMobileMenu = !showMobileMenu" 
+              :color="textColor"
+            />
+          </button>
+
+          <DevOnly>
+            <ToggleSwitch :value="isDark" @change="toggle" />
+          </DevOnly>
+        </div>
+      </header>
+
+      <MobileMenu v-model="showMobileMenu" />
+    </div>
   </div>
-
-  <MobileMenu v-model="showMobileMenu" />
-
+  
   <AnimatePresence>
     <motion.div
       v-if="showMageMenu"

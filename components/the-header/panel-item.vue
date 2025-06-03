@@ -5,7 +5,7 @@
   >
     <div class="relative z-2 flex gap-2 items-center">
       <span class="p-2 rounded-1 flex items-center justify-center">
-        <RxIcon :name="icon" size="20" />
+        <RxIcon :name="icon" size="20" color="#2E3A48" />
       </span>
       <h3 class="text-13px text-primary font-500">{{ title }}</h3>
       <!-- <div class="flex flex-col gap-1">
