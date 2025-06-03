@@ -1,7 +1,7 @@
 <template>
   <div class="py-4 fixed bottom-0 left-0 right-0 z-100 bg-white shadow-[0px_-2px_12px_0px_rgba(0,0,0,0.04)]" v-show="show">
     <div class="rx-header">
-      <div class="flex items-center justify-between gap-5 md:gap-10 xl:gap-20">
+      <div class="flex-col md:flex-row flex items-center justify-between gap-5 md:gap-10 xl:gap-20">
         <p class="text-[14px] leading-22px text-primary">
           <rx-i18n-t 
             :keypath="$t('我们使用 Cookie 和类似技术（包括第三方 Cookie）来提升您在我们网站上的体验。继续使用本网站，即表示您同意我们依据《{privacyPolicy}》收集和使用相关数据。', { 
@@ -12,7 +12,7 @@
             </template>
           </rx-i18n-t>
         </p>
-        <div class="flex-col md:flex-row flex items-center gap-3">
+        <div class="flex items-center gap-3">
           <button @click="accept" class="btn bg-[#11A3FD] text-white">
             {{ $t('接受所有 Cookie') }}
           </button>

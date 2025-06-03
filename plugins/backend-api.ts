@@ -1,15 +1,10 @@
 import { BaseApi, LimitApi, HttpClient } from "@roxy/backend-api";
 import { lang } from "@/store";
+import { backendMap } from "@/constants/langs";
 
 export default defineNuxtPlugin(() => {
   const { public: { apiUrl } } = useRuntimeConfig()
 
-  const map = {
-    zh: "zh-CN",
-    en: "en",
-    ru: "ru",
-  };
-  
   const httpClient = new HttpClient({
     baseURL: apiUrl as string,
   });
@@ -17,7 +12,7 @@ export default defineNuxtPlugin(() => {
   httpClient.instance.interceptors.request.use(async (config) => {
     if (import.meta.client) {
       config.headers.token = localStorage.getItem("token");
-      config.headers.language = map[lang.value];
+      config.headers.language = backendMap[lang.value];
     }
     config.headers.source = "web";
     return config;

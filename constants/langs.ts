@@ -39,3 +39,10 @@ export function isLanguageSupported(code: string): boolean {
 
 // 博客默认每页显示数量
 export const DEFAULT_BLOG_POST_LIMIT = 9;
+
+// 后端的映射处理
+export const backendMap = {
+  zh: "zh-CN",
+  en: "en",
+  ru: "ru",
+};

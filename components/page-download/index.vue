@@ -155,8 +155,8 @@ if (import.meta.client) {
 
 onMounted(async () => {
   try {
-    const result = await fetch(`${roxyHomeUrl}/app_statistics/get_official_website_data_config`)
-    if (result.code === 200) {
+    const result = await fetch(`${roxyHomeUrl}/app_statistics/get_official_website_version_data_config`)
+    if (result.ok) {
       const data = await result.json()
       if (data.code === 0 && data.data) {
         info.winReleaseTime = data.data?.winReleaseTime || defaultReleaseTime
