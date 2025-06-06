@@ -13,9 +13,11 @@ import { useCustomHead } from './hooks/useCustomHead'
 import { useRoxySeoMeta } from './hooks/useRoxySeoMeta'
 import TheFooter from '@/components/the-footer.vue'
 import BackTop from '@/components/back-top.vue'
+import { useIP123 } from '@/composables/useIP123'
 
 useCustomHead()
 useRoxySeoMeta()
+useIP123()
 
 const { locale } = useRxI18n()
 

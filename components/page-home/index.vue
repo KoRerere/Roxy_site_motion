@@ -99,7 +99,27 @@
             </div>
 
             <ClientOnly>
-              <Realtime />
+              <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-100px mt-20 list-none text-white">
+                <li class="flex flex-col gap-0 lg:gap-3">
+                  <p class="globe-text-label">
+                    {{ $t('已处理 API 请求数量') }}
+                  </p>
+                  <CountUp cache-key="hours-served" class="globe-text-value" /> 
+                </li>
+                <li class="flex flex-col gap-0 lg:gap-3">
+                  <p class="globe-text-label">
+                    {{ $t('实时保护窗口总数') }}
+                  </p>
+                  <CountUp cache-key="profiles-protected" class="globe-text-value" />
+                </li>
+                <li class="flex flex-col gap-0 lg:gap-3">
+                  <p class="globe-text-label">
+                    {{ $t('最近访问源自') }}
+                  </p>
+                  <LatestVisit class="globe-text-value" />
+                </li>
+              </ul>
+              <!-- <Realtime /> -->
             </ClientOnly>
 
             <p class="leading-[1.4] text-white/60 pt-20 pb-10 lg:pt-160px lg:pb-130px w-full md:w-60%">
@@ -182,6 +202,8 @@
 import HomeBg from "./components/HomeBg.vue";
 import RisingStar from "./components/RisingStar.vue";
 import { cityConnections } from "./components/city";
+import CountUp from './components/CountUp.vue'
+import LatestVisit from './components/LatestVisit.vue'
 import Realtime from './components/realtime/index.vue'
 import Media from './components/Media.vue'
 import Faq from '../../components/faq.vue'

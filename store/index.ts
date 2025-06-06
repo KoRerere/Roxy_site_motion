@@ -1,5 +1,7 @@
 import { ref } from 'vue';
 
+export const countryCode = ref<string | undefined>(undefined);
+
 export const lang = ref<'zh' | 'en' | 'ru'>('en');
 
 export const scrollYProgress = ref(0); 
