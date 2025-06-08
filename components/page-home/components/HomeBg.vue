@@ -5,19 +5,15 @@
       transform: `rotate3d(1, 0, 0, ${deg}deg) translateZ(0)`
     }"
   >
-    <picture>
-      <source :srcset="avif" type="image/avif">
-      <source :srcset="webp" type="image/webp">
-      <img :src="png" class="w-full aspect-[3088/2100] object-cover select-none" alt="" draggable="false" />
-    </picture>
+    <img :src="avif" class="w-full aspect-[3088/2100] object-cover select-none" alt="" draggable="false" />
   </div>
 </template>
 
 <script setup>
 import { useScroll, useMotionValueEvent } from "motion-v";
 import avif from '@/assets/images/app_screen.png?format=avif'
-import webp from '@/assets/images/app_screen.png?format=webp'
-import png from '@/assets/images/app_screen.png'
+// import webp from '@/assets/images/app_screen.png?format=webp'
+// import png from '@/assets/images/app_screen.png'
 
 useHead({
   link: [
