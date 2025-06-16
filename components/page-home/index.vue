@@ -99,7 +99,7 @@
             </div>
 
             <ClientOnly>
-              <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-100px mt-20 list-none text-white">
+              <!-- <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-100px mt-20 list-none text-white">
                 <li class="flex flex-col gap-0 lg:gap-3">
                   <p class="globe-text-label">
                     {{ $t('已处理 API 请求数量') }}
@@ -118,8 +118,8 @@
                   </p>
                   <LatestVisit class="globe-text-value" />
                 </li>
-              </ul>
-              <!-- <Realtime /> -->
+              </ul> -->
+              <Realtime />
             </ClientOnly>
 
             <p class="leading-[1.4] text-white/60 pt-20 pb-10 lg:pt-160px lg:pb-130px w-full md:w-60%">

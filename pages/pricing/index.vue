@@ -14,10 +14,12 @@
       </p> -->
     </Container>
 
+    <!-- 移动端 -->
     <div class="flex justify-center md:hidden mt-10 pb-6">
-      <PricingButtonGroup2  v-model="ratioValue" />
+      <PricingButtonGroupMobile  v-model="ratioValue" />
     </div>
 
+    <!-- PC端 -->
     <div class="hidden md:block mt-15">
       <PricingButtonGroup class="" v-model="ratioValue" />
     </div>
@@ -26,27 +28,6 @@
   <Container>
     <div class="hidden lg:flex justify-between mt-10">
       <h2>{{ $t('价格计算') }}</h2>
-      <!-- <div class="flex items-center gap-10px">
-        <div class="text-[#FC9D12] font-700">
-          <span class="text-sub-title font-500 text-primary mr-10px">{{ profile }}+5 {{ $t('窗口') }}</span>
-          <span class="text-6">$</span>
-          <span class="text-9">
-            {{ currency(monthPrice).format().replace('$', '') }}
-          </span>
-        </div>
-        <div class="flex flex-col gap-1">
-          <div class="text-sub-title text-primary font-[Archivo] flex items-center gap-1">
-            /{{ $t('月') }}
-            <div
-              @click="openHandler" 
-              @mouseenter="openHandler" 
-            >
-              <RxIcon name="base/rx_ic_info" />
-            </div>
-          </div>
-          <div class="text-[#FC9D12] text-3 py-2px px-1 bg-[#FFEEDC] rounded-1">{{ $t('节省') }} {{ currency(monthSave).format() }}</div>
-        </div>
-      </div> -->
     </div>
 
     <PanelLG 
@@ -81,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import PricingButtonGroup2 from '~/components/page-pricing/pricing-button-group2.vue'
+import PricingButtonGroupMobile from '~/components/page-pricing/pricing-button-group-mobile.vue'
 import PricingButtonGroup from '~/components/page-pricing/pricing-button-group.vue'
 import PricingTable from '~/components/page-pricing/pricing-table.vue'
 import PlayMode from '~/components/page-pricing/play-mode.vue'

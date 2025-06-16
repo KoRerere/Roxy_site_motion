@@ -529,7 +529,8 @@ const panelData = reactive({
 watchEffect(() => {
   const plan = moduleValue.value === 0 ? tierList.find(item => item.minWindows === 0)! : tierList.find(item => item.minWindows < moduleValue.value && item.maxWindows >= moduleValue.value)!;
   curPack.value = plan.subLevel;
-  bgLeft.value = packagesLeft.value[plan.subLevel];
+  // 边框导致的偏差
+  bgLeft.value = packagesLeft.value[plan.subLevel] + 1;
   panelData.price = plan.windowPrice;
   panelData.min = plan.minWindows;
   panelData.max = plan.maxWindows;
@@ -566,7 +567,8 @@ onMounted(() => {
       const dom = columnsRef.value[item.id];
       if (dom) {
         const rect = dom.getBoundingClientRect()
-        bgWidth.value = rect.width
+        // 边框导致的偏差
+        bgWidth.value = rect.width + 1
         // padding 20 + border
         packagesLeft.value[item.id] = rect.left - pricingRect.left - 22
       }

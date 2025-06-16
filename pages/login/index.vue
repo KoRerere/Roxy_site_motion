@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { provideLoginContext, type CurrentComp, type LoginCreatePayload } from '@/components/page-login/hooks/useLoginContext'; 
 import SignForm from '@/components/page-login/signForm.vue';
 import ResetPassword from '@/components/page-login/resetPassword.vue';
@@ -200,4 +200,7 @@ onUnmounted(() => timer && clearInterval(timer))
   line-height: 1;
 } 
 
-</style>
+</style> -->
+<template>
+  <PageDownload />
+</template>

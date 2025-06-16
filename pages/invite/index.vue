@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import Joined from '@/components/page-invite/joined.vue'
 import JoinWorkspace from '@/components/page-invite/join-workspace.vue'
 import qs from 'qs'
@@ -148,4 +148,7 @@ function onInviteSuccess() {
     transform: rotate(360deg);
   }
 }
-</style>
+</style> -->
+<template>
+  <PageDownload />
+</template>
