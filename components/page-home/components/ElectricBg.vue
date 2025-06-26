@@ -249,19 +249,19 @@ const variants6 = {
   }),
 };
 
-const rightRef = useTemplateRef('rightRef')
-const leftRef = useTemplateRef('leftRef')
+// const rightRef = useTemplateRef('rightRef')
+// const leftRef = useTemplateRef('leftRef')
 
-onMounted(() => {
-  const timer = setTimeout(() => {
-    rightRef.value.style.visibility = 'visible'
-    leftRef.value.style.visibility = 'visible'
-  }, 1500)
+// onMounted(() => {
+//   const timer = setTimeout(() => {
+//     rightRef.value?.style.visibility = 'visible'
+//     leftRef.value?.style.visibility = 'visible'
+//   }, 1500)
 
-  return () => {
-    clearTimeout(timer)
-  }
-})
+//   return () => {
+//     clearTimeout(timer)
+//   }
+// })
 </script>
 
 <style lang="scss" scoped>
@@ -271,7 +271,6 @@ onMounted(() => {
   z-index: 0;
   display: flex;
   flex-direction: column;
-  visibility: hidden;
 
   &.electric-bg-right {
     transform: translateX(calc(50vw)) translateZ(0);

@@ -22,8 +22,8 @@ const props = defineProps({
     default: '/download'
   },
   iconSize: {
-    type: String,
-    default: '24'
+    type: Number,
+    default: 24
   }
 })
 

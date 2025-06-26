@@ -356,6 +356,11 @@ export const os = [
 
 export const chromeVersion = [
   {
+    label: "RoxyChrome 137",
+    type: "coreVersion",
+    value: "137",
+  },
+  {
     label: "RoxyChrome 136",
     type: "coreVersion",
     value: "136",
