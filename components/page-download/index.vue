@@ -117,7 +117,7 @@ const downloadVersion = computed(() => {
     },
     {
       latestVersion: $t('最新版本：{version}', { version: info.macVersion }),
-      releaseDate: $t('发布日期：{date}', { date: info.macReleaseTime.replace(/\//g, '_') }),
+      releaseDate: $t('发布日期：{date}', { date: info.macReleaseTime }),
       download: [
         {
           fileName: `RoxyBrowser_apple_${info.macVersion}_${info.macReleaseTime.replace(/\//g, '_')}${downloadCode.value}.pkg`,
