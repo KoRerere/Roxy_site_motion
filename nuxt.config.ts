@@ -109,7 +109,7 @@ export default defineNuxtConfig({
       public: {
         ENV: 'development',
         apiUrl: 'https://lumitest.lumibrowser.com',
-        appDownloadUrl: 'https://lumitest.lumibrowser.com',
+        appDownloadUrl: 'https://gatetest.roxybrowser.co',
         LAUNCH_PROTOCOL: 'roxybrowser-dev:',
         roxyHomeUrl: 'https://lumitest.lumibrowser.com',
       }

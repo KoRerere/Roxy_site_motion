@@ -1,7 +1,7 @@
 <template>
   <div class="download-page relative">
     <img src="/bg-effect.svg" alt="" class="w-full absolute top-0 left-0 z-0 max-h-650px" />
-    
+
     <ClientOnly>
       <EffectBg />
     </ClientOnly>
@@ -11,9 +11,7 @@
         <div class="flex gap-10px px-4 py-2 rounded-full items-center bg-[#FFF]">
           <RxIcon name="base/rx_ic_dark" />
           <div class="text-black">
-            <rx-i18n-t 
-              :keypath="$t('RoxyBrowser 支持 {mode}', { mode: '{mode}' })" 
-            >
+            <rx-i18n-t :keypath="$t('RoxyBrowser 支持 {mode}', { mode: '{mode}' })">
               <template #mode>
                 <strong>{{ $t('深色模式') }}</strong>
               </template>
@@ -31,10 +29,7 @@
       </p>
 
       <div class="flex gap-4 sm:gap-5 flex-col items-center lg:flex-row justify-center pt-12">
-        <div 
-          v-for="item in downloadVersion" 
-          class="px-6 sm:px-8 py-8 flex flex-col items-center sm:items-start sm:flex-row gap-11 download-card"
-        >
+        <div v-for="item in downloadVersion" class="px-6 sm:px-8 py-8 flex flex-col items-center sm:items-start sm:flex-row gap-11 download-card">
           <div>
             <img :src="item.icon" draggable="false" class="select-none" />
           </div>
@@ -47,26 +42,17 @@
 
             <div class="flex gap-3">
               <template v-for="btn in item.download">
-                <DownloadBtn 
-                  v-if="btn.effect" 
-                  :to="btn.link" 
-                  target="_blank" 
-                  class="download-btn"
-                  :icon-size="16"
-                >
+                <DownloadBtn v-if="btn.effect" :to="btn.link" target="_blank" :download="btn.fileName" class="download-btn" :icon-size="16">
                   {{ btn.text }}
                 </DownloadBtn>
-                <div 
-                  v-else
-                  :class="cn('download-btn', btn.class)"
-                >
-                  <a :href="btn.link" target="_blank" class="text-14px flex items-center justify-center gap-2">
+                <div v-else :class="cn('download-btn', btn.class)">
+                  <a :href="btn.link" target="_blank" :download="btn.fileName" class="text-14px flex items-center justify-center gap-2">
                     <RxIcon name="base/rx_ic_download" />
                     {{ btn.text }}
                   </a>
                 </div>
               </template>
-              
+
             </div>
 
             <p class="whitespace-pre-line text-3 text-[#898989] leading-normal .dark:text-[#B6B6B6]">
@@ -89,7 +75,7 @@ import { RxIcon } from '@/components/rx-icon'
 import EffectBg from './EffectBg.vue'
 const downloadStyle = useCssModule('download')
 const { public: { appDownloadUrl, roxyHomeUrl } } = useRuntimeConfig()
-const { $t }  = useRxI18n()
+const { $t } = useRxI18n()
 
 const roxy_partner = ref('')
 const code = ref('')
@@ -104,6 +90,8 @@ const info = reactive({
   macVersion: defaultVersion,
 })
 
+const downloadCode = computed(() => code.value ? `-H-${code.value}` : '')
+
 const downloadVersion = computed(() => {
   return [
     {
@@ -111,13 +99,15 @@ const downloadVersion = computed(() => {
       releaseDate: $t('发布日期：{date}', { date: info.winReleaseTime }),
       download: [
         {
-          text: $t('64 bits'),
+          fileName: `RoxyBrowser_x64_${info.winVersion}_${info.winReleaseTime.replace(/\//g, '_')}${downloadCode.value}.exe`,
+          text: '64 bits',
           link: `${appDownloadUrl}/app-download/Windows-64-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.winVersion}`,
           class: downloadStyle['window-64'],
           effect: true
         },
         {
-          text: $t('32 bits'),
+          fileName: `RoxyBrowser_x86_${info.winVersion}_${info.winReleaseTime.replace(/\//g, '_')}${downloadCode.value}.exe`,
+          text: '32 bits',
           link: `${appDownloadUrl}/app-download/Windows-32-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.winVersion}`,
           class: downloadStyle['outlined']
         }
@@ -127,16 +117,18 @@ const downloadVersion = computed(() => {
     },
     {
       latestVersion: $t('最新版本：{version}', { version: info.macVersion }),
-      releaseDate: $t('发布日期：{date}', { date: info.macReleaseTime }),
+      releaseDate: $t('发布日期：{date}', { date: info.macReleaseTime.replace(/\//g, '_') }),
       download: [
         {
+          fileName: `RoxyBrowser_apple_${info.macVersion}_${info.macReleaseTime.replace(/\//g, '_')}${downloadCode.value}.pkg`,
           text: 'Apple Silicon',
           link: `${appDownloadUrl}/app-download/macOS-apple-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.macVersion}`,
           class: downloadStyle['apple-silicon'],
         },
         {
+          fileName: `RoxyBrowser_intel_${info.macVersion}_${info.macReleaseTime.replace(/\//g, '_')}${downloadCode.value}.pkg`,
           text: 'Intel',
-          link: `${appDownloadUrl}/app-download/macOS-intel-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.macVersion}`,  
+          link: `${appDownloadUrl}/app-download/macOS-intel-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.macVersion}`,
           class: downloadStyle['outlined']
         }
       ],
@@ -165,7 +157,7 @@ onMounted(async () => {
         info.macVersion = data.data?.macVersion || defaultVersion
       }
     }
-  } catch(error) {
+  } catch (error) {
 
   }
 })
