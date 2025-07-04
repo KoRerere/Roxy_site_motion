@@ -21,7 +21,7 @@ const props = defineProps<Props>()
 const { 
   size, 
   icon, 
-  iconColor = 'var(--Component-Colors-TextInput-text-text, #171c1f)', 
+  iconColor, 
   name
 } = toRefs(props)
 

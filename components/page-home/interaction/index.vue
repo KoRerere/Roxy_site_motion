@@ -25,7 +25,7 @@
                       v-model="chromeVersionValue" 
                       :filter="false" 
                       icon="base/rx_ic_chrome" 
-                      iconColor="#12a3fc" 
+                      icon-color="#12a3fc" 
                       :size="rxCompSize" 
                     />
                     <RxInputSelect 
@@ -215,14 +215,14 @@
 
 <script setup>
 import { RxInputSelect, RxInputText } from '#components';
-import { os, chromeVersion, proxyInfo, proxyType, platform, proxyList, projectList } from './config';
+import { os, chromeVersion as defaultChromeVersion, proxyInfo, proxyType, platform, proxyList, projectList } from './config';
 import InputNumberGroup from './input-number-group.vue';   
 import PanelTemp from './panel-temp.vue';
 import Wrapper from './wrapper.vue';
 import { RxIcon } from '@/components/rx-icon';
 
 const CSS = useCssModule('interaction');
-
+const { public: { roxyHomeUrl, ENV } } = useRuntimeConfig()
 const breakpoints = useRxBreakpoints();
 const lgWidth = breakpoints.smallerOrEqual('lg')
 
@@ -249,7 +249,8 @@ const osOptions = computed(() => {
 
 const osValue = ref(osOptions.value[0]);
 
-const chromeVersionValue = ref(chromeVersion[0]);
+const chromeVersion = ref([])
+const chromeVersionValue = ref();
 
 const proxyListValue = ref(proxyList[0]);
 
@@ -283,11 +284,25 @@ const platformOptions = computed(() => {
 })
 
 const platformValue = ref(platformOptions.value[0]);
-// const mount = ref(false)
 
-// onMounted(() => {
-//   mount.value = true
-// })
+onMounted(async () => {
+  try {
+    const result = await fetch(`${roxyHomeUrl}/app_statistics/get_official_core_version_data`)
+    if (result.ok) {
+      const data = await result.json()
+      if (data.code === 0 && data.data) {
+        chromeVersion.value = data.data.map(v => ({ label: `RoxyChrome ${v}`, value: v }));
+        chromeVersionValue.value = chromeVersion.value[0];
+      }
+    }
+  } finally {
+    if (!chromeVersion.value.length) {
+      // 接口请求失败或后端没有返回数据时的兜底
+      chromeVersion.value = defaultChromeVersion
+      chromeVersionValue.value = defaultChromeVersion.value[0];
+    }
+  }
+})
 </script>
 
 <style module="interaction">
