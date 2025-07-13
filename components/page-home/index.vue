@@ -227,7 +227,7 @@ const { $t } = useRxI18n()
 const { locale } = useRxI18n()
 
 const apiDocs = computed(() => {
-  return locale.value === 'zh' ? 'https://faq.roxybrowser.org/zh/guide/10-API' : 'https://faq.roxybrowser.org/en/guide/10-API'
+  return locale.value === 'zh' ? 'https://faq.roxybrowser.org/api-documentation/api-reference.html' : 'https://faq.roxybrowser.org/en/api-documentation/api-reference.html'
 })
 
 const Aurora = computed(() => {
