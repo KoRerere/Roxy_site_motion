@@ -16,7 +16,7 @@
             </div>
 
             <div class="flex flex-col gap-5">
-              <div v-for="item in AuthenticationInformation" :key="item.text" class="flex items-start gap-2">
+              <div v-for="item in AuthenticationInformation" :key="item.text" class="flex items-center gap-2">
                 <RxIcon :name="item.icon" />
                 {{ item.text }}
               </div>
@@ -30,6 +30,7 @@
                 <li v-for="i in item.list" :key="i.name">
                   <NuxtLinkLocale 
                     :to="i.link" 
+                    v-bind="i.aAttr || {}"
                     :class="cn(i.icon ? 'flex items-center gap-2' : '', i.class, 'font-300')"
                   >
                     <img v-if="i.icon" :src="i.icon" :alt="i.name" draggable="false" class="select-none" />
@@ -174,27 +175,42 @@ const footerList = computed(() => [
       {
         name: 'X',
         link: 'https://x.com/RoxyBrowser',
-        icon: '/footer/x.svg'
+        icon: '/footer/x.svg',
+        aAttr: {
+          target: '_blank'
+        }
       },
       {
         name: 'Youtube',
         link: 'https://www.youtube.com/@RoxyBrowser',
-        icon: '/footer/youtube.svg'
+        icon: '/footer/youtube.svg',
+        aAttr: {
+          target: '_blank'
+        }
       },
       {
         name: 'TikTok',
         link: 'https://tiktok.com/@roxybrowser',
-        icon: '/footer/tiktok.svg'
+        icon: '/footer/tiktok.svg',
+        aAttr: {
+          target: '_blank'
+        }
       },
       {
         name: 'Facebook',
         link: 'https://www.facebook.com/roxybrowser/',
-        icon: '/footer/facebook.svg'
+        icon: '/footer/facebook.svg',
+        aAttr: {
+          target: '_blank'
+        }
       },
       {
         name: 'Instagram',
         link: 'https://instagram.com/RoxyBrowser',
-        icon: '/footer/instagram.svg'
+        icon: '/footer/instagram.svg',
+        aAttr: {
+          target: '_blank'
+        }
       }
     ]
   }

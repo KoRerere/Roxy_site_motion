@@ -20,10 +20,10 @@ export const useMenuConfigs = () => {
   ])
   
   const menus = computed(() => [
-    // {
-    //   title: $t('博客'),
-    //   link: '/blog'
-    // },
+    {
+      title: $t('博客'),
+      link: '/blog'
+    },
     {
       title: $t('价格方案'),
       link: '/pricing'
@@ -104,10 +104,10 @@ export const useMenuConfigs = () => {
         
       ]
     },
-    // {
-    //   title: $t('博客'),
-    //   value: 'blog',
-    // },
+    {
+      title: $t('博客'),
+      value: 'blog',
+    },
     {
       title: $t('价格方案'),
       value: 'pricing',
