@@ -104,14 +104,14 @@ const footerList = computed(() => [
         name: $t('价格方案'),
         link: '/pricing'
       },
-      {
-        name: 'Windows',
-        link: '/download'
-      },
-      {
-        name: 'Mac',
-        link: '/download'
-      }
+      // {
+      //   name: 'Windows',
+      //   link: '/download'
+      // },
+      // {
+      //   name: 'Mac',
+      //   link: '/download'
+      // }
       // {
       //   name: $t('Linux（即将推出）'),
       //   link: '/download',
