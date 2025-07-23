@@ -1,9 +1,9 @@
 <template>
   <div class="mb-100px">
-    <p class="text-indent" style="text-indent: 2em;">
+    <p class="text-indent">
       Auto-Renewal Service Agreement (hereinafter referred to as "this Agreement"), as a supplement to the Roxybrowser User Agreement, is an integral part of it and forms a unified whole with it. In case of conflict between this Agreement and the Roxybrowser User Agreement, this Agreement shall prevail.
     </p>
-    <p class="mt-2" style="text-indent: 2em;">
+    <p class="mt-2">
       By using in any methods (including but limited to: Clicking to subscribe, opening, or using) the Roxybrowser Auto-Renewal Service (hereinafter referred to as the "Service"), you reach an agreement with Roxybrowser and voluntarily accept all the contents herein.
     </p>
 

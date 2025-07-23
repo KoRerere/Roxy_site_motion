@@ -326,6 +326,9 @@ export default defineNuxtConfig({
       },
       'JetBrains Mono': {
         wght: '400'
+      },
+      Heebo: {
+        wght: '400..500'
       }
     },
     display: 'block'

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <p><span class="date"><strong>Effective date:&nbsp; May&nbsp; 8(th),
-          2020</strong></span></p>
-    <p><span class="date"><strong>Update date:&nbsp; April 3(rd),
-          2024</strong></span></p>
-    <p>&nbsp;</p>
-    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Welcome to use our products and services! We are fully
+    <p>Welcome to use our products and services! We are fully
       aware of the importance of personal information to you, and we will comply with laws and
       regulations and take appropriate security protection measures to protect the security
       and controllability of your personal information. Based on this, RoxyBrowser service
@@ -25,8 +20,8 @@
       be bound by this Agreement. This Privacy Policy is an integral part of the RoxyBrowser
       service agreement signed between you and us (whether in electronic form or
       non-electronic form).</p>
-    <p><strong><span style="font-size: 14pt;">This privacy policy will help you understand the
-          following:</span></strong></p>
+
+    <h2>This privacy policy will help you understand the following:</h2>
     <p>1. Scope of application</p>
     <p>2. Information collection and use</p>
     <p>3. Providing information to external parties</p>
@@ -36,8 +31,8 @@
     <p>7. Protection of minors</p>
     <p>8. Contact us</p>
     <p>Appendix: Related Definitions</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>1. Scope of application</strong></span></p>
+
+    <h2>1. Scope of application</h2>
     <p>This policy applies to all products and services provided to you by RoxyBrowser service
       providers in the form of websites, software clients, and new forms that emerge with the
       development of technology. Except for the relevant information collection and use
@@ -45,9 +40,8 @@
       provided to you by RoxyBrowser's partners and other third parties. Other services are
       subject to the personal information collection and use rules separately explained to
       you.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>2. Information collection and use</strong></span>
-    </p>
+
+    <h2>2. Information collection and use</h2>
     <p>When you use our products/services, the personal information we need/may need to collect
       and use includes the following two types:</p>
     <ol>
@@ -67,9 +61,8 @@
       to use is different, the basic/additional functions and the corresponding types and
       scope of personal information collected and used will be different. Please use Specific
       product function modules and service functions shall prevail.</p>
-    <p>&nbsp;</p>
-    <p><strong><span style="font-size: 12pt;">The specific functional scenarios we will provide
-          you include but are not limited to:</span></strong></p>
+
+    <h2>The specific functional scenarios we will provide you include but are not limited to:</h2>
     <ol>
       <li>RoxyBrowser product free version, paid version and exclusive customized version
         function module service</li>
@@ -153,10 +146,9 @@
       use your other information, including the relevant information you provide when you
       contact customer service, and the questionnaire response information you send to us when
       you participate in the questionnaire.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>3. Providing information to external
-          parties</strong></span></p>
-    <p><strong><span style="font-size: 12pt;">(1) Sharing</span></strong></p>
+
+    <h2>3. Providing information to external parties</h2>
+    <h3>(1) Sharing</h3>
     <p>We will not share your personal information with companies, organizations and individuals
       other than RoxyBrowser service providers, except in the following circumstances:</p>
     <ol>
@@ -186,8 +178,8 @@
     <p>Please note that when using our services, you voluntarilyInformation shared or even
       shared publicly may involve personal information or even sensitive personal information
       of you or others. Please consider and make your decision more carefully.</p>
-    <p>&nbsp;</p>
-    <p><strong><span style="font-size: 12pt;">(2) Entrusted processing</span></strong></p>
+
+    <h3>(2) Entrusted processing</h3>
     <p>We may entrust authorized partners to process your personal information so that the
       authorized partners can provide you with certain services or perform functions on our
       behalf. We will only entrust them to process your information for the legal, legitimate,
@@ -208,15 +200,15 @@
         services are used, providing customer service, payment facilitation or academic
         performance. Research and investigate.</li>
     </ol>
-    <p>&nbsp;</p>
-    <p><strong><span style="font-size: 12pt;">(3) Transfer</span></strong></p>
+
+    <h3>(3) Transfer</h3>
     <p>If we need to transfer personal information due to merger, division, dissolution, or
       declaration of bankruptcy, we will inform you of the name and contact information of the
       recipient. The receiving party will continue to comply with this Policy and other legal
       obligations. If the receiving party changes the original processing purpose and
       processing method, it will obtain your consent again.</p>
-    <p>&nbsp;</p>
-    <p><strong><span style="font-size: 12pt;">(4) Public disclosure</span></strong></p>
+
+    <h3>(4) Public disclosure</h3>
     <p>We will only publicly disclose your personal information under the following
       circumstances</p>
     <p>1. Based on your active choice and other separate consent, we may publicly disclose your
@@ -226,16 +218,17 @@
       and property safety of RoxyBrowser platform users or the public from infringement, we
       may disclose your personal information, Including related violations and measures that
       the RoxyBrowser platform has taken against you.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>4. Your Rights</strong></span></p>
+
+    <h2>4. Your Rights</h2>
     <p>You can view and manage your information in the following ways, and we will respond to
       your request in compliance with legal and regulatory requirements:</p>
-    <p><span style="font-size: 12pt;"><strong>(1) Review, correction and
-          addition</strong></span></p>
+
+    <h3>(1) Review, correction and addition</h3>
     <p>You have the right to request to review, correct and supplement your information through
       the official website customer service or through support.RoxyBrowser.net (the help page
       address will be changed after it is made).</p>
-    <p><strong><span style="font-size: 12pt;">(2) Delete</span></strong></p>
+
+    <h3>(2) Delete</h3>
     <p>You can delete some of your information through the path listed in "(1) Check, correct
       and supplement your information", or apply to cancel your account to delete all of your
       information.</p>
@@ -259,8 +252,8 @@
       applicable legal and security technical restrictions. We will securely store your
       personal information and limit its use. Any further processing until the backup can be
       purged or anonymized.</p>
-    <p><span style="font-size: 12pt;"><strong>(3) Change the scope of
-          authorization</strong></span></p>
+
+    <h3>(3) Change the scope of authorization</h3>
     <p>You can change or withdraw the scope of your authorization for us to collect and process
       your personal information in the following ways: You can authorize and manage the
       binding relationship through "My-Account and Security".</p>
@@ -272,19 +265,20 @@
       you withdraw your authorization, we will no longer process the corresponding personal
       information. However, your decision to withdraw your authorization will not affect our
       previous processing of personal information based on your authorization.</p>
-    <p><span style="font-size: 12pt;"><strong>(4) Cancel account</strong></span></p>
+
+    <h3>(4) Cancel account</h3>
     <p>If you are sure that you will no longer use our products or services and you want to
       cancel your account, you can make your account cancellation request through the official
-      website customer service or contact us at support@RoxyBrowser.net. After you make a
+      website customer service or contact us at <a href="mailto:support@RoxyBrowser.com" class="text-blue-500 hover:underline">support@RoxyBrowser.com</a>. After you make a
       cancellation request, we will stop providing products or services to you, and delete or
       anonymize your personal information in accordance with the requirements of the law.</p>
-    <p><span style="font-size: 12pt;"><strong>(5) Constraining automatic decision-making of
-          information systems</strong></span></p>
+
+    <h3>(5) Constraining automatic decision-making of information systems</h3>
     <p>In some business functions, we may make decisions solely based on non-human automated
       decision-making mechanisms, including algorithms. If these decisions affect your
       legitimate rights and interests, you can contact us through customer service.</p>
-    <p><span style="font-size: 12pt;"><strong>(6) Respond to your above request</strong></span>
-    </p>
+
+    <h3>(6) Respond to your above request</h3>
     <p>For the above requests made by you or your possible guardians, close relatives and other
       entitled persons to us, as well as your relevant personal information rights stipulated
       in the laws of the People's Republic of China and other applicable laws, you can contact
@@ -301,8 +295,8 @@
       develop a new system or fundamentally change current practices), poses risks to the
       legitimate rights and interests of others, or is ineffective. Actual requests may be
       denied by us.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>5. Storage of information</strong></span></p>
+
+    <h2>5. Storage of information</h2>
     <p>We will only retain your personal information for the period necessary to achieve the
       purposes stated in this policy, unless there are mandatory retention requirements by
       law, such as the E-Commerce Law of the People's Republic of China requiring the
@@ -324,8 +318,8 @@
     <p>We have adopted reasonable and feasible security measures that comply with industry
       standards to protect your information and prevent personal information from unauthorized
       access, public disclosure, use, modification, damage or loss.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>6. Policy updates</strong></span></p>
+
+    <h2>6. Policy updates</h2>
     <p>In order to bring you a better product and service experience, we continue to work hard
       to improve our products, services and technology. When new services and business
       processes change, we may update our privacy policy to inform you of the specific
@@ -334,8 +328,8 @@
     <p>For major changes, we will also provide more prominent notifications (including
       notifications through announcements on the RoxyBrowser website or providing you with
       pop-up prompts).</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>7. Protection of minors</strong></span></p>
+
+    <h2>7. Protection of minors</h2>
     <p>RoxyBrowser's services are primarily intended for adults. If you are a minor in
       accordance with applicable laws, please be sure to carefully read the privacy policy and
       this privacy policy of the developer or advertiser application under the supervision and
@@ -352,25 +346,17 @@
     <p>If you are a parent or other guardian of a minor, if you have any questions about the
       personal information of the minor under your custody, please contact us through the
       contact information disclosed in this privacy policy.</p>
-    <p><strong>8. Contact us</strong></p>
+
+    <h2>8. Contact us</h2>
     <p>You can contact us through the following methods and we will respond to your request as
       soon as possible:</p>
     <p>If you have any questions, comments or suggestions about the content of this policy, you
       can contact us through RoxyBrowser online customer service; please note that we may not
       reply to questions unrelated to this policy or your personal information rights.</p>
+
+    <p class="mt-10">
+      Effective date:
+      <strong>May&nbsp; 8(th), 2020</strong>
+    </p>
   </div>
 </template>
-
-<script setup>
-
-</script>
-
-<style lang="scss" scoped>
-.date {
-  font-size: 16px;
-}
-
-p {
-  margin-bottom: 24px;
-}
-</style>

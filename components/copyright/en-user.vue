@@ -1,12 +1,6 @@
 <template>
   <div>
-    <p>&nbsp; &nbsp; &nbsp; &nbsp;</p>
-    <p><span class="date"><strong>Effective date: &nbsp; May&nbsp; 8(th),
-          2020</strong></span></p>
-    <p><span class="date"><strong>Update date:&nbsp; April 3(rd),
-          2024</strong></span></p>
-    <p>&nbsp;</p>
-    <p>&nbsp; &nbsp; &nbsp; &nbsp;In order to protect the security of your account and for
+    <p>In order to protect the security of your account and for
       RoxyBrowser to better provide you with services, you agree that RoxyBrowser will use the
       face recognition verification function to verify your identity before providing some
       products and services. The identity of the user is authenticated to verify whether the
@@ -24,9 +18,10 @@
       technical level. The recognition results provided by RoxyBrowser are for your reference
       only. Other decisions you make or other actions you perform based on the face
       recognition results are inconsistent with RoxyBrowser. It has nothing to do with and
-      RoxyBrowser assumes no responsibility.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>1. Account Terms</strong></span></p>
+      RoxyBrowser assumes no responsibility.
+    </p>
+    
+    <h2>1. Account Terms</h2>
     <p>You must be at least 18 years old to register for a RoxyBrowser account, or otherwise
       qualified to enter into legally binding contracts in your region. Those under the age of
       18 should register for a RoxyBrowser account with the consent of a parent or guardian.
@@ -57,8 +52,8 @@
       that appear on the service, you should carefully judge their authenticity and
       reliability. Except as required by law, you should be responsible for relevant
       transactions.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>2. Prohibited Behavior</strong></span></p>
+
+    <h2>2. Prohibited Behavior</h2>
     <p>You shall abide by the provisions of any applicable laws and regulations, and shall not
       use RoxyBrowser's services and accounts to conduct behaviors including but not limited
       to the following, nor shall you facilitate the following behaviors:</p>
@@ -111,23 +106,23 @@
       shall also and compensate. If RoxyBrowser has previously assumed relevant
       responsibilities due to effective judgments, awards, etc., RoxyBrowser has the right to
       recover full compensation from you.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>3. Fee terms</strong></span></p>
+
+    <h2>3. Fee terms</h2>
     <p>Visit our Payment Policy page for prices and latest offers on all our services. Some
       features of RoxyBrowser are free and some are only available for a fee. If you agree to
       our payment policy and order related features, you commit to paying for the relevant
       features. Prices for all Services (including, but not limited to, monthly subscription
       plan fees for Software) are subject to change. Pricing changes will be posted to
-      https://www.RoxyBrowser.net/pricing or the software itself.</p>
+      <NuxtLinkLocale to="/pricing" class="text-blue-500 hover:underline">https://www.roxybrowser.com/pricing</NuxtLinkLocale> or the software itself.</p>
     <p>We reserve the right to change or discontinue the Service (or any part thereof) at any
       time or from time to time. RoxyBrowser shall not be liable to you or any third party for
       any modification, price change, suspension or discontinuance of the Service.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>4. Refund Policy</strong></span></p>
+
+    <h2>4. Refund Policy</h2>
     <p>RoxyBrowser offers pre-recharge subscription packages, and there are no refunds for any
       paid services. Please note that all payments are final.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>5. Termination of Agreement</strong></span></p>
+
+    <h2>5. Termination of Agreement</h2>
     <p>This Agreement will be effective from the date you accept these Terms of Use and will be
       in effect until terminated by either party. RoxyBrowser reserves the right to suspend or
       terminate your account or services at any time and for any reason, which may result in
@@ -136,14 +131,14 @@
       not assume any liability for compensation. RoxyBrowser reserves the right to refuse
       service to anyone for any reason at any time.</p>
     <p>You can contact us at any time through the official website customer service or at
-      support@RoxyBrowser.net. Please note that upon termination of your account, access to
+      <a href="mailto:support@RoxyBrowser.com" class="text-blue-500 hover:underline">support@RoxyBrowser.com</a>. Please note that upon termination of your account, access to
       certain parts of our website or services may be immediately prohibited. We have the
       right to terminate this agreement with you if the following circumstances occur:</p>
     <p>1) You violate any applicable laws when using our website or services;</p>
     <p>2) You violate this Agreement or the terms of the website or service;</p>
     <p>3) We believe that any of your actions harms our business interests legally.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>6. Intellectual Property</strong></span></p>
+
+    <h2>6. Intellectual Property</h2>
     <p>All content, design, text, graphics, images, logos, buttons, icons, interfaces, audio and
       video, and all permutations and combinations of the above content on the RoxyBrowser
       website or products are exclusive to RoxyBrowser or its corresponding content providers
@@ -157,9 +152,8 @@
       be used on any non-RoxyBrowser products or services, or any other products or services
       that cause confusion among consumers, or in any way disparage or discredit RoxyBrowser.
     </p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>7. Confidentiality and Feedback</strong></span>
-    </p>
+
+    <h2>7. Confidentiality and Feedback</h2>
     <p>We value your privacy and our Privacy Policy is incorporated into this Agreement. Please
       review our Privacy Policy so that you can understand our privacy practices. All
       information we collect is subject to our Privacy Policy, and by using the Site or
@@ -174,8 +168,8 @@
       agree to transfer all rights in the Feedback, including but not limited to title and
       interest and related intellectual property rights, to RoxyBrowser worldwide without
       charge, and agree to assist us in improving and exercising these rights.</p>
-    <p>&nbsp;</p>
-    <p><span style="font-size: 14pt;"><strong>8. Disclaimer</strong></span></p>
+
+    <h2>8. Disclaimer</h2>
     <p>We recommend that you back up your data frequently. It is always your responsibility to
       mitigate your losses. This software is not fault tolerant and is not designed or
       intended for use in any hazardous environment where safe performance or operation is
@@ -197,25 +191,15 @@
       kind, including, but not limited to, direct or indirect damages arising out of the use,
       performance or delivery of RoxyBrowser, even if RoxyBrowser has been advised of the
       existence or possibility of such damage.</p>
-    <p>&nbsp;</p>
     <p>Some states do not allow the limitation or exclusion of liability for incidental or
       consequential damages, so the above limitation or exclusion may not apply to you. In no
       event will our liability exceed the purchase price you paid for RoxyBrowser. The above
       disclaimers and limitations apply regardless of whether you accept to use, evaluate, or
       test RoxyBrowser.</p>
+
+    <p class="mt-10">
+      Effective date:
+      <strong>May&nbsp; 8(th), 2020</strong>
+    </p>
   </div>
 </template>
-
-<script setup>
-
-</script>
-
-<style lang="scss" scoped>
-.date {
-  font-size: 16px;
-}
-
-p {
-  margin-bottom: 24px;
-}
-</style>
