@@ -5,6 +5,8 @@ import FeaturesPanel from './features-panel.vue';
 export const useMenuConfigs = () => {
   const { $t } = useRxI18n()
   const switchLanguage = useSwitchLanguage()
+  const { public: { ENV } } = useRuntimeConfig()
+  const isDev = ENV === 'development'
   
   const mageMenus = computed(() => [
     {
@@ -19,20 +21,27 @@ export const useMenuConfigs = () => {
     }
   ])
   
-  const menus = computed(() => [
-    {
-      title: $t('博客'),
-      link: '/blog'
-    },
-    {
-      title: $t('价格方案'),
-      link: '/pricing'
-    },
-    {
-      title: $t('下载'),
-      link: '/download'
+  const menus = computed(() => {
+    const __menus = [
+      {
+        title: $t('价格方案'),
+        link: '/pricing'
+      },
+      {
+        title: $t('下载'),
+        link: '/download'
+      }
+    ]
+
+    if (isDev) {
+      __menus.unshift({
+        title: $t('博客'),
+        link: '/blog'
+      })
     }
-  ])
+
+    return __menus
+  })
   
   const mobileMenus = [
     {
