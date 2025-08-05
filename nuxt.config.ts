@@ -37,14 +37,15 @@ const prerender = [
   '/invite', 
   '/login', 
   '/no-auth', 
-  '/solutions/privacy-defense',
-  '/solutions/social-networks',
-  '/solutions/affiliate-market',
-  '/solutions/web-scraping',
-  '/solutions/e-commerce',
-  '/solutions/crypto-gains',
-  '/solutions/traffic-trade',
-  '/solutions/ad-strategy',
+  // '/solutions/privacy-defense',
+  // '/solutions/social-networks',
+  // '/solutions/affiliate-market',
+  // '/solutions/web-scraping',
+  // '/solutions/e-commerce',
+  // '/solutions/crypto-gains',
+  // '/solutions/traffic-trade',
+  // '/solutions/ad-strategy',
+  '/use-cases/**',
 ]
 const ssr = ['/blog/**']
 
@@ -116,13 +117,14 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    '@primevue/nuxt-module',
-    '@nuxtjs/google-fonts',
-    '@unocss/nuxt',
-    '@nuxtjs/i18n',
-    '@nuxtjs/seo',
-    'motion-v/nuxt',
-    '@nuxtjs/robots'
+    '@primevue/nuxt-module', 
+    '@nuxtjs/google-fonts', 
+    '@unocss/nuxt', 
+    '@nuxtjs/i18n', 
+    '@nuxtjs/seo', 
+    'motion-v/nuxt', 
+    '@nuxtjs/robots',
+    '@nuxt/image'
   ],
   robots: {
     disallow: isDev ? '/' : ['/anbin', '/login', '/figma-icons'],
@@ -316,6 +318,9 @@ export default defineNuxtConfig({
       fallbackLocale: 'en',
     }
   },
+  image: {
+    provider: 'ipx'
+  },
   googleFonts: {
     families: {
       Archivo: {
@@ -329,7 +334,10 @@ export default defineNuxtConfig({
       },
       Heebo: {
         wght: '400..500'
-      }
+      },
+      // Inter: {
+      //   wght: '400..700'
+      // }
     },
     display: 'block'
   },

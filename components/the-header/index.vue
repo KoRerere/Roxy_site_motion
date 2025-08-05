@@ -1,6 +1,6 @@
 <template>
   <div class="rx-header fixed top-5 md:top-6 left-0 right-0 z-100">
-    <div class="bg-black/30 md:bg-black/25 backdrop-blur-md rounded-3">
+    <div class="bg-[rgba(12,26,49,0.3)] md:bg-[rgba(12,26,49,0.25)] backdrop-blur-md rounded-3">
       <header 
         :class="cn(
           'box-border flex items-center justify-between h-12 text-white pl-2 pr-5', 

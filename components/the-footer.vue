@@ -2,13 +2,11 @@
   <div class="dark:bg-[#1E1C31] bg-white">
     <div class="bg-[#1E1C31] text-white flex items-center flex-col rounded-t-4">
       <Container class="max-xl:w-full">
-        <footer 
-          :class="cn(
-            'pt-6 md:pt-54px pb-8 md:pb-10',
-            'flex flex-col lg:flex-row gap-70px md:gap-6 border-white/10 text-14px',
-            'border-b-1 border-t-0 border-l-0 border-r-0 border-solid'
-          )"
-        >
+        <footer :class="cn(
+          'pt-6 md:pt-54px pb-8 md:pb-10',
+          'flex flex-col lg:flex-row gap-70px md:gap-6 border-white/10 text-14px',
+          'border-b-1 border-t-0 border-l-0 border-r-0 border-solid'
+        )">
           <div class="w-full md:w-280px xl:w-412px flex flex-col gap-2 xl:pr-90px">
             <div class="relative -left-5px flex items-center gap-2">
               <RxIcon name="base/rx_ic_logo" size="38" />
@@ -17,7 +15,7 @@
 
             <div class="flex flex-col gap-5">
               <div v-for="item in AuthenticationInformation" :key="item.text" class="flex items-center gap-2">
-                <RxIcon :name="item.icon" />
+                <RxIcon :name="(item.icon as any)" />
                 {{ item.text }}
               </div>
             </div>
@@ -28,11 +26,7 @@
               <div class="mb-5 text-4 font-600">{{ item.title }}</div>
               <ul class="list-none flex flex-col gap-4">
                 <li v-for="i in item.list" :key="i.name">
-                  <NuxtLinkLocale 
-                    :to="i.link" 
-                    v-bind="i.aAttr || {}"
-                    :class="cn(i.icon ? 'flex items-center gap-2' : '', i.class, 'font-300')"
-                  >
+                  <NuxtLinkLocale :to="i.link" v-bind="i.aAttr || {}" :class="cn(i.icon ? 'flex items-center gap-2' : '', i.class, 'font-300')">
                     <img v-if="i.icon" :src="i.icon" :alt="i.name" draggable="false" class="select-none" />
                     {{ i.name }}
                   </NuxtLinkLocale>
@@ -120,27 +114,27 @@ const footerList = computed(() => [
     ]
   },
   {
-    title: $t('解决方案').toLocaleUpperCase(),
+    title: $t('应用场景').toLocaleUpperCase(),
     list: [
       {
-        name: $t('数据采集'),
-        link: '/solutions/web-scraping'
+        name: $t('SEO优化'),
+        link: '/use-cases/seo-content-marketing'
       },
       {
-        name: $t('电子商务'),   
-        link: '/solutions/e-commerce'
+        name: $t("广告投放"),
+        link: "/use-cases/paid-search-advertising",
       },
       {
-        name: $t('加密收益'),
-        link: '/solutions/crypto-gains'
+        name: $t('社媒运营'),
+        link: '/use-cases/social-media-marketing',
       },
       {
-        name: $t('流量获利'),
-        link: '/solutions/traffic-trade'
+        name: $t('电商运营'),
+        link: '/use-cases/ecommerce-marketing',
       },
       {
-        name: $t('广告策略'),
-        link: '/solutions/ad-strategy'
+        name: $t('加密货币'),
+        link: '/use-cases/cryptocurrency-trading',
       }
     ]
   },
@@ -227,4 +221,3 @@ onMounted(() => {
   background-image: linear-gradient(180deg, #E9F2FE 0%, #F5F9FF 100%), linear-gradient(0deg, #D8ECFD 0%, #D8ECFD 100%), linear-gradient(90deg, #E6F2FD 0%, #E6F2FD 100%);
 }
 </style>
-

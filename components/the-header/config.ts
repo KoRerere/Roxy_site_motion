@@ -1,6 +1,7 @@
 import { computed } from 'vue';
 import SolutionsPanel from './solutions-panel.vue';
 import FeaturesPanel from './features-panel.vue';
+import UseCasesPanel from './use-cases-panel.vue';
 
 export const useMenuConfigs = () => {
   const { $t } = useRxI18n()
@@ -9,10 +10,15 @@ export const useMenuConfigs = () => {
   const isDev = ENV === 'development'
   
   const mageMenus = computed(() => [
+    // {
+    //   title: $t('解决方案'),
+    //   value: 'solutions',
+    //   component: SolutionsPanel,
+    // },
     {
-      title: $t('解决方案'),
-      value: 'solutions',
-      component: SolutionsPanel,
+      title: $t('应用场景'),
+      value: 'use-cases',
+      component: UseCasesPanel,
     },
     {
       title: $t('产品功能'),
@@ -45,40 +51,43 @@ export const useMenuConfigs = () => {
   
   const mobileMenus = [
     {
-      title: $t('解决方案'),
-      value: 'solutions',
+      title: $t('应用场景'),
+      value: 'use-cases',
       children: [
         {
-          title: $t('隐私防护'),
-          value: 'privacy-defense',
+          icon: "menu/traffic-trade",
+          title: $t('SEO优化'),
+          value: 'seo-content-marketing',
         },
         {
-          title: $t('社交网络'),
-          value: 'social-networks',
+          icon: "menu/ad-strategy",
+          title: $t('广告投放'),
+          value: 'paid-search-advertising',
         },
         {
+          icon: "menu/social-networks",
+          title: $t('社媒运营'),
+          value: 'social-media-marketing',
+        },
+        {
+          icon: "menu/e-commerce",
+          title: $t('电商运营'),
+          value: 'ecommerce-marketing',
+        },
+        {
+          icon: "menu/affiliate-market",
           title: $t('联盟营销'),
-          value: 'affiliate-market',
+          value: 'affiliate-marketing',
         },
         {
-          title: $t('数据采集'),
+          icon: 'menu/web-spcraping',
+          title: $t('数据爬取'),
           value: 'web-scraping',
         },
         {
-          title: $t('电子商务'),
-          value: 'e-commerce',
-        },
-        {
-          title: $t('加密收益'),
-          value: 'crypto-gains',
-        },
-        {
-          title: $t('流量获利'),
-          value: 'traffic-trade',
-        },
-        {
-          title: $t('广告策略'),
-          value: 'ad-strategy',
+          icon: "menu/crypto-gains",
+          title: $t('加密货币'),
+          value: 'cryptocurrency-trading',
         }
       ]
     },
@@ -130,7 +139,7 @@ export const useMenuConfigs = () => {
       value: 'language',
       children: [
         {
-          title: $t('English'),
+          title: 'English',
           value: 'en',
           click: () => {
             switchLanguage('en')

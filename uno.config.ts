@@ -25,6 +25,7 @@ export default defineConfig({
     colors: {
       primary: 'var(--color-text-primary)',
       secondary: 'var(--color-text-secondary)',
+      tertiary: 'var(--color-text-tertiary)',
       inactive: 'var(--color-text-inactive)',
     },
     fontSize: {
@@ -60,6 +61,7 @@ export default defineConfig({
         :root {
           --color-text-primary: #111213;
           --color-text-secondary: #34393D;
+          --color-text-tertiary: #575D60;
           --color-text-inactive: #7D8387;
 
           --Heading-H1: 56px;
@@ -98,7 +100,7 @@ export default defineConfig({
     'ellipsis-1': 'text-ellipsis overflow-hidden whitespace-nowrap',
     'position-y-center': 'absolute top-1/2 transform -translate-y-1/2',
     'position-x-center': 'absolute left-1/2 transform -translate-x-1/2',
-    'rx-container': 'xl:w-[1280px] xl:mx-auto 2xl:px-0 px-5 md:px-40px lg:px-60px xl:px-0',
+    'rx-container': 'xl:w-[1280px] xl:mx-auto 2xl:px-0 px-4 md:px-40px lg:px-60px xl:px-0',
     'rx-header': 'xl:max-w-[1320px] xl:mx-auto px-12px md:px-20px lg:px-40px xl:px-0',
     'fqa-container': 'xl:w-[1064px] xl:mx-auto 2xl:px-0 px-5 sm:px-10 sm:pt-60px pb-10 sm:pb-20',
     'section-title': 'text-6 leading-[1.2] sm:text-8 lg:text-h2 font-700 font-[Archivo]'
