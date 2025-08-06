@@ -73,93 +73,28 @@
 <script setup>
 import { RxIcon } from '@/components/rx-icon'
 import EffectBg from './EffectBg.vue'
-const downloadStyle = useCssModule('download')
-const { public: { appDownloadUrl, roxyHomeUrl } } = useRuntimeConfig()
+
 const { $t } = useRxI18n()
-
-const roxy_partner = ref('')
-const code = ref('')
-
-const defaultReleaseTime = '2025/05/30'
-const defaultVersion = '3.4.9'
-
-const info = reactive({
-  winReleaseTime: defaultReleaseTime,
-  winVersion: defaultVersion,
-  macReleaseTime: defaultReleaseTime,
-  macVersion: defaultVersion,
-})
-
-const downloadCode = computed(() => code.value ? `-H-${code.value}` : '')
+const { getDownloadVersions, initializeDownload } = useDownload()
+const downloadStyle = useCssModule('download')
 
 const downloadVersion = computed(() => {
-  return [
-    {
-      latestVersion: $t('最新版本：{version}', { version: info.winVersion }),
-      releaseDate: $t('发布日期：{date}', { date: info.winReleaseTime }),
-      download: [
-        {
-          fileName: `RoxyBrowser_x64_${info.winVersion}_${info.winReleaseTime.replace(/\//g, '_')}${downloadCode.value}.exe`,
-          text: '64 bits',
-          link: `${appDownloadUrl}/app-download/Windows-64-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.winVersion}`,
-          class: downloadStyle['window-64'],
-          effect: true
-        },
-        {
-          fileName: `RoxyBrowser_x86_${info.winVersion}_${info.winReleaseTime.replace(/\//g, '_')}${downloadCode.value}.exe`,
-          text: '32 bits',
-          link: `${appDownloadUrl}/app-download/Windows-32-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.winVersion}`,
-          class: downloadStyle['outlined']
-        }
-      ],
-      p: $t('最低版本要求：\nWindows 10 或更高版本。'),
-      icon: '/download/os_windows.svg'
-    },
-    {
-      latestVersion: $t('最新版本：{version}', { version: info.macVersion }),
-      releaseDate: $t('发布日期：{date}', { date: info.macReleaseTime }),
-      download: [
-        {
-          fileName: `RoxyBrowser_apple_${info.macVersion}_${info.macReleaseTime.replace(/\//g, '_')}${downloadCode.value}.pkg`,
-          text: 'Apple Silicon',
-          link: `${appDownloadUrl}/app-download/macOS-apple-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.macVersion}`,
-          class: downloadStyle['apple-silicon'],
-        },
-        {
-          fileName: `RoxyBrowser_intel_${info.macVersion}_${info.macReleaseTime.replace(/\//g, '_')}${downloadCode.value}.pkg`,
-          text: 'Intel',
-          link: `${appDownloadUrl}/app-download/macOS-intel-latest?roxy-partner=${roxy_partner.value}&code=${code.value}&version=${info.macVersion}`,
-          class: downloadStyle['outlined']
-        }
-      ],
-      p: $t('最低版本要求：\nmacOS 10.12 或更高版本。'),
-      icon: '/download/os_macOS.svg'
-    }
-  ]
+  const versions = getDownloadVersions.value
+  return versions.map((version, index) => ({
+    ...version,
+    download: version.download.map((item, itemIndex) => ({
+      ...item,
+      class: index === 0 && itemIndex === 0 ? downloadStyle['window-64'] :
+        index === 1 && itemIndex === 0 ? downloadStyle['apple-silicon'] :
+          downloadStyle['outlined']
+    }))
+  }))
 })
 
-if (import.meta.client) {
+onMounted(() => {
   setTimeout(() => {
-    roxy_partner.value = sessionStorage.getItem('roxy_partner') || ''
-    code.value = sessionStorage.getItem('code') || ''
+    initializeDownload()
   }, 1000)
-}
-
-onMounted(async () => {
-  try {
-    const result = await fetch(`${roxyHomeUrl}/app_statistics/get_official_website_version_data_config`)
-    if (result.ok) {
-      const data = await result.json()
-      if (data.code === 0 && data.data) {
-        info.winReleaseTime = data.data?.winReleaseTime || defaultReleaseTime
-        info.winVersion = data.data?.winVersion || defaultVersion
-        info.macReleaseTime = data.data?.macReleaseTime || defaultReleaseTime
-        info.macVersion = data.data?.macVersion || defaultVersion
-      }
-    }
-  } catch (error) {
-
-  }
 })
 </script>
 

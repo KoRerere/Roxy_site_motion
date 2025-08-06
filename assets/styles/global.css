@@ -17,6 +17,8 @@ a {
 html, body {
   touch-action: manipulation;
   position: relative;
+  -webkit-font-smoothing: antialiased; /*chrome、safari*/
+  -moz-osx-font-smoothing: grayscale;/*firefox*/
 }
 
 html, body, div, span, applet, object, iframe,

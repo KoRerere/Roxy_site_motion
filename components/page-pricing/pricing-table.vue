@@ -59,7 +59,7 @@
             <template v-else>
               <span class="text-sub-title font-500 text-primary">{{ $t('5个免费窗口') }}</span>
             </template>
-            <DownloadBtn class="mr-5 !py-10px !px-22px">{{ $t('立即下载') }}</DownloadBtn>
+            <DownloadBtn class="mr-5 !py-10px !px-22px" auto-download>{{ $t('立即下载') }}</DownloadBtn>
           </div>
         </div>
       </div>

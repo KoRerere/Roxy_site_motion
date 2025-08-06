@@ -44,7 +44,7 @@
 
             <div class="flex justify-center mt-5 md:mt-0">
               <div class="flex flex-col md:flex-row gap-y-5 gap-x-3 justify-center">
-                <DownloadBtn>
+                <DownloadBtn auto-download>
                   {{ $t('立即下载') }}
                 </DownloadBtn>
 
