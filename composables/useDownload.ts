@@ -160,8 +160,32 @@ export const useDownload = () => {
   /**
    * 检测用户平台
    */
-  const detectPlatform = (): Platform | null => {
+  const detectPlatform = async (): Promise<Platform | null> => {
     if (typeof window === 'undefined') return null
+
+    // 优先使用 navigator.userAgentData.getHighEntropyValues 来获取系统信息
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      const data = await navigator.userAgentData.getHighEntropyValues(["architecture", "bitness", "wow64"])
+      if (data.platform === 'macOS') {
+        if (data.architecture === 'arm') {
+          return 'macOS-apple'
+        } else {
+          return 'macOS-intel'
+        }
+      }
+
+      if (data.platform === 'Windows') {
+        if (data.wow64) {  // 32位程序运行在64位系统上
+          return 'Windows-64'
+        }
+
+        if (data.bitness === '64') {
+          return 'Windows-64'
+        } else if (data.bitness === '32') {
+          return 'Windows-32'
+        }
+      }
+    }
 
     const userAgent = window.navigator.userAgent
     const platform = window.navigator.platform
@@ -206,7 +230,7 @@ export const useDownload = () => {
    * 触发自动下载
    */
   const triggerAutoDownload = async (): Promise<void> => {
-    const platform = detectPlatform()
+    const platform = await detectPlatform()
     if (!platform) {
       console.warn('无法检测到支持的平台')
       return

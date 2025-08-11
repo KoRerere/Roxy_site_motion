@@ -73,6 +73,7 @@
 
                   <NuxtLinkLocale 
                     to="/download" 
+                    @click="handleDownload"
                     class="mt-15 w-full h-10 flex items-center justify-center rounded-6px bg-[#33A9FF] text-white"
                   >
                     {{ $t('免费下载') }}
@@ -147,11 +148,13 @@ import Card from '@/components/page-blog/card.vue'
 import { useRoxySeoMeta } from '@/layouts/hooks/useRoxySeoMeta'
 import { RxIcon } from '@/components/rx-icon'
 import Error from '@/components/page-blog/error.vue'
+import { useDownload } from '~/composables/useDownload'
 
 useBackTop(useTemplateRef('mainRef'))
 
 const { $md, $extractKeywords, $ghost } = useNuxtApp()
 const { locale, $t } = useRxI18n()
+const { initializeDownload, triggerAutoDownload } = useDownload()
 
 const route = useRoute()
 const slug = route.params.slug as string
@@ -360,6 +363,11 @@ onMounted(() => {
     })
   }
 })
+
+const handleDownload = async () => {
+  await initializeDownload()
+  triggerAutoDownload()
+}
 
 </script>
 

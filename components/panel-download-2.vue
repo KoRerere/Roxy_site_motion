@@ -15,7 +15,7 @@
         <h2 class="section6-title">{{ $t('隐私保护，从 RoxyBrowser 启航') }}</h2>
         <p class="section6-desc">{{ $t('匿名浏览，远离追踪') }}</p>
       </div>
-      <NuxtLinkLocale class="flex items-center gap-2 text-white text-14px py-3 px-4 bg-[#11A3FD] rounded-6px" to="/download">
+      <NuxtLinkLocale class="flex items-center gap-2 text-white text-14px py-3 px-4 bg-[#11A3FD] rounded-6px" to="/download" @click="handleClick">
         <RxIcon name="base/rx_ic_download" class="text-white" />
         {{ $t('立即下载') }} 
       </NuxtLinkLocale>
@@ -25,6 +25,14 @@
 
 <script setup>
 import { RxIcon } from '@/components/rx-icon'
+import { useDownload } from '~/composables/useDownload'
+
+const { initializeDownload, triggerAutoDownload } = useDownload()
+
+const handleClick = async () => {
+  await initializeDownload()
+  triggerAutoDownload()
+}
 </script>
 
 <style lang="scss" scoped>

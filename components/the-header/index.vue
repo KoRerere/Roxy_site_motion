@@ -30,7 +30,7 @@
               v-for="menu in menus" 
               :key="menu.title"
             >
-              <NuxtLinkLocale :to="menu.link" class="menu-item-link color-inherit text-14px">
+              <NuxtLinkLocale :to="menu.link" class="menu-item-link color-inherit text-14px" @click="menu.click">
                 {{ menu.title }}
               </NuxtLinkLocale>
             </li>

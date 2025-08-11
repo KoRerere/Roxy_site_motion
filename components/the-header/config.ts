@@ -8,7 +8,7 @@ export const useMenuConfigs = () => {
   const switchLanguage = useSwitchLanguage()
   const { public: { ENV } } = useRuntimeConfig()
   const isDev = ENV === 'development'
-  
+  const { initializeDownload, triggerAutoDownload } = useDownload()
   const mageMenus = computed(() => [
     // {
     //   title: $t('解决方案'),
@@ -35,7 +35,11 @@ export const useMenuConfigs = () => {
       },
       {
         title: $t('下载'),
-        link: '/download'
+        link: '/download',
+        click: async () => {
+          await initializeDownload()
+          triggerAutoDownload()
+        }
       }
     ]
 

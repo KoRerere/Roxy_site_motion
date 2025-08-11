@@ -16,6 +16,7 @@
       <NuxtLinkLocale 
         to="/download"
         class="py-4 px-5 hover:bg-black/20 bg-white/20 border-none outline-none rounded-6px text-white flex items-center gap-10px cursor-pointer whitespace-pre"
+        @click="handleClick"
       >
         <RxIcon name="base/rx_ic_download" size="20" />{{ $t('立即下载') }}
       </NuxtLinkLocale>
@@ -32,6 +33,7 @@
 
 <script setup>
 import { RxIcon } from "@/components/rx-icon"
+const { initializeDownload, triggerAutoDownload } = useDownload()
 
 const breakpoints = useRxBreakpoints();
 const smWidth = breakpoints.smallerOrEqual('sm')
@@ -40,6 +42,10 @@ const svg = computed(() => {
   return smWidth.value ? '/panel-download-small.svg' : '/panel-download.svg'
 })
 
+const handleClick = async () => {
+  await initializeDownload()
+  triggerAutoDownload()
+}
 </script>
 
 <style scoped>
