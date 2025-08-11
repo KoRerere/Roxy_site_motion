@@ -105,7 +105,7 @@ export default defineNuxtConfig({
   $development: {
     runtimeConfig: {
       NODE_ENV: 'development',
-      ghostKey: '67e50e55fb582b0001fae020:ed4ac49d5b650ce64000de93345573e3540a06543a125c4bcf0a1695c4af28f8',
+      ghostKey: '68995ff72a88ae000179dfd4:d9b33e255437f346ec8f14489cd35dbc8eec2dc09fd1a92d5159e955210d7e6e',
       ghostUrl: 'https://gatetest.roxybrowser.co/__ghost__',
       public: {
         ENV: 'development',
