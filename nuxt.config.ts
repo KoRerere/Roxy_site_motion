@@ -335,9 +335,9 @@ export default defineNuxtConfig({
       Heebo: {
         wght: '400..500'
       },
-      // Inter: {
-      //   wght: '400..700'
-      // }
+      Inter: {
+        wght: '400..700'
+      }
     },
     display: 'block'
   },

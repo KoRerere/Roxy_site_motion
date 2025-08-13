@@ -1,7 +1,9 @@
 <template>
+  <page-blog-reading-progress :bottomElement="moreArticlesRef" />
+
   <BgEffect />
 
-  <Container class="relative z-2">
+  <Container class="relative z-2 blog-container">
     <div class="pt-25 md:pt-[112px] mb-10" ref="mainRef">
       <div v-if="status === 'pending'" class="flex justify-center items-center h-screen">
         <ProgressSpinner 
@@ -20,7 +22,7 @@
                 <li 
                   v-for="(breadcrumb, index) in breadcrumbs" 
                   :key="breadcrumb.to"
-                  class="flex items-center"
+                  class="flex items-center breadcrumb-item"
                 >
                   <template v-if="breadcrumb.separator">
                     <RxIcon name="base/rx_ic_chevron_right" color="#7D8387" />
@@ -29,7 +31,6 @@
                     <NuxtLinkLocale 
                       v-if="index < breadcrumbs.length - 1" 
                       :to="breadcrumb.to"
-                      class="text-[#7D8387]"
                     >
                       {{ breadcrumb.text }}
                     </NuxtLinkLocale> 
@@ -40,70 +41,62 @@
             </nav>
             <article>
               <header>
-                <h1 v-show="false">{{ article?.title }}</h1>
-                <img :src="article?.feature_image" :alt="article?.title" class="w-full my-6" />
-                <div class="mb-5 text-[#7D8387] text-[14px]">
-                  {{ formatArticleReadingTime(article) }}
-                </div>
+                <h1 class="article-title text-7 md:text-9">{{ article?.title }}</h1>
+                <page-blog-article-meta :article="article" class="mt-[12px] mb-[40px]" />
               </header>
               <section v-html="article?.article" class="blog-article"></section>
             </article>
           </main>
 
-          <aside class="xl:w-[308px] lg:w-[290px] sticky top-[90px] h-[calc(100vh-90px-48px)] hidden lg:block">
-            <div class="flex flex-col gap-2 h-full">
+          <aside class="xl:w-[308px] lg:w-[290px] sticky top-[112px] h-[calc(100vh-90px-48px)] hidden lg:block">
+            <div class="flex flex-col gap-5 h-full">
               <div 
-                class="lg:h-[310px] mt-12 rounded-2 bg-[url(/blog-aside.png)] bg-no-repeat bg-center bg-cover p-6"
+                class="lg:h-[310px] rounded-2 bg-[url(/blog-aside.png)] bg-no-repeat bg-center bg-cover p-6"
               >
                 <div class="flex flex-col justify-between h-full">
                   <div class="flex flex-col gap-6">
                     <div class="flex items-center gap-2">
                       <img src="/logo.svg" alt="Roxybrowser" />
-                      <div class="text-[18px] font-700 font-[Archivo]"> {{ $t('RoxyBrowser') }} </div>
+                      <div class="text-[18px] font-700 font-[Archivo]"> RoxyBrowser </div>
                     </div>
-                    <p class="text-[#2C2E30] font-500 leading-[160%]">
-                      Advanced antidetect browser safeguarding digital identities while optimizing business workflows.
-                    </p>
-                    <!-- <ul class="list-none">
-                      <li class="aside-plan-li">Top Anti-Correlation Tech</li>
-                      <li class="aside-plan-li">Boost work efficiency</li>
-                      <li class="aside-plan-li">Pro Fingerprint Management</li>
-                    </ul> -->
+                    <ul class="pl-6 list-disc marker:text-[#12A3FC] features">
+                      <li>{{ $t('同时运作多个账号') }}</li>
+                      <li>{{ $t('隐藏真实网络身份') }}</li>
+                      <li>{{ $t('实现精准协同办公') }}</li>
+                    </ul> 
                   </div>
 
                   <NuxtLinkLocale 
                     to="/download" 
                     @click="handleDownload"
-                    class="mt-15 w-full h-10 flex items-center justify-center rounded-6px bg-[#33A9FF] text-white"
+                    class="mt-auto w-full h-11 flex items-center justify-center rounded-6px bg-[#33A9FF] text-white"
                   >
-                    {{ $t('免费下载') }}
+                    {{ $t('免费试用') }}
                   </NuxtLinkLocale>
                 </div>
               </div>
 
-              <div class="p-3 flex-1 flex-col flex overflow-hidden">
-                <div class="text-6 font-600 font-[Archivo] py-5 border-bottom">
-                  Content
+              <div class=" flex-col flex overflow-hidden rounded-2 border border-solid border-[#C7D1D6] bg-white">
+                <div class="px-4 text-5 font-600 font-[Archivo] pt-4 pb-3 leading-[28px] text-[#111213]">
+                  {{$t('目录')}}
                 </div>
 
-                <ul class="overflow-y-auto flex-1 directory-ul" ref="scrollRef">
+                <ul class="overflow-y-auto flex-1 directory-ul pb-4" ref="scrollRef">
                   <li 
-                    v-for="(item, index) in article?.directory" 
+                    v-for="(item, index) in article?.directory.filter(item => item.level < 4)" 
                     :key="item.id" 
+                    :data-level="item.level"
                     :style="{ paddingLeft: calculateDirectory(item.level) }"
                     class="list-none cursor-pointer"
+                    :class="{ 'active-directory': activeTitle === item.anchor }"
                     :id="'li:' + item.anchor"
                   >
                     <NuxtLink 
                       :to="`#${item.anchor}`" 
                       :class="[
                         'w-full ',
-                        item.level > 2 ? 'sub-directory' : 'directory border-top',
-                        activeTitle === item.anchor ? 'aside-tip' : ''
-                      ]"
-                      :style="{
-                        paddingBottom: calculatePadding(article.directory[index + 1])
-                      }"
+                        item.level > 2 ? 'sub-directory' : 'directory',
+                      ]" 
                     >{{ item.title }}</NuxtLink>
                   </li>
                 </ul>
@@ -114,7 +107,7 @@
 
         <div class="mt-10 md:mt-20">
           <div class="flex flex-col gap-10 md:gap-15">
-            <div class="text-center text-[#042144] text-5 leading-[1.2] md:text-10 font-700 font-[Archivo]">
+            <div ref="moreArticlesRef" class="text-center text-[#042144] text-5 leading-[1.2] md:text-10 font-700 font-[Archivo]">
               {{ $t('更多文章') }}
             </div>
             
@@ -135,7 +128,7 @@
           </div>
         </div>
 
-        <PanelDownload2 />
+        <PanelDownload2 tag="section" />
       </template>
       <Error v-else />
     </div>
@@ -144,6 +137,7 @@
 
 <script setup lang="ts">
 import { formatArticleReadingTime } from '@/components/page-blog/utils'
+import FooterPanel from '@/components/page-use-cases/components/FooterPanel.vue'
 import Card from '@/components/page-blog/card.vue'
 import { useRoxySeoMeta } from '@/layouts/hooks/useRoxySeoMeta'
 import { RxIcon } from '@/components/rx-icon'
@@ -160,6 +154,7 @@ const route = useRoute()
 const slug = route.params.slug as string
 const visibleTitle = ref({})
 const scrollRef = ref(null)
+const moreArticlesRef = ref(null)
 const localePath = useLocalePath()
 
 useRoxySeoMeta({
@@ -260,18 +255,25 @@ const articleTag = computed(() => {
 const breadcrumbs = computed(() => {
   const defaultBreadcrumbs = [
     {
+      text: $t('首页'),
+      to: '/'
+    },
+    {
+      separator: true
+    },
+    {
       text: $t('博客'),
       to: '/blog'
     }
   ]
 
-  if (articleTag.value && articleTag.value?.slug) {
-    defaultBreadcrumbs.push({ separator: true })
-    defaultBreadcrumbs.push({
-      text: articleTag.value.name,
-      to: `/blog?tag=${articleTag.value?.slug}`
-    })
-  }
+  // if (articleTag.value && articleTag.value?.slug) {
+  //   defaultBreadcrumbs.push({ separator: true })
+  //   defaultBreadcrumbs.push({
+  //     text: articleTag.value.name,
+  //     to: `/blog?tag=${articleTag.value?.slug}`
+  //   })
+  // }
 
   if (article.value && article.value.title) {
     defaultBreadcrumbs.push({ separator: true })
@@ -299,7 +301,7 @@ watchEffect(async () => {
 
 function calculateDirectory(level) {
   if (level > 2) {
-    return `${(level - 2) * 20}px`
+    return `${(level - 2) * 20 + 20}px`
   }
 }
 
@@ -326,9 +328,9 @@ function scrollToElement(element) {
 }
 
 let observer = null
-onMounted(() => {
+watch(article, () => {
   if (import.meta.client) {
-    if (article.value && article.value?.article) {
+    if (article.value && article.value?.article && !observer) {
       observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -354,15 +356,16 @@ onMounted(() => {
           })
         }, 200)
       })
-    }
+    } 
+  }
+}, { immediate: true })
 
-    onBeforeUnmount(() => {
+onBeforeUnmount(() => {
       if (observer) {
         observer.disconnect()
+        observer = null
       }
     })
-  }
-})
 
 const handleDownload = async () => {
   await initializeDownload()
@@ -371,127 +374,255 @@ const handleDownload = async () => {
 
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px; /* 全局生效，顶部留 80px */
 }
 
-.blog-article {
-  a {
-    // 继承父元素颜色
-    color: inherit;
-  }
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  
-  font-size: 16px;
-
-  h1 {
-    color: var(--text-text-primary, #111213);
-    font-size: 34px;
-    font-weight: 600;
-  }
-
-  h2 {
-    color: var(--text-text-primary, #111213);
-    font-size: 28px;
-    font-weight: 600;
-  }
-
-  h3 {
-    color: var(--text-text-primary, #111213);
-    font-size: 24px;
-    font-weight: 600;
-  }
-
-  h4 {
-    color: var(--text-text-primary, #111213);
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  p {
-    color: var(--text-text-primary, #111213);
-    font-weight: 400;
-  }
-
-  a {
-    color: var(--blue-500, #11A3FD);
-    font-weight: 400;
-    line-height: 30px;
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    text-decoration-skip-ink: auto;
-    text-decoration-thickness: auto;
-    text-underline-offset: 25%;
-    text-underline-position: from-font;
-  }
-
-  em {
-    color: #000;
-    font-weight: 400;
-    line-height: 30px;
-  }
-
-  ol, ul {
-    padding: 20px;
-    padding-left: 30px;
-  }
-
-  ol li::marker {
-    content: counter(list-item) " ";
-    color: #111213;
-  }
-
+.features {
   li {
-    line-height: 1.5;
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 200%; /* 36px */
   }
+}
 
-  img {
-    width: 100%;
-  }
+.blog-container {
 
-  b {
-    font-weight: 700;
-  }
+  .article-title {
+    margin-top: 40px;
+    color: var(--text-text-primary, #111213);
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%; /* 57.6px */
+    letter-spacing: -0.108px;
+  } 
 
-  table {
-    border: 1px solid #F1F5F8;
-    border-collapse: collapse;
-    thead {
-      background-color: #F1F5F8;
-      height: 50px;
-      text-align: left;
 
-      th {
-        color: var(--text-text-primary, #111213);
-        font-size: 16px;
-        font-weight: 600;
-        
+  .breadcrumb-item {
+    color: var(--colors-text-text-tertiary, #575D60);
+    font-family: Inter;
+    font-size: var(--body-second, 14px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--line-body-second, 18px); /* 128.571% */
+    
+
+    &:not(:last-of-type):hover {
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-skip-ink: auto;
+      text-decoration-thickness: auto;
+      text-underline-offset: auto;
+      text-underline-position: from-font;
+    }
+  } 
+
+  :deep(.blog-article) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    a {
+      // 继承父元素颜色
+      color: inherit;
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    font-size: 16px;
+
+    h2, h3, h4 {
+      scroll-margin-top: 80px;
+    }
+
+    h1 {
+      color: var(--text-text-primary, #111213);
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    h2 {
+      color: var(--text-text-primary, #111213);
+      font-family: Inter;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 160%; /* 44.8px */
+      letter-spacing: -0.084px;
+
+      @media (max-width: 768px) {
+        font-size: 22px;
       }
     }
 
-    th, td {
-      border: none;
+    h3 {
+      color: var(--text-text-primary, #111213);
+      font-family: Inter;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 36px */
+      letter-spacing: -0.072px;
+
+      @media (max-width: 768px) {
+        font-size: 20px;
+      }
+    }
+
+    h4 {
+      color: var(--text-text-primary, #111213);
+      font-family: Inter;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 30px */
+      letter-spacing: -0.06px;
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+
+    p {
+      color: var(--text-text-primary, #111213);
+      font-family: Inter;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%; /* 28.8px */
+      letter-spacing: -0.048px;
+
+      &:has(img) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    a {
+      color: var(--colors-text-text-link, #11A3FD);
+      font-family: Inter;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px;
+      letter-spacing: -0.048px;
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-skip-ink: auto;
+      text-decoration-thickness: auto;
+      text-underline-offset: 25%;
+      text-underline-position: from-font;
+
+      &:hover {
+        color: var(--colors-text-text-link-hover, #0282D4);
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 30px;
+        letter-spacing: -0.048px;
+        text-decoration-line: underline;
+        text-decoration-style: solid;
+        text-decoration-skip-ink: auto;
+        text-decoration-thickness: auto;
+        text-underline-offset: 25%;
+        text-underline-position: from-font;
+      }
+    }
+
+    em {
+      color: #000;
+      font-weight: 400;
+      line-height: 30px;
+    }
+
+    ol, ul {
       padding: 0 20px;
+      padding-left: 40px;
     }
 
-    tr {
-      height: 54px;
+    ol li::marker {
+      content: counter(list-item) ".  ";
+      color: var(--text-text-primary, #111213);
+      text-align: center;
+      font-family: Inter;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 30px; /* 187.5% */
+      letter-spacing: -0.048px;
     }
 
-    tr:not(:last-child) {
-      border-bottom: 1px solid var(--netural-100, #F1F5F8);
+    li {
+      line-height: 1.5;
     }
-  }
-  
-  iframe {
-    aspect-ratio: 16 / 9 !important;
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    b {
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border: 1px solid #F1F5F8;
+      border-collapse: collapse;
+      thead {
+        background-color: #F1F5F8;
+        height: 50px;
+        text-align: left;
+ 
+      }
+
+      th, td {
+        border: none;
+        padding: 0 20px;
+        height: 54px;
+        line-height: 54px;
+      }
+
+      tr {
+        height: 54px;
+      }
+
+      tr:not(:last-child) {
+        border-bottom: 1px solid var(--netural-100, #F1F5F8);
+      }
+    }
+
+    blockquote {
+      border-left: 4px solid #11A3FD;
+      border-radius: 4px;
+      padding-left: 1rem;
+      color: #555;
+      font-style: italic;
+      background: rgba(17, 163, 253, 0.06);
+      display: flex;
+      padding: 20px;
+      align-items: center;
+      gap: 20px;
+      flex: 1 0 0;
+    }
+    
+    iframe {
+      aspect-ratio: 16 / 9 !important;
+    }
   }
 }
+
 
 .border-bottom {
   border-bottom: 1px solid rgba(0, 0, 0, 0.10);
@@ -502,16 +633,47 @@ html {
 }
 
 .directory-ul {
-  li:first-child a {
-    border-top: 0;
+  li {
+    display: flex;
+    padding: 12px 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    border-left: 3px solid transparent;
+    background: transparent;
+
+    &.active-directory {
+      border-left: 3px solid #11A3FD;
+      background: rgba(18, 163, 252, 0.06);
+
+      a,a:hover {
+       color: var(--colors-text-text-brand, #11A3FD);
+      }
+    }
+  
+    a {
+      color: var(--colors-text-text-tertiary, #575D60);
+      font-feature-settings: 'liga' off, 'calt' off;
+      font-family: Inter;
+      font-size: var(--body-second, 14px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: var(--line-body-second, 18px); /* 128.571% */
+      
+
+      &:hover {
+        color: var(--colors-text-text-primary, #111213);
+      }
+    }
   }
-}
+} 
 
 .directory {
   color: var(--text-text-secondary, #34393D);
   font-family: Archivo;
   font-size: 14px;
-  padding-top: 16px;
   display: inline-block;
 }
 
@@ -543,23 +705,6 @@ html {
   font-weight: 500;
   
   white-space: nowrap;
-}
-
-.aside-tip {
-  color: var(--blue-500, #11A3FD);
-  font-feature-settings: 'liga' off, 'calt' off;
-  font-family: Archivo;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 21px */
-  letter-spacing: -0.042px;
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: none;
-  text-decoration-thickness: 6%; /* 0.84px */
-  text-underline-offset: auto;
-  text-underline-position: from-font;
 }
 
 @media (max-width: 1440px) {

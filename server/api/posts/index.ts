@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const fields = 'id,slug,title,updated_at,excerpt,visibility,feature_image,status,reading_time,custom_excerpt,updated_at,published_at,html,lexical';
-  const include = 'tags';
+  const include = 'tags,authors';
   const order = 'published_at,desc';
 
   // ghost 使用 NQL 查询，暂时不支持 like

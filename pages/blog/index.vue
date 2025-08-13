@@ -25,7 +25,7 @@
       </template>
       
       <template v-else>
-        <section class="flex flex-col gap-4">
+        <section class="flex flex-col gap-4 mb-12">
           <div class="text-[#12A3FC] text-center text-[16px] font-700 font-[Archivo]">
             <span class="inline-block py-1 px-6 border-1 border-[#12A3FC] border-solid rounded-50px bg-[rgba(18_163_252/0.1)]">
               {{ $t('指纹浏览器') }}
@@ -39,7 +39,7 @@
           </div>
         </section>
         
-        <section class="mt-10 flex justify-center">
+        <!-- <section class="mt-10 flex justify-center">
           <Search v-model="requestParams.search" />
         </section>
 
@@ -47,7 +47,7 @@
           <div class="flex justify-center">
             <TagsBar :tags="tags" v-model="requestParams.tag" />
           </div>
-        </section>
+        </section> -->
 
         <Container tag="section">
           <div class="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 lg:gap-x-4 md:gap-x-3 gap-y-15">

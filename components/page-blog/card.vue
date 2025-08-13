@@ -5,23 +5,23 @@
     external
   >
     <div class="xl:h-[244px] lg:h-[256px] md:h-[199px] h-[200px] overflow-hidden">
-      <img :src="article.feature_image" class="w-full h-full object-cover object-left-top" />
+      <img :src="article.feature_image" class="w-full h-full object-contain object-center rounded-t-2" />
     </div>
-    <div class="px-4 py-[14px] flex flex-col gap-3 overflow-hidden">
-      <div class="flex gap-2">
+    <div class="px-4 py-[14px] flex flex-col overflow-hidden">
+      <!-- <div class="flex gap-2">
         <div 
           v-for="t in article.tags.filter(t => t.description.includes(`{${locale}}`))"
           class="article-tag"
         >
           {{ t.name }}
         </div>
-      </div>
-      <div >
+      </div> -->
+      <div class="mt-1.5 mb-3">
         <div class="article-title truncate">{{ article.title }}</div>
         <div class="article-excerpt" v-if="!hideExcerpt">{{ article.custom_excerpt || article.excerpt }}</div>
       </div>
       <div class="article-info">
-        {{ formatArticleReadingTime(article) }}
+        <page-blog-article-meta :article="article" hide-read-time  />
       </div>
     </div>
   </NuxtLink>
