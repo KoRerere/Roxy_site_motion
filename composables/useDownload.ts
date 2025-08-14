@@ -30,7 +30,7 @@ export type Platform = 'Windows-64' | 'Windows-32' | 'macOS-apple' | 'macOS-inte
 
 export const useDownload = () => {
   const { public: { appDownloadUrl, roxyHomeUrl } } = useRuntimeConfig()
-  const { $t } = useRxI18n()
+  const { $t, locale } = useRxI18n()
 
   // 默认版本信息
   const defaultReleaseTime = '2025/05/30'
@@ -47,6 +47,9 @@ export const useDownload = () => {
   // 下载参数
   const roxy_partner = ref('')
   const code = ref('')
+  const landingPage = ref('')
+  const source = ref('')
+  const conversionPage = ref('')
 
   // 下载代码后缀
   const downloadCode = computed(() => code.value ? `-H-${code.value}` : '')
@@ -55,10 +58,10 @@ export const useDownload = () => {
    * 从 sessionStorage 加载下载参数
    */
   const loadDownloadParams = () => {
-    if (import.meta.client) {
-      roxy_partner.value = sessionStorage.getItem('roxy_partner') || ''
-      code.value = sessionStorage.getItem('code') || ''
-    }
+    roxy_partner.value = sessionStorage.getItem('roxy_partner') || ''
+    code.value = sessionStorage.getItem('code') || ''
+    landingPage.value = sessionStorage.getItem("landingPage") || window.$landingPage || ''
+    source.value = sessionStorage.getItem("source") || window.$source || ''
   }
 
   /**
@@ -107,7 +110,14 @@ export const useDownload = () => {
     const params = new URLSearchParams({
       'roxy-partner': roxy_partner.value,
       'code': code.value,
-      'version': version
+      'version': version,
+      'downloadInfo': JSON.stringify({
+        conversionPage: conversionPage.value,//转化页
+        landingPage: landingPage.value,//落地页
+        source: source.value,//渠道来源
+        language: locale.value,
+        os: platform
+      })
     })
     return `${baseUrl}?${params.toString()}`
   }
@@ -256,8 +266,10 @@ export const useDownload = () => {
    * 初始化下载相关数据
    */
   const initializeDownload = async () => {
+    conversionPage.value = location.pathname
     loadDownloadParams()
     await fetchVersionInfo()
+    await nextTick()
   }
 
   return {
@@ -266,7 +278,6 @@ export const useDownload = () => {
     code: readonly(code),
     downloadCode,
     getDownloadVersions,
-    loadDownloadParams,
     fetchVersionInfo,
     generateFileName,
     generateDownloadLink,
