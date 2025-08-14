@@ -18,25 +18,25 @@ const isDev = process.env.ENV === 'development'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 const prerender = [
-  '/', 
-  '/copyright/privacy', 
-  '/copyright/refund', 
+  '/',
+  '/copyright/privacy',
+  '/copyright/refund',
   '/copyright/user',
   '/copyright/renewal',
-  '/auth', 
-  '/auth/app_vk', 
-  '/auth/web_vk', 
-  '/download', 
-  '/features/profile-template', 
-  '/features/proxy-panel', 
-  '/features/team-space', 
-  '/features/account-hub', 
+  '/auth',
+  '/auth/app_vk',
+  '/auth/web_vk',
+  '/download',
+  '/features/profile-template',
+  '/features/proxy-panel',
+  '/features/team-space',
+  '/features/account-hub',
   '/features/window-sync',
-  '/features/api-flow', 
-  '/pricing', 
-  '/invite', 
-  '/login', 
-  '/no-auth', 
+  '/features/api-flow',
+  '/pricing',
+  '/invite',
+  '/login',
+  '/no-auth',
   // '/solutions/privacy-defense',
   // '/solutions/social-networks',
   // '/solutions/affiliate-market',
@@ -50,7 +50,7 @@ const prerender = [
 const ssr = ['/blog/**']
 
 const routeRules: Record<string, any> = {
-  
+
 }
 
 prerender.forEach(path => {
@@ -117,17 +117,17 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    '@primevue/nuxt-module', 
-    '@nuxtjs/google-fonts', 
-    '@unocss/nuxt', 
-    '@nuxtjs/i18n', 
-    '@nuxtjs/seo', 
-    'motion-v/nuxt', 
+    '@primevue/nuxt-module',
+    '@nuxtjs/google-fonts',
+    '@unocss/nuxt',
+    '@nuxtjs/i18n',
+    '@nuxtjs/seo',
+    'motion-v/nuxt',
     '@nuxtjs/robots',
     '@nuxt/image'
   ],
   robots: {
-    disallow: isDev ? '/' : ['/anbin', '/login', '/figma-icons'],
+    disallow: isDev ? '/' : ['/anbin', '/login', '/figma-icons', '/pay-success'],
   },
   build: {
     transpile: ['vue-countup-v3'],
@@ -212,7 +212,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    exclude: ['/invite/**', '/no-auth', '/auth', '/login', '/anbin/**', '/figma-icons/**']
+    exclude: ['/invite/**', '/no-auth', '/auth', '/login', '/anbin/**', '/figma-icons/**', '/pay-success']
   },
   css: ['./assets/styles/global.css'],
   components: [
@@ -375,7 +375,7 @@ export default defineNuxtConfig({
               name: 'myPlugin',
               fn: (() => {
                 const nameSet = new Set<string>()
-  
+
                 const genSvgTypes = debounce(() => {
                   const typeDefine = [...nameSet]
                     .map((n) => `'${n}'`)
@@ -386,7 +386,7 @@ export default defineNuxtConfig({
   export type SvgNames = ${typeDefine}`;
                   writeFile(svgIconTypesPath, code);
                 }, 3000);
-  
+
                 return (root, params, info) => {
                   const name = info.path
                     ?.split("assets/svgs/")
