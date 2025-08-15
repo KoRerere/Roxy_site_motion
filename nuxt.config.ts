@@ -91,7 +91,7 @@ export default defineNuxtConfig({
   $production: {
     runtimeConfig: {
       NODE_ENV: 'production',
-      ghostKey: '67e50e55fb582b0001fae020:ed4ac49d5b650ce64000de93345573e3540a06543a125c4bcf0a1695c4af28f8',
+      ghostKey: '689d6676100c5d000140d569:3d193547261de4192f55ff1884dac8e08cddb39775dbd5665ec7475c6bdc45af',
       ghostUrl: 'https://roxybrowser.com/__ghost__',
       public: {
         ENV: 'production',
@@ -105,7 +105,7 @@ export default defineNuxtConfig({
   $development: {
     runtimeConfig: {
       NODE_ENV: 'development',
-      ghostKey: '68995ff72a88ae000179dfd4:d9b33e255437f346ec8f14489cd35dbc8eec2dc09fd1a92d5159e955210d7e6e',
+      ghostKey: '689ef3951b0cf30001d25f91:9b30691bb86067235df9d00979bf6483578b026b4fa2a2edbd55bff6585889e9',
       ghostUrl: 'https://gatetest.roxybrowser.co/__ghost__',
       public: {
         ENV: 'development',

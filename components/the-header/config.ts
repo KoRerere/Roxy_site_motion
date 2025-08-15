@@ -43,12 +43,10 @@ export const useMenuConfigs = () => {
       }
     ]
 
-    if (isDev) {
-      __menus.unshift({
-        title: $t('博客'),
-        link: '/blog'
-      })
-    }
+    __menus.unshift({
+      title: $t('博客'),
+      link: '/blog'
+    })
 
     return __menus
   })
