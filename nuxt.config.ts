@@ -286,6 +286,13 @@ export default defineNuxtConfig({
             LiveChatWidget.call("set_customer_name", "[Roxy]-游客");
           `
         }
+      ],
+      noscript:[
+        {
+          textContent: `
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXR7SHP"height="0" width="0" style="display:none;visibility:hidden"></iframe>
+          `
+        }
       ]
     }
   },
