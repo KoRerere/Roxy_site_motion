@@ -501,11 +501,12 @@ html {
       line-height: 180%; /* 28.8px */
       letter-spacing: -0.048px;
 
-      &:has(img) {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
     }
 
     a {
@@ -516,7 +517,6 @@ html {
       font-weight: 400;
       line-height: 30px;
       letter-spacing: -0.048px;
-      text-decoration-line: underline;
       text-decoration-style: solid;
       text-decoration-skip-ink: auto;
       text-decoration-thickness: auto;
@@ -531,7 +531,6 @@ html {
         font-weight: 400;
         line-height: 30px;
         letter-spacing: -0.048px;
-        text-decoration-line: underline;
         text-decoration-style: solid;
         text-decoration-skip-ink: auto;
         text-decoration-thickness: auto;
@@ -590,9 +589,9 @@ html {
       th, td {
         border: none;
         padding: 0 20px;
-        height: 54px;
-        line-height: 54px;
-      }
+        height: 54px; 
+        vertical-align:middle;
+      } 
 
       tr {
         height: 54px;

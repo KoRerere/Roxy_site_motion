@@ -60,6 +60,7 @@ const readingTime = computed(() => {
     font-style: normal;
     font-weight: 400;
     line-height: 18px; /* 128.571% */
+    text-transform: capitalize;
     
 }
 

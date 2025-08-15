@@ -17,8 +17,8 @@
   const updateProgress = () => {
     const docElement = document.documentElement
     const scrollTop = window.scrollY || docElement.scrollTop
-    const bottomElementTop = props.bottomElement?.offsetTop || window.innerHeight
-    const scrollHeight = docElement.scrollHeight - bottomElementTop
+    const bottomElementTop = window.innerHeight
+    const scrollHeight = docElement.scrollHeight - bottomElementTop - 1400
     const scrollPercent = (scrollTop / scrollHeight) * 100
     progress.value = scrollPercent
   }
