@@ -255,7 +255,7 @@ export const useDownload = () => {
     const link = document.createElement('a')
     link.href = downloadInfo.link
     link.download = downloadInfo.fileName
-    link.target = '_blank'
+    // link.target = '_blank'
     link.style.display = 'none'
     document.body.appendChild(link)
     link.click()

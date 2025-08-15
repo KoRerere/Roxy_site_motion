@@ -42,11 +42,11 @@
 
             <div class="flex gap-3">
               <template v-for="btn in item.download">
-                <DownloadBtn v-if="btn.effect" :to="btn.link" target="_blank" :download="btn.fileName" class="download-btn" :icon-size="16">
+                <DownloadBtn v-if="btn.effect" :to="btn.link" :download="btn.fileName" class="download-btn" :icon-size="16">
                   {{ btn.text }}
                 </DownloadBtn>
                 <div v-else :class="cn('download-btn', btn.class)">
-                  <a :href="btn.link" target="_blank" :download="btn.fileName" class="text-14px flex items-center justify-center gap-2">
+                  <a :href="btn.link" :download="btn.fileName" class="text-14px flex items-center justify-center gap-2">
                     <RxIcon name="base/rx_ic_download" />
                     {{ btn.text }}
                   </a>
