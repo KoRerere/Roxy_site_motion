@@ -2,6 +2,7 @@ import { computed } from 'vue';
 import SolutionsPanel from './solutions-panel.vue';
 import FeaturesPanel from './features-panel.vue';
 import UseCasesPanel from './use-cases-panel.vue';
+import FunctionsPanel from './functions-panel.vue';
 
 export const useMenuConfigs = () => {
   const { $t } = useRxI18n()
@@ -19,6 +20,11 @@ export const useMenuConfigs = () => {
       title: $t('应用场景'),
       value: 'use-cases',
       component: UseCasesPanel,
+    },
+    {
+      title: $t('功能'),
+      value: 'functions',
+      component: FunctionsPanel,
     },
     {
       title: $t('产品功能'),

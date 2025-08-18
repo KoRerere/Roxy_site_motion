@@ -1,4 +1,11 @@
 {
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "editor.formatOnSave": true,
     "i18n-ally.localesPaths": [
         "i18n",
         "i18n/locales"
