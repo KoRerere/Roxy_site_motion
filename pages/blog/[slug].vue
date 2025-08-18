@@ -163,7 +163,7 @@ useRoxySeoMeta({
 })
 
 const activeTitle = computed(() => {
-  const rects = Object.values(visibleTitle.value).map(item => item.getBoundingClientRect())
+  const rects = Object.values(visibleTitle.value).map(item => item?.getBoundingClientRect())
   const tops = rects.map(item => item.top)
   const minTop = Math.min(...tops)
   const index = rects.findIndex(item => item.top === minTop)
@@ -174,9 +174,9 @@ watch(activeTitle, (newVal) => {
   if (newVal) {
     scrollToElement(document.getElementById('li:' + newVal))
   }
-})
+}, { flush: 'post' })
 
-const { data: article, status } = useAsyncData('article' + locale.value, async () => {
+const { data: article, status } = await useAsyncData('article' + locale.value, async () => {
   try {
     const response = await $ghost.posts.read(slug, {
       language: locale.value
@@ -200,23 +200,7 @@ const { data: article, status } = useAsyncData('article' + locale.value, async (
       .join('')
 
     const result = await $md(markdown)
-
-    useHead({
-      meta: [
-        {
-          name: "title",
-          content: response.meta_title
-        },
-        {
-          name: 'description',
-          content: response.meta_description
-        },
-        ...keywords.map(keyword => ({
-          name: 'keywords',
-          content: keyword
-        }))
-      ]
-    });
+    console.log('response', response)
 
     const feature_image = response.feature_image
     if (feature_image) {
@@ -229,6 +213,7 @@ const { data: article, status } = useAsyncData('article' + locale.value, async (
     return {
       article: result.html,
       directory: result.directory || [],
+      keywords,
       ...response
     }
   } catch (err) {
@@ -238,6 +223,24 @@ const { data: article, status } = useAsyncData('article' + locale.value, async (
   default: () => ({ article: '', title: '', directory: [] }),
   watch: [locale]
 })
+
+useHead({
+  title: article.value.meta_title,
+      meta: [
+        {
+          name: "title",
+          content: article.value.meta_title
+        },
+        {
+          name: 'description',
+          content: article.value.meta_description
+        },
+        ...article.value.keywords.map(keyword => ({
+          name: 'keywords',
+          content: keyword
+        }))
+      ]
+    });
 
 // 文章的tags
 const articleTag = computed(() => {
@@ -312,8 +315,8 @@ function calculatePadding(next) {
 }
 
 function scrollToElement(element) {
-  const parentRect = scrollRef.value.getBoundingClientRect();
-  const elementRect = element.getBoundingClientRect();
+  const parentRect = scrollRef.value?.getBoundingClientRect();
+  const elementRect = element?.getBoundingClientRect();
 
   // 获取父元素的滚动位置
   const parentScrollTop = scrollRef.value.scrollTop;
