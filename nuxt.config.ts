@@ -12,7 +12,7 @@ import { definePreset } from '@primevue/themes'
 import myPreset from './assets/styles/primevuePresets'
 import { imagetools } from 'vite-imagetools'
 
-const svgIconTypesPath = './components/rx-icon/src/svg-icon-types.ts';
+const svgIconTypesPath = './components/rx-icon/svg-icon-types.ts';
 
 const isDev = process.env.ENV === 'development'
 
