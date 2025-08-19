@@ -54,6 +54,7 @@
   },
   "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab",
   "devDependencies": {
+    "@antfu/eslint-config": "^5.2.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@primevue/nuxt-module": "4.3.7",
     "@roxy/backend-api": "workspace:*",
@@ -65,17 +66,20 @@
     "@unocss/nuxt": "66.4.2",
     "@unocss/transformer-directives": "66.4.2",
     "adm-zip": "^0.5.16",
+    "eslint": "^9.33.0",
     "memfs": "^4.17.0",
     "sass-embedded": "^1.86.3",
     "ssh2": "^1.16.0",
     "unocss": "66.4.2",
     "vite-imagetools": "^8.0.0",
     "vite-plugin-compression2": "^2.2.0",
-    "vite-svg-loader": "^5.1.0"
+    "vite-svg-loader": "^5.1.0",
+    "eslint-plugin-format": "^1.0.1",
+    "@unocss/eslint-plugin": "^66.4.2"
   },
   "pnpm": {
     "overrides": {
-      "ipx": "^3.0.0"
+      "chokidar": "3.6.0"
     },
     "ignoredBuiltDependencies": [
       "sharp"
