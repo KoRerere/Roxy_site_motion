@@ -6,34 +6,23 @@
   <Container class="relative z-2 blog-container">
     <div class="pt-25 md:pt-[112px] mb-10" ref="mainRef">
       <div v-if="status === 'pending'" class="flex justify-center items-center h-screen">
-        <ProgressSpinner 
-          style="width: 50px; height: 50px" 
-          strokeWidth="8" 
-          fill="transparent"
-          animationDuration=".5s" 
-          aria-label="Loading..."
-        />
+        <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent" animationDuration=".5s"
+          aria-label="Loading..." />
       </div>
       <template v-else-if="status === 'success'">
         <div class="flex gap-[34px]">
           <main class="flex-1">
             <nav aria-label="breadcrumb">
               <ol class="list-none flex items-center gap-2 flex-wrap">
-                <li 
-                  v-for="(breadcrumb, index) in breadcrumbs" 
-                  :key="breadcrumb.to"
-                  class="flex items-center breadcrumb-item"
-                >
+                <li v-for="(breadcrumb, index) in breadcrumbs" :key="breadcrumb.to"
+                  class="flex items-center breadcrumb-item">
                   <template v-if="breadcrumb.separator">
                     <RxIcon name="base/rx_ic_chevron_right" color="#7D8387" />
                   </template>
                   <template v-else>
-                    <NuxtLinkLocale 
-                      v-if="index < breadcrumbs.length - 1" 
-                      :to="breadcrumb.to"
-                    >
+                    <NuxtLinkLocale v-if="index < breadcrumbs.length - 1" :to="breadcrumb.to">
                       {{ breadcrumb.text }}
-                    </NuxtLinkLocale> 
+                    </NuxtLinkLocale>
                     <span v-else>{{ breadcrumb.text }}</span>
                   </template>
                 </li>
@@ -50,9 +39,7 @@
 
           <aside class="xl:w-[308px] lg:w-[290px] sticky top-[112px] h-[calc(100vh-90px-48px)] hidden lg:block">
             <div class="flex flex-col gap-5 h-full">
-              <div 
-                class="lg:h-[310px] rounded-2 bg-[url(/blog-aside.png)] bg-no-repeat bg-center bg-cover p-6"
-              >
+              <div class="lg:h-[310px] rounded-2 bg-[url(/blog-aside.png)] bg-no-repeat bg-center bg-cover p-6">
                 <div class="flex flex-col justify-between h-full">
                   <div class="flex flex-col gap-6">
                     <div class="flex items-center gap-2">
@@ -63,14 +50,11 @@
                       <li>{{ $t('同时运作多个账号') }}</li>
                       <li>{{ $t('隐藏真实网络身份') }}</li>
                       <li>{{ $t('实现精准协同办公') }}</li>
-                    </ul> 
+                    </ul>
                   </div>
 
-                  <NuxtLinkLocale 
-                    to="/download" 
-                    @click="handleDownload"
-                    class="mt-auto w-full h-11 flex items-center justify-center rounded-6px bg-[#33A9FF] text-white"
-                  >
+                  <NuxtLinkLocale to="/download" @click="handleDownload"
+                    class="mt-auto w-full h-11 flex items-center justify-center rounded-6px bg-[#33A9FF] text-white">
                     {{ $t('免费试用') }}
                   </NuxtLinkLocale>
                 </div>
@@ -78,26 +62,18 @@
 
               <div class=" flex-col flex overflow-hidden rounded-2 border border-solid border-[#C7D1D6] bg-white">
                 <div class="px-4 text-5 font-600 font-[Archivo] pt-4 pb-3 leading-[28px] text-[#111213]">
-                  {{$t('目录')}}
+                  {{ $t('目录') }}
                 </div>
 
                 <ul class="overflow-y-auto flex-1 directory-ul pb-4" ref="scrollRef">
-                  <li 
-                    v-for="(item, index) in article?.directory.filter(item => item.level < 4)" 
-                    :key="item.id" 
-                    :data-level="item.level"
-                    :style="{ paddingLeft: calculateDirectory(item.level) }"
-                    class="list-none cursor-pointer"
-                    :class="{ 'active-directory': activeTitle === item.anchor }"
-                    :id="'li:' + item.anchor"
-                  >
-                    <NuxtLink 
-                      :to="`#${item.anchor}`" 
-                      :class="[
-                        'w-full ',
-                        item.level > 2 ? 'sub-directory' : 'directory',
-                      ]" 
-                    >{{ item.title }}</NuxtLink>
+                  <li v-for="(item, index) in article?.directory.filter(item => item.level < 4)" :key="item.id"
+                    :data-level="item.level" :style="{ paddingLeft: calculateDirectory(item.level) }"
+                    class="list-none cursor-pointer" :class="{ 'active-directory': activeTitle === item.anchor }"
+                    :id="'li:' + item.anchor">
+                    <NuxtLink :to="`#${item.anchor}`" :class="[
+                      'w-full ',
+                      item.level > 2 ? 'sub-directory' : 'directory',
+                    ]">{{ item.title }}</NuxtLink>
                   </li>
                 </ul>
               </div>
@@ -107,21 +83,18 @@
 
         <div class="mt-10 md:mt-20">
           <div class="flex flex-col gap-10 md:gap-15">
-            <div ref="moreArticlesRef" class="text-center text-[#042144] text-5 leading-[1.2] md:text-10 font-700 font-[Archivo]">
+            <div ref="moreArticlesRef"
+              class="text-center text-[#042144] text-5 leading-[1.2] md:text-10 font-700 font-[Archivo]">
               {{ $t('更多文章') }}
             </div>
-            
-            <div 
-              class="grid xl:grid-cols-3 md:grid-cols-2 lg:gap-x-4 md:gap-x-3 gap-y-15 mt-8 more-articles"
-            >
+
+            <div class="grid xl:grid-cols-3 md:grid-cols-2 lg:gap-x-4 md:gap-x-3 gap-y-15 mt-8 more-articles">
               <Card v-for="article in relatedPosts" :article="article" hideExcerpt />
             </div>
 
             <div class="flex justify-center">
-              <NuxtLinkLocale 
-                to="/blog" 
-                class="h-[52px] w-full max-w-416px flex items-center justify-center text-[#34393D] text-4 font-700 font-[Archivo] border border-[#C7D1D6] rounded-2 border-solid"
-              >
+              <NuxtLinkLocale to="/blog"
+                class="h-[52px] w-full max-w-416px flex items-center justify-center text-[#34393D] text-4 font-700 font-[Archivo] border border-[#C7D1D6] rounded-2 border-solid">
                 {{ $t('查看所有博客') }}
               </NuxtLinkLocale>
             </div>
@@ -224,23 +197,51 @@ const { data: article, status } = await useAsyncData('article' + locale.value, a
   watch: [locale]
 })
 
+// 社媒那边需要博客添加的meta标签包括：
+// og: title / twitter: title ：就用文章本身的Meta title
+// og: description/ twitter: description：用文章本身description
+// og: image / twitter: image：用博客封面图
 useHead({
   title: article.value.meta_title,
-      meta: [
-        {
-          name: "title",
-          content: article.value.meta_title
-        },
-        {
-          name: 'description',
-          content: article.value.meta_description
-        },
-        ...article.value.keywords.map(keyword => ({
-          name: 'keywords',
-          content: keyword
-        }))
-      ]
-    });
+  meta: [
+    {
+      name: "title",
+      content: article.value.meta_title
+    },
+    {
+      name: 'description',
+      content: article.value.meta_description
+    },
+    {
+      property: 'og:title',
+      content: article.value.meta_title
+    },
+    {
+      property: 'og:description',
+      content: article.value.meta_description
+    },
+    {
+      property: 'og:image',
+      content: article.value.feature_image
+    },
+    {
+      property: 'twitter:title',
+      content: article.value.meta_title
+    },
+    {
+      property: 'twitter:description',
+      content: article.value.meta_description
+    },
+    {
+      property: 'twitter:image',
+      content: article.value.feature_image
+    },
+    ...article.value.keywords.map(keyword => ({
+      name: 'keywords',
+      content: keyword
+    }))
+  ]
+});
 
 // 文章的tags
 const articleTag = computed(() => {
@@ -359,16 +360,16 @@ watch(article, () => {
           })
         }, 200)
       })
-    } 
+    }
   }
 }, { immediate: true })
 
 onBeforeUnmount(() => {
-      if (observer) {
-        observer.disconnect()
-        observer = null
-      }
-    })
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+})
 
 const handleDownload = async () => {
   await initializeDownload()
@@ -380,7 +381,8 @@ const handleDownload = async () => {
 <style scoped lang="scss">
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* 全局生效，顶部留 80px */
+  scroll-padding-top: 80px;
+  /* 全局生效，顶部留 80px */
 }
 
 .features {
@@ -390,7 +392,8 @@ html {
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
-    line-height: 200%; /* 36px */
+    line-height: 200%;
+    /* 36px */
   }
 }
 
@@ -402,9 +405,10 @@ html {
     font-family: Inter;
     font-style: normal;
     font-weight: 600;
-    line-height: 160%; /* 57.6px */
+    line-height: 160%;
+    /* 57.6px */
     letter-spacing: -0.108px;
-  } 
+  }
 
 
   .breadcrumb-item {
@@ -413,8 +417,9 @@ html {
     font-size: var(--body-second, 14px);
     font-style: normal;
     font-weight: 500;
-    line-height: var(--line-body-second, 18px); /* 128.571% */
-    
+    line-height: var(--line-body-second, 18px);
+    /* 128.571% */
+
 
     &:not(:last-of-type):hover {
       text-decoration-line: underline;
@@ -424,7 +429,7 @@ html {
       text-underline-offset: auto;
       text-underline-position: from-font;
     }
-  } 
+  }
 
   :deep(.blog-article) {
     display: flex;
@@ -440,10 +445,12 @@ html {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
+
     font-size: 16px;
 
-    h2, h3, h4 {
+    h2,
+    h3,
+    h4 {
       scroll-margin-top: 80px;
     }
 
@@ -459,7 +466,8 @@ html {
       font-size: 28px;
       font-style: normal;
       font-weight: 600;
-      line-height: 160%; /* 44.8px */
+      line-height: 160%;
+      /* 44.8px */
       letter-spacing: -0.084px;
 
       @media (max-width: 768px) {
@@ -473,7 +481,8 @@ html {
       font-size: 24px;
       font-style: normal;
       font-weight: 600;
-      line-height: 150%; /* 36px */
+      line-height: 150%;
+      /* 36px */
       letter-spacing: -0.072px;
 
       @media (max-width: 768px) {
@@ -487,7 +496,8 @@ html {
       font-size: 20px;
       font-style: normal;
       font-weight: 600;
-      line-height: 150%; /* 30px */
+      line-height: 150%;
+      /* 30px */
       letter-spacing: -0.06px;
 
       @media (max-width: 768px) {
@@ -501,7 +511,8 @@ html {
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
-      line-height: 180%; /* 28.8px */
+      line-height: 180%;
+      /* 28.8px */
       letter-spacing: -0.048px;
 
     }
@@ -548,7 +559,8 @@ html {
       line-height: 30px;
     }
 
-    ol, ul {
+    ol,
+    ul {
       padding: 0 20px;
       padding-left: 40px;
     }
@@ -561,7 +573,8 @@ html {
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
-      line-height: 30px; /* 187.5% */
+      line-height: 30px;
+      /* 187.5% */
       letter-spacing: -0.048px;
     }
 
@@ -582,19 +595,21 @@ html {
       width: 100%;
       border: 1px solid #F1F5F8;
       border-collapse: collapse;
+
       thead {
         background-color: #F1F5F8;
         height: 50px;
         text-align: left;
- 
+
       }
 
-      th, td {
+      th,
+      td {
         border: none;
         padding: 0 20px;
-        height: 54px; 
-        vertical-align:middle;
-      } 
+        height: 54px;
+        vertical-align: middle;
+      }
 
       tr {
         height: 54px;
@@ -618,7 +633,7 @@ html {
       gap: 20px;
       flex: 1 0 0;
     }
-    
+
     iframe {
       aspect-ratio: 16 / 9 !important;
     }
@@ -650,11 +665,12 @@ html {
       border-left: 3px solid #11A3FD;
       background: rgba(18, 163, 252, 0.06);
 
-      a,a:hover {
-       color: var(--colors-text-text-brand, #11A3FD);
+      a,
+      a:hover {
+        color: var(--colors-text-text-brand, #11A3FD);
       }
     }
-  
+
     a {
       color: var(--colors-text-text-tertiary, #575D60);
       font-feature-settings: 'liga' off, 'calt' off;
@@ -662,15 +678,16 @@ html {
       font-size: var(--body-second, 14px);
       font-style: normal;
       font-weight: 400;
-      line-height: var(--line-body-second, 18px); /* 128.571% */
-      
+      line-height: var(--line-body-second, 18px);
+      /* 128.571% */
+
 
       &:hover {
         color: var(--colors-text-text-primary, #111213);
       }
     }
   }
-} 
+}
 
 .directory {
   color: var(--text-text-secondary, #34393D);
@@ -705,7 +722,7 @@ html {
   font-size: 18px;
   color: #000;
   font-weight: 500;
-  
+
   white-space: nowrap;
 }
 
