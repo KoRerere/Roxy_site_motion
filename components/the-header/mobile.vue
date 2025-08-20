@@ -5,7 +5,7 @@
       <div :class="cn({ 'px-3': modelValue })">
         <Accordion :value="['use-cases', 'features']" multiple>
           <AccordionPanel v-for="menu in mobileMenus" :value="menu.value">
-            <AccordionHeader :as="!menu.children ? NuxtLinkLocale : 'div'" :to="menu.value" :pt="{
+            <AccordionHeader :as="!menu.children ? NuxtLinkLocale : 'div'" :target="menu.value?.startsWith('http') ? '_blank' : undefined" :to="menu.value" :pt="{
               root: {
                 class: cn({
                   '!bg-white/20': currPath.includes(menu.value) && !menu.children
@@ -29,7 +29,7 @@
               })">
                 <RxIcon :name="child.icon || `menu/${child.value}`" size="24" color="#FFF" />
                 <span v-if="child.click" @click="handleClick(child)" class="block w-full">{{ child.title }}</span>
-                <NuxtLinkLocale v-else :to="gotoPath(menu, child)" class="block w-full" @click="handleClick(child)" :target="child.link.startsWith('http') ? '_blank' : undefined">{{ child.title }}</NuxtLinkLocale>
+                <NuxtLinkLocale v-else :to="gotoPath(menu, child)" class="block w-full" @click="handleClick(child)">{{ child.title }}</NuxtLinkLocale>
               </div>
             </AccordionContent>
           </AccordionPanel>

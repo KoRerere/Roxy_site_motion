@@ -4,7 +4,7 @@ import FeaturesPanel from './features-panel.vue';
 import UseCasesPanel from './use-cases-panel.vue';
 
 export const useMenuConfigs = () => {
-  const { $t } = useRxI18n()
+  const { $t, locale } = useRxI18n()
   const switchLanguage = useSwitchLanguage()
   const { public: { ENV } } = useRuntimeConfig()
   const isDev = ENV === 'development'
@@ -43,7 +43,7 @@ export const useMenuConfigs = () => {
       },
       {
         title: $t('使用指南'),
-        link: 'https://faq.roxybrowser.com/',
+        link: 'https://faq.roxybrowser.com/' + (locale.value === 'zh' ? 'zh' : ''),
       }
     ]
 
@@ -55,7 +55,7 @@ export const useMenuConfigs = () => {
     return __menus
   })
   
-  const mobileMenus = [
+  const mobileMenus = computed(() => [
     {
       title: $t('应用场景'),
       value: 'use-cases',
@@ -125,7 +125,6 @@ export const useMenuConfigs = () => {
           title: $t('API 流程'),
           value: 'api-flow',
         },
-        
       ]
     },
     {
@@ -139,6 +138,10 @@ export const useMenuConfigs = () => {
     {
       title: $t('下载'),
       value: 'download',
+    },
+    {
+      title: $t('使用指南'),
+      value: 'https://faq.roxybrowser.com/' + (locale.value === 'zh' ? 'zh' : ''),  
     },
     {
       title: $t('语言'),
@@ -160,7 +163,7 @@ export const useMenuConfigs = () => {
         }
       ]
     },
-  ]
+  ])
 
   return {
     mageMenus,
