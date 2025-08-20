@@ -40,6 +40,10 @@ export const useMenuConfigs = () => {
           await initializeDownload()
           triggerAutoDownload()
         }
+      },
+      {
+        title: $t('使用指南'),
+        link: 'https://faq.roxybrowser.com/',
       }
     ]
 

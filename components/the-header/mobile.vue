@@ -29,7 +29,7 @@
               })">
                 <RxIcon :name="child.icon || `menu/${child.value}`" size="24" color="#FFF" />
                 <span v-if="child.click" @click="handleClick(child)" class="block w-full">{{ child.title }}</span>
-                <NuxtLinkLocale v-else :to="gotoPath(menu, child)" class="block w-full" @click="handleClick(child)">{{ child.title }}</NuxtLinkLocale>
+                <NuxtLinkLocale v-else :to="gotoPath(menu, child)" class="block w-full" @click="handleClick(child)" :target="child.link.startsWith('http') ? '_blank' : undefined">{{ child.title }}</NuxtLinkLocale>
               </div>
             </AccordionContent>
           </AccordionPanel>
