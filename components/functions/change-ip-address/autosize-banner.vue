@@ -4,6 +4,7 @@ import { useElementBounding } from '@vueuse/core'
 const el = useTemplateRef('el')
 const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 
+// 默认宽度占窗口宽度80%，滚动后到窗口中间时，占用屏幕宽度96%，后逐渐缩小
 const bannerWidth = computed(() => {
   const maxHeight = (window.innerHeight - height.value) / 2
 

@@ -108,10 +108,12 @@ const reasons = [
   align-items: flex-start;
   gap: 12px;
   flex: 1 0 0;
-  border: 2px solid rgba(226, 233, 238, 0);
+  border-left: 2px solid transparent; /* 只留左边边框 */
+  border-image: linear-gradient(180deg, rgba(226, 233, 238, 0) 0%, #e2e9ee 50%, rgba(226, 233, 238, 0) 100%) 30 fill
+    stretch; /* 应用 border-image */
+  border-image-slice: 6; /* 切割图片 */
 
   &:hover {
-    border: 2px solid rgba(226, 233, 238, 0);
     background:
       linear-gradient(142deg, rgba(18, 163, 252, 0.2) 0%, rgba(18, 163, 252, 0) 44.02%),
       var(--colors-background-bg-block, #f1f5f8);

@@ -37,7 +37,14 @@
                 </h3>
               </template>
               <template #content>
-                <p class="pt-2 md:pt-6 leading-28px text-4 md:text-body whitespace-pre-line text-secondary">{{ c.desc }}</p>
+                <p class="pt-2 md:pt-6 leading-28px text-4 md:text-body whitespace-pre-line text-secondary">
+                <template v-if="isString(c.desc)">
+                 {{ c.desc }}
+                </template>
+                <template v-else>
+                  <component :is="c.desc" />
+                </template>
+              </p>
               </template>
             </AccordionItem>
           </Accordion>
@@ -60,14 +67,14 @@ import LiveChat from '@/components/live-chat.vue'
 import { NuxtLink } from '#components'
 import Accordion from './Accordion/Accordion.vue'
 import AccordionItem from './Accordion/AccordionItem.vue'
-import { debounce } from 'es-toolkit'
+import { debounce, isString } from 'es-toolkit'
 import { RxIcon } from '@/components/rx-icon'
 
 const { telegramLink } = useTelegram()
 
 interface FAQItem {
   title: string
-  desc: string
+  desc: string | (() => JSX.Element)
 }
 
 interface Props {

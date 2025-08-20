@@ -74,12 +74,10 @@ const props = defineProps<{
   gap: 10px;
   align-self: stretch;
   border-radius: 2px 12px 12px 2px;
-  border-left: 4px solid var(--colors-border-border-subtle, #c7d1d6);
-  background:
-    linear-gradient(0deg, var(--colors-background-bg-info, #def3ff) 0%, var(--colors-background-bg-info, #def3ff) 100%),
-    var(--colors-background-bg-block, #f1f5f8);
+  border-left: 4px solid var(--colors-border-border-brand, #11a3fd);
+  background: var(--colors-background-bg-info, #def3ff);
   backdrop-filter: blur(6px);
-  color: var(--colors-text-text-tertiary, #575d60);
+  color: var(--colors-border-border-brand, #11a3fd);
   font-family: Archivo;
   font-size: var(--body, 18px);
   font-style: normal;
