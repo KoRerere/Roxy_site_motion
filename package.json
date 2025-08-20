@@ -27,6 +27,7 @@
     "@primevue/forms": "^4.3.3",
     "@primevue/themes": "^4.3.3",
     "@unocss/preset-mini": "66.4.2",
+    "@vueuse/components": "^13.7.0",
     "@vueuse/core": "^13.1.0",
     "axios": "^1.8.4",
     "clsx": "^2.1.1",
@@ -63,19 +64,19 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/markdown-it": "^14.1.2",
     "@types/qs": "^6.9.18",
+    "@unocss/eslint-plugin": "^66.4.2",
     "@unocss/nuxt": "66.4.2",
     "@unocss/transformer-directives": "66.4.2",
     "adm-zip": "^0.5.16",
     "eslint": "^9.33.0",
+    "eslint-plugin-format": "^1.0.1",
     "memfs": "^4.17.0",
     "sass-embedded": "^1.86.3",
     "ssh2": "^1.16.0",
     "unocss": "66.4.2",
     "vite-imagetools": "^8.0.0",
     "vite-plugin-compression2": "^2.2.0",
-    "vite-svg-loader": "^5.1.0",
-    "eslint-plugin-format": "^1.0.1",
-    "@unocss/eslint-plugin": "^66.4.2"
+    "vite-svg-loader": "^5.1.0"
   },
   "pnpm": {
     "overrides": {

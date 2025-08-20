@@ -2,6 +2,7 @@
 import cover1 from '@/assets/images/functions/ip-fingerprint-guard-cover-1.png'
 import cover2 from '@/assets/images/functions/ip-fingerprint-guard-cover-2.png'
 import cover3 from '@/assets/images/functions/ip-fingerprint-guard-cover-3.png'
+import TryItNow from '~/components/page-use-cases/components/TryItNow.vue'
 
 const features = [
   {
@@ -95,6 +96,7 @@ const features = [
               </div>
             </div>
           </div>
+          <TryItNow type="primary" class="w-fit" />
         </div>
         <img :src="feature.cover" :alt="feature.title" class="feature-item-cover"></img>
       </div>
@@ -150,6 +152,7 @@ const features = [
 }
 
 .feature-item-content {
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   gap: 20px;

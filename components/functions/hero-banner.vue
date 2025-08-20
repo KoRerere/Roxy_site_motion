@@ -20,7 +20,7 @@ const features = [$t('No VPN configs'), $t('No VPN configs'), $t('Zero ban anxie
       {{ $t('Seamlessly switch IP and fingerprints together to stay undetected and secure.') }}
     </div>
 
-    <TryItNow class="try-now" />
+    <TryItNow class="mt-5" type="primary" />
   </div>
 </template>
 
@@ -33,13 +33,5 @@ const features = [$t('No VPN configs'), $t('No VPN configs'), $t('Zero ban anxie
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H2, 60px);
-}
-
-.try-now {
-  margin-top: 20px;
-  color: #fff;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  background: linear-gradient(0deg, #12a3fc 0%, #12a3fc 100%), linear-gradient(99deg, #238aff 67.78%, #f9b3b4 107.9%);
 }
 </style>

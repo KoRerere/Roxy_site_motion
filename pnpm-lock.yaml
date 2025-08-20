@@ -47,6 +47,9 @@ importers:
       '@unocss/preset-mini':
         specifier: 66.4.2
         version: 66.4.2
+      '@vueuse/components':
+        specifier: ^13.7.0
+        version: 13.7.0(vue@3.5.18(typescript@5.9.2))
       '@vueuse/core':
         specifier: ^13.1.0
         version: 13.7.0(vue@3.5.18(typescript@5.9.2))
@@ -2822,6 +2825,11 @@ packages:
 
   '@vue/shared@3.5.18':
     resolution: {integrity: sha512-cZy8Dq+uuIXbxCZpuLd2GJdeSO/lIzIspC2WtkqIpje5QyFbvLaI5wZtdUjLHjGZrlVX6GilejatWwVYYRc8tA==}
+
+  '@vueuse/components@13.7.0':
+    resolution: {integrity: sha512-7kxKz1Uh9XSivRg1RJzmcnpjBii4nMaCt1BOkxsVz/Ot5krIugujyHQNrFVx2igKuObY3x6CJGTrWlb8303SDg==}
+    peerDependencies:
+      vue: ^3.5.0
 
   '@vueuse/core@13.7.0':
     resolution: {integrity: sha512-myagn09+c6BmS6yHc1gTwwsdZilAovHslMjyykmZH3JNyzI5HoWhv114IIdytXiPipdHJ2gDUx0PB93jRduJYg==}
@@ -10455,6 +10463,12 @@ snapshots:
       vue: 3.5.18(typescript@5.9.2)
 
   '@vue/shared@3.5.18': {}
+
+  '@vueuse/components@13.7.0(vue@3.5.18(typescript@5.9.2))':
+    dependencies:
+      '@vueuse/core': 13.7.0(vue@3.5.18(typescript@5.9.2))
+      '@vueuse/shared': 13.7.0(vue@3.5.18(typescript@5.9.2))
+      vue: 3.5.18(typescript@5.9.2)
 
   '@vueuse/core@13.7.0(vue@3.5.18(typescript@5.9.2))':
     dependencies:
