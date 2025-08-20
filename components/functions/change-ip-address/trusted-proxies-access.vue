@@ -13,17 +13,19 @@
       </div>
       <img src="@/assets/images/functions/trusted-proxies-access-example.png" alt="trusted-proxies-access" class="w-full mt-7"></img>
     </div>
+    <div class="mask" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .trusted-proxies-access {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   padding: 30px 100px;
-  width: 100dvw;
+  width: 100%;
   min-height: 368px;
   background-image: url('@/assets/images/functions/trusted-proxies-access-bg.png');
   background-size: cover;
@@ -32,7 +34,7 @@
 }
 
 .content {
-  max-width: 1064px;
+  max-width: 1080px;
 }
 
 .title {
@@ -56,5 +58,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
+}
+
+.mask {
+  position: absolute;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(248, 250, 251, 0) 0%, #f8fafb 80%);
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>

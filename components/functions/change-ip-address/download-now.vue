@@ -7,10 +7,10 @@
     <div class="title">
       {{ $t('使用 RoxyBrowser 更换 IP，真正实现隐身。') }}
     </div>
-    <button class="download-btn">
+    <NuxtLinkLocale to="/download" class="download-btn">
       <rx-icon-svg-icon name="functions/site_ic_download" />
       {{ $t('立即下载') }}
-    </button>
+    </NuxtLinkLocale>
   </div>
 </template>
 

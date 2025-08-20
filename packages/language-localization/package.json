@@ -9,7 +9,7 @@
     }
   },
   "bin": {
-    "roxy-language-localization": "dist/bin/index.js"
+    "roxy-language-localization": "dist/bin/index.mjs"
   },
   "files": [
     "dist"

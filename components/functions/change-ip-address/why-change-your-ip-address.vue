@@ -3,34 +3,34 @@ import { RxIcon } from '~/components/rx-icon'
 
 const reasons = [
   {
-    title: $t('Bypass Geoblocks'),
-    description: $t('Access shows, sites, or services blocked in your region.'),
+    title: $t('突破地区限制'),
+    description: $t('访问你所在地区被屏蔽的节目、网站或服务。'),
     icon: 'functions/rx_ic_address',
   },
   {
-    title: $t('Stay Private Online'),
-    description: $t('Hide your identity to avoid tracking and stay anonymous.'),
+    title: $t('保持在线隐私'),
+    description: $t('隐藏你的真实身份，避免被追踪，保持匿名。'),
     icon: 'functions/rx_ic_shield',
   },
 
   {
-    title: $t('Get Around IP Bans'),
-    description: $t('Switch IPs to bypass firewalls, rate limits, or blacklists.'),
+    title: $t('绕过 IP 封锁'),
+    description: $t('切换 IP 以绕过防火墙、访问频率限制或黑名单。'),
     icon: 'functions/rx_ic_bypass',
   },
   {
-    title: $t('Run Multiple Accounts'),
-    description: $t('Manage multiple accounts without triggering platform bans.'),
+    title: $t('运营多个账号'),
+    description: $t('管理多个账号，避免因 IP 地址关联而触发平台封禁。'),
     icon: 'functions/rx_ic_people',
   },
   {
-    title: $t('Scrape Data Safely'),
-    description: $t('Rotate IPs to collect data without getting blocked or flagged. '),
+    title: $t('安全抓取数据'),
+    description: $t('自动更换 IP 地址，安全高效地收集数据，避免被屏蔽或标记。 '),
     icon: 'functions/rx_ic_random',
   },
   {
-    title: $t('Mimic Real Users'),
-    description: $t('Make your activities look human to avoid bot detection.'),
+    title: $t('模拟真实用户'),
+    description: $t('让你的操作看起来更像真人，避免被反爬虫系统识别为机器人。'),
     icon: 'functions/rx_ic_user',
   },
 ]
@@ -39,10 +39,10 @@ const reasons = [
 <template>
   <div class="why-change-your-ip-address">
     <div class="title">
-      {{ $t('Why Change Your IP Address?') }}
+      {{ $t('为什么要更换 IP 地址？') }}
     </div>
     <div class="description">
-      {{ $t("These might be the reasons you're considering it. Whether it's for access, privacy, or account safety, it all starts with your IP.") }}
+      {{ $t("你可能正在考虑这些原因：为了访问受限内容、保护隐私，或是保障账号安全。这些绝大程度地受到你的IP地址影响。") }}
     </div>
     <div class="reasons">
       <div v-for="reason in reasons" :key="reason.title" class="reason">

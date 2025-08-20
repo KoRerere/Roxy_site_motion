@@ -6,61 +6,61 @@ import TryItNow from '~/components/page-use-cases/components/TryItNow.vue'
 
 const features = [
   {
-    title: $t('Support Any Proxy, Any IP On Demand'),
-    description: $t('RoxyBrowser lets you instantly access any IP worldwide, exactly where you need it. Whether residential, mobile, or datacenter proxies, choose freely and switch locations in seconds.'),
+    title: $t('支持各种代理，切换全球 IP'),
+    description: $t('RoxyBrowser 让你即时获取全球任何 IP 地址，精准定位到你需要的区域。无论是住宅代理、移动代理还是数据中心代理，都可以自由选择，在几秒钟内切换不同地区。'),
     cover: cover1,
     details: [
       {
-        label: $t('Any Proxy Type:'),
-        description: $t('Residential, mobile, or datacenter.'),
+        label: $t('任意代理类型：'),
+        description: $t('住宅、移动或数据中心代理。'),
       },
       {
-        label: $t('Global Reach:'),
-        description: $t('Target IPs from 195+ countries on demand.'),
+        label: $t('全球覆盖：'),
+        description: $t('按需获取来自 195+ 个国家的 IP 地址。'),
       },
       {
-        label: $t('Precision Matching:'),
-        description: $t('Lock specific cities or ISPs for local authenticity.'),
+        label: $t('精准匹配：'),
+        description: $t('精准锁定特定城市或运营商，确保 IP 地址的真实性。'),
       },
     ],
   },
   {
-    title: $t('Change Fingerprints, Be Truly Authentic'),
-    description: $t('RoxyBrowser auto-generates unique, proxy-matched fingerprints for every session, mimicking real users down to the smallest detail. No more "proxy patterns" or fingerprint mismatches.'),
+    title: $t('更换指纹，真正实现“隐身”'),
+    description: $t('RoxyBrowser 会为每个会话自动生成唯一的、与代理 IP 地址匹配的浏览器指纹，完美模拟真实用户，甚至连最细微的细节都不放过。告别那些能被轻易识别的“代理模式”或 IP-指纹不匹配问题。'),
     cover: cover2,
     reverse: true,
     details: [
       {
-        label: $t('Dynamic Fingerprints:'),
-        description: $t('GPU, fonts, OS – all randomized per IP.'),
+        label: $t('动态指纹：'),
+        description: $t('显卡、字体、操作系统——所有数据都与 IP 地址匹配并随机化。'),
       },
       {
-        label: $t('Perfect IP-Fingerprint Sync:'),
-        description: $t('Eliminates detection red flags.'),
+        label: $t('完美同步：'),
+        description: $t('消除 IP 和指纹不匹配带来的风险警报。'),
       },
       {
-        label: $t('Custom or Auto:'),
-        description: $t('Build manually or generate in one click.'),
+        label: $t('自动或自定义：'),
+        description: $t('一键自动生成真实指纹，也支持手动定制。'),
       },
     ],
   },
 
   {
-    title: $t('Use Multiple Profiles for Isolate Tasks'),
-    description: $t('Run unlimited independent browsing sessions side-by-side. Each RoxyBrowser window operates with its own dedicated IP + fingerprint combo. No overlaps, no cross-contamination.'),
+    title: $t('使用多个窗口，隔离不同任务'),
+    description: $t('在 RoxyBrowser 中可以同时运行无限个独立的浏览会话，每个窗口都拥有自己独立的 IP 地址 + 浏览器指纹组合。互不影响，杜绝数据交叉污染。'),
     cover: cover3,
     details: [
       {
-        label: $t('Separate Identities:'),
-        description: $t('Unique IP + fingerprint for every tab.'),
+        label: $t('身份隔离：'),
+        description: $t('每个标签页都拥有独特的 IP 和指纹。'),
       },
       {
-        label: $t('Zero Data Leaks:'),
-        description: $t('Strict digital isolation between sessions.'),
+        label: $t('零数据泄露：'),
+        description: $t('会话之间实行严格的数字隔离。'),
       },
       {
-        label: $t('Bulk Operation Ready:'),
-        description: $t('Manage 100+ accounts/tasks simultaneously.'),
+        label: $t('支持批量操作：'),
+        description: $t('同时管理 100+ 个账号或任务，毫不费力。'),
       },
     ],
   },
@@ -71,10 +71,10 @@ const features = [
 <template>
   <div class="ip-fingerprint-guard">
     <div class="title">
-      {{ $t('RoxyBrowser Changes IPs & Fingerprints in One Secure System') }}
+      {{ $t('RoxyBrowser：一键同步，IP 和指纹同时换') }}
     </div>
     <div class="description">
-      {{ $t("Changing IP address is only half the battle. RoxyBrowser ensures your fingerprint changes with it, so platforms won't flag mismatches or trigger bans.") }}
+      {{ $t("告别身份割裂，RoxyBrowser 可以确保你的浏览器指纹也随之改变，让平台无法检测到 IP 和指纹不匹配的异常，避免触发封禁。") }}
     </div>
     <div class="features">
       <div v-for="feature in features" :key="feature.title" class="feature-item" :class="{ reverse: feature.reverse }">

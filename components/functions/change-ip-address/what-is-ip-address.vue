@@ -1,26 +1,23 @@
 <script setup lang="ts">
-const props = defineProps<{
-  modelValue?: boolean,
-}>()
 
 </script>
 
 <template>
-<div class="what-is-ip-address">
+  <div class="what-is-ip-address">
     <div class="intro">
       <div class="intro-title">
-        {{ $t('What Is an IP Address?') }}
+        {{ $t('什么是 IP 地址？') }}
       </div>
       <div class="intro-content">
         <p>
-          {{ $t("An IP address is your device's unique digital identifier on the internet. It's like a street address, allowing data to be sent to and from your device.") }}
+          {{ $t('IP 地址是你设备在互联网上的唯一数字身份，就像一个“家庭住址”，让数据可以来回准确地传输。') }}
         </p>
         <p>
-          {{ $t('It also provides a general idea of your geographic location, enabling online communication and content delivery worldwide.') }}
+          {{ $t('它也能大致透露你的地理位置，确保全球范围内的网络通信和内容传输。') }}
         </p>
       </div>
       <div class="tips">
-        {{ $t('But sometimes, your IP address can also lead to restrictions on your online activity.') }}
+        {{ $t('但有时候，你的 IP 地址也可能导致你的上网活动受到各种限制。') }}
       </div>
     </div>
     <img src="@/assets/images/functions/earth.png" :alt="$t('What Is an IP Address?')" class="size-110"></img>

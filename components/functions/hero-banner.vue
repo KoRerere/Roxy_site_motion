@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import TryItNow from '~/components/page-use-cases/components/TryItNow.vue'
 
-const features = [$t('No VPN configs'), $t('No VPN configs'), $t('Zero ban anxiety')]
+const features = [$t('无需配置 VPN'), $t('无需繁琐设置'), $t('告别封号风险')]
 </script>
 
 <template>
   <div class="max-w-[950px] pt-36 flex flex-col gap-4 justify-center items-center">
     <div class="title">
-      Change IP Address with RoxyBrowser
-      —Safer, Simpler, Stealthier
+      <pre>{{ $t('用 RoxyBrowser 轻松切换 IP 地址\n——更安全，更简单，更隐秘') }}</pre>
     </div>
     <div class="flex items-center gap-4 flex-wrap mx-auto">
       <div v-for="feature in features" :key="feature" class="flex items-center gap-2">
@@ -17,7 +16,7 @@ const features = [$t('No VPN configs'), $t('No VPN configs'), $t('Zero ban anxie
       </div>
     </div>
     <div class="color-secondary text-3.5">
-      {{ $t('Seamlessly switch IP and fingerprints together to stay undetected and secure.') }}
+      {{ $t('一键同步更换 IP 与浏览器指纹，隐匿行踪，保障安全。') }}
     </div>
 
     <TryItNow class="mt-5" type="primary" />

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1472" height="368" viewBox="0 0 1472 368" fill="none">
+  <g filter="url(#filter0_n_24542_42526)">
+    <rect width="1472" height="368" fill="white"/>
+    <rect width="1472" height="368" fill="url(#paint0_linear_24542_42526)"/>
+    <rect width="1472" height="368" fill="#172E3C"/>
+    <g opacity="0.8" filter="url(#filter1_f_24542_42526)">
+      <ellipse cx="736" cy="480" rx="300" ry="280" fill="#1293FC"/>
+    </g>
+  </g>
+  <defs>
+    <filter id="filter0_n_24542_42526" x="0" y="0" width="1472" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1 1" stitchTiles="stitch" numOctaves="3" result="noise" seed="4657"/>
+      <feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise"/>
+      <feComponentTransfer in="alphaNoise" result="coloredNoise1">
+        <feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+      </feComponentTransfer>
+      <feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped"/>
+      <feFlood flood-color="rgba(14, 34, 47, 0.25)" result="color1Flood"/>
+      <feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1"/>
+      <feMerge result="effect1_noise_24542_42526">
+        <feMergeNode in="shape"/>
+        <feMergeNode in="color1"/>
+      </feMerge>
+    </filter>
+    <filter id="filter1_f_24542_42526" x="276" y="40" width="920" height="880" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="80" result="effect1_foregroundBlur_24542_42526"/>
+    </filter>
+    <linearGradient id="paint0_linear_24542_42526" x1="736" y1="0" x2="736" y2="368" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#12A3FC" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#12A3FC"/>
+    </linearGradient>
+  </defs>
+</svg>
