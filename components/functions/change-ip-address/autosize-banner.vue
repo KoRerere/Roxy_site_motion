@@ -14,9 +14,11 @@ const bannerWidth = computed(() => {
 
 <template>
   <div ref="el" class="autosize-banner">
-    <div class="max-w-1280px w-full flex flex-col gap-7">
+    <div class="max-w-1280px w-full flex flex-col gap-2 md:gap-7">
       <div>{{ $t("但是，只改变 IP 是不够的。 如果你的浏览器指纹保持不变，频繁切换 IP 地址反而会增加被检测的风险。") }}</div>
-      <img src="@/assets/images/functions/tags.png" alt="autosize-banner" class="h-[132px] object-cover">
+      <div class="h-[132px] relative">
+        <img src="@/assets/images/functions/tags.png" alt="autosize-banner" class="tags-img"></img>
+      </div>
     </div>
   </div>
 </template>
@@ -30,7 +32,6 @@ const bannerWidth = computed(() => {
   padding: 60px 100px;
   // width: 80%;
   width: min(100%, 1280px);
-  min-height: 368px;
   background: url('@/assets/images/functions/autosize-banner-bg.svg') no-repeat center center / cover;
   color: #fff;
   text-align: center;
@@ -41,5 +42,21 @@ const bannerWidth = computed(() => {
   line-height: 44px; /* 137.5% */
   border-radius: 20px;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+
+.tags-img {
+  position: absolute;
+  height: 100%;
+  transform: translateX(-50%);
+
+  @media (max-width: 900px) {
+    transform: translateX(-50%) scale(0.6);
+  }
 }
 </style>

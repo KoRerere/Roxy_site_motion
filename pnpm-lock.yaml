@@ -23,6 +23,9 @@ importers:
 
   .:
     dependencies:
+      '@better-scroll/core':
+        specifier: ^2.5.1
+        version: 2.5.1
       '@livechat/widget-vue':
         specifier: ^1.3.4
         version: 1.3.4(vue@3.5.18(typescript@5.9.2))
@@ -507,6 +510,12 @@ packages:
   '@babel/types@7.28.2':
     resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
     engines: {node: '>=6.9.0'}
+
+  '@better-scroll/core@2.5.1':
+    resolution: {integrity: sha512-koKOuYA55dQ04FJRIVUpMGDr1hbCfWmfX0MGp1hKagkQSWSRpwblqACiwtggVauoj9aaJRJZ9hDsTM4weaavlg==}
+
+  '@better-scroll/shared-utils@2.5.1':
+    resolution: {integrity: sha512-AplkfSjXVYP9LZiD6JsKgmgQJ/mG4uuLmBuwLz8W5OsYc7AYTfN8kw6GqZ5OwCGoXkVhBGyd8NeC4xwYItp0aw==}
 
   '@biomejs/js-api@2.0.3':
     resolution: {integrity: sha512-fg4hGhg1LtohDqLdG9uggROlVsydcuFwZhPoUOTi9+bkvGMULDKL9dEP5iN6++CIA/AN0T20U82rLYuaxc+VDQ==}
@@ -7907,6 +7916,12 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
+
+  '@better-scroll/core@2.5.1':
+    dependencies:
+      '@better-scroll/shared-utils': 2.5.1
+
+  '@better-scroll/shared-utils@2.5.1': {}
 
   '@biomejs/js-api@2.0.3(@biomejs/wasm-nodejs@2.1.4)':
     optionalDependencies:

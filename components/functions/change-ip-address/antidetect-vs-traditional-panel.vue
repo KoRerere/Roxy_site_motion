@@ -83,31 +83,33 @@ const tableData = [
         {{ $t('反侦测浏览器 vs. 传统方法') }}
       </div>
     </div>
-    <div class="table-container">
-      <div v-for="col in tableData" :key="col.header" class="col" :class="{ bulge: col.bulge }">
-        <div class="header">
-          <template v-if="col.headerIcon">
-            <rx-icon-svg-icon :name="col.headerIcon" :size="36" class="ml-9" />
-          </template>
-          <span :class="col.headerClass">{{ col.header }}</span>
-        </div>
-        <div v-for="item in col.items" :key="item" class="cell">
-          <template v-if="isString(item)">
-            <template v-if="col.itemIcon">
-              <rx-icon-svg-icon :name="col.itemIcon" :size="24" />
+    <div class="scroll-container">
+      <div class="table-container">
+        <div v-for="col in tableData" :key="col.header" class="col" :class="{ bulge: col.bulge }">
+          <div class="header">
+            <template v-if="col.headerIcon">
+              <rx-icon-svg-icon :name="col.headerIcon" :size="36" class="ml-9" />
             </template>
-            {{ item }}
-          </template>
-          <template v-else>
-            <component :is="item" />
-          </template>
+            <span :class="col.headerClass">{{ col.header }}</span>
+          </div>
+          <div v-for="item in col.items" :key="item" class="cell">
+            <template v-if="isString(item)">
+              <template v-if="col.itemIcon">
+                <rx-icon-svg-icon :name="col.itemIcon" class="md:text-6 text-5" />
+              </template>
+              {{ item }}
+            </template>
+            <template v-else>
+              <component :is="item" />
+            </template>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style module>
+<style module lang="scss">
 .to-pricing-btn {
   display: flex;
   width: 317px;
@@ -126,6 +128,10 @@ const tableData = [
   line-height: 24px; /* 133.333% */
   white-space: nowrap;
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 }
 </style>
 
@@ -133,7 +139,7 @@ const tableData = [
 .antidetect-vs-traditional-panel {
   display: flex;
   flex-direction: column;
-  gap: 72px;
+  gap: 50px;
 }
 
 .why-text {
@@ -153,6 +159,11 @@ const tableData = [
   font-weight: 400;
   line-height: 24px; /* 150% */
   letter-spacing: -0.048px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
 .title {
@@ -165,6 +176,40 @@ const tableData = [
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H3, 48px); /* 120% */
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}
+
+.scroll-container {
+  width: 100%;
+  padding: 30px 0 42px;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    width: 6px; /* 垂直滚动条宽度 */
+    height: 6px; /* 水平滚动条高度 */
+  }
+
+  /* 滚动条滑块 */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+
+  /* 滑块悬停时 */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  /* 滚动条轨道 */
+  &::-webkit-scrollbar-track {
+    background: #c2d5e0;
+    border-radius: 6px;
+  }
 }
 
 .table-container {
@@ -177,10 +222,11 @@ const tableData = [
   .col {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 0;
 
     &:first-child {
-      flex: 0.9;
+      flex-grow: 0.9;
     }
 
     &.bulge {
@@ -240,8 +286,7 @@ const tableData = [
       font-size: 18px;
       font-style: normal;
       font-weight: 500;
-      line-height: 26px; /* 144.444% */
-      letter-spacing: -0.054px;
+      line-height: 26px;
 
       &:last-child {
         border-bottom: none;
@@ -249,6 +294,17 @@ const tableData = [
 
       &:nth-child(4) {
         background: rgba(17, 163, 253, 0.12);
+      }
+    }
+
+    .cell,
+    .header {
+      @media (max-width: 1024px) {
+        padding: 14px 16px;
+        height: 60px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
       }
     }
   }

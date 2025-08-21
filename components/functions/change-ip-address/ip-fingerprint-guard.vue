@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UseElementSize } from '@vueuse/components'
 import cover1 from '@/assets/images/functions/ip-fingerprint-guard-cover-1.png'
 import cover2 from '@/assets/images/functions/ip-fingerprint-guard-cover-2.png'
 import cover3 from '@/assets/images/functions/ip-fingerprint-guard-cover-3.png'
@@ -76,31 +77,36 @@ const features = [
     <div class="description">
       {{ $t("告别身份割裂，RoxyBrowser 可以确保你的浏览器指纹也随之改变，让平台无法检测到 IP 和指纹不匹配的异常，避免触发封禁。") }}
     </div>
-    <div class="features">
-      <div v-for="feature in features" :key="feature.title" class="feature-item" :class="{ reverse: feature.reverse }">
-        <div class="feature-item-content">
-          <div class="feature-item-title">
-            {{ feature.title }}
-          </div>
-          <div class="feature-item-description">
-            {{ feature.description }}
-          </div>
-          <div class="feature-item-details">
-            <div v-for="detail in feature.details" :key="detail.label" class="feature-item-detail">
-              <rx-icon-svg-icon name="base/rx_ic_check_fill" />
-              <div class="feature-item-detail-label">
-                {{ detail.label }}
-              </div>
-              <div class="feature-item-detail-description">
-                {{ detail.description }}
+    <UseElementSize v-slot="{ width }">
+      <div class="features">
+        <div v-for="feature in features" :key="feature.title" class="feature-item" :class="{ reverse: feature.reverse }">
+          <div class="feature-item-content">
+            <div class="feature-item-title">
+              {{ feature.title }}
+            </div>
+            <img v-if="width < 768" :src="feature.cover" :alt="feature.title" class="feature-item-cover"></img>
+            <div class="feature-item-description">
+              {{ feature.description }}
+            </div>
+            <div class="feature-item-details">
+              <div v-for="detail in feature.details" :key="detail.label" class="feature-item-detail">
+                <rx-icon-svg-icon name="base/rx_ic_check_fill" class="mt-1" />
+                <div class="feature-item-detail-content">
+                  <div class="feature-item-detail-label">
+                    {{ detail.label }}
+                  </div>
+                  <div class="feature-item-detail-description">
+                    {{ detail.description }}
+                  </div>
+                </div>
               </div>
             </div>
+            <TryItNow v-if="width >= 768" type="primary" class="w-fit" />
           </div>
-          <TryItNow type="primary" class="w-fit" />
+          <img v-if="width >= 768" :src="feature.cover" :alt="feature.title" class="feature-item-cover"></img>
         </div>
-        <img :src="feature.cover" :alt="feature.title" class="feature-item-cover"></img>
       </div>
-    </div>
+    </UseElementSize>
   </div>
 </template>
 
@@ -125,6 +131,10 @@ const features = [
   font-weight: 700;
   line-height: var(--line-H3, 48px); /* 120% */
   letter-spacing: -0.8px;
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .description {
@@ -137,7 +147,11 @@ const features = [
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
-  letter-spacing: -0.054px;
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 
 .features {
@@ -154,18 +168,23 @@ const features = [
 }
 
 .feature-item-content {
-  margin-top: 60px;
+  margin-top: 48px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 50%;
+
+  @media (max-width: 1024px) {
+    margin-top: 36px;
+    gap: 12px;
+  }
 }
 
 .feature-item-cover {
   width: 50%;
 }
 
-@container (max-width: 1080px) {
+@container (max-width: 768px) {
   .feature-item {
     flex-wrap: wrap;
   }
@@ -185,6 +204,11 @@ const features = [
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H4, 48px); /* 133.333% */
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .feature-item-description {
@@ -196,6 +220,11 @@ const features = [
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 
 .feature-item-details {
@@ -207,5 +236,42 @@ const features = [
 .feature-item-detail {
   display: flex;
   gap: 12px;
+}
+
+.feature-item-detail-content {
+  display: flex;
+  gap: 4px;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
+}
+
+.feature-item-detail-label {
+  color: var(--colors-text-text-secondary, #34393d);
+  font-family: Inter;
+  font-size: var(--body, 18px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%; /* 22.5px */
+  }
+}
+
+.feature-item-detail-description {
+  color: var(--colors-text-text-secondary, #34393d);
+  font-family: Inter;
+  font-size: var(--body, 18px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%; /* 22.5px */
+  }
 }
 </style>

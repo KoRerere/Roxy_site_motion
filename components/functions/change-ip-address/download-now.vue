@@ -20,8 +20,12 @@
   flex-direction: column;
   gap: 25px;
   padding: 40px 60px;
-  height: 197px;
   background-image: url('@/assets/images/functions/download-now-bg.svg');
+  border-radius: 8px;
+  @media (max-width: 768px) {
+    padding: 24px;
+    gap: 20px;
+  }
 }
 
 .title {
@@ -34,6 +38,10 @@
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H4, 48px); /* 133.333% */
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .download-btn {

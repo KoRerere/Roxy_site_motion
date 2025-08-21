@@ -20,24 +20,49 @@
         {{ $t('但有时候，你的 IP 地址也可能导致你的上网活动受到各种限制。') }}
       </div>
     </div>
-    <img src="@/assets/images/functions/earth.png" :alt="$t('什么是 IP 地址？')" class="size-110"></img>
+    <img src="@/assets/images/functions/earth.png" :alt="$t('什么是 IP 地址？')" class="earth"></img>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .what-is-ip-address {
   display: flex;
-  gap: 130px;
   align-items: center;
   width: min(100%, 1280px);
+  position: relative;
+  overflow-x: clip;
 }
 
 .intro {
   display: flex;
-  width: 590px;
+  max-width: 590px;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
+}
+
+.earth {
+  position: absolute;
+  right: 60px;
+  width: 440px;
+  height: 440px;
+}
+
+@media (max-width: 1150px) {
+  .earth {
+    transform: translateX(40%);
+  }
+}
+@media (max-width: 1024px) {
+  .earth {
+    transform: translateX(70%);
+  }
+}
+
+@media (max-width: 768px) {
+  .earth {
+    transform: translateX(90%);
+  }
 }
 
 .intro-title {
@@ -51,6 +76,11 @@
   font-weight: 700;
   line-height: var(--line-H3, 48px); /* 120% */
   letter-spacing: -0.8px;
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .intro-content {
@@ -62,6 +92,11 @@
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 
 .tips {
@@ -80,5 +115,10 @@
   font-style: normal;
   font-weight: 500;
   line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 </style>

@@ -47,7 +47,7 @@ const reasons = [
     <div class="reasons">
       <div v-for="reason in reasons" :key="reason.title" class="reason">
         <div class="reason-header">
-          <RxIcon :name="reason.icon" size="36" />
+          <RxIcon :name="reason.icon" class="md:text-9 text-6" />
           <div class="reason-title">
             {{ reason.title }}
           </div>
@@ -80,6 +80,11 @@ const reasons = [
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H3, 48px); /* 120% */
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .description {
@@ -91,6 +96,11 @@ const reasons = [
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 
 .reasons {
@@ -98,6 +108,10 @@ const reasons = [
   margin-top: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
+
+  @media (max-width: 768px) {
+    margin-top: 24px;
+  }
 }
 
 .reason {
@@ -118,6 +132,11 @@ const reasons = [
       linear-gradient(142deg, rgba(18, 163, 252, 0.2) 0%, rgba(18, 163, 252, 0) 44.02%),
       var(--colors-background-bg-block, #f1f5f8);
   }
+
+  @media (max-width: 768px) {
+    height: 120px;
+    padding: 20px;
+  }
 }
 
 .reason-header {
@@ -133,6 +152,11 @@ const reasons = [
   font-style: normal;
   font-weight: 500;
   line-height: var(--line-H6, 36px); /* 150% */
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
 
 .reason-description {
@@ -144,5 +168,10 @@ const reasons = [
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 </style>

@@ -32,6 +32,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  @media (max-width: 1024px) {
+    padding: 0px 16px 0;
+  }
 }
 
 .content {
@@ -46,6 +50,11 @@
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H3, 48px); /* 120% */
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .description {
@@ -59,6 +68,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: var(--line-body, 28px); /* 155.556% */
+
+  @media (max-width: 1024px) {
+    margin-top: 24px;
+    font-size: 15px;
+    line-height: 150%;
+  }
 }
 
 .mask {

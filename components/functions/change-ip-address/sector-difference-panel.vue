@@ -71,12 +71,16 @@ const differenceList = [
   font-style: normal;
   font-weight: 700;
   line-height: var(--line-H3, 48px); /* 120% */
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .difference-list {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 24px;
 }
 
@@ -91,6 +95,11 @@ const differenceList = [
   border-radius: 12px;
   border: 1.5px solid var(--colors-border-border-inactive, #e2e9ee);
   background: var(--colors-background-bg-block, #f1f5f8);
+
+  @media (max-width: 768px) {
+    height: 220px;
+    padding: 20px;
+  }
 
   &:hover {
     border-radius: 12px;
@@ -114,6 +123,11 @@ const differenceList = [
     font-style: normal;
     font-weight: 600;
     line-height: var(--line-H5, 36px); /* 138.462% */
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+      line-height: 28px;
+    }
   }
 
   &-description {
@@ -125,6 +139,11 @@ const differenceList = [
     font-style: normal;
     font-weight: 400;
     line-height: var(--line-body, 28px); /* 155.556% */
+
+    @media (max-width: 768px) {
+      font-size: 15px;
+      line-height: 150%;
+    }
   }
 }
 
