@@ -20,16 +20,11 @@ export const useMenuConfigs = () => {
       title: $t('应用场景'),
       value: 'use-cases',
       component: UseCasesPanel,
-    },
-    {
-      title: $t('功能'),
-      value: 'functions',
-      component: FunctionsPanel,
-    },
+    }, 
     {
       title: $t('产品功能'),
-      value: 'features',
-      component: FeaturesPanel,
+      value: 'functions',
+      component: FunctionsPanel,
     }
   ])
   

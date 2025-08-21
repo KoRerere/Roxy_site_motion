@@ -20,7 +20,7 @@
         {{ $t('但有时候，你的 IP 地址也可能导致你的上网活动受到各种限制。') }}
       </div>
     </div>
-    <img src="@/assets/images/functions/earth.png" :alt="$t('What Is an IP Address?')" class="size-110"></img>
+    <img src="@/assets/images/functions/earth.png" :alt="$t('什么是 IP 地址？')" class="size-110"></img>
   </div>
 </template>
 

@@ -15,11 +15,11 @@ useHead({
   meta: [
     {
       name: 'title',
-      content: $t('The Safest Way to Change IP Address Without VPN Risks'),
+      content: $t('更改IP地址最安全有效的方法！无需VPN'),
     },
     {
       name: 'description',
-      content: $t('Change IP address in 1 click with RoxyBrowser. Reliable IPs + fingerprint spoofing prevent bans. Simple setup, high security. Switch IPs invisibly.'),
+      content: $t('使用 RoxyBrowser一键更改 IP 地址！可靠的 IP 和指纹伪装可防止封锁。设置简单，安全性高。隐形切换 IP。'),
     },
   ],
 })
