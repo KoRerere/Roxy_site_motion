@@ -24,10 +24,11 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding: 30px 100px;
+  padding: 60px 100px 0;
   width: 100%;
   min-height: 368px;
   background-image: url('@/assets/images/functions/trusted-proxies-access-bg.png');
+  background-color: radial-gradient(86.21% 231.94% at 50% 0%, rgba(18, 163, 252, 0.12) 0%, rgba(18, 163, 252, 0) 70%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

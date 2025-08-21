@@ -56,7 +56,7 @@ const faqList = computed(() => [
 
 <template>
   <BgEffect />
-  <main ref="mainRef" class="flex flex-col items-center gap-20 px-6 pb-20">
+  <main ref="mainRef" class="flex flex-col items-center gap-20 px-6 pb-20 bg-[#F8FAFB]">
     <HeroBanner />
     <WhatIsIpAddress />
     <WhyChangeYourIpAddress />

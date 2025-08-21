@@ -75,7 +75,7 @@ const tableData = [
 
 <template>
   <div class="antidetect-vs-traditional-panel">
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 justify-center items-center">
       <div class="why-text">
         {{ $t('为什么 RoxyBrowser 是更换 IP 地址的最佳工具') }}
       </div>
@@ -137,6 +137,7 @@ const tableData = [
 }
 
 .why-text {
+  width: fit-content;
   display: flex;
   padding: 6px 16px;
   justify-content: center;

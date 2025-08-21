@@ -114,6 +114,7 @@ const features = [
 }
 
 .title {
+  max-width: 1056px;
   color: var(--colors-text-text-primary, #111213);
   text-align: center;
 
@@ -127,6 +128,7 @@ const features = [
 }
 
 .description {
+  max-width: 1056px;
   margin-top: 8px;
   color: var(--colors-text-text-tertiary, #575d60);
   text-align: center;
