@@ -160,6 +160,7 @@ const features = [
 
 .feature-item {
   display: flex;
+  gap: 60px;
   width: 100%;
 
   &.reverse {
@@ -254,6 +255,7 @@ const features = [
   font-style: normal;
   font-weight: 600;
   line-height: var(--line-body, 28px); /* 155.556% */
+  white-space: nowrap;
 
   @media (max-width: 1024px) {
     font-size: 15px;

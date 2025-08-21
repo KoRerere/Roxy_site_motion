@@ -1,9 +1,13 @@
 <script setup lang="tsx">
 import { NuxtLinkLocale } from '#components'
+import { useMouseInElement } from '@vueuse/core'
 import { isString } from 'es-toolkit'
 import { Translation } from 'vue-i18n'
 
 const styles = useCssModule()
+const rootElRef = useTemplateRef<HTMLDivElement>('rootEl')
+const { isOutside } = useMouseInElement(rootElRef)
+const hoverIndex = ref(0)
 
 const tableData = [
   {
@@ -34,11 +38,7 @@ const tableData = [
       $t('成员分权/操作审计/环境加密共享'),
       $t('封号率<2%，保障资产安全'),
       <div class={styles['to-pricing-btn']}>
-        <Translation keypath={$t('仅需软件订阅费，{view}', { view: '{view}' })}>
-          {{
-            view: () => <NuxtLinkLocale to="/pricing">{$t('点击查看付费套餐') }</NuxtLinkLocale>,
-          }}
-        </Translation>
+       <NuxtLinkLocale to="/pricing">{$t('查看价格方案') }</NuxtLinkLocale>
       </div>,
     ],
   },
@@ -71,10 +71,20 @@ const tableData = [
   },
 
 ]
+
+watch(isOutside, (val) => {
+  if (val) {
+    hoverIndex.value = -1
+  }
+})
+
+function handleMouseOver(index: number) {
+  hoverIndex.value = index
+}
 </script>
 
 <template>
-  <div class="antidetect-vs-traditional-panel">
+  <div ref="rootEl" class="antidetect-vs-traditional-panel">
     <div class="flex flex-col gap-4 justify-center items-center">
       <div class="why-text">
         {{ $t('为什么 RoxyBrowser 是更换 IP 地址的最佳工具') }}
@@ -92,7 +102,7 @@ const tableData = [
             </template>
             <span :class="col.headerClass">{{ col.header }}</span>
           </div>
-          <div v-for="item in col.items" :key="item" class="cell">
+          <div v-for="(item, index) in col.items" :key="item" class="cell" :class="{ 'hover': hoverIndex === index }" @mouseover="handleMouseOver(index)">
             <template v-if="isString(item)">
               <template v-if="col.itemIcon">
                 <rx-icon-svg-icon :name="col.itemIcon" class="md:text-6 text-5" />
@@ -186,8 +196,12 @@ const tableData = [
 .scroll-container {
   width: 100%;
   padding: 30px 0 42px;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
+
+  @media (max-width: 1500px) {
+    overflow-x: auto;
+  }
 
   &::-webkit-scrollbar {
     width: 6px; /* 垂直滚动条宽度 */
@@ -214,7 +228,7 @@ const tableData = [
 
 .table-container {
   display: flex;
-  width: 100%;
+  width: max-content;
   border-radius: 20px;
   background: #fff;
   box-shadow: 0 4px 16px 0 rgba(175, 183, 187, 0.2);
@@ -243,9 +257,10 @@ const tableData = [
       .cell,
       .header {
         color: white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      .cell:nth-child(4) {
+      .cell.hover {
         background: rgba(255, 255, 255, 0.12);
       }
     }
@@ -269,6 +284,7 @@ const tableData = [
       font-weight: 600;
       line-height: 26px; /* 144.444% */
       letter-spacing: -0.054px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
       .roxybrowser {
         color: #fff;
@@ -287,12 +303,14 @@ const tableData = [
       font-style: normal;
       font-weight: 500;
       line-height: 26px;
+      transition: background 0.15s ease;
+      border-bottom: 1px solid var(--colors-border-border-inactive, #e2e9ee);
 
       &:last-child {
         border-bottom: none;
       }
 
-      &:nth-child(4) {
+      &.hover {
         background: rgba(17, 163, 253, 0.12);
       }
     }

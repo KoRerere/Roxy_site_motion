@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { RxIcon } from '~/components/rx-icon'
+import { useWindowSize } from '@vueuse/core'
+
+const { width } = useWindowSize()
 
 const reasons = [
   {
@@ -47,7 +49,7 @@ const reasons = [
     <div class="reasons">
       <div v-for="reason in reasons" :key="reason.title" class="reason">
         <div class="reason-header">
-          <RxIcon :name="reason.icon" class="md:text-9 text-6" />
+          <rx-icon-svg-icon :name="reason.icon" :size="width < 768 ? 24 : 36" />
           <div class="reason-title">
             {{ reason.title }}
           </div>
@@ -68,6 +70,7 @@ const reasons = [
   flex-direction: column;
   align-items: center;
   width: min(100%, 1280px);
+  margin-top: 60px;
 }
 
 .title {

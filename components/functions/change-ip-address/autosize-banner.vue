@@ -31,7 +31,8 @@ const bannerWidth = computed(() => {
   gap: 12px;
   padding: 60px 100px;
   // width: 80%;
-  width: min(100%, 1280px);
+  // width: min(100%, 1280px);
+  width: 100%;
   background: url('@/assets/images/functions/autosize-banner-bg.svg') no-repeat center center / cover;
   color: #fff;
   text-align: center;

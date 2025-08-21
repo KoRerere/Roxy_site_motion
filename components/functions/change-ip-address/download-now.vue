@@ -1,5 +1,12 @@
 <script setup lang="ts">
+import { useDownload } from '~/composables/useDownload'
 
+const { initializeDownload, triggerAutoDownload } = useDownload()
+
+async function handleClick() {
+  await initializeDownload()
+  triggerAutoDownload()
+}
 </script>
 
 <template>
@@ -7,7 +14,7 @@
     <div class="title">
       {{ $t('使用 RoxyBrowser 更换 IP，真正实现隐身。') }}
     </div>
-    <NuxtLinkLocale to="/download" class="download-btn">
+    <NuxtLinkLocale to="/download" class="download-btn" @click="handleClick">
       <rx-icon-svg-icon name="functions/site_ic_download" />
       {{ $t('立即下载') }}
     </NuxtLinkLocale>
