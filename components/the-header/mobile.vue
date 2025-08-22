@@ -45,7 +45,7 @@ const currPath = computed(() => route.path)
                     '!bg-white/20': currPath.includes(menu.value) && !menu.children,
                   }),
                 },
-              }"
+              }" :target="menu.target"
             >
               {{ menu.title }}
               <template v-if="!menu.children" #toggleicon>
@@ -68,7 +68,7 @@ const currPath = computed(() => route.path)
               >
                 <RxIcon :name="child.icon || `menu/${child.value}`" size="24" color="#FFF" />
                 <span v-if="child.click" class="block w-full" @click="handleClick(child)">{{ child.title }}</span>
-                <NuxtLinkLocale v-else :to="child.link || gotoPath(menu, child)" class="block w-full" @click="handleClick(child)">
+                <NuxtLinkLocale v-else :to="child.link || gotoPath(menu, child)" class="block w-full" :target="child.target" @click="handleClick(child)">
                   {{ child.title }}
                 </NuxtLinkLocale>
               </div>

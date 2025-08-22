@@ -28,6 +28,8 @@ export const useMenuConfigs = () => {
     }
   ])
 
+  const { locale } = useRxI18n()
+
   const menus = computed(() => {
     const __menus = [
       {
@@ -41,6 +43,11 @@ export const useMenuConfigs = () => {
           await initializeDownload()
           triggerAutoDownload()
         }
+      }, 
+      {
+        title: $t('使用指南'),
+        link: `https://faq.roxybrowser.com/${locale.value}`,
+        target: '_blank'
       }
     ]
 
@@ -141,6 +148,11 @@ export const useMenuConfigs = () => {
     {
       title: $t('下载'),
       value: 'download',
+    },
+    {
+        title: $t('使用指南'),
+        value: `https://faq.roxybrowser.com/${locale.value}`,
+        target: '_blank'
     },
     {
       title: $t('语言'),
