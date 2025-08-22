@@ -94,11 +94,9 @@ const features = [
               <div v-for="detail in feature.details" :key="detail.label" class="feature-item-detail">
                 <rx-icon-svg-icon name="base/rx_ic_check_fill" class="mt-1" />
                 <div class="feature-item-detail-content">
-                  <div class="feature-item-detail-label">
-                    {{ detail.label }}
-                  </div>
-                  <div class="feature-item-detail-description">
-                    {{ detail.description }}
+                  <div>
+                    <span class="feature-item-detail-label">{{ detail.label }}</span>
+                    <span class="feature-item-detail-description">{{ detail.description }}</span>
                   </div>
                 </div>
               </div>
@@ -131,8 +129,10 @@ const features = [
   font-size: var(--Heading-H3, 40px);
   font-style: normal;
   font-weight: 700;
-  line-height: var(--line-H3, 48px); /* 120% */
+  line-height: var(--line-H3, 48px);
+  /* 120% */
   letter-spacing: -0.8px;
+
   @media (max-width: 1024px) {
     font-size: 28px;
     line-height: 36px;
@@ -148,7 +148,8 @@ const features = [
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
 
   @media (max-width: 1024px) {
     font-size: 15px;
@@ -206,7 +207,8 @@ const features = [
   font-size: var(--Heading-H4, 36px);
   font-style: normal;
   font-weight: 700;
-  line-height: var(--line-H4, 48px); /* 133.333% */
+  line-height: var(--line-H4, 48px);
+  /* 133.333% */
 
   @media (max-width: 1024px) {
     font-size: 24px;
@@ -222,7 +224,8 @@ const features = [
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
 
   @media (max-width: 1024px) {
     font-size: 15px;
@@ -256,12 +259,14 @@ const features = [
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 600;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
   white-space: nowrap;
 
   @media (max-width: 1024px) {
     font-size: 15px;
-    line-height: 150%; /* 22.5px */
+    line-height: 150%;
+    /* 22.5px */
   }
 }
 
@@ -271,11 +276,13 @@ const features = [
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
 
   @media (max-width: 1024px) {
     font-size: 15px;
-    line-height: 150%; /* 22.5px */
+    line-height: 150%;
+    /* 22.5px */
   }
 }
 </style>

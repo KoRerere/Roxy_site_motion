@@ -6,7 +6,7 @@ const { $t } = useRxI18n()
 
 const coreFeatures = computed(() => [
   {
-    icon: 'menu/profile-template',
+    icon: 'menu/nav-change-ip',
     title: $t('更改IP地址'),
     desc: 'Build and deliver community coursesBuild and deliver community courses',
     link: '/functions/change-ip-address',

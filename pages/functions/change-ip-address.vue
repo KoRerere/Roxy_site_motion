@@ -61,16 +61,20 @@ const faqList = computed(() => [
 
 <template>
   <BgEffect />
-  <main ref="mainRef" class="flex flex-col items-center md:gap-20 gap-15 px-6 pb-20 bg-[#F8FAFB]">
-    <HeroBanner />
-    <WhatIsIpAddress />
-    <WhyChangeYourIpAddress />
-    <AutosizeBanner />
-    <IpFingerprintGuard />
+  <main ref="mainRef" class="flex flex-col items-center md:gap-20 gap-15 px-0 pb-20 bg-[#F8FAFB]">
+    <HeroBanner class="px-6" />
+    <WhatIsIpAddress class="px-6" />
+    <WhyChangeYourIpAddress class="px-6" />
+    <div class="flex flex-col items-center w-full px-3">
+      <AutosizeBanner />
+    </div>
+    <IpFingerprintGuard class="px-6" />
     <TrustedProxiesAccess />
-    <SectorDifferencePanel class="panel" />
-    <AntidetectVsTraditionalPanel class="panel" />
-    <DownloadNow class="panel" />
+    <SectorDifferencePanel class="panel px-6" />
+    <AntidetectVsTraditionalPanel class="panel px-6" />
+    <div class="flex flex-col items-center w-full px-6">
+      <DownloadNow class="panel" />
+    </div>
     <Faq :fqa-list="faqList" class="fqa-container py-2 func-faq" />
   </main>
 </template>

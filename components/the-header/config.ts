@@ -20,14 +20,14 @@ export const useMenuConfigs = () => {
       title: $t('应用场景'),
       value: 'use-cases',
       component: UseCasesPanel,
-    }, 
+    },
     {
       title: $t('产品功能'),
       value: 'functions',
       component: FunctionsPanel,
     }
   ])
-  
+
   const menus = computed(() => {
     const __menus = [
       {
@@ -51,7 +51,7 @@ export const useMenuConfigs = () => {
 
     return __menus
   })
-  
+
   const mobileMenus = [
     {
       title: $t('应用场景'),
@@ -99,30 +99,35 @@ export const useMenuConfigs = () => {
       value: 'features',
       children: [
         {
-          title: $t('窗口模板'),
-          value: 'profile-template',
+          icon: 'menu/nav-change-ip',
+          title: $t('更改IP地址'),
+          link: '/functions/change-ip-address',
         },
         {
-          title: $t('团队空间'),
-          value: 'team-space',
-        },
-        {
+          icon: 'menu/proxy-panel',
           title: $t('代理面板'),
           value: 'proxy-panel',
         },
         {
+          icon: 'menu/team-space',
+          title: $t('团队空间'),
+          value: 'team-space',
+        },
+        {
+          icon: 'menu/account-hub',
           title: $t('账号中心'),
           value: 'account-hub',
         },
         {
+          icon: 'menu/window-sync',
           title: $t('窗口同步'),
           value: 'window-sync',
         },
         {
+          icon: 'menu/api-flow',
           title: $t('API 流程'),
           value: 'api-flow',
         },
-        
       ]
     },
     {
