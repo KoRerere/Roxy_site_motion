@@ -38,7 +38,12 @@ const tableData = [
       $t('成员分权/操作审计/环境加密共享'),
       $t('封号率<2%，保障资产安全'),
       <div class={styles['to-pricing-btn']}>
-       <NuxtLinkLocale to="/pricing">{$t('查看价格方案') }</NuxtLinkLocale>
+        <NuxtLinkLocale to="/pricing">
+          <div class="flex items-center gap-1">
+            <span>{$t('查看价格方案')}</span>
+            <rx-icon-svg-icon name="base/rx_ic_right" size="20" />
+          </div>
+        </NuxtLinkLocale>
       </div>,
     ],
   },
@@ -84,7 +89,7 @@ function handleMouseOver(index: number) {
 </script>
 
 <template>
-  <div ref="rootEl" class="antidetect-vs-traditional-panel">
+  <div ref="rootEl" class="flex flex-col gap-12">
     <div class="flex flex-col gap-4 justify-center items-center">
       <div class="why-text">
         {{ $t('为什么 RoxyBrowser 是更换 IP 地址的最佳工具') }}
@@ -135,7 +140,8 @@ function handleMouseOver(index: number) {
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 24px; /* 133.333% */
+  line-height: 24px;
+  /* 133.333% */
   white-space: nowrap;
   cursor: pointer;
 
@@ -146,12 +152,6 @@ function handleMouseOver(index: number) {
 </style>
 
 <style lang="scss" scoped>
-.antidetect-vs-traditional-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
-
 .why-text {
   width: fit-content;
   display: flex;
@@ -167,7 +167,8 @@ function handleMouseOver(index: number) {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 150% */
+  line-height: 24px;
+  /* 150% */
   letter-spacing: -0.048px;
 
   @media (max-width: 768px) {
@@ -185,7 +186,8 @@ function handleMouseOver(index: number) {
   font-size: var(--Heading-H3, 40px);
   font-style: normal;
   font-weight: 700;
-  line-height: var(--line-H3, 48px); /* 120% */
+  line-height: var(--line-H3, 48px);
+  /* 120% */
 
   @media (max-width: 1024px) {
     font-size: 24px;
@@ -201,11 +203,17 @@ function handleMouseOver(index: number) {
 
   @media (max-width: 1500px) {
     overflow-x: auto;
+
+    .table-container {
+      width: max-content;
+    }
   }
 
   &::-webkit-scrollbar {
-    width: 6px; /* 垂直滚动条宽度 */
-    height: 6px; /* 水平滚动条高度 */
+    width: 6px;
+    /* 垂直滚动条宽度 */
+    height: 6px;
+    /* 水平滚动条高度 */
   }
 
   /* 滚动条滑块 */
@@ -228,7 +236,7 @@ function handleMouseOver(index: number) {
 
 .table-container {
   display: flex;
-  width: max-content;
+  width: fit-content;
   border-radius: 20px;
   background: #fff;
   box-shadow: 0 4px 16px 0 rgba(175, 183, 187, 0.2);
@@ -236,11 +244,25 @@ function handleMouseOver(index: number) {
   .col {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex: 1;
     flex-shrink: 0;
 
     &:first-child {
       flex-grow: 0.9;
+
+      .cell.hover {
+        &:last-of-type {
+          border-end-start-radius: 20px;
+        }
+      }
+    }
+
+    &:last-child {
+      .cell.hover {
+        &:last-of-type {
+          border-end-end-radius: 20px;
+        }
+      }
     }
 
     &.bulge {
@@ -282,7 +304,8 @@ function handleMouseOver(index: number) {
       font-size: 18px;
       font-style: normal;
       font-weight: 600;
-      line-height: 26px; /* 144.444% */
+      line-height: 26px;
+      /* 144.444% */
       letter-spacing: -0.054px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core'
+import { useRxI18n } from '~/composables/useRxI18n'
 
+const { $t } = useRxI18n()
 const { width } = useWindowSize()
 
 const reasons = [
@@ -47,7 +49,7 @@ const reasons = [
       {{ $t("你可能正在考虑这些原因：为了访问受限内容、保护隐私，或是保障账号安全。这些绝大程度地受到你的IP地址影响。") }}
     </div>
     <div class="reasons">
-      <div v-for="reason in reasons" :key="reason.title" class="reason">
+      <div v-for="reason in reasons" :key="reason.title" class="reason transition-all duration-200">
         <div class="reason-header">
           <rx-icon-svg-icon :name="reason.icon" :size="width < 768 ? 24 : 36" />
           <div class="reason-title">
@@ -82,7 +84,8 @@ const reasons = [
   font-size: var(--Heading-H3, 40px);
   font-style: normal;
   font-weight: 700;
-  line-height: var(--line-H3, 48px); /* 120% */
+  line-height: var(--line-H3, 48px);
+  /* 120% */
 
   @media (max-width: 1024px) {
     font-size: 24px;
@@ -98,7 +101,8 @@ const reasons = [
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
 
   @media (max-width: 1024px) {
     font-size: 15px;
@@ -110,10 +114,15 @@ const reasons = [
   width: 100%;
   margin-top: 48px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media (max-width: 768px) {
     margin-top: 24px;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -125,10 +134,17 @@ const reasons = [
   align-items: flex-start;
   gap: 12px;
   flex: 1 0 0;
-  border-left: 2px solid transparent; /* 只留左边边框 */
+  border-left: 2px solid transparent;
+  /* 只留左边边框 */
   border-image: linear-gradient(180deg, rgba(226, 233, 238, 0) 0%, #e2e9ee 50%, rgba(226, 233, 238, 0) 100%) 30 fill
-    stretch; /* 应用 border-image */
-  border-image-slice: 6; /* 切割图片 */
+    stretch;
+  /* 应用 border-image */
+  border-image-slice: 6;
+  /* 切割图片 */
+
+  &:nth-child(3n) {
+    border-right: 2px solid transparent;
+  }
 
   &:hover {
     background:
@@ -136,9 +152,16 @@ const reasons = [
       var(--colors-background-bg-block, #f1f5f8);
   }
 
+  @media (max-width: 1024px) {
+    &:nth-child(2n) {
+      border-right: 2px solid transparent;
+    }
+  }
+
   @media (max-width: 768px) {
     height: 120px;
     padding: 20px;
+    border-right: 2px solid transparent;
   }
 }
 
@@ -154,7 +177,8 @@ const reasons = [
   font-size: var(--Heading-H6, 24px);
   font-style: normal;
   font-weight: 500;
-  line-height: var(--line-H6, 36px); /* 150% */
+  line-height: var(--line-H6, 36px);
+  /* 150% */
 
   @media (max-width: 768px) {
     font-size: 20px;
@@ -170,7 +194,8 @@ const reasons = [
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
 
   @media (max-width: 768px) {
     font-size: 15px;

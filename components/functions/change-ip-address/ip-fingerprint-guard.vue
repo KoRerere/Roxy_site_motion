@@ -4,7 +4,9 @@ import cover1 from '@/assets/images/functions/ip-fingerprint-guard-cover-1.png'
 import cover2 from '@/assets/images/functions/ip-fingerprint-guard-cover-2.png'
 import cover3 from '@/assets/images/functions/ip-fingerprint-guard-cover-3.png'
 import TryItNow from '~/components/page-use-cases/components/TryItNow.vue'
+import { useRxI18n } from '~/composables/useRxI18n'
 
+const { $t } = useRxI18n()
 const features = [
   {
     title: $t('支持各种代理，切换全球 IP'),
@@ -132,8 +134,8 @@ const features = [
   line-height: var(--line-H3, 48px); /* 120% */
   letter-spacing: -0.8px;
   @media (max-width: 1024px) {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 28px;
+    line-height: 36px;
   }
 }
 

@@ -8,9 +8,14 @@ import TrustedProxiesAccess from '~/components/functions/change-ip-address/trust
 import WhatIsIpAddress from '~/components/functions/change-ip-address/what-is-ip-address.vue'
 import WhyChangeYourIpAddress from '~/components/functions/change-ip-address/why-change-your-ip-address.vue'
 import HeroBanner from '~/components/functions/hero-banner.vue'
+import { useRxI18n } from '~/composables/useRxI18n'
 
+const { $t } = useRxI18n()
+
+// eslint-disable-next-line no-undef
 useBackTop(useTemplateRef('mainRef'))
 
+// eslint-disable-next-line no-undef
 useHead({
   meta: [
     {
@@ -66,7 +71,7 @@ const faqList = computed(() => [
     <SectorDifferencePanel class="panel" />
     <AntidetectVsTraditionalPanel class="panel" />
     <DownloadNow class="panel" />
-    <Faq :fqa-list="faqList" class="fqa-container py-2" />
+    <Faq :fqa-list="faqList" class="fqa-container py-2 func-faq" />
   </main>
 </template>
 
@@ -77,5 +82,11 @@ const faqList = computed(() => [
   gap: 48px;
   align-items: center;
   width: min(100%, 1280px);
+}
+
+.func-faq {
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
 }
 </style>

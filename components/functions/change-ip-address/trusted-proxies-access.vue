@@ -32,6 +32,15 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  z-index: 1;
+
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(86.21% 231.94% at 50% 0%, rgba(18, 163, 252, 0.12) 0%, rgba(18, 163, 252, 0) 70%);
+    z-index: -2;
+  }
 
   @media (max-width: 1024px) {
     padding: 0px 16px 0;
@@ -49,7 +58,8 @@
   font-size: var(--Heading-H3, 40px);
   font-style: normal;
   font-weight: 700;
-  line-height: var(--line-H3, 48px); /* 120% */
+  line-height: var(--line-H3, 48px);
+  /* 120% */
 
   @media (max-width: 1024px) {
     font-size: 24px;
@@ -67,7 +77,8 @@
   font-size: var(--body, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: var(--line-body, 28px); /* 155.556% */
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
 
   @media (max-width: 1024px) {
     margin-top: 24px;

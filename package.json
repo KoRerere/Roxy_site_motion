@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nuxt build --envName=production",
     "build:dev": "cross-env ENV=development nuxt build --envName=development",
-    "dev": "nuxt dev --host --envName=development",
+    "dev": "nuxt dev --envName=development",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "analyze": "nuxt analyze",

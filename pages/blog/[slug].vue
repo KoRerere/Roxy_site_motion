@@ -17,7 +17,7 @@
                 <li v-for="(breadcrumb, index) in breadcrumbs" :key="breadcrumb.to"
                   class="flex items-center breadcrumb-item">
                   <template v-if="breadcrumb.separator">
-                    <RxIcon name="base/rx_ic_chevron_right" color="#7D8387" />
+                    <RxIcon name="base/rx_ic_right" color="#7D8387" />
                   </template>
                   <template v-else>
                     <NuxtLinkLocale v-if="index < breadcrumbs.length - 1" :to="breadcrumb.to">
@@ -398,7 +398,6 @@ html {
 }
 
 .blog-container {
-
   .article-title {
     margin-top: 40px;
     color: var(--text-text-primary, #111213);
@@ -410,16 +409,14 @@ html {
     letter-spacing: -0.108px;
   }
 
-
   .breadcrumb-item {
-    color: var(--colors-text-text-tertiary, #575D60);
+    color: var(--colors-text-text-tertiary, #575d60);
     font-family: Inter;
     font-size: var(--body-second, 14px);
     font-style: normal;
     font-weight: 500;
     line-height: var(--line-body-second, 18px);
     /* 128.571% */
-
 
     &:not(:last-of-type):hover {
       text-decoration-line: underline;
@@ -514,7 +511,6 @@ html {
       line-height: 180%;
       /* 28.8px */
       letter-spacing: -0.048px;
-
     }
 
     img {
@@ -524,7 +520,7 @@ html {
     }
 
     a {
-      color: var(--colors-text-text-link, #11A3FD);
+      color: var(--colors-text-text-link, #11a3fd);
       font-family: Inter;
       font-size: 16px;
       font-style: normal;
@@ -538,7 +534,7 @@ html {
       text-underline-position: from-font;
 
       &:hover {
-        color: var(--colors-text-text-link-hover, #0282D4);
+        color: var(--colors-text-text-link-hover, #0282d4);
         font-family: Inter;
         font-size: 16px;
         font-style: normal;
@@ -566,7 +562,7 @@ html {
     }
 
     ol li::marker {
-      content: counter(list-item) ".  ";
+      content: counter(list-item) '.  ';
       color: var(--text-text-primary, #111213);
       text-align: center;
       font-family: Inter;
@@ -593,14 +589,13 @@ html {
 
     table {
       width: 100%;
-      border: 1px solid #F1F5F8;
+      border: 1px solid #f1f5f8;
       border-collapse: collapse;
 
       thead {
-        background-color: #F1F5F8;
+        background-color: #f1f5f8;
         height: 50px;
         text-align: left;
-
       }
 
       th,
@@ -616,12 +611,12 @@ html {
       }
 
       tr:not(:last-child) {
-        border-bottom: 1px solid var(--netural-100, #F1F5F8);
+        border-bottom: 1px solid var(--netural-100, #f1f5f8);
       }
     }
 
     blockquote {
-      border-left: 4px solid #11A3FD;
+      border-left: 4px solid #11a3fd;
       border-radius: 4px;
       padding-left: 1rem;
       color: #555;
@@ -640,13 +635,12 @@ html {
   }
 }
 
-
 .border-bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .border-top {
-  border-top: 1px solid rgba(0, 0, 0, 0.10);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .directory-ul {
@@ -662,25 +656,26 @@ html {
     background: transparent;
 
     &.active-directory {
-      border-left: 3px solid #11A3FD;
+      border-left: 3px solid #11a3fd;
       background: rgba(18, 163, 252, 0.06);
 
       a,
       a:hover {
-        color: var(--colors-text-text-brand, #11A3FD);
+        color: var(--colors-text-text-brand, #11a3fd);
       }
     }
 
     a {
-      color: var(--colors-text-text-tertiary, #575D60);
-      font-feature-settings: 'liga' off, 'calt' off;
+      color: var(--colors-text-text-tertiary, #575d60);
+      font-feature-settings:
+        'liga' off,
+        'calt' off;
       font-family: Inter;
       font-size: var(--body-second, 14px);
       font-style: normal;
       font-weight: 400;
       line-height: var(--line-body-second, 18px);
       /* 128.571% */
-
 
       &:hover {
         color: var(--colors-text-text-primary, #111213);
@@ -690,14 +685,14 @@ html {
 }
 
 .directory {
-  color: var(--text-text-secondary, #34393D);
+  color: var(--text-text-secondary, #34393d);
   font-family: Archivo;
   font-size: 14px;
   display: inline-block;
 }
 
 .sub-directory {
-  color: var(--text-text-teriiary, #575D60);
+  color: var(--text-text-teriiary, #575d60);
   font-family: Archivo;
   font-size: 12px;
   display: inline-block;
@@ -709,7 +704,7 @@ html {
   position: absolute;
   height: 6px;
   width: 6px;
-  background-color: #12A3FC;
+  background-color: #12a3fc;
   border-radius: 50%;
   left: 0;
   top: 50%;
