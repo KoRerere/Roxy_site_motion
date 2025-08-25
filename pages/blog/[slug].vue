@@ -11,7 +11,7 @@
       </div>
       <template v-else-if="status === 'success'">
         <div class="flex gap-[34px]">
-          <main class="flex-1">
+          <main class="flex-1 w-full">
             <nav aria-label="breadcrumb">
               <ol class="list-none flex items-center gap-2 flex-wrap">
                 <li v-for="(breadcrumb, index) in breadcrumbs" :key="breadcrumb.to"
@@ -587,10 +587,18 @@ html {
       font-weight: 700;
     }
 
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
       border: 1px solid #f1f5f8;
       border-collapse: collapse;
+      border-spacing: 0;
+      vertical-align: top;
+      white-space: nowrap;
 
       thead {
         background-color: #f1f5f8;
