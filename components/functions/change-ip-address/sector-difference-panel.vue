@@ -21,13 +21,13 @@ const differenceList = [
     key: 'social',
     title: $t('社媒营销'),
     link: '/use-cases/social-media-marketing',
-    description: $t('每天从 50 多个不同地点发帖，不必担心被垃圾邮件过滤器或地域限制封锁。'),
+    description: $t('每天从 50 多个不同地点发帖，不必担心被反垃圾邮件系统或地域限制封锁。'),
     platforms: Array.from({ length: 10 }, (_, i) => `${baseImgUrl}/3/${i + 1}`),
   },
   {
     key: 'seo',
     title1: $t('SEO优化'),
-    title2: $t('付费广告投流'),
+    title2: $t('广告投流'),
     link1: '/use-cases/seo-content-marketing',
     link2: '/use-cases/paid-search-advertising',
     description: $t('使用 100+ 个住宅 IP 测试广告，抓取竞争对手数据。零封锁，纯数据。'),
@@ -62,7 +62,7 @@ const differenceList = [
             <NuxtLinkLocale :to="item.link1" class="difference-item-title">
               {{ item.title1 }}
             </NuxtLinkLocale>
-            <div class="difference-item-title !no-underline">
+            <div class="difference-item-title mark !no-underline">
               &
             </div>
             <NuxtLinkLocale :to="item.link2" class="difference-item-title">
@@ -140,7 +140,7 @@ const differenceList = [
       text-decoration: underline;
       text-underline-offset: 5px;
 
-      &:hover {
+      &:not(.mark):hover {
         color: #12a3fc;
       }
     }

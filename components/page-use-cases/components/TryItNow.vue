@@ -1,6 +1,7 @@
 <template>
-  <NuxtLinkLocale to="/download" :class="[type]" class="px-6 py-3 rounded-2 flex items-center gap-1 text-sub-title font-500 bg-white transition-all duration-200 try-btn" v-bind="$attrs" @click="handleClick">
-    {{ $t('免费试用') }}
+  <NuxtLinkLocale to="/download" :class="[type]" class="px-6 py-3 rounded-2 flex items-center gap-1 text-sub-title font-500 bg-white transition-all duration-200 try-btn" v-bind="$attrs"
+    @click="handleClick">
+    {{ text || $t('免费试用') }}
     <RxIcon name="base/rx_ic_right" size="24" />
   </NuxtLinkLocale>
 </template>
@@ -8,11 +9,14 @@
 <script setup lang="ts">
 import { RxIcon } from '@/components/rx-icon'
 import { useDownload } from '~/composables/useDownload'
+import { useRxI18n } from '~/composables/useRxI18n'
 
 defineProps<{
+  text?: string,
   type?: 'primary' | 'secondary'
 }>()
 
+const { $t } = useRxI18n()
 const { initializeDownload, triggerAutoDownload } = useDownload()
 
 const handleClick = async () => {

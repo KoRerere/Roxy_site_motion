@@ -29,7 +29,7 @@ const reasons = [
   },
   {
     title: $t('安全抓取数据'),
-    description: $t('自动更换 IP 地址，安全高效地收集数据，避免被屏蔽或标记。 '),
+    description: $t('自动更换 IP 地址，安全高效地收集数据，避免被屏蔽或标记。'),
     icon: 'functions/rx_ic_random',
   },
   {
@@ -46,7 +46,7 @@ const reasons = [
       {{ $t('为什么要更换 IP 地址？') }}
     </div>
     <div class="description">
-      {{ $t("你可能正在考虑这些原因：为了访问受限内容、保护隐私，或是保障账号安全。这些绝大程度地受到你的IP地址影响。") }}
+      {{ $t("你可能正在考虑这些原因：为了访问受限内容、保护隐私，或是保障账号安全。这些在很大程度上都受到你的 IP 地址影响。") }}
     </div>
     <div class="reasons">
       <div v-for="reason in reasons" :key="reason.title" class="reason transition-all duration-200">

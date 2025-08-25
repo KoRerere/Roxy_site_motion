@@ -45,6 +45,7 @@ const prerender = [
   // '/solutions/crypto-gains',
   // '/solutions/traffic-trade',
   // '/solutions/ad-strategy',
+  '/functions/**',
   '/use-cases/**',
 ]
 const ssr = ['/blog/**']
@@ -287,7 +288,7 @@ export default defineNuxtConfig({
           `
         }
       ],
-      noscript:[
+      noscript: [
         {
           textContent: `
             <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXR7SHP"height="0" width="0" style="display:none;visibility:hidden"></iframe>

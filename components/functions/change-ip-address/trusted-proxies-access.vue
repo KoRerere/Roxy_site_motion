@@ -11,7 +11,7 @@
       <div class="description">
         {{ $t('你可以在 RoxyBrowser 客户端直接购买优质的住宅代理，省去了到处寻找代理的麻烦和对不良服务商的担忧。只需下载软件、选择你的配置，然后即可开始安全浏览。') }}
       </div>
-      <img src="@/assets/images/functions/trusted-proxies-access-example.png" alt="trusted-proxies-access" class="w-full mt-7"></img>
+      <img src="@/assets/images/functions/trusted-proxies-access-example.png" alt="trusted-proxies-access" class="w-full">
     </div>
     <div class="mask" />
   </div>
@@ -70,7 +70,6 @@
 .description {
   margin-top: 48px;
   color: var(--colors-text-text-primary, #111213);
-  text-align: center;
 
   /* body */
   font-family: Inter;

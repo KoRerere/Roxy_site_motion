@@ -19,7 +19,7 @@ const features = [
       },
       {
         label: $t('全球覆盖：'),
-        description: $t('按需获取来自 195+ 个国家的 IP 地址。'),
+        description: $t('按需切换 195+ 个国家的 IP 地址。'),
       },
       {
         label: $t('精准匹配：'),
@@ -29,7 +29,7 @@ const features = [
   },
   {
     title: $t('更换指纹，真正实现“隐身”'),
-    description: $t('RoxyBrowser 会为每个会话自动生成唯一的、与代理 IP 地址匹配的浏览器指纹，完美模拟真实用户，甚至连最细微的细节都不放过。告别那些能被轻易识别的“代理模式”或 IP-指纹不匹配问题。'),
+    description: $t('RoxyBrowser 会为每个会话自动生成唯一的、与代理 IP 地址匹配的浏览器指纹，完美模拟真实用户。告别那些能被轻易识别的“代理模式”或 IP-指纹不匹配问题。'),
     cover: cover2,
     reverse: true,
     details: [
@@ -101,7 +101,7 @@ const features = [
                 </div>
               </div>
             </div>
-            <TryItNow v-if="width >= 768" type="primary" class="w-fit" />
+            <TryItNow v-if="width >= 768" type="primary" class="w-fit" :text="$t('立即试用')" />
           </div>
           <img v-if="width >= 768" :src="feature.cover" :alt="feature.title" class="feature-item-cover"></img>
         </div>

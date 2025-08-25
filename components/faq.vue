@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center xl:flex-row xl:items-start">
       <div class="w-full xl:w-5/12">
         <h2 class="xl:mt-[28px] xl:w-[90%] text-center xl:text-left text-6 leading-[1.2] sm:text-8 lg:text-h3 font-700 font-[Archivo] text-primary">
-          {{ $t('常见问题解答') }}
+          {{ $t('常见问题') }}
         </h2>
         <p class="mt-2 md:mt-[12px] xl:text-left text-center text-14px leading-normal md:text-body text-primary">
           {{ $t('有疑问？我们随时为您提供帮助。') }}
@@ -15,39 +15,26 @@
       </div>
 
       <div class="relative max-w-860px w-full xl:max-w-auto flex-1 transition-min-height duration-200">
-        <Accordion 
-            :defaultActive="0" 
-            class="px-3 w-full top-0 left-0" 
-            ref="faqRef" 
-            @change="handleChange"
-          >
-            <AccordionItem 
-              v-for="(c, idx) in fqaList" 
-              :key="idx"
-              :value="idx"
-              class="py-5 md:py-28px cursor-pointer border-b-1px border-b-[#C7D1D6] border-solid border-x-0 border-t-0"
-            >
-              <template #trigger="{ isTrigger }">
-                <h3 class="w-full flex justify-between items-center font-[Archivo] font-500 text-18px leading-32px md:text-h5 text-primary">
-                  {{ c.title }}
-                  <span class="ml-6">
-                    <RxIcon v-if="isTrigger" name="base/rx_ic_minus"  />
-                    <RxIcon v-else name="base/rx_ic_plus" />
-                  </span>
-                </h3>
-              </template>
-              <template #content>
-                <p class="pt-2 md:pt-6 leading-28px text-4 md:text-body whitespace-pre-line text-secondary">
-                <template v-if="isString(c.desc)">
-                 {{ c.desc }}
-                </template>
-                <template v-else>
-                  <component :is="c.desc" />
-                </template>
-              </p>
-              </template>
-            </AccordionItem>
-          </Accordion>
+        <Accordion :defaultActive="0" class="px-3 w-full top-0 left-0" ref="faqRef" @change="handleChange">
+          <AccordionItem v-for="(c, idx) in fqaList" :key="idx" :value="idx" class="py-5 md:py-28px cursor-pointer border-b-1px border-b-[#C7D1D6] border-solid border-x-0 border-t-0">
+            <template #trigger="{ isTrigger }">
+              <h3 class="w-full flex justify-between items-center font-[Archivo] font-500 text-18px leading-32px md:text-h5 text-primary">
+                {{ c.title }}
+                <span class="ml-6">
+                  <RxIcon v-if="isTrigger" name="base/rx_ic_minus" />
+                  <RxIcon v-else name="base/rx_ic_plus" />
+                </span>
+              </h3>
+            </template>
+            <template #content>
+              <div class="pt-2 md:pt-6">
+                <p class="leading-28px text-4 md:text-body whitespace-pre-line text-secondary" v-for="text in c.desc" :key="text">
+                  {{ text }}
+                </p>
+              </div>
+            </template>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
 
@@ -72,21 +59,26 @@ import { RxIcon } from '@/components/rx-icon'
 
 const { telegramLink } = useTelegram()
 
-interface FAQItem {
-  title: string
-  desc: string | (() => JSX.Element)
-}
-
-interface Props {
-  fqaList: FAQItem[]
+const props = defineProps<{
+  fqaList: {
+    title: string,
+    desc: string | string[]
+  }[]
   containerClass?: string
-}
+}>()
 
-const props = defineProps<Props>()
+const fqaList = computed(() => {
+  return props.fqaList.map(item => {
+    return {
+      ...item,
+      desc: [].concat(item.desc)
+    }
+  })
+})
 
 // Fix: 打包后会失效
 const Comp = () => <div class='flex gap-3 sm:gap-4'>
-  <div 
+  <div
     class={cn(
       'w-169px h-88px sm:w-160px sm:h-142px',
       'bg-white sm:bg-[#E2E9EE] rounded-10px sm:rounded-3',

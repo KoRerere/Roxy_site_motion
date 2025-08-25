@@ -17,5 +17,5 @@
 import type { FAQProps } from './interface';
 import Accordion from './accordion/index.vue';
 
-const props = defineProps<FAQProps>()
+defineProps<FAQProps>()
 </script>
