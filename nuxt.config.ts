@@ -315,8 +315,8 @@ export default defineNuxtConfig({
     },
     baseUrl: 'https://roxybrowser.com/',
     locales: [
-      { code: 'zh', language: 'zh-CN', file: 'zh.json' },
-      { code: 'en', language: 'en-US', file: 'en.json' },
+      { code: 'zh', language: 'zh-CN', file: { path: 'zh.json', cache: false } },
+      { code: 'en', language: 'en-US', file: { path: 'en.json', cache: false } },
       // { code: 'ru', language: 'RU', file: 'ru.json' },
     ],
     defaultLocale: 'en',
