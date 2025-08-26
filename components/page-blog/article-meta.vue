@@ -48,6 +48,10 @@ const readingTime = computed(() => {
     display: inline-flex;
     align-items: center;
     gap: 12px;
+
+    @media (max-width: 768px) {
+      gap: 6px
+    }
 }
 
 .article-meta-item {

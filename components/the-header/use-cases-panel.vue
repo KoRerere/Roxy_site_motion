@@ -52,7 +52,7 @@ const props = defineProps({
 const coreFeatures = computed(() => [
   {
     icon: "menu/traffic-trade",
-    title: $t("SEO优化"),
+    title: $t("SEO 优化"),
     link: "/use-cases/seo-content-marketing",
   },
   {

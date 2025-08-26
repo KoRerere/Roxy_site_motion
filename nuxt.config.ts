@@ -12,7 +12,7 @@ import { definePreset } from '@primevue/themes'
 import myPreset from './assets/styles/primevuePresets'
 import { imagetools } from 'vite-imagetools'
 
-const svgIconTypesPath = './components/rx-icon/src/svg-icon-types.ts';
+const svgIconTypesPath = './components/rx-icon/svg-icon-types.ts';
 
 const isDev = process.env.ENV === 'development'
 
@@ -45,6 +45,7 @@ const prerender = [
   // '/solutions/crypto-gains',
   // '/solutions/traffic-trade',
   // '/solutions/ad-strategy',
+  '/functions/**',
   '/use-cases/**',
 ]
 const ssr = ['/blog/**']
@@ -287,7 +288,7 @@ export default defineNuxtConfig({
           `
         }
       ],
-      noscript:[
+      noscript: [
         {
           textContent: `
             <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXR7SHP"height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -314,8 +315,8 @@ export default defineNuxtConfig({
     },
     baseUrl: 'https://roxybrowser.com/',
     locales: [
-      { code: 'zh', language: 'zh-CN', file: 'zh.json' },
-      { code: 'en', language: 'en-US', file: 'en.json' },
+      { code: 'zh', language: 'zh-CN', file: { path: 'zh.json', cache: false } },
+      { code: 'en', language: 'en-US', file: { path: 'en.json', cache: false } },
       // { code: 'ru', language: 'RU', file: 'ru.json' },
     ],
     defaultLocale: 'en',

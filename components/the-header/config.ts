@@ -2,6 +2,7 @@ import { computed } from 'vue';
 import SolutionsPanel from './solutions-panel.vue';
 import FeaturesPanel from './features-panel.vue';
 import UseCasesPanel from './use-cases-panel.vue';
+import FunctionsPanel from './functions-panel.vue';
 
 export const useMenuConfigs = () => {
   const { $t, locale } = useRxI18n()
@@ -22,11 +23,13 @@ export const useMenuConfigs = () => {
     },
     {
       title: $t('产品功能'),
-      value: 'features',
-      component: FeaturesPanel,
+      value: 'functions',
+      component: FunctionsPanel,
     }
   ])
-  
+
+  const { locale } = useRxI18n()
+
   const menus = computed(() => {
     const __menus = [
       {
@@ -40,10 +43,11 @@ export const useMenuConfigs = () => {
           await initializeDownload()
           triggerAutoDownload()
         }
-      },
+      }, 
       {
         title: $t('使用指南'),
-        link: 'https://faq.roxybrowser.com/' + (locale.value === 'zh' ? 'zh' : ''),
+        link: `https://faq.roxybrowser.com/${locale.value}`,
+        target: '_blank'
       }
     ]
 
@@ -54,15 +58,15 @@ export const useMenuConfigs = () => {
 
     return __menus
   })
-  
-  const mobileMenus = computed(() => [
+
+  const mobileMenus = [
     {
       title: $t('应用场景'),
       value: 'use-cases',
       children: [
         {
           icon: "menu/traffic-trade",
-          title: $t('SEO优化'),
+          title: $t('SEO 优化'),
           value: 'seo-content-marketing',
         },
         {
@@ -102,26 +106,32 @@ export const useMenuConfigs = () => {
       value: 'features',
       children: [
         {
-          title: $t('窗口模板'),
-          value: 'profile-template',
+          icon: 'menu/nav-change-ip',
+          title: $t('更改IP地址'),
+          link: '/functions/change-ip-address',
         },
         {
-          title: $t('团队空间'),
-          value: 'team-space',
-        },
-        {
+          icon: 'menu/proxy-panel',
           title: $t('代理面板'),
           value: 'proxy-panel',
         },
         {
+          icon: 'menu/team-space',
+          title: $t('团队空间'),
+          value: 'team-space',
+        },
+        {
+          icon: 'menu/account-hub',
           title: $t('账号中心'),
           value: 'account-hub',
         },
         {
+          icon: 'menu/window-sync',
           title: $t('窗口同步'),
           value: 'window-sync',
         },
         {
+          icon: 'menu/api-flow',
           title: $t('API 流程'),
           value: 'api-flow',
         },
@@ -140,8 +150,9 @@ export const useMenuConfigs = () => {
       value: 'download',
     },
     {
-      title: $t('使用指南'),
-      value: 'https://faq.roxybrowser.com/' + (locale.value === 'zh' ? 'zh' : ''),  
+        title: $t('使用指南'),
+        value: `https://faq.roxybrowser.com/${locale.value}`,
+        target: '_blank'
     },
     {
       title: $t('语言'),
@@ -163,7 +174,7 @@ export const useMenuConfigs = () => {
         }
       ]
     },
-  ])
+  ]
 
   return {
     mageMenus,

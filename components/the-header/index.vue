@@ -30,7 +30,7 @@
               v-for="menu in menus" 
               :key="menu.title"
             >
-              <NuxtLinkLocale :to="menu.link" class="menu-item-link color-inherit text-14px" @click="menu.click" :target="menu.link.startsWith('http') ? '_blank' : undefined">
+              <NuxtLinkLocale :to="menu.link" class="menu-item-link color-inherit text-14px" @click="menu.click" :target="menu.target">
                 {{ menu.title }}
               </NuxtLinkLocale>
             </li>
@@ -236,8 +236,7 @@ onMounted(() => {
 }
 
 .box-shadow {
-  box-shadow: 
-    0px 0px 0px 6px rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 0px 0px 6px rgba(255, 255, 255, 0.4);
 }
 
 .box-shadow::before {
@@ -250,9 +249,9 @@ onMounted(() => {
   width: calc(100% + 12px);
   height: calc(100% + 12px);
   border-radius: 12px;
-  box-shadow: 
-    0px 3px 8px 0px rgba(0, 0, 0, 0.07), 
-    0px 2px 5px 0px rgba(0, 0, 0, 0.07), 
+  box-shadow:
+    0px 3px 8px 0px rgba(0, 0, 0, 0.07),
+    0px 2px 5px 0px rgba(0, 0, 0, 0.07),
     0px 1px 1px 0px rgba(0, 0, 0, 0.07);
 }
 

@@ -35,6 +35,23 @@ export default defineNuxtPlugin(() => {
     }
   })
 
+  // 自定义表格渲染规则，用 div 包裹表格
+  const defaultRender = md.renderer.rules.table_open || function(tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
+  };
+  
+  md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
+    return '<div class="table-wrapper">' + defaultRender(tokens, idx, options, env, self);
+  };
+  
+  const defaultTableCloseRender = md.renderer.rules.table_close || function(tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
+  };
+  
+  md.renderer.rules.table_close = function (tokens, idx, options, env, self) {
+    return defaultTableCloseRender(tokens, idx, options, env, self) + '</div>';
+  };
+
   return {
     provide: {
       md: async (content: string) => {

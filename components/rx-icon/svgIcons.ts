@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
-const modules = import.meta.glob<Component>('../../../assets/svgs/**/*.svg', {
+const modules = import.meta.glob<Component>('../../assets/svgs/**/*.svg', {
   query: '?component',eager: false
 })
 

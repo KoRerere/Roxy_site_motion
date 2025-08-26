@@ -36,7 +36,7 @@ const fontSize = computed(() => {
 })
 
 const SvgComponent = computed(() => {
-  return svgIcons[`../../../assets/svgs/${props.name}.svg`] ?? svgIcons[`../../../assets/svgs/${props.fallback}.svg`]
+  return svgIcons[`../../assets/svgs/${props.name}.svg`] ?? svgIcons[`../../../assets/svgs/${props.fallback}.svg`]
 })
 </script>
 
