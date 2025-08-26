@@ -5,9 +5,9 @@
 <template>
   <div class="trusted-proxies-access">
     <div class="content">
-      <div class="title">
+      <h2 class="title">
         {{ $t('RoxyBrowser 内置精选代理商，安全可靠，无须费心') }}
-      </div>
+      </h2>
       <div class="description">
         {{ $t('你可以在 RoxyBrowser 客户端直接购买优质的住宅代理，省去了到处寻找代理的麻烦和对不良服务商的担忧。只需下载软件、选择你的配置，然后即可开始安全浏览。') }}
       </div>

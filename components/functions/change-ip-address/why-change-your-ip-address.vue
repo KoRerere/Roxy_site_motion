@@ -12,7 +12,7 @@ const reasons = [
     icon: 'functions/rx_ic_address',
   },
   {
-    title: $t('保持在线隐私'),
+    title: $t('保护在线隐私'),
     description: $t('隐藏你的真实身份，避免被追踪，保持匿名。'),
     icon: 'functions/rx_ic_shield',
   },
@@ -42,9 +42,9 @@ const reasons = [
 
 <template>
   <div class="why-change-your-ip-address">
-    <div class="title">
+    <h2 class="title">
       {{ $t('为什么要更换 IP 地址？') }}
-    </div>
+    </h2>
     <div class="description">
       {{ $t("你可能正在考虑这些原因：为了访问受限内容、保护隐私，或是保障账号安全。这些在很大程度上都受到你的 IP 地址影响。") }}
     </div>
@@ -52,9 +52,9 @@ const reasons = [
       <div v-for="reason in reasons" :key="reason.title" class="reason transition-all duration-200">
         <div class="reason-header">
           <rx-icon-svg-icon :name="reason.icon" :size="width < 768 ? 24 : 36" />
-          <div class="reason-title">
+          <h3 class="reason-title">
             {{ reason.title }}
-          </div>
+          </h3>
         </div>
         <div class="reason-content">
           <div class="reason-description">

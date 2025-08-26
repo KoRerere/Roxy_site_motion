@@ -5,9 +5,9 @@
 <template>
   <div class="what-is-ip-address">
     <div class="intro">
-      <div class="intro-title">
+      <h2 class="intro-title">
         {{ $t('什么是 IP 地址？') }}
-      </div>
+      </h2>
       <div class="intro-content">
         <p>
           {{ $t('IP 地址是你的设备在互联网上的唯一数字身份，就像一个“家庭住址”，让数据可以来回准确地传输。它也能大致透露你的地理位置，确保全球范围内的网络通信和内容传输。') }}

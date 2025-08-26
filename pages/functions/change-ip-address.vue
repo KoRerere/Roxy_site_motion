@@ -17,10 +17,11 @@ useBackTop(useTemplateRef('mainRef'))
 
 // eslint-disable-next-line no-undef
 useHead({
+  title: $t('更改 IP 地址最安全有效的方法！无需 VPN'),
   meta: [
     {
       name: 'title',
-      content: $t('更改IP地址最安全有效的方法！无需VPN'),
+      content: $t('更改 IP 地址最安全有效的方法！无需 VPN'),
     },
     {
       name: 'description',
@@ -32,7 +33,7 @@ useHead({
 const faqList = computed(() => [
   {
     title: $t('为什么要用 RoxyBrowser 来更换 IP 地址？'),
-    desc: $t('把你的 IP 地址想象成你在网上的家庭住址。它会告诉网站你在哪里。如果你不希望每个平台、广告商，甚至是不法分子都掌握你的真实位置，那么更换 IP 地址就是明智之举。RoxyBrowser 可以让你即时切换 IP，让你的浏览活动保持隐私、灵活，更难被追溯。'),
+    desc: $t('把你的 IP 地址想象成你在网上的家庭住址，它会告诉网站你在哪里。如果你不希望每个平台、广告商，甚至是不法分子都掌握你的真实位置，那么更换 IP 地址就是明智之举。RoxyBrowser 可以让你即时切换 IP，让你的浏览活动保持隐私、灵活，更难被追溯。'),
   },
   {
     title: $t('更换 IP 地址会降低浏览速度吗？'),
@@ -49,7 +50,7 @@ const faqList = computed(() => [
   {
     title: $t('使用 RoxyBrowser 可以多久更换一次 IP？'),
     desc: [
-      $t('RoxyBrowser 没有限制切换IP的次数。你可以创建独立的配置文件（可理解成浏览器窗口），每个配置文件都有自己独立的指纹、cookies 和 IP。你可以随时切换到另一个窗口来即时更换 IP，或者在不清除缓存或重启的情况下，直接更新配置文件的代理。'),
+      $t('RoxyBrowser 没有限制切换 IP 的次数。你可以创建独立的配置文件（可理解成浏览器窗口），每个配置文件都有自己独立的指纹、cookies 和 IP。你可以随时切换到另一个窗口来即时更换 IP，或者在不清除缓存或重启的情况下，直接更新配置文件的代理。'),
       $t('你甚至可以同时打开多个窗口，每个窗口都在不同的 IP 地址下，并排管理它们。'),
       $t('简单来说：你想换就换，甚至可以同时更换多个 IP，只需使用不同的配置文件即可。'),
     ],

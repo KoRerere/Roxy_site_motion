@@ -16,7 +16,7 @@ const tableData = [
       $t('浏览器指纹伪装'),
       $t('环境完全隔离'),
       $t('批量管理效率'),
-      $t('IP与指纹匹配真实性'),
+      $t('IP 与指纹匹配真实性'),
       $t('自动化支持'),
       $t('团队协作安全'),
       $t('账号安全成本'),
@@ -31,10 +31,10 @@ const tableData = [
     bulge: true,
     items: [
       $t('深度修改指纹信息，模拟真实设备差异'),
-      $t('独立进程+沙盒隔离，数据0共享'),
-      $t('一键批量启动，单机100+账号并行'),
+      $t('独立进程+沙盒隔离，数据 0 共享'),
+      $t('一键批量启动，单机 100+ 账号并行'),
       $t('绑定代理+自动同步地理位置/语言/时区'),
-      $t('原生集成Selenium/Puppeteer，环境自动绑定'),
+      $t('原生集成 Selenium/Puppeteer，环境自动绑定'),
       $t('成员分权/操作审计/环境加密共享'),
       $t('封号率<2%，保障资产安全'),
       <div class={styles['to-pricing-btn']}>
@@ -51,10 +51,10 @@ const tableData = [
     header: $t('传统方式 (VPN/代理/虚拟机)'),
     itemIcon: 'functions/site_ic_error',
     items: [
-      $t('仅改IP，指纹暴露'),
-      $t('全局IP污染/Cookie泄漏'),
-      $t('手工切换IP/系统'),
-      $t('机房IP暴露/时区语言错乱'),
+      $t('仅改 IP，指纹暴露'),
+      $t('全局 IP 污染/Cookie 泄漏'),
+      $t('手动切换 IP/系统'),
+      $t('机房 IP 暴露/时区语言错乱'),
       $t('全局代理干扰脚本'),
       $t('共享账号/IP，权责混乱'),
       $t('封号率>80%，万元级损失/月'),
@@ -71,7 +71,7 @@ const tableData = [
       $t('无法规模化运营，业务停滞'),
       $t('员工误操作致全军覆没'),
       $t('店铺/广告账户永久禁用'),
-      $t('成本失控，ROI为负'),
+      $t('成本失控，ROI 为负'),
     ],
   },
 
@@ -94,9 +94,9 @@ function handleMouseOver(index: number) {
       <div class="why-text">
         {{ $t('为什么 RoxyBrowser 是更换 IP 地址的最佳工具') }}
       </div>
-      <div class="title">
+      <h2 class="title">
         {{ $t('反侦测浏览器 vs. 传统方法') }}
-      </div>
+      </h2>
     </div>
     <div class="scroll-container">
       <div class="table-container">

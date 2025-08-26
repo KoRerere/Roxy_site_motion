@@ -66,7 +66,7 @@ export const useMenuConfigs = () => {
       children: [
         {
           icon: "menu/traffic-trade",
-          title: $t('SEO优化'),
+          title: $t('SEO 优化'),
           value: 'seo-content-marketing',
         },
         {

@@ -26,7 +26,7 @@ const differenceList = [
   },
   {
     key: 'seo',
-    title1: $t('SEO优化'),
+    title1: $t('SEO 优化'),
     title2: $t('广告投流'),
     link1: '/use-cases/seo-content-marketing',
     link2: '/use-cases/paid-search-advertising',
@@ -37,7 +37,7 @@ const differenceList = [
     key: 'scraping',
     title: $t('网络爬虫'),
     link: '/use-cases/web-scraping',
-    description: $t('利用类人指纹和自动轮换代理，轻松绕过反机器人墙。'),
+    description: $t('利用真实用户指纹和自动轮换代理，轻松绕过反机器人墙。'),
     platforms: Array.from({ length: 10 }, (_, i) => `${baseImgUrl}/5/${i + 1}`),
   },
   {
@@ -52,27 +52,28 @@ const differenceList = [
 
 <template>
   <div class="sector-difference-panel">
-    <div class="title">
+    <h2 class="title">
       {{ $t('RoxyBrowser 保障各业务操作的高效和安全') }}
-    </div>
+    </h2>
     <div class="difference-list">
       <div v-for="item in differenceList" :key="item.title" class="difference-item transition-all duration-200">
         <div class="content">
-          <div v-if="item.key === 'seo'" class="flex gap-2">
-            <NuxtLinkLocale :to="item.link1" class="difference-item-title">
-              {{ item.title1 }}
-            </NuxtLinkLocale>
-            <div class="difference-item-title mark !no-underline">
-              &
+          <h3>
+            <div v-if="item.key === 'seo'" class="flex gap-2">
+              <NuxtLinkLocale :to="item.link1" class="difference-item-title">
+                {{ item.title1 }}
+              </NuxtLinkLocale>
+              <div class="difference-item-title mark !no-underline">
+                &
+              </div>
+              <NuxtLinkLocale :to="item.link2" class="difference-item-title">
+                {{ item.title2 }}
+              </NuxtLinkLocale>
             </div>
-            <NuxtLinkLocale :to="item.link2" class="difference-item-title">
-              {{ item.title2 }}
+            <NuxtLinkLocale v-else :to="item.link" class="difference-item-title">
+              {{ item.title }}
             </NuxtLinkLocale>
-          </div>
-
-          <NuxtLinkLocale v-else :to="item.link" class="difference-item-title">
-            {{ item.title }}
-          </NuxtLinkLocale>
+          </h3>
           <div class="difference-item-description">
             {{ item.description }}
           </div>

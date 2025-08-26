@@ -29,7 +29,7 @@ const features = [
   },
   {
     title: $t('更换指纹，真正实现“隐身”'),
-    description: $t('RoxyBrowser 会为每个会话自动生成唯一的、与代理 IP 地址匹配的浏览器指纹，完美模拟真实用户。告别那些能被轻易识别的“代理模式”或 IP-指纹不匹配问题。'),
+    description: $t('RoxyBrowser 会为每个会话自动生成唯一的、与代理 IP 地址匹配的浏览器指纹，完美模拟真实用户。告别那些能被轻易识别的“代理模式”或 IP 和指纹不匹配问题。'),
     cover: cover2,
     reverse: true,
     details: [
@@ -73,9 +73,9 @@ const features = [
 
 <template>
   <div class="ip-fingerprint-guard">
-    <div class="title">
+    <h2 class="title">
       {{ $t('RoxyBrowser：一键同步，IP 和指纹同时换') }}
-    </div>
+    </h2>
     <div class="description">
       {{ $t("告别身份割裂，RoxyBrowser 可以确保你的浏览器指纹也随之改变，让平台无法检测到 IP 和指纹不匹配的异常，避免触发封禁。") }}
     </div>
@@ -83,9 +83,9 @@ const features = [
       <div class="features">
         <div v-for="feature in features" :key="feature.title" class="feature-item" :class="{ reverse: feature.reverse }">
           <div class="feature-item-content">
-            <div class="feature-item-title">
+            <h3 class="feature-item-title">
               {{ feature.title }}
-            </div>
+            </h3>
             <img v-if="width < 768" :src="feature.cover" :alt="feature.title" class="feature-item-cover"></img>
             <div class="feature-item-description">
               {{ feature.description }}
