@@ -28,7 +28,6 @@ export const useMenuConfigs = () => {
     }
   ])
 
-  const { locale } = useRxI18n()
 
   const menus = computed(() => {
     const __menus = [
@@ -109,6 +108,11 @@ export const useMenuConfigs = () => {
           icon: 'menu/nav-change-ip',
           title: $t('更改IP地址'),
           link: '/functions/change-ip-address',
+        },
+        {
+          icon: 'menu/nav-private-browsing',
+          title: $t('私密浏览'),
+          link: '/functions/private-browsing',
         },
         {
           icon: 'menu/proxy-panel',

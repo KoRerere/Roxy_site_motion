@@ -118,15 +118,17 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    '@primevue/nuxt-module',
-    '@nuxtjs/google-fonts',
+    '@primevue/nuxt-module', 
+    '@nuxtjs/google-fonts', 
     '@unocss/nuxt',
-    '@nuxtjs/i18n',
-    '@nuxtjs/seo',
-    'motion-v/nuxt',
-    '@nuxtjs/robots',
-    '@nuxt/image'
-  ],
+     '@nuxtjs/i18n',
+      '@nuxtjs/seo', 
+      'motion-v/nuxt', 
+      '@nuxtjs/robots', 
+      '@nuxt/image', 
+      '@vueuse/nuxt',
+      '@vueuse/motion/nuxt'
+    ],
   robots: {
     disallow: isDev ? '/' : ['/anbin', '/login', '/figma-icons', '/pay-success'],
   },

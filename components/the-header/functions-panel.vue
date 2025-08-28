@@ -12,6 +12,12 @@ const coreFeatures = computed(() => [
     link: '/functions/change-ip-address',
   },
   {
+    icon: 'menu/nav-private-browsing',
+    title: $t('私密浏览'),
+    desc: 'Praesent vitae convallis quam',
+    link: '/functions/private-browsing',
+  },
+  {
     icon: 'menu/proxy-panel',
     title: $t('代理面板'),
     desc: 'Praesent vitae convallis quam',
@@ -29,6 +35,9 @@ const coreFeatures = computed(() => [
     desc: 'Praesent vitae convallis quam',
     link: '/features/account-hub',
   },
+])
+
+const mainFeatures = computed(() => [
   {
     icon: 'menu/window-sync',
     title: $t('窗口同步'),
@@ -41,18 +50,6 @@ const coreFeatures = computed(() => [
     desc: 'Praesent vitae convallis quam',
     link: '/features/api-flow',
   },
-  // {
-  //   icon: 'menu/proxy-panel',
-  //   title: $t('私密浏览'),
-  //   desc: 'Praesent vitae convallis quam',
-  //   link: '/functions/private-browsing',
-  // },
-  // {
-  //   icon: 'menu/team-space',
-  //   title: $t('多账号管理'),
-  //   desc: 'Praesent vitae convallis quam',
-  //   link: '/functions/manage-multiple-accounts',
-  // },
 ])
 </script>
 
@@ -84,5 +81,13 @@ const coreFeatures = computed(() => [
 
   <div class="min-w-220px flex flex-col">
     <PanelItem v-for="feat in coreFeatures" :key="feat.title" v-bind="feat" />
+  </div>
+
+  <div class="min-w-220px flex flex-col">
+    <PanelItem
+      v-for="feat in mainFeatures"
+      :key="feat.title"
+      v-bind="feat"
+    />
   </div>
 </template>

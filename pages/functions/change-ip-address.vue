@@ -56,22 +56,29 @@ const faqList = computed(() => [
     ],
   },
 ])
+
+const features = [$t('无需配置 VPN'), $t('无需繁琐设置'), $t('告别封号风险')]
 </script>
 
 <template>
   <BgEffect />
   <main ref="mainRef" class="flex flex-col items-center md:gap-20 gap-15 px-0 pb-20 bg-[#F8FAFB]">
-    <HeroBanner class="px-6" />
-    <WhatIsIpAddress class="px-6" />
-    <WhyChangeYourIpAddress class="px-6" />
+    <HeroBanner
+      icon="functions/rx_ic_ip-address"
+      :title="$t('用 RoxyBrowser 轻松切换 IP 地址{icon}\n——更安全，更简单，更隐秘', { icon: '{icon}' })"
+      :description="$t('一键同步更换 IP 与浏览器指纹，隐匿行踪，保障安全。')"
+      :features="features" class="px-4"
+    />
+    <WhatIsIpAddress class="px-4" />
+    <WhyChangeYourIpAddress class="px-4" />
     <div class="flex flex-col items-center w-full px-3">
       <AutosizeBanner />
     </div>
-    <IpFingerprintGuard class="px-6" />
+    <IpFingerprintGuard class="px-4" />
     <TrustedProxiesAccess />
-    <SectorDifferencePanel class="panel px-6" />
-    <AntidetectVsTraditionalPanel class="panel px-6" />
-    <div class="flex flex-col items-center w-full px-6">
+    <SectorDifferencePanel class="panel px-4" />
+    <AntidetectVsTraditionalPanel class="panel px-4" />
+    <div class="flex flex-col items-center w-full px-4">
       <DownloadNow class="panel" />
     </div>
     <Faq :fqa-list="faqList" class="fqa-container py-2 func-faq" />
