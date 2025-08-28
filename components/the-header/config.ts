@@ -111,7 +111,7 @@ export const useMenuConfigs = () => {
         },
         {
           icon: 'menu/nav-private-browsing',
-          title: $t('私密浏览'),
+          title: $t('保护线上隐私'),
           link: '/functions/private-browsing',
         },
         {

@@ -45,36 +45,35 @@ const readingTime = computed(() => {
 
 <style lang="scss" scoped>
 .article-meta {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
 
-    @media (max-width: 768px) {
-      gap: 6px
-    }
+  @media (max-width: 768px) {
+    gap: 6px;
+  }
 }
 
 .article-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--colors-text-text-tertiary, #575D60);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px; /* 128.571% */
-    text-transform: capitalize;
-    
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--colors-text-text-tertiary, #575d60);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+  text-transform: capitalize;
 }
 
 .article-meta-item-divider {
-    color: var(--colors-text-text-tertiary, #575D60);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px; /* 128.571% */
-     
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+  color: #e2e2e2;
 }
 </style>

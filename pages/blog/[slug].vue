@@ -3,7 +3,7 @@
 
   <BgEffect />
 
-  <Container class="relative z-2 blog-container">
+  <Container class="relative z-2 blog-container px-5 md:px-12">
     <div class="pt-25 md:pt-[112px] mb-10" ref="mainRef">
       <div v-if="status === 'pending'" class="flex justify-center items-center h-screen">
         <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent" animationDuration=".5s"
@@ -11,7 +11,7 @@
       </div>
       <template v-else-if="status === 'success'">
         <div class="flex gap-[34px]">
-          <main class="flex-1 w-full">
+          <main class="flex-1 w-full min-w-0">
             <nav aria-label="breadcrumb">
               <ol class="list-none flex items-center gap-2 flex-wrap">
                 <li v-for="(breadcrumb, index) in breadcrumbs" :key="breadcrumb.to"
@@ -28,7 +28,7 @@
                 </li>
               </ol>
             </nav>
-            <article>
+            <article class="lg:pr-64px pr-0">
               <header>
                 <h1 class="article-title text-7 md:text-9">{{ article?.title }}</h1>
                 <page-blog-article-meta :article="article" class="mt-[12px] mb-[40px]" />
@@ -37,7 +37,7 @@
             </article>
           </main>
 
-          <aside class="xl:w-[308px] lg:w-[290px] sticky top-[112px] h-[calc(100vh-90px-48px)] hidden lg:block">
+          <aside class="xl:w-[360px] lg:w-[320px] sticky top-[112px] h-[calc(100vh-90px-48px)] hidden lg:block flex-shrink-0">
             <div class="flex flex-col gap-5 h-full">
               <div class="lg:h-[310px] rounded-2 bg-[url(/blog-aside.png)] bg-no-repeat bg-center bg-cover p-6">
                 <div class="flex flex-col justify-between h-full">
@@ -397,16 +397,17 @@ html {
   }
 }
 
+article {
+  font-family: 'Roboto';
+}
+
 .blog-container {
   .article-title {
     margin-top: 40px;
     color: var(--text-text-primary, #111213);
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 160%;
-    /* 57.6px */
-    letter-spacing: -0.108px;
+    font-family: 'Archivo';
+    font-weight: 700;
+    line-height: 120%;
   }
 
   .breadcrumb-item {
@@ -429,21 +430,13 @@ html {
   }
 
   :deep(.blog-article) {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    display: block;
+    font-size: 16px;
 
     a {
       // 继承父元素颜色
       color: inherit;
     }
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    font-size: 16px;
 
     h2,
     h3,
@@ -459,13 +452,13 @@ html {
 
     h2 {
       color: var(--text-text-primary, #111213);
-      font-family: Inter;
       font-size: 28px;
       font-style: normal;
-      font-weight: 600;
       line-height: 160%;
-      /* 44.8px */
-      letter-spacing: -0.084px;
+      font-family: 'Roboto';
+      margin: 36px 0 12px 0;
+      font-weight: 700;
+      letter-spacing: 0;
 
       @media (max-width: 768px) {
         font-size: 22px;
@@ -474,13 +467,11 @@ html {
 
     h3 {
       color: var(--text-text-primary, #111213);
-      font-family: Inter;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 600;
+
       line-height: 150%;
-      /* 36px */
-      letter-spacing: -0.072px;
+      font-family: 'Roboto';
+      margin: 32px 0 8px 0;
+      font-size: 20px;
 
       @media (max-width: 768px) {
         font-size: 20px;
@@ -504,13 +495,13 @@ html {
 
     p {
       color: var(--text-text-primary, #111213);
-      font-family: Inter;
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: 180%;
-      /* 28.8px */
-      letter-spacing: -0.048px;
+      font-family: 'Roboto';
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     img {
@@ -557,8 +548,7 @@ html {
 
     ol,
     ul {
-      padding: 0 20px;
-      padding-left: 40px;
+      padding: 12px 20px 12px 40px;
     }
 
     ol li::marker {
@@ -575,12 +565,18 @@ html {
     }
 
     li {
-      line-height: 1.5;
+      line-height: 160%;
+      margin: 0 0 8px 0;
     }
 
     img {
       max-width: 100%;
       border-radius: 8px;
+      padding: 36px 64px;
+
+      @media (max-width: 768px) {
+        padding: 12px 12px;
+      }
     }
 
     b {
@@ -599,6 +595,7 @@ html {
       border-spacing: 0;
       vertical-align: top;
       white-space: nowrap;
+      margin: 36px 0;
 
       thead {
         background-color: #f1f5f8;
@@ -654,7 +651,6 @@ html {
 .directory-ul {
   li {
     display: flex;
-    padding: 12px 16px;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -662,6 +658,9 @@ html {
     align-self: stretch;
     border-left: 3px solid transparent;
     background: transparent;
+    padding-left: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 
     &.active-directory {
       border-left: 3px solid #11a3fd;
@@ -678,7 +677,7 @@ html {
       font-feature-settings:
         'liga' off,
         'calt' off;
-      font-family: Inter;
+      font-family: 'Roboto';
       font-size: var(--body-second, 14px);
       font-style: normal;
       font-weight: 400;
