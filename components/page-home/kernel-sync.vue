@@ -45,10 +45,17 @@ const roxyBadgeElements = []
 const legacyBadgeElements = []
 
 let observer
+let resizeObserver
 let animationFrame
 let previousFrameTime = 0
+let physicsAccumulator = 0
+let pendingReleaseCount = 0
+let settledFrameCount = 0
 const releaseTimers = []
 const scenes = []
+const FIXED_TIMESTEP = 1000 / 60
+const MAX_FRAME_DELTA = FIXED_TIMESTEP * 3
+const SETTLED_FRAME_LIMIT = 12
 
 function setBadgeElement(collection, element, index) {
   if (element) {
@@ -140,8 +147,8 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
 
   engine.gravity.y = gravity
   engine.gravity.scale = 0.001
-  engine.positionIterations = 10
-  engine.velocityIterations = 8
+  engine.positionIterations = 7
+  engine.velocityIterations = 5
 
   const walls = createSceneWalls(width, height, sideInset, bottomInset)
 
@@ -214,10 +221,7 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
   }
 }
 
-function syncSceneBounds(scene) {
-  const width = scene.card.clientWidth
-  const height = scene.card.clientHeight
-
+function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.card.clientHeight) {
   if (Math.abs(width - scene.width) < 0.5 && Math.abs(height - scene.height) < 0.5) {
     return
   }
@@ -288,9 +292,9 @@ function releaseBadge(scene, index) {
     slop: 0.01,
     chamfer: {
       radius: Math.max(2, bodyHeight / 2 - 1),
-      quality: 12,
-      qualityMax: 16,
-      qualityMin: 12,
+      quality: 7,
+      qualityMax: 8,
+      qualityMin: 6,
     },
   })
 
@@ -306,24 +310,41 @@ function releaseBadge(scene, index) {
     gravityScale: version.gravityScale ?? 1,
     hasEntered: false,
     releasedAt: scene.engine.timing.timestamp,
+    isComposited: true,
+    lastTransform: '',
     visualHeight,
     visualWidth,
   })
+  element.style.willChange = 'transform'
   element.style.transform = `translate3d(${x - visualWidth / 2}px, ${y - visualHeight / 2}px, 0) rotate(${body.angle}rad)`
   element.classList.add('is-released')
 }
 
-function renderScene(scene) {
+function renderScene(scene, interpolation = 1) {
   for (const item of scene.bodies) {
-    const x = item.body.position.x - item.visualWidth / 2
-    const y = item.body.position.y - item.visualHeight / 2
-    item.element.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${item.body.angle}rad)`
+    const { body } = item
+    const positionX = body.positionPrev.x + (body.position.x - body.positionPrev.x) * interpolation
+    const positionY = body.positionPrev.y + (body.position.y - body.positionPrev.y) * interpolation
+    const angle = body.anglePrev + (body.angle - body.anglePrev) * interpolation
+    const x = positionX - item.visualWidth / 2
+    const y = positionY - item.visualHeight / 2
+    const transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${angle.toFixed(4)}rad)`
+
+    if (transform !== item.lastTransform) {
+      item.element.style.transform = transform
+      item.lastTransform = transform
+    }
+
+    const shouldComposite = !body.isSleeping
+
+    if (shouldComposite !== item.isComposited) {
+      item.element.style.willChange = shouldComposite ? 'transform' : 'auto'
+      item.isComposited = shouldComposite
+    }
   }
 }
 
 function updateScene(scene, delta, shouldRender = true) {
-  syncSceneBounds(scene)
-
   for (const item of scene.bodies) {
     if (!item.hasEntered && item.body.bounds.min.y >= scene.sideInset + 0.75) {
       item.hasEntered = true
@@ -393,14 +414,32 @@ function updateScene(scene, delta, shouldRender = true) {
 }
 
 function tick(time) {
-  const delta = previousFrameTime ? Math.min(34, time - previousFrameTime) : 16.67
+  const frameDelta = previousFrameTime ? Math.min(MAX_FRAME_DELTA, time - previousFrameTime) : FIXED_TIMESTEP
   previousFrameTime = time
+  physicsAccumulator = Math.min(physicsAccumulator + frameDelta, MAX_FRAME_DELTA)
 
-  for (const scene of scenes) {
-    updateScene(scene, delta)
+  while (physicsAccumulator >= FIXED_TIMESTEP) {
+    for (const scene of scenes) {
+      updateScene(scene, FIXED_TIMESTEP, false)
+    }
+    physicsAccumulator -= FIXED_TIMESTEP
   }
 
-  animationFrame = requestAnimationFrame(tick)
+  const interpolation = physicsAccumulator / FIXED_TIMESTEP
+
+  for (const scene of scenes) {
+    renderScene(scene, interpolation)
+  }
+
+  const hasActiveBody = scenes.some(scene => scene.bodies.some(item => !item.body.isSleeping))
+  settledFrameCount = pendingReleaseCount > 0 || hasActiveBody ? 0 : settledFrameCount + 1
+
+  if (settledFrameCount < SETTLED_FRAME_LIMIT) {
+    animationFrame = requestAnimationFrame(tick)
+  }
+  else {
+    animationFrame = undefined
+  }
 }
 
 function startPhysics(instant = false) {
@@ -418,6 +457,20 @@ function startPhysics(instant = false) {
     }
 
     scenes.push(roxyScene, legacyScene)
+
+    resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const scene = scenes.find(candidate => candidate.card === entry.target)
+
+        if (!scene) {
+          continue
+        }
+
+        syncSceneBounds(scene, entry.contentRect.width, entry.contentRect.height)
+        renderScene(scene)
+      }
+    })
+    scenes.forEach(scene => resizeObserver.observe(scene.card))
 
     if (instant) {
       const releasedBadges = scenes.map(scene => scene.versions.map(() => false))
@@ -442,12 +495,18 @@ function startPhysics(instant = false) {
 
     for (const scene of scenes) {
       scene.versions.forEach((version, index) => {
-        const timer = window.setTimeout(() => releaseBadge(scene, index), version.delay)
+        pendingReleaseCount += 1
+        const timer = window.setTimeout(() => {
+          pendingReleaseCount -= 1
+          releaseBadge(scene, index)
+        }, version.delay)
         releaseTimers.push(timer)
       })
     }
 
     previousFrameTime = 0
+    physicsAccumulator = 0
+    settledFrameCount = 0
     animationFrame = requestAnimationFrame(tick)
   })
 }
@@ -472,6 +531,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   observer?.disconnect()
+  resizeObserver?.disconnect()
   cancelAnimationFrame(animationFrame)
   releaseTimers.forEach(timer => window.clearTimeout(timer))
   scenes.forEach(scene => Matter.Engine.clear(scene.engine))
@@ -672,8 +732,7 @@ onBeforeUnmount(() => {
   overflow: hidden;
   overflow: clip;
   border-radius: 32px;
-  clip-path: inset(0 round 32px);
-  contain: paint;
+  contain: layout paint style;
 }
 
 .kernel-sync__card--roxy {
@@ -740,7 +799,6 @@ onBeforeUnmount(() => {
   opacity: 0;
   pointer-events: none;
   transform-origin: center;
-  will-change: opacity, transform;
 }
 
 .kernel-sync__badge-slot.is-released {
@@ -891,7 +949,6 @@ onBeforeUnmount(() => {
 
   .kernel-sync__card {
     border-radius: 28px;
-    clip-path: inset(0 round 28px);
   }
 
   .kernel-sync__benefits {
