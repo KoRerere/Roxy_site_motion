@@ -22,8 +22,8 @@ const roxyVersions = [
 ]
 
 const legacyVersions = [
-  { label: 'Chromium 150', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 3520, startX: 0.18, angle: -0.44, drift: -0.42, spin: -0.006, gravityScale: 0.52, density: 0.0014, friction: 0.24, frictionStatic: 0.90, restitution: 0.03 },
-  { label: 'Chromium 149', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2300, startX: 0.84, angle: 0.30, drift: 0.62, spin: 0.008, gravityScale: 0.52, density: 0.0026, friction: 0.12, frictionStatic: 0.68, restitution: 0.06 },
+  { label: 'Chromium 150', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 3520, startX: 0.18, angle: -0.44, drift: -0.42, spin: -0.006, density: 0.0014, friction: 0.24, frictionStatic: 0.90, restitution: 0.03 },
+  { label: 'Chromium 149', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2300, startX: 0.84, angle: 0.30, drift: 0.62, spin: 0.008, density: 0.0026, friction: 0.12, frictionStatic: 0.68, restitution: 0.06 },
   { label: 'Chromium 148', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1840, startX: 0.22, angle: 0.46, drift: -0.68, spin: 0.013, density: 0.0022, friction: 0.18, frictionStatic: 0.78, restitution: 0.13 },
   { label: 'Chromium 147', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1160, startX: 0.80, angle: -0.50, drift: 0.76, spin: -0.015, density: 0.0013, friction: 0.22, frictionStatic: 0.90, restitution: 0.07 },
   { label: 'Chromium 146', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 900, startX: 0.20, angle: -0.38, drift: 0.48, spin: -0.011, density: 0.0025, friction: 0.15, frictionStatic: 0.72, restitution: 0.12 },
@@ -570,7 +570,7 @@ function startPhysics(instant = false) {
   isAnimated.value = true
   nextTick(() => {
     const roxyScene = createScene(roxyCardRef.value, roxyBadgeElements, roxyVersions, 0.98)
-    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 0.78, true)
+    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 0.98, true)
 
     if (!roxyScene || !legacyScene) {
       return
