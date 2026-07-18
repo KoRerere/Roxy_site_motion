@@ -569,8 +569,8 @@ function startPhysics(instant = false) {
 
   isAnimated.value = true
   nextTick(() => {
-    const roxyScene = createScene(roxyCardRef.value, roxyBadgeElements, roxyVersions, 0.98)
-    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 0.98, true)
+    const roxyScene = createScene(roxyCardRef.value, roxyBadgeElements, roxyVersions, 1.08)
+    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 1.08, true)
 
     if (!roxyScene || !legacyScene) {
       return
