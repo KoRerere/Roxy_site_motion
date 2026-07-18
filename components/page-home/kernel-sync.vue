@@ -395,6 +395,28 @@ function prewarmBadge(scene, index) {
   }
 }
 
+function positionBadgeForRelease(scene, item) {
+  const { Body, Bounds } = Matter
+  const spawnPosition = getBadgeSpawn(scene, item.bodyWidth, item.bodyHeight, item.version)
+
+  Body.setPosition(item.body, spawnPosition)
+
+  for (let attempt = 0; attempt < scene.bodies.length; attempt += 1) {
+    const overlappingItems = scene.bodies.filter(activeItem => Bounds.overlaps(item.body.bounds, activeItem.body.bounds))
+
+    if (!overlappingItems.length) {
+      break
+    }
+
+    const nearestOpenY = Math.min(...overlappingItems.map(activeItem => activeItem.body.bounds.min.y)) - 4
+    const overlapDepth = item.body.bounds.max.y - nearestOpenY
+
+    Body.translate(item.body, { x: 0, y: -overlapDepth })
+  }
+
+  item.element.style.transform = `translate3d(${item.body.position.x - item.visualWidth / 2}px, ${item.body.position.y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
+}
+
 function releaseBadge(scene, index) {
   const item = prepareBadge(scene, index)
 
@@ -402,6 +424,7 @@ function releaseBadge(scene, index) {
     return
   }
 
+  positionBadgeForRelease(scene, item)
   item.isReleased = true
   item.releasedAt = scene.engine.timing.timestamp
   Matter.Composite.add(scene.engine.world, item.body)
