@@ -147,8 +147,8 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
 
   engine.gravity.y = gravity
   engine.gravity.scale = 0.001
-  engine.positionIterations = 7
-  engine.velocityIterations = 5
+  engine.positionIterations = 9
+  engine.velocityIterations = 7
 
   const walls = createSceneWalls(width, height, sideInset, bottomInset)
 
@@ -161,6 +161,12 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
   Events.on(engine, 'collisionStart', (event) => {
     for (const pair of event.pairs) {
       if (pair.bodyA.isStatic || pair.bodyB.isStatic) {
+        continue
+      }
+
+      const bothBodiesEntered = pair.bodyA.plugin.kernelSyncHasEntered && pair.bodyB.plugin.kernelSyncHasEntered
+
+      if (!bothBodiesEntered) {
         continue
       }
 
@@ -292,13 +298,14 @@ function releaseBadge(scene, index) {
     slop: 0.01,
     chamfer: {
       radius: Math.max(2, bodyHeight / 2 - 1),
-      quality: 7,
-      qualityMax: 8,
-      qualityMin: 6,
+      quality: 10,
+      qualityMax: 12,
+      qualityMin: 8,
     },
   })
 
   Body.setAngularVelocity(body, version.spin ?? version.angle * 0.012)
+  body.plugin.kernelSyncHasEntered = false
   Body.setVelocity(body, {
     x: version.drift ?? (version.startX - 0.5) * 0.55,
     y: scene.irregularFloor ? 0.05 : 0.35,
@@ -348,6 +355,7 @@ function updateScene(scene, delta, shouldRender = true) {
   for (const item of scene.bodies) {
     if (!item.hasEntered && item.body.bounds.min.y >= scene.sideInset + 0.75) {
       item.hasEntered = true
+      item.body.plugin.kernelSyncHasEntered = true
       item.body.collisionFilter.mask = ACTIVE_BADGE_MASK
     }
 
