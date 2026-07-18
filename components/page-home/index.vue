@@ -13,6 +13,7 @@ import Media from './components/Media.vue'
 import Realtime from './components/realtime/index.vue'
 import RisingStar from './components/RisingStar.vue'
 import Interaction from './interaction/index.vue'
+import KernelSync from './kernel-sync.vue'
 import Tech from './tech.vue'
 import Using from './using/index.vue'
 
@@ -255,6 +256,7 @@ const fqaList = [
     <div ref="usingAndInteractionRef" class="bg-[#F3F4F7]">
       <Using />
       <Interaction />
+      <KernelSync />
     </div>
 
     <Tech />

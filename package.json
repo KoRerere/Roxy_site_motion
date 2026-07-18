@@ -45,6 +45,7 @@
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-attrs": "^4.3.1",
     "markdown-it-video": "^0.6.3",
+    "matter-js": "0.20.0",
     "mitt": "^3.0.1",
     "motion-v": "1.7.0",
     "nuxt": "^4.0.3",
