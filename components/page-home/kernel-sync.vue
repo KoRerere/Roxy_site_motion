@@ -157,6 +157,46 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
   const collisionDeflection = irregularFloor
     ? { angularCap: 0.028, angularStep: 0.014, lateralForce: 0.00001, maxCount: 2 }
     : { angularCap: 0.046, angularStep: 0.019, lateralForce: 0.0000095, maxCount: 3 }
+  const pendingEntryCollisions = new Map()
+
+  const applyCollisionInertia = (pair) => {
+    if (!irregularFloor) {
+      const lowerBody = pair.bodyA.position.y > pair.bodyB.position.y ? pair.bodyA : pair.bodyB
+      const seekCount = lowerBody.plugin.kernelSyncSeekCount ?? 0
+
+      if (seekCount < 2) {
+        const seekDirection = (lowerBody.id + pair.id.length + seekCount) % 2 === 0 ? 1 : -1
+
+        lowerBody.plugin.kernelSyncSeekCount = seekCount + 1
+        Body.applyForce(lowerBody, lowerBody.position, {
+          x: seekDirection * lowerBody.mass * 0.0000035,
+          y: 0,
+        })
+      }
+    }
+
+    for (const body of [pair.bodyA, pair.bodyB]) {
+      const deflectionCount = body.plugin.kernelSyncDeflectionCount ?? 0
+
+      if (deflectionCount >= collisionDeflection.maxCount) {
+        continue
+      }
+
+      body.plugin.kernelSyncDeflectionCount = deflectionCount + 1
+      const strength = deflectionCount === 0 ? 1 : 0.45
+      const direction = body.id % 2 === 0 ? 1 : -1
+      const angularVelocity = Math.max(
+        -collisionDeflection.angularCap,
+        Math.min(collisionDeflection.angularCap, body.angularVelocity + direction * collisionDeflection.angularStep * strength),
+      )
+
+      Body.setAngularVelocity(body, angularVelocity)
+      Body.applyForce(body, body.position, {
+        x: direction * body.mass * collisionDeflection.lateralForce * strength,
+        y: 0,
+      })
+    }
+  }
 
   Events.on(engine, 'collisionStart', (event) => {
     for (const pair of event.pairs) {
@@ -167,45 +207,32 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
       const bothBodiesEntered = pair.bodyA.plugin.kernelSyncHasEntered && pair.bodyB.plugin.kernelSyncHasEntered
 
       if (!bothBodiesEntered) {
+        pendingEntryCollisions.set(pair.id, {
+          bodyA: pair.bodyA,
+          bodyB: pair.bodyB,
+          id: pair.id,
+        })
         continue
       }
 
-      if (!irregularFloor) {
-        const lowerBody = pair.bodyA.position.y > pair.bodyB.position.y ? pair.bodyA : pair.bodyB
-        const seekCount = lowerBody.plugin.kernelSyncSeekCount ?? 0
+      applyCollisionInertia(pair)
+    }
+  })
 
-        if (seekCount < 2) {
-          const seekDirection = (lowerBody.id + pair.id.length + seekCount) % 2 === 0 ? 1 : -1
+  const flushPendingEntryCollisions = () => {
+    for (const [pairId, pair] of pendingEntryCollisions) {
+      const bothBodiesEntered = pair.bodyA.plugin.kernelSyncHasEntered && pair.bodyB.plugin.kernelSyncHasEntered
 
-          lowerBody.plugin.kernelSyncSeekCount = seekCount + 1
-          Body.applyForce(lowerBody, lowerBody.position, {
-            x: seekDirection * lowerBody.mass * 0.0000035,
-            y: 0,
-          })
-        }
+      if (bothBodiesEntered) {
+        pendingEntryCollisions.delete(pairId)
+        applyCollisionInertia(pair)
       }
+    }
+  }
 
-      for (const body of [pair.bodyA, pair.bodyB]) {
-        const deflectionCount = body.plugin.kernelSyncDeflectionCount ?? 0
-
-        if (deflectionCount >= collisionDeflection.maxCount) {
-          continue
-        }
-
-        body.plugin.kernelSyncDeflectionCount = deflectionCount + 1
-        const strength = deflectionCount === 0 ? 1 : 0.45
-        const direction = body.id % 2 === 0 ? 1 : -1
-        const angularVelocity = Math.max(
-          -collisionDeflection.angularCap,
-          Math.min(collisionDeflection.angularCap, body.angularVelocity + direction * collisionDeflection.angularStep * strength),
-        )
-
-        Body.setAngularVelocity(body, angularVelocity)
-        Body.applyForce(body, body.position, {
-          x: direction * body.mass * collisionDeflection.lateralForce * strength,
-          y: 0,
-        })
-      }
+  Events.on(engine, 'collisionEnd', (event) => {
+    for (const pair of event.pairs) {
+      pendingEntryCollisions.delete(pair.id)
     }
   })
 
@@ -220,6 +247,7 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
     bottomInset,
     cohesionStrength: irregularFloor ? 0.00018 : 0.00036,
     frictionAir: irregularFloor ? 0.0038 : 0.0045,
+    flushPendingEntryCollisions,
     irregularFloor,
     sideInset,
     sleepThreshold: irregularFloor ? 65 : 50,
@@ -352,11 +380,14 @@ function renderScene(scene, interpolation = 1) {
 }
 
 function updateScene(scene, delta, shouldRender = true) {
+  let didBodyEnter = false
+
   for (const item of scene.bodies) {
     if (!item.hasEntered && item.body.bounds.min.y >= scene.sideInset + 0.75) {
       item.hasEntered = true
       item.body.plugin.kernelSyncHasEntered = true
       item.body.collisionFilter.mask = ACTIVE_BADGE_MASK
+      didBodyEnter = true
     }
 
     if (item.gravityScale < 1 && !item.body.isSleeping) {
@@ -399,6 +430,10 @@ function updateScene(scene, delta, shouldRender = true) {
         })
       }
     }
+  }
+
+  if (didBodyEnter) {
+    scene.flushPendingEntryCollisions()
   }
 
   Matter.Engine.update(scene.engine, delta)
