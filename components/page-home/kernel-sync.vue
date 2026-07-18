@@ -53,8 +53,8 @@ let pendingReleaseCount = 0
 let settledFrameCount = 0
 const releaseTimers = []
 const scenes = []
-const FIXED_TIMESTEP = 1000 / 60
-const MAX_FRAME_DELTA = FIXED_TIMESTEP * 3
+const FIXED_TIMESTEP = 1000 / 120
+const MAX_FRAME_DELTA = 1000 / 30
 const SETTLED_FRAME_LIMIT = 12
 
 function setBadgeElement(collection, element, index) {
@@ -141,6 +141,10 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
   const { Body, Composite, Engine, Events } = Matter
   const width = card.clientWidth
   const height = card.clientHeight
+  const measurements = elements.map(element => ({
+    visualHeight: element.offsetHeight,
+    visualWidth: element.offsetWidth,
+  }))
   const sideInset = irregularFloor ? 0.75 : 1.2
   const bottomInset = irregularFloor ? 0.75 : 1.2
   const engine = Engine.create({ enableSleeping: true })
@@ -249,6 +253,8 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
     frictionAir: irregularFloor ? 0.0038 : 0.0045,
     flushPendingEntryCollisions,
     irregularFloor,
+    measurements,
+    preparedBadges: [],
     sideInset,
     sleepThreshold: irregularFloor ? 65 : 50,
     walls,
@@ -290,27 +296,48 @@ function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.c
       })
     }
   }
+
+  for (const item of scene.preparedBadges) {
+    if (!item || item.isReleased) {
+      continue
+    }
+
+    const { x, y } = getBadgeSpawn(scene, item.bodyWidth, item.bodyHeight, item.version)
+
+    Matter.Body.setPosition(item.body, { x, y })
+    item.element.style.transform = `translate3d(${x - item.visualWidth / 2}px, ${y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
+  }
 }
 
-function releaseBadge(scene, index) {
-  const { Body, Bodies, Composite } = Matter
-  const element = scene.elements[index]
-  const version = scene.versions[index]
-
-  if (!element || !version) {
-    return
-  }
-
-  const visualWidth = element.offsetWidth
-  const visualHeight = element.offsetHeight
-  const defaultCollisionPadding = 0
-  const bodyWidth = visualWidth + (version.collisionPaddingX ?? defaultCollisionPadding) * 2
-  const bodyHeight = visualHeight + (version.collisionPaddingY ?? defaultCollisionPadding) * 2
+function getBadgeSpawn(scene, bodyWidth, bodyHeight, version) {
   const minX = scene.sideInset + bodyWidth / 2
   const maxX = scene.width - scene.sideInset - bodyWidth / 2
   const x = Math.min(maxX, Math.max(minX, scene.width * version.startX))
   const spawnGap = scene.irregularFloor ? 8 : 52
   const y = -bodyHeight / 2 - spawnGap
+
+  return { x, y }
+}
+
+function prepareBadge(scene, index) {
+  if (scene.preparedBadges[index]) {
+    return scene.preparedBadges[index]
+  }
+
+  const { Body, Bodies } = Matter
+  const element = scene.elements[index]
+  const version = scene.versions[index]
+  const measurement = scene.measurements[index]
+
+  if (!element || !version || !measurement) {
+    return null
+  }
+
+  const { visualHeight, visualWidth } = measurement
+  const defaultCollisionPadding = 0
+  const bodyWidth = visualWidth + (version.collisionPaddingX ?? defaultCollisionPadding) * 2
+  const bodyHeight = visualHeight + (version.collisionPaddingY ?? defaultCollisionPadding) * 2
+  const { x, y } = getBadgeSpawn(scene, bodyWidth, bodyHeight, version)
   const body = Bodies.rectangle(x, y, bodyWidth, bodyHeight, {
     angle: version.angle,
     collisionFilter: {
@@ -338,21 +365,48 @@ function releaseBadge(scene, index) {
     x: version.drift ?? (version.startX - 0.5) * 0.55,
     y: scene.irregularFloor ? 0.05 : 0.35,
   })
-  Composite.add(scene.engine.world, body)
-  scene.bodies.push({
+  const item = {
     body,
+    bodyHeight,
+    bodyWidth,
     element,
     gravityScale: version.gravityScale ?? 1,
     hasEntered: false,
-    releasedAt: scene.engine.timing.timestamp,
+    isReleased: false,
     isComposited: true,
     lastTransform: '',
+    releasedAt: 0,
+    version,
     visualHeight,
     visualWidth,
-  })
-  element.style.willChange = 'transform'
+  }
+
+  scene.preparedBadges[index] = item
   element.style.transform = `translate3d(${x - visualWidth / 2}px, ${y - visualHeight / 2}px, 0) rotate(${body.angle}rad)`
-  element.classList.add('is-released')
+
+  return item
+}
+
+function prewarmBadge(scene, index) {
+  const item = prepareBadge(scene, index)
+
+  if (item) {
+    item.element.style.willChange = 'transform, opacity'
+  }
+}
+
+function releaseBadge(scene, index) {
+  const item = prepareBadge(scene, index)
+
+  if (!item || item.isReleased) {
+    return
+  }
+
+  item.isReleased = true
+  item.releasedAt = scene.engine.timing.timestamp
+  Matter.Composite.add(scene.engine.world, item.body)
+  scene.bodies.push(item)
+  item.element.classList.add('is-released')
 }
 
 function renderScene(scene, interpolation = 1) {
@@ -501,6 +555,12 @@ function startPhysics(instant = false) {
 
     scenes.push(roxyScene, legacyScene)
 
+    const badgeQueue = scenes
+      .flatMap(scene => scene.versions.map((version, index) => ({ index, scene, version })))
+      .sort((badgeA, badgeB) => badgeA.version.delay - badgeB.version.delay)
+
+    badgeQueue.forEach(({ index, scene }) => prepareBadge(scene, index))
+
     resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const scene = scenes.find(candidate => candidate.card === entry.target)
@@ -539,11 +599,14 @@ function startPhysics(instant = false) {
     for (const scene of scenes) {
       scene.versions.forEach((version, index) => {
         pendingReleaseCount += 1
+        const prewarmTimer = window.setTimeout(() => {
+          prewarmBadge(scene, index)
+        }, Math.max(0, version.delay - 120))
         const timer = window.setTimeout(() => {
           pendingReleaseCount -= 1
           releaseBadge(scene, index)
         }, version.delay)
-        releaseTimers.push(timer)
+        releaseTimers.push(prewarmTimer, timer)
       })
     }
 
@@ -838,14 +901,12 @@ onBeforeUnmount(() => {
   z-index: 1;
   display: inline-flex;
   width: max-content;
-  visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transform-origin: center;
 }
 
 .kernel-sync__badge-slot.is-released {
-  visibility: visible;
   opacity: 1;
 }
 
