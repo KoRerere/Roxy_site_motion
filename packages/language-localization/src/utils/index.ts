@@ -12,7 +12,7 @@ const OFFSET = 127397
  * @param {string} cc - country code string
  * @returns {string} flag emoji
  */
-export function countryCodeEmoji(cc) {
+export function countryCodeEmoji(cc: string) {
   if (!CC_REGEX.test(cc)) {
     const type = typeof cc
     throw new TypeError(
@@ -21,7 +21,7 @@ export function countryCodeEmoji(cc) {
     )
   }
 
-  const codePoints = [...cc.toUpperCase()].map(c => c.codePointAt() + OFFSET)
+  const codePoints = [...cc.toUpperCase()].map(c => c.codePointAt(0)! + OFFSET)
   return String.fromCodePoint(...codePoints)
 }
 
@@ -30,7 +30,7 @@ export function countryCodeEmoji(cc) {
  * @param {string} flag - flag emoji
  * @returns {string} country code string
  */
-export function emojiCountryCode(flag) {
+export function emojiCountryCode(flag: string) {
   if (flag.length !== FLAG_LENGTH) {
     const type = typeof flag
     throw new TypeError(
@@ -39,6 +39,6 @@ export function emojiCountryCode(flag) {
     )
   }
 
-  const codePoints = [...flag].map(c => c.codePointAt() - OFFSET)
+  const codePoints = [...flag].map(c => c.codePointAt(0)! - OFFSET)
   return String.fromCodePoint(...codePoints)
 }

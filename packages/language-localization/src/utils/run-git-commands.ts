@@ -1,23 +1,23 @@
 import { spawn } from 'node:child_process'
 
-async function runGitCommand(command, args) {
-  return new Promise((resolve, reject) => {
+async function runGitCommand(command: string, args: string[]): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
     /**
      * 捕获 stderr 输出
      */
     let stderrOutput = ''
-    const process = spawn(command, args, { shell: true, cwd: process.cwd() })
+    const childProcess = spawn(command, args, { shell: true, cwd: process.cwd() })
 
-    process.stdout.on('data', (data) => {
+    childProcess.stdout.on('data', (data: Buffer) => {
       console.log(`stdout: ${data.toString()}`)
     })
 
-    process.stderr.on('data', (data) => {
+    childProcess.stderr.on('data', (data: Buffer) => {
       stderrOutput += data.toString() // 捕获 stderr 输出
       console.error(`stderr: ${data.toString()}`)
     })
 
-    process.on('close', (code) => {
+    childProcess.on('close', (code: number | null) => {
       if (code !== 0) {
         reject(new Error(`Command failed with exit code ${code}: ${stderrOutput}`))
       }
@@ -58,7 +58,8 @@ export async function runGitCommands() {
     return Promise.resolve('提交成功')
   }
   catch (error) {
-    console.error(`Error executing command: ${error.message}`)
-    return Promise.reject(error.message)
+    const message = error instanceof Error ? error.message : String(error)
+    console.error(`Error executing command: ${message}`)
+    throw new Error(message)
   }
 }

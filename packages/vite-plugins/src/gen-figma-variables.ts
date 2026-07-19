@@ -6,6 +6,11 @@ interface OptionsType {
   targetDir: string
 }
 
+interface FigmaVariableFile {
+  fileName: string
+  body: Record<string, unknown>
+}
+
 export function genFigmaVariables(options: OptionsType): PluginOption {
   const { targetDir } = options
   return {
@@ -31,12 +36,12 @@ export function genFigmaVariables(options: OptionsType): PluginOption {
 
       server.middlewares.use('/__gen-figma-variables', async (req, res, next) => {
         if (req.method?.toLowerCase() === 'post') {
-          // console.log('req.body338', req.body)
-          if (Array.isArray(req.body)) {
+          const requestBody = (req as typeof req & { body?: unknown }).body
+          if (Array.isArray(requestBody)) {
             // 生成 CSS 变量文件
-            genVariables(req.body, targetDir)
+            await genVariables(requestBody as FigmaVariableFile[], targetDir)
           }
-          res.end(JSON.stringify(req.body))
+          res.end(JSON.stringify(requestBody))
         }
         else {
           next() // 非 POST 请求直接交给其他中间件处理
@@ -46,7 +51,7 @@ export function genFigmaVariables(options: OptionsType): PluginOption {
   }
 }
 
-async function genVariables(files: { fileName: string, body: Record<string, any> }[], targetDir: string) {
+async function genVariables(files: FigmaVariableFile[], targetDir: string) {
   try {
     await access(targetDir)
   }

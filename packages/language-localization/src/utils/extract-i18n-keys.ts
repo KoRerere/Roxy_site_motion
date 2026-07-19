@@ -1,5 +1,5 @@
 import { glob } from 'glob'
-import { access, appendFile, mkdir, readFile, writeFile } from 'node:fs/promises'
+import { appendFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import pLimit from 'p-limit' // 控制并发
 
@@ -78,7 +78,7 @@ export async function scanFilesAndReplaceKey(oldKey: string, newKey: string) {
       let isContentChanged = false
 
       // 正确处理替换，确保仅替换 $t() 中的键
-      const newContent = content.replaceAll(translationRegex, (match, quote, key, args) => {
+      const newContent = content.replaceAll(translationRegex, (match: string, _quote: string, key: string, _args: string) => {
         if (key === oldKey) {
           isContentChanged = true
           // 如果匹配到的 key 是目标 key，则进行替换
@@ -123,18 +123,19 @@ export async function genLangFiles(langFiles: string[] = [], outputDir: string, 
    * 扫描提取的键，value 为空字符串的 key，排在最后
    */
   const keys = await scanFiles(cwd)
-  const replacer = (key: string, value: any) => {
+  const replacer = (_key: string, value: unknown): unknown => {
     if (value && typeof value === 'object' && !Array.isArray(value)) {
-      const { empty = [], notEmpty = [] } = Object.groupBy(Object.keys(value).sort(), k => {
-        return value[k] === '' ? 'empty' : 'notEmpty'
+      const record = value as Record<string, unknown>
+      const { empty = [], notEmpty = [] } = Object.groupBy(Object.keys(record).sort(), k => {
+        return record[k] === '' ? 'empty' : 'notEmpty'
       })
-      const sorted = notEmpty.reduce((sorted, k) => {
-        sorted[k] = value[k]
+      const sorted = notEmpty.reduce<Record<string, unknown>>((sorted, k) => {
+        sorted[k] = record[k]
         return sorted
       }, {})
 
-      const emptySorted = empty.reduce((sorted, k) => {
-        sorted[k] = value[k]
+      const emptySorted = empty.reduce<Record<string, unknown>>((sorted, k) => {
+        sorted[k] = record[k]
         return sorted
       }, {})
       return {

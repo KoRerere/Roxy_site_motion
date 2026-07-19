@@ -32,6 +32,11 @@ export default defineConfig({
     dts({
       rollupTypes: true,
       tsconfigPath: resolve(__dirname, 'tsconfig.app.json'),
+      include: [
+        'src/index.ts',
+        'src/bin/**/*.ts',
+        'src/utils/**/*.ts',
+      ],
     }),
   ],
 })

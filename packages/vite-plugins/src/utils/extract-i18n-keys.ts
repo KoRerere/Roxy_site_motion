@@ -86,11 +86,12 @@ export async function writeKeysToFile(fileContent: string, outputFile: string) {
 
 const langFiles = ['zh-CN', 'en', 'de']
 
-function replacer(key, value) {
+function replacer(_key: string, value: unknown): unknown {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const record = value as Record<string, unknown>
     // 对对象的键进行排序
-    return Object.keys(value).sort().reduce((sorted, k) => {
-      sorted[k] = value[k]
+    return Object.keys(record).sort().reduce<Record<string, unknown>>((sorted, k) => {
+      sorted[k] = record[k]
       return sorted
     }, {})
   }

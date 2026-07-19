@@ -1,4 +1,5 @@
 import type { PluginOption } from 'vite'
+import type { ISO639Type } from '@roxy/puppeteer-google-translate'
 import { GoogleTranslator } from '@roxy/puppeteer-google-translate'
 import bodyParser from 'body-parser'
 import { exec } from 'node:child_process'
@@ -18,20 +19,25 @@ interface OptionsType {
   /** 是否立即生成语言文件 */
   immediate?: boolean
 }
+
+interface TranslateRequestBody {
+  text: string
+  from?: string
+  to: ISO639Type
+}
+
+interface SaveTranslateRequestBody {
+  fileName: string
+  key: string
+  value: string
+}
+
 const baseUrl = '/__language-localization__'
 
 let googleTranslator: GoogleTranslator
 
 export default (options: OptionsType): PluginOption => {
   const { targetDir, langFileNames, sourceLang = 'zh-CN', immediate = false } = options
-
-  let timer: NodeJS.Timeout
-  const debounceGenLangFiles = () => {
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      genLangFiles(langFileNames, targetDir)
-    }, 5000)
-  }
 
   immediate && genLangFiles(langFileNames, targetDir, sourceLang)
 
@@ -65,7 +71,7 @@ export default (options: OptionsType): PluginOption => {
         }
         // 翻译文本
         else if (url === '/translate') {
-          const { text, from = 'auto', to } = req.body
+          const { text, from = 'auto', to } = getRequestBody<TranslateRequestBody>(req)
           googleTranslator ||= new GoogleTranslator()
 
           // googleTranslator.translateText('A bird in hand is worth two in the bush.', 'auto', 'zh-CN')
@@ -74,11 +80,11 @@ export default (options: OptionsType): PluginOption => {
             res.end(result)
           }
           catch (error) {
-            res.end(error.message)
+            res.end(getErrorMessage(error))
           }
         }
         else if (url === '/saveTranslate') {
-          const { fileName, key, value } = req.body
+          const { fileName, key, value } = getRequestBody<SaveTranslateRequestBody>(req)
           const filePath = join(targetDir, `${fileName}.json`)
           try {
             const data = await readFile(filePath, 'utf-8')
@@ -107,7 +113,7 @@ export default (options: OptionsType): PluginOption => {
             res.end('ok')
           }
           catch (error) {
-            res.end(error.message)
+            res.end(getErrorMessage(error))
           }
         }
         else if (url === '/commit') {
@@ -122,13 +128,13 @@ export default (options: OptionsType): PluginOption => {
           catch (error) {
             res.end(JSON.stringify({
               code: 1,
-              message: error.message,
+              message: getErrorMessage(error),
             }))
           }
         }
         else if (url === '/pull-code') {
           console.log('pull code', process.cwd())
-          exec('git pull origin main', (error, stdout, stderr) => {
+          exec('git pull origin main', (error, stdout, _stderr) => {
             if (error) {
               res.end(JSON.stringify({
                 code: 1,
@@ -153,11 +159,20 @@ export default (options: OptionsType): PluginOption => {
   }
 }
 
-function replacer(key, value) {
+function getRequestBody<T>(req: object): T {
+  return (req as { body: T }).body
+}
+
+function getErrorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
+
+function replacer(_key: string, value: unknown): unknown {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const record = value as Record<string, unknown>
     // 对对象的键进行排序
-    return Object.keys(value).sort().reduce((sorted, k) => {
-      sorted[k] = value[k]
+    return Object.keys(record).sort().reduce<Record<string, unknown>>((sorted, k) => {
+      sorted[k] = record[k]
       return sorted
     }, {})
   }
