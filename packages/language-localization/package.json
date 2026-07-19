@@ -9,16 +9,17 @@
     }
   },
   "bin": {
-    "roxy-language-localization": "dist/bin/index.mjs"
+    "roxy-language-localization": "bin/roxy-language-localization.mjs"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
-    "build": "pnpm build:lib && vite build",
-    "build:lib": "vite build --config vite.lib.config.ts",
-    "stub": "pnpm stub:lib & vite build --watch",
-    "stub:lib": "vite build --config vite.lib.config.ts --watch"
+    "build": "pnpm build:lib && vite build --configLoader runner",
+    "build:lib": "vite build --config vite.lib.config.ts --configLoader runner",
+    "stub": "pnpm stub:lib & vite build --watch --configLoader runner",
+    "stub:lib": "vite build --config vite.lib.config.ts --watch --configLoader runner"
   },
   "dependencies": {
     "@roxy/puppeteer-google-translate": "workspace:*",

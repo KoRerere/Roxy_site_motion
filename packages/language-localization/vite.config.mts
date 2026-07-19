@@ -7,7 +7,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '__language-localization__',
+  base: '/__language-localization__/',
   build: {
     target: 'es2020',
     outDir: 'dist/page',

@@ -126,8 +126,7 @@ export default defineNuxtConfig({
       'motion-v/nuxt', 
       '@nuxtjs/robots', 
       '@nuxt/image', 
-      '@vueuse/nuxt',
-      '@vueuse/motion/nuxt'
+      '@vueuse/nuxt'
     ],
   robots: {
     disallow: isDev ? '/' : ['/anbin', '/login', '/figma-icons', '/pay-success'],

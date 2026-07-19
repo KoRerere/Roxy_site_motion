@@ -1,18 +1,21 @@
 import { builtinModules } from 'node:module'
 // vite.config.js
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+
+const packageDir = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
   ssr: {},
   build: {
     outDir: 'dist',
     lib: {
-      // entry: [resolve(__dirname, 'src/index.ts'), resolve(__dirname, 'src/bin/index.ts')],
+      // entry: [resolve(packageDir, 'src/index.ts'), resolve(packageDir, 'src/bin/index.ts')],
       entry: {
-        'vite/index': resolve(__dirname, 'src/index.ts'),
-        'bin/index': resolve(__dirname, 'src/bin/index.ts'),
+        'vite/index': resolve(packageDir, 'src/index.ts'),
+        'bin/index': resolve(packageDir, 'src/bin/index.ts'),
       },
       formats: ['es', 'cjs'],
     },
@@ -31,7 +34,7 @@ export default defineConfig({
   plugins: [
     dts({
       rollupTypes: true,
-      tsconfigPath: resolve(__dirname, 'tsconfig.app.json'),
+      tsconfigPath: resolve(packageDir, 'tsconfig.app.json'),
       include: [
         'src/index.ts',
         'src/bin/**/*.ts',
