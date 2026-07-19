@@ -3,6 +3,9 @@
   "type": "module",
   "private": true,
   "packageManager": "pnpm@10.15.0",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "build": "nuxt build --envName=production",
     "build:dev": "cross-env ENV=development nuxt build --envName=development",
@@ -11,7 +14,7 @@
     "preview": "nuxt preview",
     "analyze": "nuxt analyze",
     "build:pkg": "pnpm -F \"./packages/**\" build",
-    "postinstall": "npm run build:pkg & nuxt prepare",
+    "postinstall": "pnpm run build:pkg && nuxt prepare",
     "genLanguage": "roxy-language-localization --work-dir=./ --target-dir=i18n/locales --source-lang=zh --lang-file-names=zh,en,ru",
     "openapi": "pnpm -F @roxy/backend-api run openapi",
     "deploy:dev": "pnpm build:dev && pnpx tsx ./scripts/deploy-dev.ts",

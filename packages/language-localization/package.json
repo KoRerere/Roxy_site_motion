@@ -15,7 +15,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm build:lib & vite build",
+    "build": "pnpm build:lib && vite build",
     "build:lib": "vite build --config vite.lib.config.ts",
     "stub": "pnpm stub:lib & vite build --watch",
     "stub:lib": "vite build --config vite.lib.config.ts --watch"
