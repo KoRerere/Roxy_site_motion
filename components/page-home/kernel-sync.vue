@@ -7,6 +7,7 @@ const TOP_WALL_CATEGORY = 0x0002
 const BADGE_CATEGORY = 0x0004
 const ENTRY_BADGE_MASK = WALL_CATEGORY | BADGE_CATEGORY
 const ACTIVE_BADGE_MASK = ENTRY_BADGE_MASK | TOP_WALL_CATEGORY
+const CARD_CORNER_RADIUS = 32
 
 const roxyVersions = [
   { label: 'Firefox 147', icon: '/home/kernel-sync/firefox.svg', tone: 'firefox', delay: 3160, startX: 0.35, angle: 0.14, drift: -0.22, spin: 0.005, density: 0.0017, friction: 0.20, restitution: 0.13, collisionPaddingX: 0.75, collisionPaddingY: 0.75 },
@@ -22,12 +23,12 @@ const roxyVersions = [
 ]
 
 const legacyVersions = [
-  { label: 'Chromium 150', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 3520, startX: 0.18, angle: -0.44, drift: -0.42, spin: -0.006, density: 0.0014, friction: 0.24, frictionStatic: 0.90, restitution: 0.03 },
-  { label: 'Chromium 149', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2300, startX: 0.84, angle: 0.30, drift: 0.62, spin: 0.008, density: 0.0026, friction: 0.12, frictionStatic: 0.68, restitution: 0.06 },
-  { label: 'Chromium 148', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1840, startX: 0.22, angle: 0.46, drift: -0.68, spin: 0.013, density: 0.0022, friction: 0.18, frictionStatic: 0.78, restitution: 0.13 },
-  { label: 'Chromium 147', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1160, startX: 0.80, angle: -0.50, drift: 0.76, spin: -0.015, density: 0.0013, friction: 0.22, frictionStatic: 0.90, restitution: 0.07 },
-  { label: 'Chromium 146', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 900, startX: 0.20, angle: -0.38, drift: 0.48, spin: -0.011, density: 0.0025, friction: 0.15, frictionStatic: 0.72, restitution: 0.12 },
-  { label: 'Chromium 145', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 520, startX: 0.72, angle: 0.31, drift: -0.44, spin: 0.009, density: 0.0015, friction: 0.22, frictionStatic: 0.86, restitution: 0.08 },
+  { label: 'Chromium 150', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 3600, startX: 0.18, angle: -0.44, drift: -0.42, spin: -0.006, density: 0.0014, friction: 0.24, frictionStatic: 0.90, restitution: 0.03 },
+  { label: 'Chromium 149', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2840, startX: 0.84, angle: 0.30, drift: 0.62, spin: 0.008, density: 0.0026, friction: 0.12, frictionStatic: 0.68, restitution: 0.06 },
+  { label: 'Chromium 148', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2320, startX: 0.22, angle: 0.46, drift: -0.68, spin: 0.013, density: 0.0022, friction: 0.18, frictionStatic: 0.78, restitution: 0.13 },
+  { label: 'Chromium 147', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1800, startX: 0.80, angle: -0.50, drift: 0.76, spin: -0.015, density: 0.0013, friction: 0.22, frictionStatic: 0.90, restitution: 0.07 },
+  { label: 'Chromium 146', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1280, startX: 0.20, angle: -0.38, drift: 0.48, spin: -0.011, density: 0.0025, friction: 0.15, frictionStatic: 0.72, restitution: 0.12 },
+  { label: 'Chromium 145', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 760, startX: 0.72, angle: 0.31, drift: -0.44, spin: 0.009, density: 0.0015, friction: 0.22, frictionStatic: 0.86, restitution: 0.08 },
   { label: 'Chromium 144', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 240, startX: 0.42, angle: -0.18, drift: 0.30, spin: -0.006, density: 0.0020, friction: 0.18, frictionStatic: 0.78, restitution: 0.12 },
 ]
 
@@ -63,11 +64,11 @@ function setBadgeElement(collection, element, index) {
   }
 }
 
-function createSceneWalls(width, height, sideInset, bottomInset) {
+function createSceneWalls(width, height, sideInset, bottomInset, irregularFloor = false) {
   const { Bodies } = Matter
   const wallThickness = 80
   const wallHeight = height * 4
-  const cornerRadius = 32
+  const cornerRadius = CARD_CORNER_RADIUS
   const arcRadius = cornerRadius - Math.max(sideInset, bottomInset)
   const arcSteps = 8
   const floorY = height - bottomInset + wallThickness / 2
@@ -110,6 +111,22 @@ function createSceneWalls(width, height, sideInset, bottomInset) {
     ...createCornerArc(width - cornerRadius, height - cornerRadius, 0, WALL_CATEGORY),
     ...createCornerArc(cornerRadius, height - cornerRadius, Math.PI / 2, WALL_CATEGORY),
   ]
+  const floorBumps = irregularFloor
+    ? [
+        Bodies.circle(width * 0.38, height - bottomInset + 7, 14, {
+          isStatic: true,
+          collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
+          friction: 0.72,
+          restitution: 0,
+        }),
+        Bodies.circle(width * 0.79, height - bottomInset + 6, 10, {
+          isStatic: true,
+          collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
+          friction: 0.72,
+          restitution: 0,
+        }),
+      ]
+    : []
 
   return [
     Bodies.rectangle(width / 2, sideInset - wallThickness / 2, width, wallThickness, {
@@ -130,6 +147,7 @@ function createSceneWalls(width, height, sideInset, bottomInset) {
     }),
     Bodies.rectangle(width / 2, floorY, width, wallThickness, floorOptions),
     ...cornerWalls,
+    ...floorBumps,
   ]
 }
 
@@ -154,12 +172,12 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
   engine.positionIterations = 9
   engine.velocityIterations = 7
 
-  const walls = createSceneWalls(width, height, sideInset, bottomInset)
+  const walls = createSceneWalls(width, height, sideInset, bottomInset, irregularFloor)
 
   Composite.add(engine.world, walls)
 
   const collisionDeflection = irregularFloor
-    ? { angularCap: 0.028, angularStep: 0.014, lateralForce: 0.00001, maxCount: 2 }
+    ? { angularCap: 0.12, angularStep: 0.05, lateralForce: 0.000018, maxCount: 2 }
     : { angularCap: 0.046, angularStep: 0.019, lateralForce: 0.0000095, maxCount: 3 }
   const pendingEntryCollisions = new Map()
 
@@ -269,7 +287,7 @@ function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.c
   for (const wall of scene.walls) {
     Matter.Composite.remove(scene.engine.world, wall)
   }
-  scene.walls = createSceneWalls(width, height, scene.sideInset, scene.bottomInset)
+  scene.walls = createSceneWalls(width, height, scene.sideInset, scene.bottomInset, scene.irregularFloor)
   Matter.Composite.add(scene.engine.world, scene.walls)
   scene.width = width
   scene.height = height
@@ -310,11 +328,17 @@ function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.c
 }
 
 function getBadgeSpawn(scene, bodyWidth, bodyHeight, version) {
-  const minX = scene.sideInset + bodyWidth / 2
-  const maxX = scene.width - scene.sideInset - bodyWidth / 2
+  const angle = Math.abs(version.angle ?? 0)
+  const rotatedHalfWidth = Math.abs(Math.cos(angle)) * bodyWidth / 2 + Math.abs(Math.sin(angle)) * bodyHeight / 2
+  const rotatedHalfHeight = Math.abs(Math.sin(angle)) * bodyWidth / 2 + Math.abs(Math.cos(angle)) * bodyHeight / 2
+  const entryClearance = scene.irregularFloor ? CARD_CORNER_RADIUS : 0
+  const horizontalHalfExtent = scene.irregularFloor ? rotatedHalfWidth : bodyWidth / 2
+  const minX = scene.sideInset + horizontalHalfExtent + entryClearance
+  const maxX = scene.width - scene.sideInset - horizontalHalfExtent - entryClearance
   const x = Math.min(maxX, Math.max(minX, scene.width * version.startX))
   const spawnGap = scene.irregularFloor ? 8 : 52
-  const y = -bodyHeight / 2 - spawnGap
+  const verticalHalfExtent = scene.irregularFloor ? rotatedHalfHeight : bodyHeight / 2
+  const y = -verticalHalfExtent - spawnGap
 
   return { x, y }
 }
@@ -342,7 +366,7 @@ function prepareBadge(scene, index) {
     angle: version.angle,
     collisionFilter: {
       category: BADGE_CATEGORY,
-      mask: ENTRY_BADGE_MASK,
+      mask: scene.irregularFloor ? WALL_CATEGORY : ENTRY_BADGE_MASK,
     },
     density: version.density ?? 0.0016,
     friction: (version.friction ?? 0.18) * (scene.irregularFloor ? 1 : 0.62),
@@ -401,17 +425,19 @@ function positionBadgeForRelease(scene, item) {
 
   Body.setPosition(item.body, spawnPosition)
 
-  for (let attempt = 0; attempt < scene.bodies.length; attempt += 1) {
-    const overlappingItems = scene.bodies.filter(activeItem => Bounds.overlaps(item.body.bounds, activeItem.body.bounds))
+  if (!scene.irregularFloor) {
+    for (let attempt = 0; attempt < scene.bodies.length; attempt += 1) {
+      const overlappingItems = scene.bodies.filter(activeItem => Bounds.overlaps(item.body.bounds, activeItem.body.bounds))
 
-    if (!overlappingItems.length) {
-      break
+      if (!overlappingItems.length) {
+        break
+      }
+
+      const nearestOpenY = Math.min(...overlappingItems.map(activeItem => activeItem.body.bounds.min.y)) - 4
+      const overlapDepth = item.body.bounds.max.y - nearestOpenY
+
+      Body.translate(item.body, { x: 0, y: -overlapDepth })
     }
-
-    const nearestOpenY = Math.min(...overlappingItems.map(activeItem => activeItem.body.bounds.min.y)) - 4
-    const overlapDepth = item.body.bounds.max.y - nearestOpenY
-
-    Body.translate(item.body, { x: 0, y: -overlapDepth })
   }
 
   item.element.style.transform = `translate3d(${item.body.position.x - item.visualWidth / 2}px, ${item.body.position.y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
