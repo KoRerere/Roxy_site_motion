@@ -54,7 +54,7 @@ let pendingReleaseCount = 0
 let settledFrameCount = 0
 const releaseTimers = []
 const scenes = []
-const FIXED_TIMESTEP = 1000 / 120
+const FIXED_TIMESTEP = 1000 / 60
 const MAX_FRAME_DELTA = 1000 / 30
 const SETTLED_FRAME_LIMIT = 12
 
@@ -295,6 +295,8 @@ function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.c
         x: item.body.position.x + shiftX,
         y: item.body.position.y + shiftY,
       })
+      item.previousPositionX = item.body.position.x
+      item.previousPositionY = item.body.position.y
     }
   }
 
@@ -306,6 +308,8 @@ function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.c
     const { x, y } = getBadgeSpawn(scene, item.bodyWidth, item.bodyHeight, item.version)
 
     Matter.Body.setPosition(item.body, { x, y })
+    item.previousPositionX = x
+    item.previousPositionY = y
     item.element.style.transform = `translate3d(${x - item.visualWidth / 2}px, ${y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
   }
 }
@@ -382,6 +386,9 @@ function prepareBadge(scene, index) {
     isReleased: false,
     isComposited: true,
     lastTransform: '',
+    previousAngle: body.angle,
+    previousPositionX: body.position.x,
+    previousPositionY: body.position.y,
     releasedAt: 0,
     version,
     visualHeight,
@@ -424,6 +431,9 @@ function positionBadgeForRelease(scene, item) {
   }
 
   item.element.style.transform = `translate3d(${item.body.position.x - item.visualWidth / 2}px, ${item.body.position.y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
+  item.previousAngle = item.body.angle
+  item.previousPositionX = item.body.position.x
+  item.previousPositionY = item.body.position.y
 }
 
 function releaseBadge(scene, index) {
@@ -444,9 +454,9 @@ function releaseBadge(scene, index) {
 function renderScene(scene, interpolation = 1) {
   for (const item of scene.bodies) {
     const { body } = item
-    const positionX = body.positionPrev.x + (body.position.x - body.positionPrev.x) * interpolation
-    const positionY = body.positionPrev.y + (body.position.y - body.positionPrev.y) * interpolation
-    const angle = body.anglePrev + (body.angle - body.anglePrev) * interpolation
+    const positionX = item.previousPositionX + (body.position.x - item.previousPositionX) * interpolation
+    const positionY = item.previousPositionY + (body.position.y - item.previousPositionY) * interpolation
+    const angle = item.previousAngle + (body.angle - item.previousAngle) * interpolation
     const x = positionX - item.visualWidth / 2
     const y = positionY - item.visualHeight / 2
     const transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${angle.toFixed(4)}rad)`
@@ -469,6 +479,10 @@ function updateScene(scene, delta, shouldRender = true) {
   let didBodyEnter = false
 
   for (const item of scene.bodies) {
+    item.previousAngle = item.body.angle
+    item.previousPositionX = item.body.position.x
+    item.previousPositionY = item.body.position.y
+
     if (!item.hasEntered && item.body.bounds.min.y >= scene.sideInset + 0.75) {
       item.hasEntered = true
       item.body.plugin.kernelSyncHasEntered = true
@@ -579,7 +593,7 @@ function startPhysics(instant = false) {
   isAnimated.value = true
   nextTick(() => {
     const roxyScene = createScene(roxyCardRef.value, roxyBadgeElements, roxyVersions, 1.08)
-    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 1.08, true)
+    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 1.02, true)
 
     if (!roxyScene || !legacyScene) {
       return

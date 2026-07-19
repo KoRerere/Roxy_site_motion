@@ -1,9 +1,9 @@
 <template>
-  <canvas id="fingerprint-technology"></canvas>
+  <canvas id="fingerprint-technology" ref="canvasRef"></canvas>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 
 const defaultDuch = `,,,,,,,,,,,,,,,,,,,,,
@@ -56,10 +56,13 @@ const props = defineProps({
 })
 
 let timer = null;
+let visibilityObserver = null;
+let isVisible = false;
+const canvasRef = ref(null);
 const dpr = window.devicePixelRatio || 1;
 let textWidth = 0;
-function textMatrix(container) {
-	const canvas = document.getElementById(container);
+function textMatrix(canvas) {
+	if (!canvas) return;
 	const ctx = canvas.getContext('2d');
 	if (textWidth == 0) {
 		const text = ctx.measureText('#');
@@ -136,16 +139,25 @@ function randomLetter(length) {
 
 const resize = useDebounceFn(() => {
 	clearInterval(timer);
-	textMatrix('fingerprint-technology')
+	timer = null;
+	if (isVisible) textMatrix(canvasRef.value)
 }, 100)
 
 onMounted(() => {
 	window.addEventListener('resize', resize)
-  textMatrix('fingerprint-technology')
+	visibilityObserver = new IntersectionObserver(([entry]) => {
+		isVisible = Boolean(entry?.isIntersecting);
+		clearInterval(timer);
+		timer = null;
+
+		if (isVisible) textMatrix(canvasRef.value)
+	}, { rootMargin: '120px 0px' })
+	visibilityObserver.observe(canvasRef.value)
 })
 
 onUnmounted(() => {
 	window.removeEventListener('resize', resize)
+	visibilityObserver?.disconnect();
 	clearInterval(timer);
 })
 
