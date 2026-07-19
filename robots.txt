@@ -1,5 +1,20 @@
+# START nuxt-robots (indexable)
 User-agent: *
-Disallow: /anbin
-Disallow: /login
+Disallow: /_ghost_
+Disallow: /_ghost_/*
 Disallow: /figma-icons
 Disallow: /pay-success
+Disallow: /email-transfer
+Disallow: /zh/figma-icons
+Disallow: /zh/pay-success
+Disallow: /zh/email-transfer
+Disallow: /en/figma-icons
+Disallow: /en/pay-success
+Disallow: /en/email-transfer
+Disallow: /ru/figma-icons
+Disallow: /ru/pay-success
+Disallow: /ru/email-transfer
+Disallow: /news/*
+
+Sitemap: https://roxybrowser.cn/sitemap_index.xml
+# END nuxt-robots

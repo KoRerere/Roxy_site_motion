@@ -52,7 +52,7 @@ export class LimitApi<SecurityDataType = unknown> {
    *
    * @tags Limit
    * @name UserGetWorkspaceListList
-   * @summary 获取工作空间列表
+   * @summary 获取团队列表
    * @request GET:/user_get_workspace_list
    * @response `200` `UserGetWorkspaceListListData`
    */
@@ -68,7 +68,7 @@ export class LimitApi<SecurityDataType = unknown> {
    *
    * @tags Limit
    * @name UserAddWorkspaceInfoCreate
-   * @summary 新增工作空间
+   * @summary 新增团队
    * @request POST:/user_add_workspace_info
    * @response `200` `UserAddWorkspaceInfoCreateData`
    */
@@ -86,7 +86,7 @@ export class LimitApi<SecurityDataType = unknown> {
    *
    * @tags Limit
    * @name UserMdfWorkspaceInfoCreate
-   * @summary 修改工作空间
+   * @summary 修改团队
    * @request POST:/user_mdf_workspace_info
    * @response `200` `UserMdfWorkspaceInfoCreateData`
    */
@@ -104,7 +104,7 @@ export class LimitApi<SecurityDataType = unknown> {
    *
    * @tags Limit
    * @name UserDelWorkspaceInfoCreate
-   * @summary 删除工作空间
+   * @summary 删除团队
    * @request POST:/user_del_workspace_info
    * @response `200` `UserDelWorkspaceInfoCreateData`
    */
@@ -139,7 +139,7 @@ export class LimitApi<SecurityDataType = unknown> {
    *
    * @tags Limit
    * @name UserMdfWorkspaceTipInfoList
-   * @summary 修改首次工作空间点击提示
+   * @summary 修改首次团队点击提示
    * @request GET:/user_mdf_workspace_tip_info
    * @response `200` `UserMdfWorkspaceTipInfoListData`
    */

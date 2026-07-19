@@ -1,5 +1,6 @@
 <script setup>
-import Toast from 'primevue/toast'
+import { Toaster } from 'vue-sonner'
+// import 'vue-sonner/style.css'
 
 const { extractCode } = useChannelReport()
 const { locale } = useRxI18n()
@@ -14,6 +15,6 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <slot></slot>
-  <Toast position="top-center" />
+  <slot />
+  <Toaster position="top-center" :duration="2000" rich-colors />
 </template>

@@ -1,6 +1,16 @@
 packages:
   - "packages/*"
 
+allowBuilds:
+  '@parcel/watcher': true
+  '@tsparticles/engine': true
+  cpu-features: true
+  esbuild: true
+  sharp: true
+  ssh2: true
+  unrs-resolver: true
+  vue-demi: true
+
 # Define a catalog of version ranges.
 catalog:
   axios: ^1.8.4

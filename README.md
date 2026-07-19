@@ -52,6 +52,52 @@ ghost;
 
 发布网站可以使用pm2 再启一个进程，NuxtJS 监听3001端口，然后配置nginx访问3001端口，先做正式环境的测试。测试完把nginx roxybrowser.com 的域名的nginx反向代理，代理到3001端口。完成发布
 
+### CN Ghost 启动说明
+
+#### 生产环境（roxybrowser.cn）
+
+1. 确认配置文件：
+   - `ghost/china/config.production.json`
+   - Ghost 路径：`https://roxybrowser.cn/__ghost__/`
+   - Ghost 端口：`2370`
+   - MySQL 端口：`3308`
+
+2. 启动：
+
+```
+docker compose -f docker-compose.production.yml up -d
+```
+
+3. 检查状态/日志：
+
+```
+docker compose -f docker-compose.production.yml ps
+docker compose -f docker-compose.production.yml logs -f
+```
+
+#### 测试环境（test.roxybrowser.cn）
+
+1. 确认配置文件：
+   - `ghost/china/config.development.json`
+   - Ghost 路径：`https://test.roxybrowser.cn/__ghost__/`
+   - Ghost 端口：`2370`
+   - MySQL 端口：`3308`
+
+2. 启动：
+
+```
+docker compose -f docker-compose.development.yml up -d
+```
+
+3. 检查状态/日志：
+
+```
+docker compose -f docker-compose.development.yml ps
+docker compose -f docker-compose.development.yml logs -f
+docker compose -f docker-compose.development.yml logs -f ghost-mysql-cn-dev
+docker compose -f docker-compose.development.yml logs -f ghost-cn-dev
+```
+
 #### 关于 oss
 https://github.com/MT-Libraries/ghost-oss-store
 

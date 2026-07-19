@@ -1,0 +1,456 @@
+[
+  {
+    "id": 766,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.8",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>1. 修复了一些已知问题</strong></p><p style=\"line-height: 2;\"><strong>2. 优化了部分功能</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>1. Fixed some known issues</strong></p><p style=\"line-height: 2;\"><strong>2. Optimized some functions</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>1. Исправлены некоторые известные проблемы</strong></p><p style=\"line-height: 2;\"><strong>2. Оптимизированы некоторые функции</strong></p>",
+    "releaseTime": "2025-09-24 18:01:16",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.8/RoxyBrowser_x64_3.5.8.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-09-24 18:01:16",
+    "updateTime": "2025-09-25 19:37:59",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {
+      "zh-CN": [
+        {
+          "content": "<p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1758800198874__%E6%8B%89%E6%96%B0%E6%B4%BB%E5%8A%A8-%E4%B8%AD%E6%96%87.jpg\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p><p><strong>邀新立赚 5 美元！RoxyBrowser 推广计划重磅升级<br></strong></p><ul><li><strong>限时 $5 现金奖励</strong>：9 月 26 日至 10 月 26 日（UTC）期间，每成功邀请 1 位新的付费订阅用户，可额外获得<strong> $5 </strong>奖金；</li><li><strong>推广规则永久简化</strong>：从现在起，你的推广链接等级将按带来的付费订阅人数计算，助你轻松躺赚！</li></ul>",
+          "id": "ce88da5c-1e5c-4910-83b1-9091ea7777d6"
+        }
+      ],
+      "en": [
+        {
+          "content": "<p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1758800242564__%E6%8B%89%E6%96%B0%E6%B4%BB%E5%8A%A8-%E8%8B%B1%E6%96%87.jpg\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p><p><strong>Referral Power-Up: Earn $5 Per Paid Invite!<br></strong></p><ul><li><strong>Limited-time $5 cash bonus:</strong> From Sept 26 to Oct 26, you can earn an <strong>Extra $5 Bonus</strong> for every new paid subscriber you refer.</li><li><strong>Easily Level-Ups:</strong> Starting now, your referral link's level-ups will be based on the number of paid subscribers you bring in, supercharging your earnings!</li></ul>",
+          "id": "1db41eab-bc26-446d-b163-98d0c309f526"
+        }
+      ],
+      "ru": [
+        {
+          "content": "<p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1758800254176__%E6%8B%89%E6%96%B0%E6%B4%BB%E5%8A%A8-%E8%8B%B1%E6%96%87.jpg\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p><p><strong>Приглашайте друзей и получайте $5! — Программа продвижения RoxyBrowser была значительно улучшена<br></strong></p><ul><li><strong>Ограниченный бонус $5</strong>: с 26 сентября по 26 октября (UTC) за каждого успешно приглашённого нового платного подписчика вы получаете дополнительные <strong>$5</strong>.</li><li><strong>Упрощённые правила навсегда</strong>: теперь уровень вашей реферальной ссылки рассчитывается по числу приведённых платных подписчиков — зарабатывать стало ещё проще!</li></ul>",
+          "id": "48088bad-1f6d-47cf-8131-abc604183aeb"
+        }
+      ]
+    }
+  },
+  {
+    "id": 762,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.7",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>1. 修复了一些已知问题</strong></p><p style=\"line-height: 2;\"><strong>2. 优化了部分功能</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>1. Fixed some known issues</strong></p><p style=\"line-height: 2;\"><strong>2. Optimized some functions</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>1. Исправлены некоторые известные проблемы</strong></p><p style=\"line-height: 2;\"><strong>2. Оптимизированы некоторые функции</strong></p>",
+    "releaseTime": "2025-09-04 13:31:42",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.7/RoxyBrowser_x64_3.5.7.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-09-04 13:31:42",
+    "updateTime": "2025-09-04 18:50:47",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {
+      "zh-CN": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>窗口列表新增搜索功能</strong></p><p style=\"line-height: 1;\">现在您可以直接在搜索框中检索，以快速找到您的目标窗口</p><p style=\"line-height: 1;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1756980494075__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "6a9cb827-4be9-4ab5-a56f-81ce6ed14121"
+        },
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>代理服务优惠</strong></p><p style=\"line-height: 1.5;\">由于我们和 PrivateProxy 的合作关系全面升级，现在 RoxyBrowser 用户可以用更优惠的价格享受到同样高质量的住宅代理！</p><p style=\"line-height: 1;\"><strong>老用户专属回馈：</strong></p><p style=\"line-height: 1.5;\">为了感谢部分早期用户的支持，凡是在这次降价前购买过代理服务的用户，我们都已自动为您延长一倍有效期，完全免费！</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1756981365549__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "3b67d1e8-e29b-4380-ac84-4c6cbec036c1"
+        }
+      ],
+      "en": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>New Search Function in Profile List</strong></p><p style=\"line-height: 1;\">You can now search directly in the search box to quickly find your target profile.</p><p style=\"line-height: 1;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1756980494075__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "d75cc96f-3e85-49b7-888f-a1f4c465e021"
+        },
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>Discount on Proxy Services</strong></p><p style=\"line-height: 1.5;\">Thanks to an upgraded partnership with PrivateProxy, all RoxyBrowser users can now enjoy the same high-quality residential proxies at a more affordable price!</p><p style=\"line-height: 1;\"><strong>Exclusive Offer for Our Loyal Users:</strong></p><p style=\"line-height: 1.5;\">To thank our early supporters, users who purchased proxy services before this price reduction have had their proxy validity period automatically doubled, completely free of charge!</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1756981365549__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "28603a3b-50e6-4283-b308-65451b0b466e"
+        }
+      ],
+      "ru": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>Новая функция поиска в списке профилей</strong></p><p style=\"line-height: 1;\">Теперь вы можете выполнять поиск прямо в строке поиска, чтобы быстро найти нужный профиль.</p><p style=\"line-height: 1;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1756980494075__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "1276864d-e0d5-4260-a028-2e93a914e61a"
+        },
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>Скидки на прокси-сервисы</strong></p><p style=\"line-height: 1.5;\">Благодаря расширению нашего партнерства с PrivateProxy, пользователи RoxyBrowser теперь могут пользоваться теми же высококачественными резидентными прокси по более выгодной цене!</p><p style=\"line-height: 1;\"><strong>Эксклюзивное предложение для наших постоянных пользователей:</strong></p><p style=\"line-height: 1.5;\">В знак благодарности за поддержку наших первых пользователей, мы автоматически и совершенно бесплатно удвоили срок действия прокси для всех, кто приобрёл их до этого снижения цен!</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1756981365549__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"> </p><p><br></p>",
+          "id": "8d7060bd-4420-4412-8a16-9f5240c56971"
+        }
+      ]
+    }
+  },
+  {
+    "id": 758,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.6",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>1. 修复了一些已知问题</strong></p><p style=\"line-height: 2;\"><strong>2. 优化了部分功能</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>1. Fixed some known issues</strong></p><p style=\"line-height: 2;\"><strong>2. Optimized some functions</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>1. Исправлены некоторые известные проблемы</strong></p><p style=\"line-height: 2;\"><strong>2. Оптимизированы некоторые функции</strong></p>",
+    "releaseTime": "2025-08-22 16:47:55",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.6/RoxyBrowser_x64_3.5.6.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-08-22 16:47:55",
+    "updateTime": "2025-08-25 16:57:05",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {}
+  },
+  {
+    "id": 754,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.5",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>1. 修复了一些已知问题</strong></p><p style=\"line-height: 2;\"><strong>2. 优化了部分功能</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>1. Fixed some known issues</strong></p><p style=\"line-height: 2;\"><strong>2. Optimized some functions</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>1. Исправлены некоторые известные проблемы</strong></p><p style=\"line-height: 2;\"><strong>2. Оптимизированы некоторые функции</strong></p>",
+    "releaseTime": "2025-08-18 20:48:25",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.5/RoxyBrowser_x64_3.5.5.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-08-18 20:48:25",
+    "updateTime": "2025-08-20 18:09:23",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {
+      "zh-CN": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>代理商店现已开放</strong></p><p style=\"line-height: 1.5;\">现在您可以直接在 Roxy 应用内访问全新的代理商店。我们为您集成了经过严格筛选和验证的可靠代理服务商，告别复杂配置，一键即可为您所用。</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1755673532890__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "7c282ada-eeeb-4894-b302-9d0701306c36"
+        },
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>全新的费用中心</strong></p><p style=\"line-height: 1.5;\">原支付系统已升级为功能更全面的【费用中心】。您可以在此预览账号权益、调整订阅、管理 Roxy 钱包与账单。</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1755674646299__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "b5a59bd1-fa97-4837-8fb9-76a22f2f4244"
+        }
+      ],
+      "en": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>The Proxy Store is Now Open</strong></p><p style=\"line-height: 1.5;\">You can now directly access the all-new Proxy Store within the Roxy app. We have integrated reliable proxy service providers that have been rigorously selected and verified for you. Say goodbye to complex configurations—they are available for your use with a single click.</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1755673532890__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "6ee65790-0744-45ad-9539-cb7d04840822"
+        },
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>The All-New Billing Center</strong></p><p style=\"line-height: 1.5;\">The original payment system has been upgraded to a more comprehensive Billing Center. Here, you can preview your account benefits, adjust your subscription, and manage your Roxy Wallet and invoices.</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1755674646299__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "8a1da98e-f11a-40ad-98b2-998573772dfc"
+        }
+      ],
+      "ru": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>Магазин прокси-сервисов теперь открыт</strong></p><p style=\"line-height: 1.5;\">Теперь вы можете получить прямой доступ к совершенно новому магазину прокси-сервисов в приложении Roxy. Мы интегрировали для вас надёжных поставщиков прокси-услуг, которые прошли тщательный отбор и проверку. Попрощайтесь со сложными настройками — всё доступно для использования в один клик.</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1755673532890__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "b0f94fc5-ea1d-4e4f-a291-3f3ca4a852cb"
+        },
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>Совершенно новый центр оплаты</strong></p><p style=\"line-height: 1.5;\">Прежняя платёжная система была обновлена до более многофункционального центра оплаты. Здесь вы можете просматривать преимущества вашего аккаунта, изменять подписку, а также управлять кошельком и счетами Roxy.</p><p style=\"line-height: 1.5;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1755674799115__image.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "8965dcd8-29bd-472c-abef-e99d1066b5df"
+        }
+      ]
+    }
+  },
+  {
+    "id": 746,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.4",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>优化软件整体性能及部分 UI、交互体验。</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>Optimized overall software performance and improved aspects of the UI and UX.</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>Оптимизирована общая производительность ПО и улучшены аспекты UI и UX.</strong></p>",
+    "releaseTime": "2025-07-08 19:37:59",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.4/RoxyBrowser_x64_3.5.4.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-07-08 19:37:59",
+    "updateTime": "2025-07-10 11:31:14",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {}
+  },
+  {
+    "id": 736,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.3",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>1. 修复了一些已知问题</strong></p><p style=\"line-height: 2;\"><strong>2. 优化了部分功能</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>1. Fixed some known issues</strong></p><p style=\"line-height: 2;\"><strong>2. Optimized some functions</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>1. Исправлены некоторые известные проблемы</strong></p><p style=\"line-height: 2;\"><strong>2. Оптимизированы некоторые функции</strong></p>",
+    "releaseTime": "2025-07-04 18:22:14",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.3/RoxyBrowser_x64_3.5.3.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-07-04 18:22:14",
+    "updateTime": "2025-07-04 19:46:05",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {}
+  },
+  {
+    "id": 710,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.2",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 1;\"><strong>1.支持为 Roxy 账号登录启用两步验证</strong></p><p style=\"line-height: 1;\">现在可以绑定 Google Authenticator 等第三方身份验证器</p><p style=\"line-height: 2;\"><strong>2.支持批量创建窗口时以顺序分配的方式绑定平台账号</strong></p><p style=\"line-height: 2;\"><strong>3.支持在项目管理中对项目进行拖动排序（调整同时会应用于 Pin 在左侧菜单的顺序）</strong></p><p style=\"line-height: 2;\"><strong>4.支持在窗口列表中通过点击表头来调整排序方式</strong></p><p style=\"line-height: 2;\"><strong>5.优化软件整体性能及部分 UI、交互体验</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 1;\"><strong>1. Support for two-factor authentication for Roxy account logins. </strong></p><p style=\"line-height: 1;\">You can now connect third-party authenticators such as Google Authenticator.</p><p style=\"line-height: 2;\"><strong>2. Support for assigning accounts sequentially when creating profiles in bulk.</strong></p><p style=\"line-height: 2;\"><strong>3. Projects can now be sorted by dragging and dropping. (The new order will also be reflected for projects pinned to the left menu.)</strong></p><p style=\"line-height: 2;\"><strong>4. Support for sorting your profiles by simply clicking on the column headers in the list view.</strong></p><p style=\"line-height: 2;\"><strong>5. Optimized overall software performance and improved aspects of the UI and UX.</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 1;\"><strong>1. Добавлена поддержка двухфакторной аутентификации (2FA) для входа в аккаунт Roxy. </strong>Теперь вы можете подключить сторонние аутентификаторы, такие как Google Authenticator.</p><p style=\"line-height: 2;\"><strong>2. Добавлена поддержка последовательного назначения аккаунтов при массовом создании профилей.</strong></p><p style=\"line-height: 2;\"><strong>3. Проекты теперь можно сортировать перетаскиванием. (Новый порядок также будет применяться к проектам, закрепленным в меню слева.)</strong></p><p style=\"line-height: 2;\"><strong>4. Добавлена поддержка сортировки ваших профилей в списке простым нажатием на заголовки столбцов.</strong></p><p style=\"line-height: 2;\"><strong>5. Оптимизирована общая производительность ПО и улучшены аспекты UI и UX.</strong></p>",
+    "releaseTime": "2025-06-26 15:50:00",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.2/RoxyBrowser_x64_3.5.2.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-06-25 21:48:00",
+    "updateTime": "2025-06-26 15:42:40",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {
+      "zh-CN": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>支持为 Roxy 账号登录启用两步验证</strong></p><p style=\"line-height: 1;\">现在可以绑定 Google Authenticator 等第三方身份验证器</p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750916078936__2FA.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "7e1575b1-eb3b-4198-aed5-c9f868a9c25f"
+        },
+        {
+          "content": "<p><strong>支持批量创建窗口时以顺序分配的方式绑定平台账号</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750921783874__Sequential%20Assignment.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "1f319fb5-4f08-4652-8710-3aae2329a85f"
+        },
+        {
+          "content": "<p><strong>支持在项目管理中对项目进行拖动排序（调整同时会应用于 Pin 在左侧菜单的顺序）</strong></p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750921756142__%E9%A1%B9%E7%9B%AE%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "d7d740da-f50f-4194-860d-7de80817f5c5"
+        },
+        {
+          "content": "<p><strong>支持在窗口列表中通过点击表头来调整排序方式</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750921802209__Click%20to%20Sort.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "2530578d-c41d-46e1-9540-085efa220951"
+        },
+        {
+          "content": "<p><strong>优化软件整体性能及部分 UI、交互体验</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922558089__New%20Create%20Panel.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "7e329d48-16b1-42bf-b273-017ace15f62c"
+        }
+      ],
+      "en": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>Support for two-factor authentication for Roxy account logins. </strong></p><p style=\"line-height: 1;\">You can now connect third-party authenticators such as Google Authenticator.</p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750916339673__2FA.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "924f7559-043b-4ea4-9988-a86d8702ef4d"
+        },
+        {
+          "content": "<p><strong>Support for assigning accounts sequentially when creating profiles in bulk.</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922222730__Sequential%20Assignment.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "7323db95-e27e-49e4-beff-9db6bdb75b91"
+        },
+        {
+          "content": "<p><strong>Projects can now be sorted by dragging and dropping. (The new order will also be reflected for projects pinned to the left menu.)</strong></p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922246532__%E9%A1%B9%E7%9B%AE%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "64fe049a-a0a0-4a64-b5f9-f66aa90ae576"
+        },
+        {
+          "content": "<p><strong>Support for sorting your profiles by simply clicking on the column headers in the list view.</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922258880__Click%20to%20Sort.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "44480974-171a-44cd-83de-e2f3693122c4"
+        },
+        {
+          "content": "<p style=\"line-height: 2;\"><strong>Optimized overall software performance and improved aspects of the UI and UX.</strong></p><p style=\"line-height: 2;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922598829__New%20Create%20Panel.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "f24b5531-6914-46f4-aad9-a505d5f17249"
+        }
+      ],
+      "ru": [
+        {
+          "content": "<p style=\"line-height: 1;\"><strong>обавлена поддержка двухфакторной аутентификации (2FA) для входа в аккаунт Roxy. </strong></p><p style=\"line-height: 1;\">Теперь вы можете подключить сторонние аутентификаторы, такие как Google Authenticator.</p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750916355438__2FA.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "d66c90a1-ce19-4e8c-bac5-e75f6e2c7dfa"
+        },
+        {
+          "content": "<p><strong>Добавлена поддержка последовательного назначения аккаунтов при массовом создании профилей.</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922293528__Sequential%20Assignment.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "0d489cc5-34b4-40f9-bf4f-0d594a189714"
+        },
+        {
+          "content": "<p><strong>Проекты теперь можно сортировать перетаскиванием. (Новый порядок также будет применяться к проектам, закрепленным в меню слева.)</strong></p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922302181__%E9%A1%B9%E7%9B%AE%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "5a9abbe7-77a7-429a-b097-c8365f5f7237"
+        },
+        {
+          "content": "<p><strong>Добавлена поддержка сортировки ваших профилей в списке простым нажатием на заголовки столбцов.</strong></p><p><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922311181__Click%20to%20Sort.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"/></p>",
+          "id": "33a0009a-986a-47e4-b79d-561c718f5528"
+        },
+        {
+          "content": "<p style=\"line-height: 2;\"><strong>Оптимизирована общая производительность ПО и улучшены аспекты UI и UX.</strong></p><p style=\"line-height: 2;\"><img src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1750922617150__New%20Create%20Panel.png\" alt=\"\" data-href=\"\" width=\"\" height=\"\" style=\"\"></p>",
+          "id": "7311e89d-8e23-4eb7-affa-acf9ef6ef7d4"
+        }
+      ]
+    }
+  },
+  {
+    "id": 700,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.1",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>修复部分情况下接收窗口转移时的代理连接问题</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>Fixed proxy connection issues encountered in some cases when receiving profile transfer.</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>Исправлена проблема с подключением к прокси при приёме передачи окна в некоторых случаях.</strong></p>",
+    "releaseTime": "2025-06-13 11:21:50",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.1/RoxyBrowser_x64_3.5.1.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-06-13 11:21:50",
+    "updateTime": "2025-06-13 12:52:16",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {}
+  },
+  {
+    "id": 670,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.5.0",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 1;\"><strong>1.支持在窗口转移时为代理信息加密</strong></p><p style=\"line-height: 1;\">代理被加密后，接收方仅能使用，无法查看到代理主机/端口/账密等信息</p><p style=\"line-height: 1.5;\"><strong>2.支持批量清除窗口缓存</strong></p><p style=\"line-height: 1.5;\"><strong>3.支持批量添加平台账号</strong></p><p style=\"line-height: 1.5;\"><strong>4.优化部分空间成员权限逻辑，允许部分高级功能跨空间使用</strong></p><p style=\"line-height: 1.5;\"><strong>5.优化软件整体性能及部分 UI、交互体验</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 1;\"><strong>1. Support for encrypting proxy information during profile transfer.</strong></p><p style=\"line-height: 1;\">Once the proxy information is encrypted, the recipient can only use the proxy but cannot view details such as the proxy host, port, or credentials.</p><p style=\"line-height: 1.5;\"><strong>2. Support for batch clearing profile cache.</strong></p><p style=\"line-height: 1.5;\"><strong>3. Support for batch adding platform accounts.</strong></p><p style=\"line-height: 1.5;\"><strong>4. Optimized permission logic for workspace members, allowing certain advanced features to be used across workspaces.</strong></p><p style=\"line-height: 1.5;\"><strong>5. Optimized overall software performance and improved aspects of the UI and UX.</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 1;\"><strong>1. Поддержка шифрования информации о прокси при передаче профиля.</strong></p><p style=\"line-height: 1;\">После шифрования информации о прокси получатель сможет только использовать прокси, но не сможет просмотреть такие данные, как хост, порт или учётные данные прокси.</p><p style=\"line-height: 1.5;\"><strong>2. Поддержка пакетной очистки кеша профилей.</strong></p><p style=\"line-height: 1.5;\"><strong>3. Поддержка пакетного добавления аккаунтов платформ.</strong></p><p style=\"line-height: 1.5;\"><strong>4. Оптимизирована логика разрешений для участников рабочего пространства, что позволяет использовать определённые расширенные функции в разных рабочих пространствах.</strong></p><p style=\"line-height: 1.5;\"><strong>5. Оптимизирована общая производительность ПО и улучшены аспекты UI и UX.</strong></p>",
+    "releaseTime": "2025-06-11 11:54:44",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.5.0/RoxyBrowser_x64_3.5.0.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-06-11 11:54:44",
+    "updateTime": "2025-06-12 13:07:42",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {}
+  },
+  {
+    "id": 666,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.4.9",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 2;\"><strong>1.修复部分情况下窗口未响应的问题</strong></p><p style=\"line-height: 2;\"><strong>2.优化部分列表展示逻辑</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 2;\"><strong>1.Fixed an issue where the profile would become unresponsive in some cases.</strong></p><p style=\"line-height: 2;\"><strong>2.Optimized the display logic for some lists.</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 2;\"><strong>1.Исправлена проблема, из-за которой окно не отвечало в некоторых случаях.</strong></p><p style=\"line-height: 2;\"><strong>2.Оптимизирована логика отображения для некоторых списков.</strong></p>",
+    "releaseTime": "2025-05-30 17:02:47",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.4.9/RoxyBrowser_x64_3.4.9.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-05-30 17:02:47",
+    "updateTime": "2025-05-30 18:32:35",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {}
+  },
+  {
+    "id": 662,
+    "os": "Windows",
+    "osVersion": "",
+    "osBit": "64",
+    "cpu": "",
+    "versionType": "app",
+    "coreVersion": "",
+    "coreRealVersion": "",
+    "version": "3.4.8",
+    "upgradeTitle": "",
+    "upgradeDesc": "",
+    "upgradeContent": "<p style=\"line-height: 1.5;\"><strong>1.支持客户端深色模式</strong></p><p style=\"line-height: 1.5;\">现在可以同时在【软件设置】中调整浏览器窗口内的主题模式</p><p style=\"line-height: 2;\"><strong>2.支持批量创建窗口时选择/添加平台账号</strong></p><p style=\"line-height: 2;\"><strong>3.优化 Android/iOS 系统默认分辨率取值逻辑</strong></p><p style=\"line-height: 2;\"><strong>4.适配部分浏览器语言展示样式</strong></p><p style=\"line-height: 2;\"><strong>5.优化软件整体性能及部分 UI、交互体验</strong></p>",
+    "upgradeContentEn": "<p style=\"line-height: 1.15;\"><strong>1. Support for app dark mode.</strong></p><p style=\"line-height: 1.15;\">You can now also adjust the profile's theme in [Preferences Settings].</p><p style=\"line-height: 2;\"><strong>2. Support for selecting/adding accounts during batch creation.</strong></p><p style=\"line-height: 2;\"><strong>3. Optimized the default resolution retrieval logic for Android/iOS systems.</strong></p><p style=\"line-height: 2;\"><strong>4. Adapted display styles for certain browser language settings.</strong></p><p style=\"line-height: 2;\"><strong>5. Optimized overall software performance and improved aspects of the UI and UX.</strong></p>",
+    "upgradeContentRu": "<p style=\"line-height: 1.15;\"><strong>1. Поддержка тёмной темы приложения.</strong></p><p style=\"line-height: 1.15;\">Теперь вы также можете настроить тему браузера в [Настройки программы].</p><p style=\"line-height: 2;\"><strong>2. Поддержка выбора/добавления аккаунтов при пакетном создании.</strong></p><p style=\"line-height: 2;\"><strong>3. Оптимизирована логика получения разрешения по умолчанию для систем Android/iOS.</strong></p><p style=\"line-height: 2;\"><strong>4. Адаптированы стили отображения для некоторых языковых настроек браузера.</strong></p><p style=\"line-height: 2;\"><strong>5. Оптимизирована общая производительность ПО и улучшены аспекты UI и UX.</strong></p>",
+    "releaseTime": "2025-05-28 17:30:35",
+    "downloadUrl": "https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/package/app/Windows/64/3.4.8/RoxyBrowser_x64_3.4.8.exe",
+    "forceUpgrade": false,
+    "ipLimit": false,
+    "createTime": "2025-05-28 17:30:35",
+    "updateTime": "2025-05-28 18:35:08",
+    "dataType": "new",
+    "status": true,
+    "newFeatureTips": {
+      "zh-CN": [
+        {
+          "content": "<p style=\"line-height: 1.5;\"><strong>支持客户端深色模式</strong></p><p style=\"line-height: 1.5;\">现在可以同时在【软件设置】中调整浏览器窗口内的主题模式</p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1748426495248__%E6%B7%B1%E8%89%B2%E6%A8%A1%E5%BC%8F.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "012add7b-287f-44dd-abbe-c248f69250f8"
+        },
+        {
+          "content": "<p><strong>支持批量创建窗口时选择/添加平台账号</strong></p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1748427039343__%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E5%B9%B3%E5%8F%B0%E8%B4%A6%E5%8F%B7.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "eca9b6be-8042-439a-89ba-9eb446433222"
+        }
+      ],
+      "en": [
+        {
+          "content": "<p style=\"line-height: 1.5;\"><strong>Support for app dark mode.</strong></p><p style=\"line-height: 1.5;\">You can now also adjust the profile's theme in [Preferences Settings].</p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1748426495248__%E6%B7%B1%E8%89%B2%E6%A8%A1%E5%BC%8F.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "6ffb2da7-8d00-4d6b-b060-60e42bbe8dcd"
+        },
+        {
+          "content": "<p><strong>Support for selecting/adding accounts during batch creation.</strong></p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1748427039343__%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E5%B9%B3%E5%8F%B0%E8%B4%A6%E5%8F%B7.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "0f28b9e1-d918-43cb-8977-9aacd220ca13"
+        }
+      ],
+      "ru": [
+        {
+          "content": "<p style=\"line-height: 1.5;\"><strong>Поддержка тёмной темы приложения.</strong></p><p style=\"line-height: 1.5;\">Теперь вы также можете настроить тему браузера в [Настройки программы].</p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1748426495248__%E6%B7%B1%E8%89%B2%E6%A8%A1%E5%BC%8F.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "41284f0c-18c6-4fa0-8c8f-9d5c8281ff55"
+        },
+        {
+          "content": "<p><strong>Поддержка выбора/добавления аккаунтов при пакетном создании.</strong></p><div data-w-e-type=\"video\" data-w-e-is-void style=\"text-align: center;\">\n<video poster=\"\" controls=\"true\" width=\"auto\" height=\"auto\" style=\"\"><source src=\"https://lumibrowser.oss-cn-shenzhen.aliyuncs.com/public/static/upload/1748427039343__%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E5%B9%B3%E5%8F%B0%E8%B4%A6%E5%8F%B7.mp4\" type=\"video/mp4\"/></video>\n</div><p><br></p>",
+          "id": "1aaddcdd-601b-4de2-bfbd-186fc9a83c21"
+        }
+      ]
+    }
+  }
+]

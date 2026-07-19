@@ -1,0 +1,127 @@
+.oauth-success-page {
+  min-height: 100dvh;
+  padding: 148px 224px;
+  box-sizing: border-box;
+  position: relative;
+  color: #151517;
+  font-family: Inter, Arial, sans-serif;
+  background: #ffffff;
+}
+
+.oauth-success-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: url('@/assets/svgs/auth/bg.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+
+
+
+.oauth-success-page > section {
+  position: relative;
+  z-index: 1;
+}
+
+.oauth-success-button {
+  display: flex;
+  width: 244px;
+  height: 48px;
+  padding: 8px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: linear-gradient(99deg, #238aff 67.78%, #f9b3b4 107.9%);
+  cursor: pointer;
+}
+
+.oauth-success-button:hover {
+  filter: brightness(1.04);
+}
+
+.text-font {
+  font-family: Inter;
+}
+
+.top-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.shou-font {
+  color: var(--colors-text-text-primary, #111213);
+  font-family: Archivo;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.tiao-font {
+  margin-top: 24px;
+  margin-bottom: 40px;
+  color: var(--colors-text-text-primary, #111213);
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 21.6px */
+}
+
+.open-font {
+  color: #fff;
+  font-family: Inter;
+  font-size: var(--sub-title, 16px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--line-sub-title, 24px); /* 150% */
+}
+
+.icon-w-h {
+  width: 48px;
+  height: 48px;
+}
+
+.login-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .oauth-success-page {
+    width: 100%;
+    height: 100%;
+    padding: 278px 20px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .oauth-success-page > section {
+    width: 100%;
+    max-width: none;
+  }
+
+  .shou-font {
+    font-size: 20px;
+  }
+
+  .tiao-font {
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+  .oauth-success-bg {
+    background-position: top center;
+    background-size: auto 400px;
+  }
+}

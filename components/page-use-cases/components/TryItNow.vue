@@ -1,29 +1,43 @@
-<template>
-  <NuxtLinkLocale to="/download" :class="[type]" class="px-6 py-3 rounded-2 flex items-center gap-1 text-sub-title font-500 bg-white transition-all duration-200 try-btn" v-bind="$attrs"
-    @click="handleClick">
-    {{ text || $t('免费试用') }}
-    <RxIcon name="base/rx_ic_right" size="24" />
-  </NuxtLinkLocale>
-</template>
-
 <script setup lang="ts">
+import DownloadIcon from '@/components/cta-download-btn/download-icon.vue'
 import { RxIcon } from '@/components/rx-icon'
 import { useDownload } from '~/composables/useDownload'
 import { useRxI18n } from '~/composables/useRxI18n'
 
 defineProps<{
-  text?: string,
+  text?: string
   type?: 'primary' | 'secondary'
 }>()
 
 const { $t } = useRxI18n()
-const { initializeDownload, triggerAutoDownload } = useDownload()
+const { initializeDownload, triggerAutoDownload, downloadText } = useDownload()
+const { redirectMobileDownloadToLogin } = useMobileDownloadRedirect()
 
-const handleClick = async () => {
+async function handleClick(event?: MouseEvent) {
+  if (redirectMobileDownloadToLogin(event)) {
+    return
+  }
+
   await initializeDownload()
   triggerAutoDownload()
 }
 </script>
+
+<template>
+  <!-- <button
+    :class="[type]" class="try-btn text-sub-title font-500 px-6 py-3 rounded-2 bg-white flex gap-2 cursor-pointer transition-all duration-200 items-center" v-bind="$attrs"
+    @click="handleClick"
+  >
+    <DownloadIcon size="24" />
+    {{ text || downloadText }}
+  </button> -->
+
+  <NuxtLinkLocale :class="[type]" class="try-btn text-sub-title font-500 px-6 py-3 rounded-2 bg-white flex gap-2 cursor-pointer transition-all duration-200 items-center" v-bind="$attrs" to="/download" @click.capture="redirectMobileDownloadToLogin">
+    <RxIcon class="inline-flex max-[1123px]:hidden" name="base/rx_ic_download" size="24" />
+    {{ text || $t('免费使用') }}
+    <RxIcon class="hidden max-[1123px]:inline-flex" name="base/rx_ic_chevron_right" size="24" />
+  </NuxtLinkLocale>
+</template>
 
 <style lang="scss" scoped>
 :where(.try-btn) {
@@ -38,4 +52,5 @@ const handleClick = async () => {
 :where(.try-btn:hover) {
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
 }
+
 </style>

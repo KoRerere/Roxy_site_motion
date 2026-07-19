@@ -21,7 +21,7 @@ export interface UserGetWorkspaceListApiListParams {
    */
   page_size?: number;
   /**
-   * 工作空间ID
+   * 团队ID
    * @example 1
    */
   workspaceId?: number;
@@ -33,11 +33,11 @@ export interface UserGetWorkspaceListApiListData {
     /** 总条数 */
     total: number;
     rows: {
-      /** 工作空间ID */
+      /** 团队ID */
       id?: number;
       /** 用户ID */
       userId?: number;
-      /** 工作空间名称 */
+      /** 团队名称 */
       workspaceName?: string;
       project_details?: {
         /** 项目ID */
@@ -666,7 +666,7 @@ export interface UserGetWindowInfoV2ListData {
       checkStatus?: number;
       /** 新业务平台列表 */
       platformUrlList?: string[];
-      /** 工作空间ID */
+      /** 团队ID */
       workspaceId?: number;
       windowPlatformList?: {
         platformUrl?: string;
@@ -1680,7 +1680,7 @@ export interface UserGetUserInfoListData {
     updateTime: string;
     /** 已打开次数 */
     useOpenCount: number;
-    /** 工作空间ID */
+    /** 团队ID */
     workspaceId: number;
     /** 用户身份,老用户:old 新用户:new 特邀用户:invited 邀请用户:inviteLink */
     identity: string;
@@ -2056,7 +2056,7 @@ export interface LoginGoogleV2CreateData {
     role: string;
     /** 是否迁移 */
     is_migrate: boolean;
-    /** 工作空间ID */
+    /** 团队ID */
     workspaceId: number;
   };
   msg: string;
@@ -2353,7 +2353,7 @@ export interface LoginGithubCreateData {
     role: string;
     /** 是否迁移 */
     is_migrate: boolean;
-    /** 工作空间ID */
+    /** 团队ID */
     workspaceId: number;
   };
   msg: string;
@@ -3921,7 +3921,7 @@ export interface UserGetTransferWorkspaceListListData {
     workspacePicture?: string;
     /** 窗口数量是否充足  true:充足, flase: 超出 */
     isWindowCountEnough?: boolean;
-    /** 类型：1：自己的空间 ，2：已转移的空间   0 ：默认没有 */
+    /** 类型：1：自己的空间 ，2：转移中的空间   0 ：默认没有 */
     type?: number;
   }[];
   msg: string;
@@ -4976,8 +4976,8 @@ export interface UserGetWorkspaceListListData {
        */
       userId?: number;
       /**
-       * 工作空间名称
-       * 工作空间名称
+       * 团队名称
+       * 团队名称
        */
       workspaceName?: string;
       /**
@@ -4991,18 +4991,18 @@ export interface UserGetWorkspaceListListData {
        */
       totalMemberCount?: number;
       /**
-       * 工作空间图片
-       * 工作空间图片
+       * 团队图片
+       * 团队图片
        */
       workspacePicture?: string;
       /**
-       * 是否默认工作空间，1：是 0：不是，默认不是
-       * 是否默认工作空间，1：是 0：不是，默认不是
+       * 是否默认团队，1：是 0：不是，默认不是
+       * 是否默认团队，1：是 0：不是，默认不是
        */
       workspaceDefault?: number;
       /**
-       * 工作空间状态，1：启用 0：停用
-       * 工作空间状态，1：启用 0：停用
+       * 团队状态，1：启用 0：停用
+       * 团队状态，1：启用 0：停用
        */
       workspaceStatus?: number;
       /**
@@ -5038,9 +5038,9 @@ export interface UserGetWorkspaceListListData {
 }
 
 export interface UserAddWorkspaceInfoCreatePayload {
-  /** 工作空间名称 */
+  /** 团队名称 */
   workspaceName: string;
-  /** 工作空间图片 */
+  /** 团队图片 */
   workspacePicture: string;
   /** 可创建最大窗口数量 */
   maxWindowCount: number;
@@ -5053,11 +5053,11 @@ export interface UserAddWorkspaceInfoCreateData {
 }
 
 export interface UserMdfWorkspaceInfoCreatePayload {
-  /** 工作空间ID */
+  /** 团队ID */
   id: number;
-  /** 工作空间名称 */
+  /** 团队名称 */
   workspaceName: string;
-  /** 工作空间图片 */
+  /** 团队图片 */
   workspacePicture: string;
   /** 可创建最大的窗口数量 */
   maxWindowCount: number;
@@ -5069,7 +5069,7 @@ export interface UserMdfWorkspaceInfoCreateData {
 }
 
 export interface UserDelWorkspaceInfoCreatePayload {
-  /** 工作空间ID */
+  /** 团队ID */
   workspaceId: number;
 }
 

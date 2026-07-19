@@ -3,13 +3,11 @@ import path from "node:path";
 import { generateApi } from "swagger-typescript-api";
 
 /* NOTE: all fields are optional expect one of `input`, `url`, `spec` */
-const modularConfig = { modular: true };
-
 generateApi({
   output: path.resolve(process.cwd(), "./src/api"),
   url: "http://127.0.0.1:4523/export/openapi/6?version=3.0",
   httpClientType: "axios", // or "fetch"
-  ...modularConfig,
+  modular: true,
   //  generateRouteTypes: true,
   moduleNameFirstTag: true,
   extractRequestParams: true,

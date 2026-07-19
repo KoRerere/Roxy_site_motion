@@ -17,21 +17,19 @@ function launchApp() {
   <div class="relative w-screen h-screen overflow-hidden bg-[#F5FBFF]">
     <div class="flex items-center px-8 pt-4">
       <NuxtLinkLocale to="/" class="flex items-center gap-[10px] z-10">
-        <img class="logo" src="/logo.svg" alt="Roxybrowser" />
+        <img class="logo" src="/logo.svg" alt="RoxyBrowser" />
         <h1 class="header">RoxyBrowser</h1>
       </NuxtLinkLocale>
     </div>
     <div class="w-120 flex flex-col items-start gap-8 py-12 px-8 content">
-      <img class="block w-9 h-9" src="/rx_ic_check_fill.svg" alt="Roxybrowser" />
+      <img class="block w-9 h-9" src="/rx_ic_check_fill.svg" alt="RoxyBrowser" />
       <div class="flex flex-col gap-3">
         <div class="title">{{ $t('您已支付成功') }}</div>
         <div class="desc">{{ $t('感谢您的支持，您的支付已经成功，请点击以下的按钮返回 RoxyBrowser 客户端。') }}</div>
       </div>
-      <Button class="btn" fluid variant="outlined" severity="secondary" @click="launchApp">
-        <template #default>
-          <div class="text">{{ $t('返回 RoxyBrowser') }}</div>
-        </template>
-      </Button>
+      <button class="btn" @click="launchApp">
+        <span class="text">{{ $t('返回 RoxyBrowser') }}</span>
+      </button>
     </div>
   </div>
 </template>
@@ -78,20 +76,20 @@ function launchApp() {
 
 .btn {
   display: flex;
-  min-width: 88px;
-  padding: 10px var(--spacing-2xl, 16px);
+  height: 42px;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing-lg, 8px);
   align-self: stretch;
-  border-radius: var(--radius-lg, 8px);
-  border: 1px solid var(--colors-border-border-action, #C7D1D6);
-  background: var(--colors-background-bg-action, #FFF);
-
-  /* shadow-sm */
+  border-radius: 8px;
+  border: 1px solid #C7D1D6;
+  background: #FFF;
   box-shadow: 0 4px 4px -1px rgba(0, 0, 0, 0.02), 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-
+.btn:hover {
+  background-color: #f5f7f9;
 }
 
 .text {

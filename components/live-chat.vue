@@ -1,45 +1,61 @@
-
 <script setup lang="ts">
-import { useWidgetIsReady } from "@livechat/widget-vue";
-import { countryCode } from '@/store';
+import { useWidgetIsReady } from '@livechat/widget-vue'
+
+/**
+ * showBeforeReady: true = 未加载完成时也显示 slot，但降低透明度且不可点击；加载完成后恢复正常
+ * showBeforeReady: false（默认）= 仅在 livechat 加载完成后才显示 slot
+ */
+const props = withDefaults(
+  defineProps<{
+    showBeforeReady?: boolean
+  }>(),
+  {
+    showBeforeReady: false,
+  },
+)
 
 const isWidgetReady = useWidgetIsReady()
-const visibility = ref<'maximized' | 'minimized' | 'hidden'>('hidden')
 
 const styles = computed(() => {
   if (isWidgetReady.value) {
     return {
       display: 'block',
+      opacity: 1,
+      pointerEvents: 'auto' as const,
     }
-  } else {
+  }
+  if (props.showBeforeReady) {
     return {
-      display: 'none',
+      display: 'block',
+      opacity: 0.5,
+      pointerEvents: 'none' as const,
     }
+  }
+  return {
+    display: 'none',
   }
 })
 
-// const toLiveChat = computed(() => {
-//   if (locale.value === 'zh') {
-//     return 'https://secure.livechatinc.com/licence/18087441/v2/open_chat.cgi?groups=6'
-//   } else {
-//     return 'https://secure.livechatinc.com/licence/18087441/v2/open_chat.cgi?groups=5'
-//   }
-// })
-
 function toggleChatVisible() {
-  // if (countryCode.value === 'CN') {
-  //   window.open(toLiveChat.value, '_blank')
-  // } else {
-  //   LiveChatWidget.call("maximize");
-  // }
-
-  LiveChatWidget.call("maximize");
+  if (!isWidgetReady.value)
+    return
+  // @livechat/widget-vue 底层仍然使用 window.LiveChatWidget API
+  if (typeof window !== 'undefined' && (window as any).LiveChatWidget) {
+    (window as any).LiveChatWidget.call('maximize')
+  }
 }
 </script>
 
 <template>
-  <div class="cursor-pointer" @click="toggleChatVisible">
-    <div 
+  <div
+    class="cursor-pointer"
+    :style="{
+      cursor: isWidgetReady ? 'pointer' : 'default',
+      pointerEvents: props.showBeforeReady && !isWidgetReady ? 'none' : 'auto',
+    }"
+    @click="toggleChatVisible"
+  >
+    <div
       :style="styles"
       v-bind="$attrs"
     >

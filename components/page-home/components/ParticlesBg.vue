@@ -9,7 +9,7 @@
   </template>
   
   <script setup lang="ts">
-  import { useMouse, useDevicePixelRatio, useIntersectionObserver } from "@vueuse/core";
+  import { useMouse, useDevicePixelRatio } from "@vueuse/core";
   import { ref, onMounted, onBeforeUnmount, watch, computed, reactive } from "vue";
   
   type Circle = {
@@ -49,22 +49,6 @@
   const canvasSize = reactive<{ w: number; h: number }>({ w: 0, h: 0 });
   const { x: mouseX, y: mouseY } = useMouse();
   const { pixelRatio } = useDevicePixelRatio();
-  let animationFrameId: number | undefined;
-  let isVisible = false;
-
-  const { stop: stopVisibilityObserver } = useIntersectionObserver(
-    canvasContainerRef,
-    ([entry]) => {
-      isVisible = Boolean(entry?.isIntersecting);
-
-      if (isVisible) {
-        startAnimation();
-      } else {
-        stopAnimation();
-      }
-    },
-    { rootMargin: "120px 0px" },
-  );
   
   const color = computed(() => {
     // Remove the leading '#' if it's present
@@ -92,28 +76,15 @@
     if (canvasRef.value) {
       context.value = canvasRef.value.getContext("2d");
     }
-
+  
     initCanvas();
-    if (isVisible) startAnimation();
+    animate();
     import.meta.client && window.addEventListener("resize", initCanvas);
   });
-
+  
   onBeforeUnmount(() => {
-    stopVisibilityObserver();
-    stopAnimation();
     import.meta.client && window.removeEventListener("resize", initCanvas);
   });
-
-  function startAnimation() {
-    if (animationFrameId !== undefined || !context.value) return;
-    animationFrameId = window.requestAnimationFrame(animate);
-  }
-
-  function stopAnimation() {
-    if (animationFrameId === undefined) return;
-    window.cancelAnimationFrame(animationFrameId);
-    animationFrameId = undefined;
-  }
   
   // watch([mouseX, mouseY], () => {
   //   onMouseMove();
@@ -220,11 +191,6 @@
   }
   
   function animate() {
-    if (!isVisible) {
-      animationFrameId = undefined;
-      return;
-    }
-
     clearContext();
     circles.value.forEach((circle, i) => {
       // Handle the alpha value
@@ -279,6 +245,6 @@
         );
       }
     });
-    animationFrameId = window.requestAnimationFrame(animate);
+    window.requestAnimationFrame(animate);
   }
   </script>

@@ -1,21 +1,19 @@
 <script setup lang="tsx">
-import TrustedProxiesAccess from '~/components/functions/change-ip-address/trusted-proxies-access.vue'
-import HeroBanner from '~/components/functions/hero-banner.vue'
-import BgEffect from '~/components/functions/private-browsing/bg-effect.vue'
-import CarouselGallerySection from '~/components/functions/private-browsing/carousel-gallery-section.vue'
-import DownloadNow from '~/components/functions/private-browsing/download-now.vue'
-import FeaturesSection from '~/components/functions/private-browsing/features-section.vue'
-import IncognitoSection from '~/components/functions/private-browsing/incognito-section.vue'
-import MaskSection from '~/components/functions/private-browsing/mask-section.vue'
-import VsIncognitoModeSection from '~/components/functions/private-browsing/vs-incognito-mode-section.vue'
+import TrustedProxiesAccess from '~/components/page-functions/change-ip-address/trusted-proxies-access.vue'
+import DownloadNow from '~/components/page-functions/download-now.vue'
+import HeroBanner from '~/components/page-functions/hero-banner.vue'
+import BgEffect from '~/components/page-functions/private-browsing/bg-effect.vue'
+import CarouselGallerySection from '~/components/page-functions/private-browsing/carousel-gallery-section.vue'
+import FeaturesSection from '~/components/page-functions/private-browsing/features-section.vue'
+import IncognitoSection from '~/components/page-functions/private-browsing/incognito-section.vue'
+import MaskSection from '~/components/page-functions/private-browsing/mask-section.vue'
+import VsIncognitoModeSection from '~/components/page-functions/private-browsing/vs-incognito-mode-section.vue'
 import { useRxI18n } from '~/composables/useRxI18n'
 
 const { $t, locale } = useRxI18n()
 
-// eslint-disable-next-line no-undef
 useBackTop(useTemplateRef('mainRef'))
 
-// eslint-disable-next-line no-undef
 useHead({
   title: $t('真正保护你的在线隐私，超越普通无痕模式'),
   meta: [
@@ -45,7 +43,7 @@ const faqList = computed(() => [
   },
   {
     title: $t('网站会知道我正在使用指纹浏览器吗？'),
-    desc: $t('不会。RoxyBrowser 的设计旨在模仿真实用户的浏览行为。与那些容易被怀疑的隐私插件或 VPN 不同，我们的浏览器会提供一个真实的指纹。网站会将你的会话视为一个真实用户、真实设备发出的请求，如果再配合合适的代理设置，被检测出来的可能性几乎为零。'),
+    desc: $t('不会。RoxyBrowser 的设计旨在模仿真实用户的浏览行为。与那些容易被怀疑的隐私插件或 VPN 不同，我们的浏览器会提供一个真实的指纹。网站会将你的会话视为一个真实用户、真实设备发出的请求，如果再配合合适的代理 IP，被检测出来的可能性几乎为零。'),
   },
 ])
 
@@ -54,7 +52,7 @@ const features = [$t('隐藏真实身份'), $t('防止网站追踪'), $t('零痕
 
 <template>
   <BgEffect />
-  <main ref="mainRef" class="flex flex-col items-center md:gap-20 gap-15 pb-20 bg-[#F8FAFB]">
+  <main ref="mainRef" class="pb-20 bg-[#F8FAFB] flex flex-col gap-15 items-center md:gap-20">
     <HeroBanner
       :title="$t('真正的隐私浏览方案{icon}\n——超越普通无痕模式', { icon: '{icon}' })"
       icon="functions/rx_ic_private_browsing"
@@ -68,10 +66,10 @@ const features = [$t('隐藏真实身份'), $t('防止网站追踪'), $t('零痕
     <TrustedProxiesAccess />
     <IncognitoSection class="panel px-4" />
     <VsIncognitoModeSection class="panel px-4" />
-    <div class="flex flex-col items-center w-full px-4">
-      <DownloadNow class="panel" />
+    <div class="px-4 flex flex-col w-full items-center">
+      <DownloadNow :title="$t('实现真正隐身，就选 RoxyBrowser')" class="panel" />
     </div>
-    <Faq :fqa-list="faqList" class="fqa-container py-2 func-faq" />
+    <Faq :fqa-list="faqList" class="func-faq fqa-container py-2" />
   </main>
 </template>
 

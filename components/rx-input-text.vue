@@ -1,141 +1,154 @@
-<script setup lang="ts">
-import type { InputTextProps } from 'primevue/inputtext'
-import { RxIcon, type SvgNames } from './rx-icon'
+<script lang="ts" setup>
+import type { SvgNames } from './rx-icon'
+import { RxIcon } from './rx-icon'
 
 type Size = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | undefined
 
-interface Props extends /* @vue-ignore */ Omit<InputTextProps, 'size'> {
-  size?: Size 
-  leftIcon?: SvgNames | undefined
-  icon?: SvgNames | undefined
-  iconFieldClass?: string
+interface Props {
+  size?: Size
+  placeholder?: string
+  name?: string
+  modelValue?: string
+  leftIcon?: SvgNames
+  leftIconColor?: string
+  icon?: SvgNames
+  iconColor?: string
 }
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const { size = 'sm', leftIcon, icon, iconFieldClass, ...props } = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  size: 'sm',
+  placeholder: '',
+})
 
-defineEmits(['leftIconClick', 'iconClick', 'change'])
+const emit = defineEmits(['update:modelValue', 'change', 'leftIconClick', 'iconClick'])
 
-const slots = useSlots()
+const iconSize = computed(() => {
+  if (props.size === 'xl') return 20
+  if (props.size === 'lg') return 16
+  if (props.size === 'md') return 16
+  return 14
+})
 
+const onInput = (e: Event) => {
+  const value = (e.target as HTMLInputElement).value
+  emit('update:modelValue', value)
+  emit('change', value)
+}
 </script>
 
 <template>
-  <IconField class="w-full" :class="iconFieldClass" :pt="{ root: size }">
-    <InputIcon v-if="leftIcon">
-      <RxIcon :name="(leftIcon as SvgNames)" class="cursor-pointer" @click="$emit('leftIconClick')" />
-    </InputIcon>
-    <InputText v-bind="{ ...$attrs, ...props }" fluid @input="$emit('change')" />
-    <InputIcon v-if="icon || slots.icon">
-      <slot name="icon">
-        <RxIcon :name="(icon as SvgNames)" class="cursor-pointer" @click="$emit('iconClick')" />
-      </slot>
-    </InputIcon>
-  </IconField>
+  <div class="rx-input" :class="size" v-bind="$attrs">
+    <div v-if="leftIcon" class="rx-input__icon" @click="$emit('leftIconClick')">
+      <RxIcon :name="leftIcon" :color="leftIconColor" :size="iconSize" />
+    </div>
+    <input
+      class="rx-input__field"
+      :placeholder="placeholder"
+      :name="name"
+      :value="modelValue"
+      @input="onInput"
+    >
+    <div v-if="icon" class="rx-input__icon" @click="$emit('iconClick')">
+      <RxIcon :name="icon" :color="iconColor" :size="iconSize" />
+    </div>
+  </div>
 </template>
 
-<style lang="scss" scoped>
-@mixin input-styles($pt, $pr, $pb, $pl, $gap, $borderWidth, $radius, $fontSize, $lineHeight) {
-  .p-inputicon:first-child {
-    left: $pl;
-  }
-
-  .p-inputicon:last-child {
-    right: $pr;
-  }
-
-  .p-inputtext {
-    padding: $pt $pr $pb $pl;
-    border-width: $borderWidth;
-    border-radius: $radius;
-    color: var(--Component-Colors-TextInput-text-text, #171c1f);
-    // 
-    font-size: $fontSize;
-    line-height: $lineHeight;
-    border-color: #e5e9eb;
-
-    &:not(:first-child) {
-      padding-left: calc($pl + var(--p-icon-size) + $gap);
-    }
-
-    &:not(:last-child) {
-      padding-right: calc($pr + var(--p-icon-size) + $gap);
-    }
-  }
+<style scoped>
+.rx-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #e5e9eb;
+  background-color: #fff;
+  transition: all 0.2s;
+  min-height: 44px;
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 13px;
+  line-height: 20px;
 }
 
+.rx-input:hover {
+  border-color: #a3a9ad;
+}
+
+.rx-input__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.rx-input__field {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #171c1f;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+
+.rx-input__field::placeholder {
+  color: #a3a9ad;
+}
+
+/* Size variants */
 .xl {
-  @include input-styles(12px,
-    12px,
-    12px,
-    14px,
-    8px,
-    1px,
-    var(--Component-Colors-TextInput-radius-radius-lg, 8px),
-    16px,
-    var(--Line-Height-text-lg, 20px));
+  border-radius: 10px;
+  border: 1px solid #e5e9eb;
+  padding: 13px 15px;
+  font-size: 16px;
+  line-height: 20px;
+  gap: 10px;
 }
 
 .lg {
-  @include input-styles(10px,
-    10px,
-    10px,
-    var(--spacing-xl, 12px),
-    8px,
-    1px,
-    var(--Component-Colors-TextInput-radius-radius-lg, 8px),
-    14px,
-    var(--Line-Height-text-lg, 20px));
+  border-radius: 8px;
+  border: 1px solid #e5e9eb;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  gap: 8px;
 }
 
 .md {
-  @include input-styles(8px,
-    8px,
-    8px,
-    10px,
-    var(--spacing-md, 6px),
-    1px,
-    var(--Component-Colors-TextInput-radius-radius-md, 6px),
-    13px,
-    var(--Line-Height-text-lg, 20px));
+  border-radius: 6px;
+  border: 1px solid #c7cdd1;
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 20px;
 }
 
 .sm {
-  @include input-styles(var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    8px,
-    var(--spacing-md, 6px),
-    1px,
-    var(--Component-Colors-TextInput-radius-radius-md, 6px),
-    12px,
-    var(--Line-Height-text-lg, 20px));
+  border-radius: 6px;
+  border: 1px solid #c7cdd1;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .xs {
-  @include input-styles(var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    0.5px,
-    var(--radius-sm, 4px),
-    12px,
-    var(--Line-Height-text-xs, 16px));
+  border-radius: 4px;
+  border: 0.5px solid #c7cdd1;
+  padding: 6px;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .xxs {
-  @include input-styles(var(--spacing-sm, 4px),
-    var(--spacing-sm, 4px),
-    var(--spacing-sm, 4px),
-    var(--spacing-md, 6px),
-    var(--spacing-md, 6px),
-    0.5px,
-    var(--radius-sm, 4px),
-    12px,
-    var(--Line-Height-text-xs, 16px));
+  border-radius: 4px;
+  border: 0.5px solid #c7cdd1;
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 16px;
 }
 </style>

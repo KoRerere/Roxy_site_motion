@@ -8,6 +8,5 @@ definePageMeta({
 </script>
 
 <template>
-  <Toast position="top-center" />
   <FigmaIcons />
 </template>

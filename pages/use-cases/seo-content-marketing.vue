@@ -1,7 +1,3 @@
-<template>
-  <PageUseCases :headerPanel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :whyChoose="whyChoose" :footerPanel="footerPanel" />
-</template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: $t('掌握SEO内容营销与SERP排名 | RoxyBrowser'),
@@ -12,9 +8,9 @@ const primaryColor = '#11A3FD'
 
 const headerPanel = computed(() => ({
   title: $t('用指纹浏览器做SEO，不再被搜索引擎误导'),
-  desc: $t('做 SEO 优化最怕的是数据不准：IP被封、搜索结果偏差、账号被连坐。RoxyBrowser 帮你看清真实排名和数据表现，提高优化效率。'),
+  desc: $t('担心做搜索引擎优化时数据不准？IP 被封、SERP 出现偏差，或是多账号被接连封禁？RoxyBrowser 帮你看清真实排名和数据表现，大幅提高你的优化效率。'),
   coverImage: '/use-cases/seo/0.png',
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce = computed(() => ({
@@ -30,29 +26,29 @@ const introduce = computed(() => ({
       title: $t('轻松进行本地 SEO 审查和分析'),
       desc: $t('用一个IP看不同国家的页面，很难验证内容在各地的实际表现。\n\nRoxyBrowser 可模拟任意城市用户，从排名到页面体验，都能从“本地人”的角度去审查，让你的本地优化更有依据。'),
       image: '/use-cases/seo/2.png',
-      wrapperClass: 'bg-white'
+      wrapperClass: 'bg-white',
     },
     {
       title: $t('稳定抓取关键词和 SERP 数据'),
       desc: $t('关键词抓取经常被封、数据还带偏差？\n\nRoxyBrowser 利用伪装会话跨区域自动采集数据，不被检测，采到的内容干净、准确，更适合做大规模SEO分析。'),
       image: '/use-cases/seo/3.png',
       wrapperClass: 'bg-[linear-gradient(261deg,_#373749_13.82%,_#2C2C3F_86.18%)]',
-      textColor: '#fff'
+      textColor: '#fff',
     },
     {
       title: $t('多账号操作，一键“防关联”'),
-      desc: $t('在同一个浏览器里管理多个 SEO 工具或社媒账号，容易被平台识别串号。\n\nRoxyBrowser 给每个账号一个独立配置，任务之间完全隔离，既安全又稳定，再多账号也能放心用。'),
+      desc: $t('在同一个浏览器里管理多个 SEO 工具账号，容易被平台识别串号。\n\nRoxyBrowser 给每个账号一个独立配置，任务之间完全隔离，既安全又稳定，再多账号也能放心用。'),
       image: '/use-cases/seo/4.png',
-      wrapperClass: 'bg-white'
-    }
+      wrapperClass: 'bg-white',
+    },
   ],
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce2 = computed(() => ({
   title: $t('RoxyBrowser：让 SEO 优化更高效安全'),
   desc: $t('获取更真实的数据、稳定管理多账号、保护操作环境不被干扰。\nRoxyBrowser 让专业 SEO 的每一步都更轻松、更高效。'),
-  primaryColor: primaryColor,
+  primaryColor,
   image: '/use-cases/seo/5.png',
   alt: $t('获取更真实的数据、稳定管理多账号、保护操作环境不被干扰。\nRoxyBrowser 让专业 SEO 的每一步都更轻松、更高效。'),
 }))
@@ -77,7 +73,7 @@ const faq = computed(() => ({
       title: $t('做A/B测试、页面优化，却总是无法获取准确真实的信息 '),
       desc: $t('有时候你以为页面没问题，其实用户看到的版本早就被缓存、个性化算法或历史记录干扰了。测试数据不准，决策就容易出错。\nRoxyBrowser 能模拟不同地区、不同设备的用户浏览行为，帮你从“真实用户视角”审视页面表现。无论是测试内容分发，还是转化路径体验，数据都更可靠。'),
     },
-  ]
+  ],
 }))
 
 const whyChoose = computed(() => ({
@@ -114,7 +110,7 @@ const whyChoose = computed(() => ({
       desc: $t('内置的高性能引擎+智能资源隔离机制，即使长时间运行，也能保持稳定输出，不掉线、不宕机，真正实现全天候高负载作业。'),
       icon: '/use-cases/security.svg',
     },
-  ]
+  ],
 }))
 
 const footerPanel = computed(() => ({
@@ -123,3 +119,7 @@ const footerPanel = computed(() => ({
   alt: $t('模拟任意地区和设备，查看用户真正看到的内容。适合做本地SEO、页面审查和跨地域测试。'),
 }))
 </script>
+
+<template>
+  <PageUseCases :header-panel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :why-choose="whyChoose" :footer-panel="footerPanel" />
+</template>

@@ -1,15 +1,15 @@
 export const avif = import.meta.glob('../../assets/images/**/*.png', {
   query: '?format=avif',
-  eager: false
+  eager: false,
 })
 
 export const webp = import.meta.glob('../../assets/images/**/*.png', {
   query: '?format=webp',
-  eager: false
+  eager: false,
 })
 
 export const png = import.meta.glob('../../assets/images/**/*.png', {
-  eager: false
+  eager: false,
 })
 
 // export const modules = import.meta.glob('../../assets/images/**/*.png', {
@@ -23,10 +23,10 @@ export const png = import.meta.glob('../../assets/images/**/*.png', {
 //   eager: true
 // })
 
-// type Image = { 
-//   default: any, 
-//   img: { w: number, h: number, src: string }, 
-//   sources: { webp: string, avif: string } 
+// type Image = {
+//   default: any,
+//   img: { w: number, h: number, src: string },
+//   sources: { webp: string, avif: string }
 // }
 
 // export const Images = Object.entries(modules).reduce((acc, [key, value]) => {

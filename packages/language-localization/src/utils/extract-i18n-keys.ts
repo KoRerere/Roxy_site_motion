@@ -1,6 +1,6 @@
-import { glob } from 'glob'
 import { appendFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { glob } from 'glob'
 import pLimit from 'p-limit' // 控制并发
 
 // 正则匹配 $t('key')，避免多余匹配问题
@@ -159,7 +159,8 @@ export async function genLangFiles(langFiles: string[] = [], outputDir: string, 
     const newLangFileObj = keys.reduce<Record<string, string>>((acc, key) => {
       // 替换 JSON.stringify 结果中的 `\\n` 为真正的 `\n`
       key = key.replaceAll('\\n', '\n')
-      acc[key] = defaultLang === lang ? key : langFileObj[key] || ''
+      // ！现在保留souce lang(defaultLang)的value，不强制替换成key,避免某些时候只修改value，而不修改key被覆盖的情况。（cn站针对敏感词可能会修改value，而不修改key）
+      acc[key] = defaultLang === lang ? langFileObj[key] || key : langFileObj[key] || ''
       return acc
     }, {})
 

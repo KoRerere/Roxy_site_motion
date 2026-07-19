@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useToast } from 'primevue/usetoast'
+import { toast } from 'vue-sonner'
 import { RxIcon, svgIcons, type SvgNames } from '@/components/rx-icon'
 import { copyText } from '@/utils'
 import UploadIcons from './upload-icons.vue'
@@ -12,7 +12,6 @@ if (import.meta.hot) {
   })
 }
 
-const toast = useToast()
 const currentIcon = ref<SvgNames>()
 
 const svgModules = Object.keys(svgIcons).reduce((acc, key) => {
@@ -44,71 +43,72 @@ const svgModules = Object.keys(svgIcons).reduce((acc, key) => {
 function handleCopyText(text: SvgNames) {
   currentIcon.value = text
   copyText(text)
-  toast.add({
-    severity: 'success',
-    summary: '复制成功',
-    detail: text,
-    life: 2000,
-  })
+  toast.success('复制成功', { description: text })
 }
 </script>
 
 <template>
   <div class="h-[100vh] flex flex-col">
-    <Card class="mx-12 my-5">
-      <template #title>
-        使用说明
-      </template>
-      <template #content>
-        <div class="flex justify-between">
-          <div>
-            <div>点击图标即可复制图标名称</div>
-            <pre v-pre class="m-0 h-[80px]">
+    <div class="figma-card mx-12 my-5">
+      <h3 class="figma-card__title">使用说明</h3>
+      <div class="flex justify-between">
+        <div>
+          <div>点击图标即可复制图标名称</div>
+          <pre v-pre class="m-0 h-[80px]">
           <code>
 import { RxIcon } from '@/components/rx-icon'
 &lt;RxIcon name="文件夹名称/文件名称" /&gt;
           </code>
         </pre>
+        </div>
+        <div v-if="currentIcon">
+          <div class="flex items-center">
+            当前选中的图标：
+            <RxIcon :name="currentIcon" :size="48" />
           </div>
-          <div v-if="currentIcon">
-            <div class="flex items-center">
-              当前选中的图标：
-              <RxIcon :name="currentIcon" :size="48" />
-            </div>
-            <pre class="m-0 h-[80px]">
+          <pre class="m-0 h-[80px]">
           <code>
 &lt;RxIcon name="{{ currentIcon }}" /&gt;
           </code>
         </pre>
-          </div>
         </div>
-      </template>
-    </Card>
+      </div>
+    </div>
     <div class="translate-z-0 overflow-auto">
       <template v-for="(list, key) in svgModules" :key="key">
-        <Card class="mx-12 my-5">
-          <template #title>
-            <div class="flex items-start  mb-2">
+        <div class="figma-card mx-12 my-5">
+          <h3 class="figma-card__title">
+            <div class="flex items-start mb-2">
               {{ key }}（{{ list.length }}）<UploadIcons :dir-name="key" />
             </div>
-          </template>
-          <template #content>
-            <div class="flex flex-wrap gap-4 text-center">
-              <template v-for="item in list" :key="item.path">
-                <div class="icon-item" :title="item.filename" @click="handleCopyText(item.path)">
-                  <RxIcon :name="item.path" :size="48" />
-                  <!-- <div>{{ item.filename }}</div> -->
-                </div>
-              </template>
-            </div>
-          </template>
-        </Card>
+          </h3>
+          <div class="flex flex-wrap gap-4 text-center">
+            <template v-for="item in list" :key="item.path">
+              <div class="icon-item" :title="item.filename" @click="handleCopyText(item.path)">
+                <RxIcon :name="item.path" :size="48" />
+              </div>
+            </template>
+          </div>
+        </div>
       </template>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.figma-card {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e9eb;
+  padding: 20px 24px;
+}
+
+.figma-card__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
 .icon-item {
   cursor: pointer;
   transition: transform 0.3s;

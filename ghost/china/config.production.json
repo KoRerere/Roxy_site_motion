@@ -1,0 +1,38 @@
+{
+  "url": "https://roxybrowser.cn/__ghost__/",
+  "server": {
+    "port": 2370,
+    "host": "::"
+  },
+  "database": {
+    "client": "mysql",
+    "connection": {
+      "host": "ghost-mysql-cn",
+      "port": 3308,
+      "user": "root",
+      "password": "KC@9:m-v6N+br7#UH",
+      "database": "db_blog_server"
+    }
+  },
+  "mail": {
+    "transport": "SMTP",
+    "from": "z_anbin@163.com",
+    "options": {
+      "service": "163",
+      "auth": {
+        "user": "z_anbin@163.com",
+        "pass": "PDrqd7gBYVzvEvAS"
+      }
+    }
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "systemd",
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  }
+}

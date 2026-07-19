@@ -1,7 +1,19 @@
+/** 首页/中文用字体：飞波正点体，文件在 public/zh-font.ttf */
+/* @font-face {
+  font-family: '飞波正点体';
+  src: url('/飞波正点体.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+} */
+@import 'vue-sonner/style.css';
+/* invite hero 首屏关键样式：随 global.css 同步加载，不依赖组件 chunk */
+@import '../css/invite-hero-critical.css';
+
 :root {
   --zhFamily:
-    -apple-system, BlinkMacSystemFont, 'Inter', 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', 'Segoe Ul',
-    'Noto Sans CJK', 'WenQuanYi Micro Hei', sans-serif, 'Apple Color Emoji', 'Segoe Ul Emoji', 'Segoe Ul Symbol';
+    -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'Helvetica Neue', 'Segoe UI', 'Noto Sans CJK',
+    'WenQuanYi Micro Hei', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --enFamily:
     -apple-system, BlinkMacSystemFont, 'Inter', 'Arial', 'Helvetica Neue', 'Segoe UI', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -24,8 +36,10 @@ html,
 body {
   touch-action: manipulation;
   position: relative;
-  -webkit-font-smoothing: antialiased; /*chrome、safari*/
-  -moz-osx-font-smoothing: grayscale; /*firefox*/
+  -webkit-font-smoothing: antialiased;
+  /*chrome、safari*/
+  -moz-osx-font-smoothing: grayscale;
+  /*firefox*/
 }
 
 html,
@@ -130,31 +144,145 @@ html {
   font-family: var(--family);
 }
 
+html[lang='zh-CN'] .multilingual-text {
+  font-family: var(--zhFamily);
+}
+
+html[lang='ru-RU'] .multilingual-text {
+  font-family: 'Montserrat';
+}
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 999;
+  object-fit: contain;
+}
+
 /** Inter */
-@font-face {
-  font-family: 'Roboto';
-  src: url('/fonts/Roboto-Regular.ttf');
-  font-weight: 400;
-  font-style: normal;
+
+/* 代码块样式 */
+.code-block-wrapper {
+  position: relative;
+  margin: 1rem 0;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  src: url('/fonts/Roboto-Medium.ttf');
-  font-weight: 500;
-  font-style: normal;
+.code-block-wrapper pre {
+  margin: 0;
+  border-radius: 8px;
+  overflow-x: auto;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  src: url('/fonts/Roboto-SemiBold.ttf');
-  font-weight: 600;
-  font-style: normal;
+.code-block-wrapper .copy-code-btn {
+  cursor: pointer;
+  border: none;
+  backdrop-filter: blur(8px);
+  font-family: inherit;
+  user-select: none;
+  z-index: 10;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  src: url('/fonts/Roboto-Bold.ttf');
-  font-weight: 700;
-  font-style: normal;
+.code-block-wrapper .copy-code-btn:active {
+  transform: scale(0.95);
+}
+
+/** Accordion 组件过渡动画样式 */
+.accordion-enter-active {
+  transition: height 0.2s ease-out;
+  overflow: hidden;
+}
+
+.accordion-leave-active {
+  transition: height 0.15s ease-out;
+  overflow: hidden;
+}
+
+/** ElectricBg 组件样式 */
+.electric-bg {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .electric-bg {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .electric-bg {
+    margin-top: 15rem;
+    gap: 5rem;
+  }
+}
+
+.electric-bg.electric-bg-right {
+  transform: translateX(calc(50vw)) translateZ(0);
+}
+
+.electric-bg.electric-bg-right .electric-line {
+  transform-origin: 0 0;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 15%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0) 50%
+  );
+}
+
+.electric-bg.electric-bg-left {
+  transform: translateX(calc(-75vw)) translateZ(0);
+}
+
+.electric-bg.electric-bg-left .electric-line {
+  transform-origin: 100% 0;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0) 75%
+  );
+}
+
+.electric-bg .electric-line {
+  position: relative;
+  width: 100vw;
+  height: 1px;
+}
+
+.electric-bg .electric-line ul {
+  list-style-type: none;
+}
+
+.electric-bg .electric-line ul .electric-line-item {
+  position: absolute;
+  top: -2px;
+  width: 240px;
+  height: 5px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(48, 134, 255, 0.1) 0%,
+    rgba(48, 134, 255, 1) 10%,
+    rgba(48, 134, 255, 0) 100%
+  );
+}
+
+.electric-bg .electric-line ul .electric-line-item::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(48, 134, 255, 0.1) 0%,
+    rgba(48, 134, 255, 1) 10%,
+    rgba(48, 134, 255, 0) 100%
+  );
+  filter: blur(20px);
 }

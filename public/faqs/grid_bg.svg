@@ -1,0 +1,53 @@
+<svg width="1512" height="400" viewBox="0 0 1512 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_28017_96970" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1512" height="440">
+<rect width="1512" height="440" fill="url(#paint0_radial_28017_96970)"/>
+</mask>
+<g mask="url(#mask0_28017_96970)">
+<g opacity="0.5">
+<path d="M5.73438 -767V1251" stroke="#A6DAFB"/>
+<path d="M57.4648 -767V1251" stroke="#A6DAFB"/>
+<path d="M109.215 -767V1251" stroke="#A6DAFB"/>
+<path d="M160.945 -767V1251" stroke="#A6DAFB"/>
+<path d="M212.695 -767V1251" stroke="#A6DAFB"/>
+<path d="M264.445 -767V1251" stroke="#A6DAFB"/>
+<path d="M316.18 -767V1251" stroke="#A6DAFB"/>
+<path d="M367.93 -767V1251" stroke="#A6DAFB"/>
+<path d="M419.684 -767V1251" stroke="#A6DAFB"/>
+<path d="M471.41 -767V1251" stroke="#A6DAFB"/>
+<path d="M523.16 -767V1251" stroke="#A6DAFB"/>
+<path d="M574.914 -767V1251" stroke="#A6DAFB"/>
+<path d="M626.645 -767V1251" stroke="#A6DAFB"/>
+<path d="M678.391 -767V1251" stroke="#A6DAFB"/>
+<path d="M730.125 -767V1251" stroke="#A6DAFB"/>
+<path d="M781.875 -767V1251" stroke="#A6DAFB"/>
+<path d="M833.625 -767V1251" stroke="#A6DAFB"/>
+<path d="M885.359 -767V1251" stroke="#A6DAFB"/>
+<path d="M937.105 -767V1251" stroke="#A6DAFB"/>
+<path d="M988.855 -767V1251" stroke="#A6DAFB"/>
+<path d="M1040.59 -767V1251" stroke="#A6DAFB"/>
+<path d="M1092.34 -767V1251" stroke="#A6DAFB"/>
+<path d="M1144.09 -767V1251" stroke="#A6DAFB"/>
+<path d="M1195.82 -767V1251" stroke="#A6DAFB"/>
+<path d="M1247.57 -767V1251" stroke="#A6DAFB"/>
+<path d="M1299.32 -767V1251" stroke="#A6DAFB"/>
+<path d="M1351.05 -767V1251" stroke="#A6DAFB"/>
+<path d="M1402.8 -767V1251" stroke="#A6DAFB"/>
+<path d="M1454.54 -767V1251" stroke="#A6DAFB"/>
+<path d="M1506.29 -767V1251" stroke="#A6DAFB"/>
+<path d="M-253 9.15399H1765" stroke="#A6DAFB"/>
+<path d="M-253 60.8979H1765" stroke="#A6DAFB"/>
+<path d="M-253 112.641H1765" stroke="#A6DAFB"/>
+<path d="M-253 164.385H1765" stroke="#A6DAFB"/>
+<path d="M-253 216.128H1765" stroke="#A6DAFB"/>
+<path d="M-253 267.872H1765" stroke="#A6DAFB"/>
+<path d="M-253 319.615H1765" stroke="#A6DAFB"/>
+<path d="M-253 371.359H1765" stroke="#A6DAFB"/>
+</g>
+</g>
+<defs>
+<radialGradient id="paint0_radial_28017_96970" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(756 220) rotate(180) scale(608 608)">
+<stop stop-color="#5BBAF8"/>
+<stop offset="1" stop-color="#5BBAF8" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

@@ -1,35 +1,52 @@
-<template>
-  <NuxtLinkLocale 
-    class="relative hover-before p-2"
-    :to="link"
-  >
-    <div class="relative z-2 flex gap-2 items-center">
-      <span class="p-2 rounded-1 flex items-center justify-center">
-        <RxIcon :name="icon" size="20" color="#2E3A48" />
-      </span>
-      <h3 class="text-13px text-primary font-500">{{ title }}</h3>
-      <!-- <div class="flex flex-col gap-1">
-        <h3 class="text-13px text-[#111213] font-500">{{ title }}</h3>
-        <p class="text-12px text-[#575D60] font-400 max-w-240px">{{ desc }}</p>
-      </div> -->
-    </div>
-  </NuxtLinkLocale>
-</template>
-
 <script setup>
-import { RxIcon } from "@/components/rx-icon";
+import { RxIcon } from '@/components/rx-icon'
 
 const props = defineProps({
   link: String,
   icon: String,
-  title: String,
   desc: String,
+  title: {
+    type: [Object, String, Function],
+    default: undefined,
+  },
+  iconSize: {
+    type: [String, Number],
+    default: 20,
+  },
 })
 </script>
 
+<template>
+  <NuxtLinkLocale
+    class="hover-before py-3 pl-1.5 pr-3 relative"
+    :to="link"
+  >
+    <div class="flex gap-2 relative z-2">
+      <span class="p-2 rounded-1 flex justify-center">
+        <RxIcon :name="icon" :size="iconSize" color="#2E3A48" />
+      </span>
+      <div class="flex flex-col gap-1">
+        <component
+          :is="title"
+          v-if="title && typeof title && typeof title !== 'string'"
+        />
+        <h3
+          v-else
+          class="text-14px text-primary font-500"
+        >
+          {{ title }}
+        </h3>
+        <p v-if="desc" class="text-12px text-tertiary font-400">
+          {{ desc }}
+        </p>
+      </div>
+    </div>
+  </NuxtLinkLocale>
+</template>
+
 <style scoped>
 .hover-before:hover {
-  border-radius: 4px;
-  background-color: #F5F7F9;
+  border-radius: 8px;
+  background-color: #f5f7f9;
 }
 </style>

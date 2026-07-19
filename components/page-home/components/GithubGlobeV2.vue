@@ -1,93 +1,84 @@
-<template>
-  <canvas
-    ref="githubGlobeRef"
-    :class="cn('w-96 h-96', props.class)"
-  ></canvas>
-</template>
-
 <script lang="ts" setup>
 // Download globe json file from https://geojson-maps.kyd.au/ and save in the same folder
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type ThreeGlobe from 'three-globe'
 import { useIntersectionObserver } from '@vueuse/core'
-import ThreeGlobe from "three-globe";
 import {
   AmbientLight,
+  Clock,
   Color,
   DirectionalLight,
   PerspectiveCamera,
   PointLight,
   Scene,
   WebGLRenderer,
-  Clock
-} from "three";
-import contries from "./globe.json";
-import { ref, onMounted, onBeforeUnmount, watch } from "vue";
+} from 'three'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
-type Position = {
-  order: number;
-  startLat: number;
-  startLng: number;
-  endLat: number;
-  endLng: number;
-  arcAlt: number;
-  color: string;
-};
+interface Position {
+  order: number
+  startLat: number
+  startLng: number
+  endLat: number
+  endLng: number
+  arcAlt: number
+  color: string
+}
 
 interface GlobeData {
-  size: number | undefined;
-  order: number;
-  color: (t: number) => string;
-  lat: number;
-  lng: number;
+  size: number | undefined
+  order: number
+  color: (t: number) => string
+  lat: number
+  lng: number
 }
 
 interface GlobeConfig {
-  pointSize?: number;
-  globeColor?: string;
-  showAtmosphere?: boolean;
-  atmosphereColor?: string;
-  atmosphereAltitude?: number;
-  emissive?: string;
-  emissiveIntensity?: number;
-  shininess?: number;
-  polygonColor?: string;
-  ambientLight?: string;
-  directionalLeftLight?: string;
-  directionalTopLight?: string;
-  pointLight?: string;
-  arcTime?: number;
-  arcLength?: number;
-  rings?: number;
-  maxRings?: number;
+  pointSize?: number
+  globeColor?: string
+  showAtmosphere?: boolean
+  atmosphereColor?: string
+  atmosphereAltitude?: number
+  emissive?: string
+  emissiveIntensity?: number
+  shininess?: number
+  polygonColor?: string
+  ambientLight?: string
+  directionalLeftLight?: string
+  directionalTopLight?: string
+  pointLight?: string
+  arcTime?: number
+  arcLength?: number
+  rings?: number
+  maxRings?: number
   initialPosition?: {
-    lat: number;
-    lng: number;
-  };
-  autoRotate?: boolean;
-  autoRotateSpeed?: number;
+    lat: number
+    lng: number
+  }
+  autoRotate?: boolean
+  autoRotateSpeed?: number
 }
 
 interface Props {
-  globeConfig?: GlobeConfig;
-  data?: Position[];
-  class?: string;
+  globeConfig?: GlobeConfig
+  data?: Position[]
+  class?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   globeConfig: () => {
-    return {};
+    return {}
   },
   data: () => [],
-});
+})
 
 const defaultGlobeConfig: GlobeConfig = {
   pointSize: 1,
-  atmosphereColor: "#ffffff",
+  atmosphereColor: '#ffffff',
   showAtmosphere: true,
   atmosphereAltitude: 0.1,
-  polygonColor: "rgba(255,255,255,0.7)",
-  globeColor: "#1d072e",
-  emissive: "#000000",
+  polygonColor: 'rgba(255,255,255,0.7)',
+  globeColor: '#1d072e',
+  emissive: '#000000',
   emissiveIntensity: 0.1,
   shininess: 0.9,
   arcTime: 2000,
@@ -95,101 +86,110 @@ const defaultGlobeConfig: GlobeConfig = {
   rings: 1,
   maxRings: 3,
   ...props.globeConfig,
-};
+}
 
-const githubGlobeRef = ref<HTMLCanvasElement>();
-const globeData = ref<GlobeData[]>();
+const githubGlobeRef = ref<HTMLCanvasElement>()
+const globeData = ref<GlobeData[]>()
 
-let numberOfRings: number[] = [];
+let numberOfRings: number[] = []
 
-let renderer: WebGLRenderer;
-let scene: Scene;
-let camera: PerspectiveCamera;
+let renderer: WebGLRenderer
+let scene: Scene
+let camera: PerspectiveCamera
 
-let globe: ThreeGlobe;
+let globe: ThreeGlobe
 
 onMounted(() => {
-  setupScene();
-  initGlobe();
-  startAnimation();
-  
-  onWindowResize();
+  // 有空闲的时候再去执行
+  requestIdleCallback(() => {
+    setupScene()
+    initGlobe().then(() => {
+      startAnimation()
 
-  window.addEventListener("resize", onWindowResize, false);
+      onWindowResize()
 
-  watch(globeData, () => {
-    if (!globe || !globeData.value) return;
+      window.addEventListener('resize', onWindowResize, false)
 
-    numberOfRings = genRandomNumbers(0, props.data.length, Math.floor((props.data.length * 4) / 5));
+      watch(globeData, () => {
+        if (!globe || !globeData.value)
+          return
 
-    globe.ringsData(globeData.value.filter((d, i) => numberOfRings.includes(i)));
-  });
+        numberOfRings = genRandomNumbers(0, props.data.length, Math.floor((props.data.length * 4) / 5))
 
-  useIntersectionObserver(githubGlobeRef, ([entry]) => {
-    if (entry.isIntersecting) {
-      console.log('GithubGlobeV2 进入可视区域 开启动画')
-      animate();
-    } else {
-      console.log('GithubGlobeV2 离开可视区域 停止动画')
-      stopAnimate();
-    }
-  });
+        globe.ringsData(globeData.value.filter((d, i) => numberOfRings.includes(i)))
+      })
 
-  onBeforeUnmount(() => {
-    // 回收资源
-    window.removeEventListener("resize", onWindowResize, false);
-    stopAnimate();
-    if (renderer) {
-      renderer.dispose();
-    }
-    if (globe && scene) {
-      scene.remove(globe);
-    }
+      useIntersectionObserver(githubGlobeRef, ([entry]) => {
+        if (entry.isIntersecting) {
+          console.log('GithubGlobeV2 进入可视区域 开启动画')
+          animate()
+        }
+        else {
+          console.log('GithubGlobeV2 离开可视区域 停止动画')
+          stopAnimate()
+        }
+      })
+
+      onBeforeUnmount(() => {
+        // 回收资源
+        window.removeEventListener('resize', onWindowResize, false)
+        stopAnimate()
+        if (renderer) {
+          renderer.dispose()
+        }
+        if (globe && scene) {
+          scene.remove(globe)
+        }
+      })
+    })
   })
-});
+})
 
 function setupScene() {
   if (!githubGlobeRef.value) {
-    throw new Error("Canvas not initialized");
+    throw new Error('Canvas not initialized')
   }
 
-  const width = githubGlobeRef.value.clientWidth;
-  const height = githubGlobeRef.value.clientHeight;
+  const width = githubGlobeRef.value.clientWidth
+  const height = githubGlobeRef.value.clientHeight
 
-  renderer = new WebGLRenderer({ canvas: githubGlobeRef.value, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(width, height);
-  renderer.autoClear = false;
+  renderer = new WebGLRenderer({ canvas: githubGlobeRef.value, antialias: true })
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.setSize(width, height)
+  renderer.autoClear = false
 
-  scene = new Scene();
+  scene = new Scene()
 
-  camera = new PerspectiveCamera();
-  camera.aspect = width / height;
-  camera.position.setX(0);
-  camera.position.setY(0);
-  camera.position.setZ(400);
+  camera = new PerspectiveCamera()
+  camera.aspect = width / height
+  camera.position.setX(0)
+  camera.position.setY(0)
+  camera.position.setZ(400)
 
-  const ambientLight = new AmbientLight(defaultGlobeConfig.ambientLight || "#ffffff", 0.6);
-  scene.add(ambientLight);
+  const ambientLight = new AmbientLight(defaultGlobeConfig.ambientLight || '#ffffff', 0.6)
+  scene.add(ambientLight)
 
-  const dLight1 = new DirectionalLight(defaultGlobeConfig.directionalLeftLight || "#ffffff", 1);
-  dLight1.position.set(-400, 100, 400);
-  camera.add(dLight1);
+  const dLight1 = new DirectionalLight(defaultGlobeConfig.directionalLeftLight || '#ffffff', 1)
+  dLight1.position.set(-400, 100, 400)
+  camera.add(dLight1)
 
-  const dLight2 = new DirectionalLight(defaultGlobeConfig.directionalTopLight || "#ffffff", 1);
-  dLight2.position.set(-200, 500, 200);
-  camera.add(dLight2);
+  const dLight2 = new DirectionalLight(defaultGlobeConfig.directionalTopLight || '#ffffff', 1)
+  dLight2.position.set(-200, 500, 200)
+  camera.add(dLight2)
 
-  const pLight = new PointLight(defaultGlobeConfig.pointLight || "#ffffff", 0.8);
-  pLight.position.set(-200, 500, 200);
-  camera.add(pLight);
+  const pLight = new PointLight(defaultGlobeConfig.pointLight || '#ffffff', 0.8)
+  pLight.position.set(-200, 500, 200)
+  camera.add(pLight)
 
-  camera.updateProjectionMatrix();
-  scene.add(camera);
+  camera.updateProjectionMatrix()
+  scene.add(camera)
 }
 
-function initGlobe() {
-  buildData();
+async function initGlobe() {
+  const contries = await import('./globe.json')
+  const { default: ThreeGlobe } = await import('three-globe')
+  console.log(ThreeGlobe)
+  buildData()
 
   globe = new ThreeGlobe({
     waitForGlobeReady: false,
@@ -201,41 +201,42 @@ function initGlobe() {
     .showAtmosphere(defaultGlobeConfig.showAtmosphere!)
     .atmosphereColor(defaultGlobeConfig.atmosphereColor!)
     .atmosphereAltitude(defaultGlobeConfig.atmosphereAltitude!)
-    .hexPolygonColor((e) => defaultGlobeConfig.polygonColor!);
+    .hexPolygonColor(e => defaultGlobeConfig.polygonColor!)
 
-  globe.rotateY(-Math.PI * (5 / 9));
-  globe.rotateZ(-Math.PI / 6);
+  globe.rotateY(-Math.PI * (5 / 9))
+  globe.rotateZ(-Math.PI / 6)
 
   const globeMaterial = globe.globeMaterial() as unknown as {
-    color: Color;
-    emissive: Color;
-    emissiveIntensity: number;
-    shininess: number;
-  };
+    color: Color
+    emissive: Color
+    emissiveIntensity: number
+    shininess: number
+  }
 
-  globeMaterial.color = new Color(defaultGlobeConfig.globeColor!);
-  globeMaterial.emissive = new Color(defaultGlobeConfig.emissive!);
-  globeMaterial.emissiveIntensity = defaultGlobeConfig.emissiveIntensity || 0.1;
-  globeMaterial.shininess = defaultGlobeConfig.shininess || 0.9;
+  globeMaterial.color = new Color(defaultGlobeConfig.globeColor!)
+  globeMaterial.emissive = new Color(defaultGlobeConfig.emissive!)
+  globeMaterial.emissiveIntensity = defaultGlobeConfig.emissiveIntensity || 0.1
+  globeMaterial.shininess = defaultGlobeConfig.shininess || 0.9
 
-  scene.add(globe);
+  scene.add(globe)
 }
 
 function onWindowResize() {
   if (!githubGlobeRef.value) {
-    return;
+    return
   }
-  
-  const width = githubGlobeRef.value.parentElement?.clientWidth;
-  const height = githubGlobeRef.value.parentElement?.clientHeight;
 
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
+  const width = githubGlobeRef.value.parentElement?.clientWidth
+  const height = githubGlobeRef.value.parentElement?.clientHeight
 
-  renderer.setSize(width, height);
+  camera.aspect = width / height
+  camera.updateProjectionMatrix()
+
+  renderer.setSize(width, height)
 }
 function startAnimation() {
-  if (!globe || !globeData.value!) return;
+  if (!globe || !globeData.value!)
+    return
   globe
     .arcsData(props.data)
     .arcStartLat((d: any) => d.startLat * 1)
@@ -262,92 +263,101 @@ function startAnimation() {
     .ringPropagationSpeed(3)
     .ringRepeatPeriod(
       (defaultGlobeConfig.arcTime! * defaultGlobeConfig.arcLength!) / defaultGlobeConfig.rings!,
-    );
+    )
 }
 
-const clock = new Clock();
-const fpsLimit = 30; // 目标帧率
-let animationFrameId: number | null = null;
+const clock = new Clock()
+const fpsLimit = 30 // 目标帧率
+let animationFrameId: number | null = null
 function animate() {
-  animationFrameId = requestAnimationFrame(animate);
+  animationFrameId = requestAnimationFrame(animate)
 
-  if (clock.getElapsedTime() < 1 / fpsLimit) return; // 未达到间隔，不渲染
-  clock.start();
+  if (clock.getElapsedTime() < 1 / fpsLimit)
+    return // 未达到间隔，不渲染
+  clock.start()
 
-  globe.rotation.y += 0.002; // Rotate globe
+  globe.rotation.y += 0.002 // Rotate globe
 
-  renderer.render(scene, camera);
+  renderer.render(scene, camera)
 }
 
 function stopAnimate() {
-  cancelAnimationFrame(animationFrameId!);
+  cancelAnimationFrame(animationFrameId!)
 }
 
 function buildData() {
-  const arcs = props.data;
-  let points = [];
+  const arcs = props.data
+  let points = []
   for (let i = 0; i < arcs.length; i++) {
-    const arc = arcs[i];
-    const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
+    const arc = arcs[i]
+    const rgb = hexToRgb(arc.color) as { r: number, g: number, b: number }
     points.push({
       size: props.globeConfig.pointSize,
       order: arc.order,
       color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
       lat: arc.startLat,
       lng: arc.startLng,
-    });
+    })
     points.push({
       size: props.globeConfig.pointSize,
       order: arc.order,
       color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
       lat: arc.endLat,
       lng: arc.endLng,
-    });
+    })
   }
 
   // remove duplicates for same lat and lng
   const filteredPoints = points.filter(
     (v, i, a) =>
-      a.findIndex((v2) =>
-        ["lat", "lng"].every((k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]),
+      a.findIndex(v2 =>
+        ['lat', 'lng'].every(k => v2[k as 'lat' | 'lng'] === v[k as 'lat' | 'lng']),
       ) === i,
-  );
+  )
 
-  globeData.value = filteredPoints;
+  globeData.value = filteredPoints
 }
 
 function hexToRgb(color: string) {
-  let hex = color.replace(/^#/, "");
+  let hex = color.replace(/^#/, '')
 
   // If the hex code is 3 characters, expand it to 6 characters
   if (hex.length === 3) {
     hex = hex
-      .split("")
-      .map((char) => char + char)
-      .join("");
+      .split('')
+      .map(char => char + char)
+      .join('')
   }
 
   // Parse the r, g, b values from the hex string
-  const bigint = parseInt(hex, 16);
-  const r = (bigint >> 16) & 255; // Extract the red component
-  const g = (bigint >> 8) & 255; // Extract the green component
-  const b = bigint & 255; // Extract the blue component
+  const bigint = Number.parseInt(hex, 16)
+  const r = (bigint >> 16) & 255 // Extract the red component
+  const g = (bigint >> 8) & 255 // Extract the green component
+  const b = bigint & 255 // Extract the blue component
 
   // Return the RGB values as a string separated by spaces
   return {
     r,
     g,
     b,
-  };
+  }
 }
 
 function genRandomNumbers(min: number, max: number, count: number) {
-  const arr = [];
+  const arr = []
   while (arr.length < count) {
-    const r = Math.floor(Math.random() * (max - min)) + min;
-    if (arr.indexOf(r) === -1) arr.push(r);
+    const r = Math.floor(Math.random() * (max - min)) + min
+    if (arr.indexOf(r) === -1)
+      arr.push(r)
   }
 
-  return arr;
+  return arr
 }
 </script>
+
+<template>
+  <canvas
+    ref="githubGlobeRef"
+    :class="cn('w-96 h-96', props.class)"
+  />
+</template>

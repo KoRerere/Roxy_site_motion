@@ -1,7 +1,3 @@
-<template>
-  <PageUseCases :headerPanel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :whyChoose="whyChoose" :footerPanel="footerPanel" />
-</template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: $t('保障联盟营销收益安全增长 | RoxyBrowser'),
@@ -14,7 +10,7 @@ const headerPanel = computed(() => ({
   title: $t('用指纹浏览器做全球联盟营销，赚取更多佣金'),
   desc: $t('联盟营销真正的收益来自规模。RoxyBrowser 帮你快速扩张，多账号安全运行，让你的联盟项目横跨平台与地区稳定增长。'),
   coverImage: '/use-cases/affiliate-marketing/0.png',
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce = computed(() => ({
@@ -30,29 +26,29 @@ const introduce = computed(() => ({
       title: $t('突破地域限制，获取更多流量'),
       desc: $t('许多转化率高的联盟 offer 都有限地区域投放。\n\nRoxyBrowser 可模拟任意国家、设备和语言环境，帮你测试本地广告、打开市场限制，获取更多转化流量。'),
       image: '/use-cases/affiliate-marketing/2.png',
-      wrapperClass: 'bg-white'
+      wrapperClass: 'bg-white',
     },
     {
       title: $t('绕过联盟追踪和访问限制'),
       desc: $t('做联盟竞争情报时常常被平台屏蔽或数据被污染。\n\nRoxyBrowser 模拟真实用户访问路径，让你安全访问隐藏 offer、重定向链路和漏斗页面，不被识别或拉黑。'),
       image: '/use-cases/affiliate-marketing/3.png',
       wrapperClass: 'bg-[linear-gradient(261deg,_#373749_13.82%,_#2C2C3F_86.18%)]',
-      textColor: '#fff'
+      textColor: '#fff',
     },
     {
       title: $t('账号共享，高效进行团队协作'),
       desc: $t('不论你是个人扩量还是带团队协作，账号共享都是高风险操作。\n\nRoxyBrowser 支持单独配置共享环境，无需共享密码，不触发 2FA 或浏览器识别，安全高效地协同管理联盟项目。'),
       image: '/use-cases/affiliate-marketing/4.png',
-      wrapperClass: 'bg-white'
-    }
+      wrapperClass: 'bg-white',
+    },
   ],
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce2 = computed(() => ({
   title: $t('用 RoxyBrowser 高效赚佣金'),
   desc: $t('轻松管理多个联盟账号，避免被封号、追踪和数据异常，全面优化投放，让你的联盟收益持续提升。'),
-  primaryColor: primaryColor,
+  primaryColor,
   image: '/use-cases/affiliate-marketing/5.png',
   alt: $t('轻松管理多个联盟账号，避免被封号、追踪和数据异常，全面优化投放，让你的联盟收益持续提升。'),
 }))
@@ -67,7 +63,7 @@ const faq = computed(() => ({
     },
     {
       title: $t('无法准确测试 Smartlink 的地域跳转逻辑'),
-      desc: $t('Smartlink 通常依赖访问者的真实地理位置判断跳转路径，普通 VPN 或代理常因识别不精准而导致测试失效。使用 RoxyBrowser，你可以模拟来自任何国家的真实用户环境，确保 Smartlink 在各地区都能正确跳转。'),
+      desc: $t('Smartlink 通常依赖访问者的真实地理位置判断跳转路径，普通 VPN 或代理 IP 常因识别不精准而导致测试失效。使用 RoxyBrowser，你可以模拟来自任何国家的真实用户环境，确保 Smartlink 在各地区都能正确跳转。'),
     },
     {
       title: $t('频繁进行落地页测试，数据失真影响广告效果判断'),
@@ -77,7 +73,7 @@ const faq = computed(() => ({
       title: $t('平台将广告行为识别为异常，频频丢失高价值流量'),
       desc: $t('为联盟项目投放付费广告时，可能会被广告平台识别为异常行为，从而触发封号、暂停投放或追踪错误。RoxyBrowser 能为每个广告活动提供独立且稳定的浏览器指纹，确保广告平台无法将多个账户或行为关联在一起。'),
     },
-  ]
+  ],
 }))
 
 const whyChoose = computed(() => ({
@@ -91,7 +87,7 @@ const whyChoose = computed(() => ({
     },
     {
       title: $t('稳定投放付费流量不被封'),
-      desc: $t('不论你投放 Facebook 广告、Google Ads 还是原生广告，RoxyBrowser 都能隐藏你的设备指纹与真实 IP，避免账号被限制或流量被拒。'),
+      desc: $t('无论是投放 Facebook 广告还是 Google Ads，RoxyBrowser 都能隐藏你的设备指纹和真实 IP，避免账号被限制或流量被拒。'),
       icon: '/use-cases/profile.svg',
     },
     {
@@ -114,12 +110,16 @@ const whyChoose = computed(() => ({
       desc: $t('不同于传统 VM 或低效的指纹工具，RoxyBrowser 运行更快，数据本地加密存储，不上传服务器，确保联盟数据私密可靠。'),
       icon: '/use-cases/security.svg',
     },
-  ]
+  ],
 }))
 
 const footerPanel = computed(() => ({
   title: $t('RoxyBrowser 助力你提高联盟收益'),
-  desc: $t('用 RoxyBrowser 多账号稳定投放、测试全球 offer、保护账户安全，让你的联盟营销轻松扩张，收益持续增长。'),
-  alt: $t('用 RoxyBrowser 多账号稳定投放、测试全球 offer、保护账户安全，让你的联盟营销轻松扩张，收益持续增长。'),
+  desc: $t('用 RoxyBrowser 进行多账号运营、测试全球投放效果、保护账户安全，轻松扩张你的联盟营销规模！'),
+  alt: $t('用 RoxyBrowser 进行多账号运营、测试全球投放效果、保护账户安全，轻松扩张你的联盟营销规模！'),
 }))
 </script>
+
+<template>
+  <PageUseCases :header-panel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :why-choose="whyChoose" :footer-panel="footerPanel" />
+</template>

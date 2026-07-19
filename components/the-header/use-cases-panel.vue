@@ -1,92 +1,77 @@
-<template>
-  <div class="flex flex-col text-white">
-    <NuxtLinkLocale to="/use-cases/ecommerce-marketing">
-      <div
-        class="w-255px p-3 pb-4 bg-[radial-gradient(149.47%_89.09%_at_125.91%_100%,_#12FCFC_0%,_#12A3FC_100%)] rounded-1"
-      >
-        <div class="text-14px leading-18px font-600 font-[Archivo]">{{ $t('电子商务') }}</div>
-        <p class="text-3 font-400 mt-10px">
-          {{ $t('安全运营电商平台店铺，稳定拓展市场规模') }}
-        </p>
-      </div>
-    </NuxtLinkLocale>
+<script setup lang="tsx">
+import CommonPanel from './common-panel.vue'
 
-    <NuxtLinkLocale to="/use-cases/social-media-marketing">
-      <div class="mt-3 relative w-255px aspect-476/400">
-        <div class="absolute p-3 top-0 left-0 flex flex-col gap-6px">
-          <div class="text-14px leading-18px font-600 font-[Archivo]">{{ $t('社媒营销') }}</div>
-          <div class="text-note font-400">
-            {{ $t('轻松管理社交平台账号，精准优化营销策略') }}
-          </div>
-        </div>
-        <RxResponsiveImage name='header/social-networks' class="w-full" alt="" />
-      </div>
-    </NuxtLinkLocale>
-  </div>
+const { $t } = useRxI18n()
+const isChinaSite = process.env.SITE_VARIANT === 'china'
 
-  <div class="min-w-220px flex flex-col">
-    <PanelItem 
-      v-for="feat in coreFeatures" 
-      v-bind="feat"
-    />
-  </div>
+function splitChunks<T>(items: T[], chunkSize: number): T[][] {
+  return items.reduce((acc: T[][], _, index) => {
+    if (index % chunkSize === 0) {
+      acc.push(items.slice(index, index + chunkSize))
+    }
+    return acc
+  }, [] as T[][])
+}
 
-  <div class="min-w-220px flex flex-col">
-    <PanelItem 
-      v-for="feat in mainFeatures" 
-      v-bind="feat"
-    />
-  </div>
-</template>
+const coreFeatures = computed(() => splitChunks([
+  ...[
+    {
+      icon: 'menu/social-networks',
+      title: $t('社媒运营'),
+      desc: $t('轻松运营多个社交媒体账号，降低关联与风险'),
+      link: '/use-cases/social-media-marketing',
+    },
+    {
+      icon: 'menu/e-commerce',
+      title: $t('跨境电商'),
+      desc: $t('为不同电商店铺配置独立身份，安全高效运营'),
+      link: '/use-cases/ecommerce-marketing',
+    },
+    {
+      icon: 'menu/traffic-trade',
+      title: $t('SEO 优化'),
+      desc: $t('在不同账号安全操作，实现更高效的 SEO 优化和推广'),
+      link: '/use-cases/seo-content-marketing',
+    },
+    {
+      icon: 'menu/ad-strategy',
+      title: $t('广告投放'),
+      desc: $t('通过独立浏览器环境安全管理多个付费广告投放账户'),
+      link: '/use-cases/paid-search-advertising',
+    },
+  ],
+  ...[
+    {
+      icon: 'menu/affiliate-market',
+      title: $t('联盟营销'),
+      desc: $t('利用防检测浏览器提高转化，扩大联盟营销收益'),
+      link: '/use-cases/affiliate-marketing',
+    },
+    {
+      icon: 'menu/web-scraping',
+      title: $t('数据爬取'),
+      desc: $t('高效采集网站数据，同时避免封禁与访问限制'),
+      link: '/use-cases/web-scraping',
+    },
+    {
+      icon: 'menu/crypto-gains',
+      title: $t('加密货币'),
+      desc: $t('在多个交易所安全管理账户，保障加密货币交易'),
+      link: '/use-cases/cryptocurrency-trading',
+      hidden: isChinaSite,
+    },
+  ].filter(item => !item.hidden),
+], isChinaSite ? 3 : 4))
 
-<script setup>
-import PanelItem from "./panel-item.vue";
-
-const props = defineProps({
-  is1: {
-    type: Boolean,
-    default: false,
-  },
-});
-
-const coreFeatures = computed(() => [
-  {
-    icon: "menu/traffic-trade",
-    title: $t("SEO 优化"),
-    link: "/use-cases/seo-content-marketing",
-  },
-  {
-    icon: "menu/ad-strategy",
-    title: $t("广告投放"),
-    link: "/use-cases/paid-search-advertising",
-  },
-  {
-    icon: "menu/social-networks",
-    title: $t('社媒运营'),
-    link: '/use-cases/social-media-marketing',
-  },
-  {
-    icon: "menu/e-commerce",
-    title: $t('电商运营'),
-    link: '/use-cases/ecommerce-marketing',
-  },
-  {
-    icon: "menu/affiliate-market",
-    title: $t('联盟营销'),
-    link: '/use-cases/affiliate-marketing',
-  }
-]);
-
-const mainFeatures = computed(() => [
-  {
-    icon: 'menu/web-spcraping',
-    title: $t('数据爬取'),
-    link: '/use-cases/web-scraping',
-  },
-  {
-    icon: "menu/crypto-gains",
-    title: $t('加密货币'),
-    link: '/use-cases/cryptocurrency-trading',
-  },
-]);
+const blogInfo = computed(() => ({
+  title: $t('5 种方法绕开 YouTube 限制，随时随地在油管刷视频！'),
+  excerpt: $t('无论是学校、公司还是某些地区特意设置的“访问限制”，都有办法解决，让你可以不受限制地浏览油管视频。'),
+  feature_image: 'home/nav-banner-img1',
+  // CommonPanel使用link决定是否展示，cn暂不展示
+  link: isChinaSite ? '' : '/blog/how-to-get-youtube-unblocked',
+}))
 </script>
+
+<template>
+  <CommonPanel :title="$t('应用场景')" :items="coreFeatures" :blog-info="blogInfo" />
+</template>

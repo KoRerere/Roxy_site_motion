@@ -1,1 +1,1 @@
-export * from './langs';
+export * from './langs'

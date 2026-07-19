@@ -62,20 +62,4 @@ const leave = (el) => {
 }
 </script>
 
-<style>
-/* .accordion-enter-active,
-.accordion-leave-active {
-  transition: height 0.3s ease-out;
-  overflow: hidden;
-} */
-
-.accordion-enter-active {
-  transition: height 0.2s ease-out;
-  overflow: hidden;
-}
-
-.accordion-leave-active {
-  transition: height 0.15s ease-out;
-  overflow: hidden;
-}
-</style>
+<!-- 样式代码已移动到 global.css 文件中 -->

@@ -1,0 +1,42 @@
+version: "3.9"
+name: ghost-cn-prod
+
+services:
+  ghost-mysql-cn:
+    image: mysql:8.0
+    container_name: ghost-mysql-cn
+    restart: unless-stopped
+    command: --port=3308 --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: "KC@9:m-v6N+br7#UH"
+      MYSQL_DATABASE: db_blog_server
+      MYSQL_TCP_PORT: 3308
+      TZ: Asia/Shanghai
+    ports:
+      - "3308:3308"
+    volumes:
+      - ghost_mysql_cn_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -P 3308 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  ghost-cn:
+    image: ghost:5-alpine
+    container_name: ghost-cn
+    restart: unless-stopped
+    depends_on:
+      ghost-mysql-cn:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+    ports:
+      - "2370:2370"
+    volumes:
+      - ./config.production.json:/var/lib/ghost/config.production.json:ro
+      - ghost_cn_content:/var/lib/ghost/content
+
+volumes:
+  ghost_mysql_cn_data:
+  ghost_cn_content:

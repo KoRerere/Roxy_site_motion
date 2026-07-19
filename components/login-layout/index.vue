@@ -14,7 +14,7 @@ const localePath = useLocalePath()
     </ClientOnly>
     <div class="login-header">
       <NuxtLinkLocale to="/" class="flex items-center gap-[10px] z-10">
-        <img class="logo" src="/logo.svg" alt="Roxybrowser" />
+        <img class="logo" src="/logo.svg" alt="RoxyBrowser" />
         <h1 class="title">RoxyBrowser</h1>
       </NuxtLinkLocale>
 

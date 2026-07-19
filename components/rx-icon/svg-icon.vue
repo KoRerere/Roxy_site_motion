@@ -13,7 +13,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: '',
+    default: 'currentColor',
   },
   fallback: {
     type: String,
@@ -22,6 +22,9 @@ const props = defineProps({
   containerClass: {
     type: String,
     default: '',
+  },
+  stroke: {
+    type: String,
   }
 })
 
@@ -41,14 +44,14 @@ const SvgComponent = computed(() => {
 </script>
 
 <template>
-  <component :is="SvgComponent" class="svg" :data-name="name" v-bind="$attrs" />
-  <!-- <SvgComponent class="svg" :data-name="name" v-bind="$attrs" /> -->
+  <ClientOnly>
+    <component
+      :is="SvgComponent"
+      class="svg inline align-baseline shrink-0"
+      :style="{ fontSize, color, stroke }"
+      :data-name="name"
+      v-bind="$attrs"
+    />
+  </ClientOnly>
 </template>
 
-<style lang="scss" scoped>
-:where(.svg) {
-  font-size: v-bind(fontSize);
-  color: v-bind(color);
-  flex-shrink: 0;
-}
-</style>

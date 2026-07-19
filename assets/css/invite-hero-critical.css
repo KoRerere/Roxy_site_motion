@@ -1,0 +1,198 @@
+/**
+ * Invite Hero 首屏关键样式（global.css 同步加载）
+ * 开发模式下 Vue scoped 样式经 JS 注入会滞后，此处保证首屏即正确排版
+ */
+
+/* 层叠：absolute 背景默认会盖住 in-flow 文案 */
+.invite-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0 !important;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.invite-hero-foreground-layer {
+  position: relative;
+  z-index: 10 !important;
+  isolation: isolate;
+}
+
+/* 互斥显隐 */
+@media (max-width: 1023.98px) {
+  .invite-hero-copy-desktop,
+  .invite-hero-energy-canvas-desktop {
+    display: none !important;
+  }
+
+  .invite-hero-copy-mobile {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    /* 首屏默认系统字体栈，与 hero-copy-mobile.vue 一致 */
+    font-family: var(--family);
+  }
+}
+
+/* 1123px 以下隐藏 Hero CTA，与 the-header MOBILE_HEADER_MEDIA 一致 */
+@media (max-width: 1123px) {
+  .invite-hero-copy-desktop__actions {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .invite-hero-copy-mobile,
+  .invite-hero-energy-canvas-mobile {
+    display: none !important;
+  }
+
+  .invite-hero-container {
+    display: grid !important;
+    box-sizing: border-box;
+    min-height: 520px;
+    grid-template-columns: minmax(0, 1fr) minmax(400px, 466px);
+    align-items: center;
+    gap: 80px;
+  }
+
+  .invite-hero-copy-desktop {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: start;
+    align-self: center;
+    width: 100%;
+    /* 首屏默认系统字体栈，与 hero-copy-desktop.vue 一致 */
+    font-family: var(--family);
+  }
+}
+
+/* PC 文案关键样式（与 hero-copy-desktop.vue 一致，避免 dev 首屏无样式） */
+@media (min-width: 1024px) {
+  .invite-hero-copy-desktop__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    background: linear-gradient(100deg, #3faaf6 0%, #f359dc 50%, #f28fb0 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    transform: rotate(-6deg);
+  }
+
+  .invite-hero-copy-desktop__title {
+    width: 100%;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 66px;
+    background: linear-gradient(90deg, #0092eb 0%, #fbcbcb 50%, #f241ff 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+
+  .invite-hero-copy-desktop__highlight {
+    width: 100%;
+    color: #fff;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px;
+  }
+
+  .invite-hero-copy-desktop__highlight-rate {
+    background: linear-gradient(90deg, #0092eb 0%, #f241ff 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .invite-hero-copy-desktop__benefits {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .invite-hero-copy-desktop__benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* 卖点字号：与 hero-copy-desktop.vue 修饰符一致，避免基础 class 盖住 --latin */
+  .invite-hero-copy-desktop__benefit-item--zh {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .invite-hero-copy-desktop__benefit-item--latin {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+
+  .invite-hero-copy-desktop__benefit-check {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+  }
+
+  .invite-hero-copy-desktop__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+  }
+
+  .invite-hero-copy-desktop__btn-primary,
+  .invite-hero-copy-desktop__btn-secondary {
+    display: inline-flex;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .invite-hero-copy-desktop__btn-primary {
+    padding: 0 48px;
+    font-weight: 500;
+    background: #12a3fc;
+    box-shadow: 0 4px 16px 0 rgba(18, 163, 252, 0.36);
+  }
+
+  .invite-hero-copy-desktop__btn-secondary {
+    padding: 0 20px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(67, 73, 91, 0.8);
+  }
+}
+
+/* canvas 布局测量完成前隐藏 */
+.invite-hero-energy-canvas-desktop:not(.is-layout-ready),
+.invite-hero-energy-canvas-mobile:not(.is-layout-ready) {
+  opacity: 0;
+}
+
+.invite-hero-energy-canvas-desktop.is-layout-ready,
+.invite-hero-energy-canvas-mobile.is-layout-ready {
+  opacity: 1;
+}

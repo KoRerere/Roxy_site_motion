@@ -911,7 +911,7 @@ export const platform = [
     id: 57,
     platformIcon:
       "https://lumibrowser-test.oss-cn-shenzhen.aliyuncs.com/public/static/platform_icon/yandex.png?version=",
-    platformUrl: "https://yandex.com//",
+    platformUrl: "https://yandex.com/",
     sort: 57,
     updateTime: "2024-06-17T16:10:26",
   },

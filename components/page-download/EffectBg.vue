@@ -1,18 +1,18 @@
-<template>
-  <div class="box hidden lg:block">
-    <div class="effect-bg relative z-10">
-      <RxResponsiveImage :name="imageName" class="w-580px" />
-    </div>
-    <div class="effect-bg2 absolute z-9">
-      <RxResponsiveImage name="download/macbook" class="w-620px effect-bg2-img" />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 const { isDark } = useTheme()
 const imageName = computed(() => isDark.value ? 'download/bg_dark' : 'download/bg_light')
 </script>
+
+<template>
+  <div class="box hidden lg:block">
+    <div class="effect-bg relative z-10">
+      <RxResponsiveImage :name="imageName" class="w-145" />
+    </div>
+    <div class="effect-bg2 absolute z-9">
+      <RxResponsiveImage name="download/macbook" class="effect-bg2-img w-465px" />
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .box {
@@ -33,8 +33,6 @@ const imageName = computed(() => isDark.value ? 'download/bg_dark' : 'download/b
   transform: translateY(-50%) rotateX(-190deg) translateX(-50%);
   border-radius: 12px;
   width: 160%;
-  // padding-bottom: 50px;
-  // height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,9 +46,11 @@ const imageName = computed(() => isDark.value ? 'download/bg_dark' : 'download/b
 }
 
 .dark .effect-bg2 {
+  mask-image: none;
+  -webkit-mask-image: none;
   picture {
     filter: blur(50px);
-    opacity: 1;
+    opacity: 0.3;
   }
 }
 
@@ -58,9 +58,9 @@ const imageName = computed(() => isDark.value ? 'download/bg_dark' : 'download/b
   content: '';
   position: absolute;
   z-index: 10;
-  bottom: 21%;
+  bottom: 9%;
   width: 55%;
-  height: 20PX;
+  height: 20px;
   background-color: rgb(255, 255, 255);
   filter: blur(8px);
   left: 50%;
@@ -71,7 +71,7 @@ const imageName = computed(() => isDark.value ? 'download/bg_dark' : 'download/b
   transform: perspective(1200px) rotateX(-60deg);
 }
 
-[data-theme="dark"] .effect-bg2::before {
+[data-theme='dark'] .effect-bg2::before {
   background-color: rgb(0, 0, 0);
 }
 </style>

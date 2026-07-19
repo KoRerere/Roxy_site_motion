@@ -1,0 +1,103 @@
+<script setup lang="ts">
+import imgZh from '@/assets/images/functions/trusted-proxies-access-example-zh.png?format=webp'
+import imgEn from '@/assets/images/functions/trusted-proxies-access-example.png?format=webp'
+
+const { locale } = useRxI18n()
+
+const imgSrc = computed(() => {
+  return locale.value === 'zh' ? imgZh : imgEn
+})
+</script>
+
+<template>
+  <div class="trusted-proxies-access">
+    <div class="content">
+      <h2 class="title multilingual-text">
+        {{ $t('RoxyBrowser 内置精选代理 IP 商，安全可靠，无须费心') }}
+      </h2>
+      <div class="description">
+        {{ $t('你可以在 RoxyBrowser 客户端直接购买优质的住宅代理 IP，省去了到处寻找代理 IP 的麻烦和对不良服务商的担忧。只需下载软件、选择你的配置，然后即可开始安全浏览。') }}
+      </div>
+      <img :src="imgSrc" alt="trusted-proxies-access" class="w-full">
+    </div>
+    <div class="mask" />
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.trusted-proxies-access {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 100px 0;
+  width: 100%;
+  min-height: 368px;
+  background-image: url('@/assets/images/functions/trusted-proxies-access-bg.png');
+  background-color: radial-gradient(86.21% 231.94% at 50% 0%, rgba(18, 163, 252, 0.12) 0%, rgba(18, 163, 252, 0) 70%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(86.21% 231.94% at 50% 0%, rgba(18, 163, 252, 0.12) 0%, rgba(18, 163, 252, 0) 70%);
+    z-index: -2;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 40px 16px 0;
+  }
+}
+
+.content {
+  max-width: 1080px;
+}
+
+.title {
+  color: var(--colors-text-text-primary, #111213);
+  text-align: center;
+  font-size: var(--Heading-H3, 40px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: var(--line-H3, 48px);
+  /* 120% */
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}
+
+.description {
+  margin-top: 48px;
+  color: var(--colors-text-text-primary, #111213);
+
+  /* body */
+  font-family: Inter;
+  font-size: var(--body, 18px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--line-body, 28px);
+  /* 155.556% */
+
+  @media (max-width: 1024px) {
+    margin-top: 24px;
+    font-size: 15px;
+    line-height: 150%;
+  }
+}
+
+.mask {
+  position: absolute;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(248, 250, 251, 0) 0%, #f8fafb 80%);
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+</style>

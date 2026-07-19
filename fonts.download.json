@@ -1,0 +1,33 @@
+{
+  "_comment": "支持多组字体，每组生成独立的 CSS 文件。新增字体组时添加对象到 groups 数组即可。",
+  "outputDir": "public/fonts",
+  "overwriting": true,
+  "base64": false,
+  "groups": [
+    {
+      "id": "common",
+      "stylePath": "fonts-common.css",
+      "display": "swap",
+      "subsets": ["latin"],
+      "families": {
+        "Archivo": { "wght": "400..700" },
+        "JetBrains Mono": { "wght": "400..700" },
+        "Inter": { "wght": "400..700" }
+      }
+    },
+    {
+      "id": "montserrat",
+      "stylePath": "fonts-montserrat.css",
+      "display": "swap",
+      "subsets": ["latin", "cyrillic"],
+      "families": { "Montserrat": { "wght": "400..700" } }
+    },
+    {
+      "id": "roboto",
+      "stylePath": "fonts-roboto.css",
+      "display": "swap",
+      "subsets": ["latin"],
+      "families": { "Roboto": { "wght": "400..700" } }
+    }
+  ]
+}

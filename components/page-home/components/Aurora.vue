@@ -1,50 +1,44 @@
-<template>
-  <motion.div
-    class="w-full opacity-0"
-    :animate="{ opacity: 1 }"
-    :transition="{ duration: 1.2 }"
-  >
-    <div ref="ctnDom" class="w-full h-300px md:h-400px lg:h-600px" v-bind="$attrs"></div>
-  </motion.div>
-</template>
-
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
-import { useIntersectionObserver, useWindowFocus, useDocumentVisibility } from '@vueuse/core'
+import { useDocumentVisibility, useIntersectionObserver, useWindowFocus } from '@vueuse/core'
 import { motion } from 'motion-v'
+import { Color, Mesh, Program, Renderer, Triangle } from 'ogl'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
   colorStops: {
     type: Array,
-    default: () => ['rgba(74, 106, 253, 1)', 'rgba(249, 192, 193, 1)', 'rgba(35, 138, 255, 1)']
+    default: () => ['rgba(74, 106, 253, 1)', 'rgba(249, 192, 193, 1)', 'rgba(35, 138, 255, 1)'],
   },
   amplitude: {
     type: Number,
-    default: 1.0
+    default: 1.0,
   },
   blend: {
     type: Number,
-    default: 0.5
+    default: 0.5,
   },
   time: {
     type: Number,
-    default: 0
+    default: 0,
   },
   speed: {
     type: Number,
-    default: 1.0
-  }
-});
+    default: 1.0,
+  },
+  paused: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-const ctnDom = ref(null);
-let program = null;
+const ctnDom = ref(null)
+let program = null
 
 const VERT = `#version 300 es
 in vec2 position;
 void main() {
   gl_Position = vec4(position, 0.0, 1.0);
-}`;
+}`
 
 const FRAG = `#version 300 es
 precision highp float;
@@ -144,73 +138,78 @@ void main() {
   float finalAlpha = auroraAlpha * auroraColor.a;
   
   fragColor = vec4(auroraColor.rgb * finalAlpha, finalAlpha);
-}`;
+}`
 
 function resize() {
-  const ctn = ctnDom.value;
-  if (!ctn) return;
-  const width = ctn.offsetWidth;
-  const height = ctn.offsetHeight;
-  renderer.setSize(width, height);
+  const ctn = ctnDom.value
+  if (!ctn)
+    return
+  const width = ctn.offsetWidth
+  const height = ctn.offsetHeight
+  renderer.setSize(width, height)
   if (program) {
-    program.uniforms.uResolution.value = [width, height];
+    program.uniforms.uResolution.value = [width, height]
   }
 }
 
-const parseColor = (colorStr) => {
+function parseColor(colorStr) {
   if (colorStr.startsWith('rgba')) {
-    const matches = colorStr.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+    const matches = colorStr.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/)
     if (matches) {
       return [
-        parseInt(matches[1]) / 255,
-        parseInt(matches[2]) / 255,
-        parseInt(matches[3]) / 255,
-        parseFloat(matches[4])
-      ];
+        Number.parseInt(matches[1]) / 255,
+        Number.parseInt(matches[2]) / 255,
+        Number.parseInt(matches[3]) / 255,
+        Number.parseFloat(matches[4]),
+      ]
     }
-  } else if (colorStr.startsWith('rgb')) {
-    const matches = colorStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-    if (matches) {
-      return [
-        parseInt(matches[1]) / 255,
-        parseInt(matches[2]) / 255,
-        parseInt(matches[3]) / 255,
-        1
-      ];
-    }
-  } else {
-    const c = new Color(colorStr);
-    return [c.r, c.g, c.b, 1];
   }
-  return [0, 0, 0, 1];
-};
+  else if (colorStr.startsWith('rgb')) {
+    const matches = colorStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/)
+    if (matches) {
+      return [
+        Number.parseInt(matches[1]) / 255,
+        Number.parseInt(matches[2]) / 255,
+        Number.parseInt(matches[3]) / 255,
+        1,
+      ]
+    }
+  }
+  else {
+    const c = new Color(colorStr)
+    return [c.r, c.g, c.b, 1]
+  }
+  return [0, 0, 0, 1]
+}
 
-let renderer = null;
+let renderer = null
 let animateId
 let mesh
-const init = () => {
-  const ctn = ctnDom.value;
-  if (!ctn) return;
+let isRunning = false
+function init() {
+  const ctn = ctnDom.value
+  if (!ctn)
+    return
 
   renderer = new Renderer({
     alpha: true,
     premultipliedAlpha: true,
-    antialias: true
-  });
-  const gl = renderer.gl;
-  gl.clearColor(0, 0, 0, 0);
-  gl.enable(gl.BLEND);
-  gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-  gl.canvas.style.backgroundColor = 'transparent';
+    antialias: true,
+  })
+  const gl = renderer.gl
+  gl.clearColor(0, 0, 0, 0)
+  gl.enable(gl.BLEND)
+  gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
+  gl.canvas.style.backgroundColor = 'transparent'
 
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize)
 
-  const geometry = new Triangle(gl);
+  const geometry = new Triangle(gl)
   if (geometry.attributes.uv) {
-    delete geometry.attributes.uv;
+    delete geometry.attributes.uv
   }
 
-  const colorStopsArray = props.colorStops.map(parseColor);
+  const colorStopsArray = props.colorStops.map(parseColor)
 
   program = new Program(gl, {
     vertex: VERT,
@@ -220,60 +219,73 @@ const init = () => {
       uAmplitude: { value: props.amplitude },
       uColorStops: { value: colorStopsArray },
       uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-      uBlend: { value: props.blend }
-    }
-  });
+      uBlend: { value: props.blend },
+    },
+  })
 
-  mesh = new Mesh(gl, { geometry, program });
-  ctn.appendChild(gl.canvas);
-  resize();
+  mesh = new Mesh(gl, { geometry, program })
+  ctn.appendChild(gl.canvas)
+  resize()
 }
 
-const start = () => {
-  let lastTime = 0;
-  const frameInterval = 1000 / 30; // 限制到30fps
-  
+function start() {
+  if (isRunning || !program || !renderer) {
+    return
+  }
+
+  isRunning = true
+  let lastTime = 0
+  const frameInterval = 1000 / 30 // 限制到30fps
+
   const update = (t) => {
-    animateId = requestAnimationFrame(update);
+    if (!isRunning) {
+      return
+    }
+
+    animateId = requestAnimationFrame(update)
 
     // 限制帧率
-    const now = performance.now();
-    const elapsed = now - lastTime;
-    if (elapsed < frameInterval) return;
-    
-    lastTime = now - (elapsed % frameInterval);
-    
-    const time = props.time || t * 0.01;
-    const speed = props.speed || 1.0;
-    program.uniforms.uTime.value = time * speed * 0.1;
-    program.uniforms.uAmplitude.value = props.amplitude;
-    program.uniforms.uBlend.value = props.blend;
-    const stops = props.colorStops;
-    program.uniforms.uColorStops.value = stops.map(parseColor);
-    renderer.render({ scene: mesh });
-  };
-  animateId = requestAnimationFrame(update);
-  console.log('Aurora 开启动画')
-}
+    const now = performance.now()
+    const elapsed = now - lastTime
+    if (elapsed < frameInterval)
+      return
 
-const stop = () => {
-  cancelAnimationFrame(animateId);
-  console.log('Aurora 停止动画')
-}
+    lastTime = now - (elapsed % frameInterval)
 
-const remove = () => {
-  window.removeEventListener('resize', resize);
-  const ctn = ctnDom.value;
-  if (ctn && renderer.gl.canvas.parentNode === ctn) {
-    ctn.removeChild(renderer.gl.canvas);
+    const time = props.time || t * 0.01
+    const speed = props.speed || 1.0
+    program.uniforms.uTime.value = time * speed * 0.1
+    program.uniforms.uAmplitude.value = props.amplitude
+    program.uniforms.uBlend.value = props.blend
+    const stops = props.colorStops
+    program.uniforms.uColorStops.value = stops.map(parseColor)
+    renderer.render({ scene: mesh })
   }
-  renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
+  animateId = requestAnimationFrame(update)
 }
 
-let inited = false;
+function stop() {
+  if (!isRunning) {
+    return
+  }
+
+  isRunning = false
+  cancelAnimationFrame(animateId)
+}
+
+function remove() {
+  window.removeEventListener('resize', resize)
+  const ctn = ctnDom.value
+  if (ctn && renderer?.gl?.canvas?.parentNode === ctn) {
+    ctn.removeChild(renderer?.gl?.canvas)
+  }
+  renderer?.gl?.getExtension('WEBGL_lose_context')?.loseContext()
+}
+
+let inited = false
 // const isWindowFocused = useWindowFocus();
 // const isDocumentVisible = useDocumentVisibility();
-const isIntersecting = ref(false);
+const isIntersecting = ref(false)
 
 // 响应页面可见性和窗口焦点变化
 // watch([isWindowFocused, isDocumentVisible, isIntersecting], ([focused, visibility, isIntersecting]) => {
@@ -287,37 +299,48 @@ const isIntersecting = ref(false);
 //   }
 // });
 
-watch([isIntersecting], ([isIntersecting]) => {
-  if (!inited) return;
-  if (isIntersecting) {
-    console.log('Aurora 窗口获得焦点且页面可见，启动动画');
-    start();
-  } else {
-    console.log('Aurora 窗口失去焦点或页面不可见，停止动画');
-    stop();
+watch([isIntersecting, () => props.paused], ([intersecting, paused]) => {
+  if (!inited)
+    return
+  if (intersecting && !paused) {
+    start()
   }
-});
+  else {
+    stop()
+  }
+})
 
 // 使用IntersectionObserver检测组件是否在视口内
 useIntersectionObserver(ctnDom, ([{ isIntersecting: isIntersectingValue }]) => {
-  if (!inited) return;
-  isIntersecting.value = isIntersectingValue;
+  if (!inited)
+    return
+  isIntersecting.value = isIntersectingValue
 })
 
 watch(() => props.amplitude, (newVal) => {
   if (program) {
-    program.uniforms.uAmplitude.value = newVal;
+    program.uniforms.uAmplitude.value = newVal
   }
-});
+})
 
 onMounted(() => {
-  init();
+  init()
   // start();
-  inited = true;
-});
+  inited = true
+})
 
 onBeforeUnmount(() => {
-  stop();
-  remove();
-});
-</script> 
+  stop()
+  remove()
+})
+</script>
+
+<template>
+  <motion.div
+    class="opacity-0 w-full"
+    :animate="{ opacity: 1 }"
+    :transition="{ duration: 1.2 }"
+  >
+    <div ref="ctnDom" class="h-300px w-full lg:h-600px md:h-400px" v-bind="$attrs" />
+  </motion.div>
+</template>

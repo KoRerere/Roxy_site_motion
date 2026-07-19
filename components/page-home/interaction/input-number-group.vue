@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 type Size = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | undefined
 
 const props = defineProps({
@@ -49,7 +48,6 @@ function parseInput(input: any) {
 </template>
 
 <style lang="scss" scoped>
-
 .xl.number-group {
   padding: 12px 12px 12px 14px;
 }
@@ -73,7 +71,6 @@ function parseInput(input: any) {
   &-item,
   &-separator {
     color: var(--Component-Colors-TextInput-text-text, #171c1f);
-    // font-family: 'JetBrains Mono';
     font-size: 14px;
     line-height: var(--Line-Height-text-lg, 20px);
   }

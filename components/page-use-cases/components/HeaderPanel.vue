@@ -1,12 +1,22 @@
+<script setup lang="ts">
+import type { HeaderPanelProps } from './interface'
+import TryItNow from './TryItNow.vue'
+
+const props = defineProps<HeaderPanelProps>()
+const rgba = computed(() => hexToRgba(props.primaryColor, 0.6))
+const rgba30 = computed(() => hexToRgba(props.primaryColor, 0.3))
+const rgba0 = computed(() => hexToRgba(props.primaryColor, 0.0))
+</script>
+
 <template>
-  <div class="xl:max-w-[1320px] xl:mx-auto px-0 md:px-5 lg:px-10 xl:px-0 pt-0 md:pt-110px">
-    <div class="pt-110px md:pt-40px xl:pt-15 grid grid-cols-1 md:grid-cols-2 gap-5 text-white rounded-t-0 md:rounded-t-5 rounded-b-5 relative overflow-hidden temp" v-bind="$attrs">
-      <div class="flex flex-col justify-between md:gap-5 px-5 lg:px-19 relative z-10 pb-15">
+  <div class="px-0 pt-0 xl:mx-auto lg:px-10 md:px-5 xl:px-0 md:pt-110px xl:max-w-[1440px]">
+    <div class="temp text-white pt-110px rounded-b-5 rounded-t-0 gap-5 grid grid-cols-1 relative overflow-hidden md:pt-40px xl:pt-15 md:rounded-t-5 md:grid-cols-2" v-bind="$attrs">
+      <div class="px-5 pb-15 flex flex-col justify-between relative z-10 lg:px-19 md:gap-5">
         <div class="flex flex-col gap-5">
-          <h1 class="font-[Archivo] text-6 sm:text-8 lg:text-9 xl:text-11 leading-[1.4] md:leading-[1.2] xl:leading-50px font-700">
+          <h1 class="text-6 leading-[1.4] font-700 multilingual-text lg:text-9 sm:text-8 xl:text-11 md:leading-[1.2] xl:leading-50px ru-RU:xl:text-9">
             {{ title }}
           </h1>
-          <p class="xl:text-5 leading-24px xl:leading-32px text-white pb-0 whitespace-pre-line">
+          <p class="text-white leading-24px pb-0 whitespace-pre-line xl:text-5 xl:leading-32px">
             {{ desc }}
           </p>
         </div>
@@ -15,31 +25,21 @@
         </div>
       </div>
 
-      <div class="overflow-hidden pl-5 md:pl-0 relative z-10 cover-image">
+      <div class="cover-image pl-5 relative z-10 overflow-hidden md:pl-0">
         <!-- <NuxtImg :src="coverImage" format="avif" class="wh-full object-cover object-left-top" densities="x1 x2"
           sizes="sm:120vw md:60vw lg:800px"
           loading="lazy"
           alt=""
         /> -->
-        <img :src="coverImage" class="wh-full object-cover object-left-top" loading="lazy" />
+        <img :src="coverImage" class="wh-full object-cover object-left-top" loading="lazy" alt="">
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import type { HeaderPanelProps } from './interface';
-import TryItNow from './TryItNow.vue';
-
-const props = defineProps<HeaderPanelProps>()
-const rgba = computed(() => hexToRgba(props.primaryColor, 0.6))
-const rgba30 = computed(() => hexToRgba(props.primaryColor, 0.3))
-const rgba0 = computed(() => hexToRgba(props.primaryColor, 0.0))
-</script>
-
 <style scoped>
 .temp {
-  background: linear-gradient(180deg, v-bind(primaryColor) 0%, v-bind(rgba) 100%), #FFF;
+  background: linear-gradient(180deg, v-bind(primaryColor) 0%, v-bind(rgba) 100%), #fff;
 }
 
 .cover-image::after {

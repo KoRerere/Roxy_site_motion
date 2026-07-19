@@ -1,0 +1,135 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://www.adspower.net/#website",
+      "@type": "WebSite",
+      "inLanguage": "zh-CN",
+      "name": "AdsPower",
+      "url": "/",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://www.adspower.net/blog?search={search_term_string}"
+          },
+          "query-input": {
+            "@type": "PropertyValueSpecification",
+            "valueRequired": true,
+            "valueName": "search_term_string"
+          }
+        }
+      ],
+      "publisher": {
+        "@id": "https://www.adspower.net/#identity"
+      }
+    },
+    {
+      "@id": "https://www.adspower.net/#webpage",
+      "@type": "WebPage",
+      "description": "AdsPower指纹浏览器是一款为跨境电商,广告投放,海外社媒营销等业务提供账号矩阵管理的防关联浏览器,模拟浏览器指纹实现一台电脑多开窗口,Ads指纹浏览器适用于多个平台如跨境电商亚马逊,FB,Google等,是可以实现浏览器多开和高效团队管理协作的超级浏览器。",
+      "name": "AdsPower指纹浏览器 - 防关联浏览器多开,跨境电商超级浏览器,ads指纹浏览器",
+      "url": "https://www.adspower.net",
+      "about": {
+        "@id": "https://www.adspower.net/#identity"
+      },
+      "isPartOf": {
+        "@id": "https://www.adspower.net/#website"
+      },
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.adspower.net"
+          ]
+        }
+      ],
+      "primaryImageOfPage": {
+        "@id": "https://www.adspower.net/#logo"
+      }
+    },
+    {
+      "@id": "https://www.adspower.net/#identity",
+      "@type": "Organization",
+      "name": "AdsPower",
+      "url": "https://www.adspower.net",
+      "sameAs": [
+        "https://twitter.com/AdsPowerBrowser",
+        "https://www.youtube.com/channel/UCinVdq4FoJO0s-lSlcLumiw",
+        "https://space.bilibili.com/619999649?from=search&seid=18389146445095016964&spm_id_from=333.337.0.0"
+      ]
+    },
+    {
+      "@context": "http://schema.org",
+      "@id": "https://www.adspower.net/#/schema/software-application/3a81cb6",
+      "applicationCategory": "BrowserApplication",
+      "downloadUrl": "/download",
+      "name": "AdsPower",
+      "operatingSystem": "Windows/macOS/Linux",
+      "screenshot": "https://img.adspower.net/top-browser/48/63b44ba071336af9b70b6ca8fe5b11.jpg",
+      "url": "/",
+      "@type": [
+        "SoftwareApplication",
+        "WebApplication"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "451",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "SUNFLOWER TECH PTE. LTD."
+      },
+      "image": {
+        "@id": "https://www.adspower.net/#/schema/image/6aacb0a"
+      },
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "price": "0",
+        "priceCurrency": "USD,BRL,VND,PLN",
+        "priceValidUntil": "2026-12-30T00:00:00.000Z"
+      },
+      "review": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Eduard H."
+        },
+        "reviewBody": "Something I`ve been searching for a long time, seems working correctly, exactly what I needed.  Need some time to figure out how to set up everything correctly, but it`s worth spending time in the beginning, to save it n further.  Thanks a lot to the developers",
+        "inLanguage": "zh-CN"
+      }
+    },
+    {
+      "@id": "https://www.adspower.net/#logo",
+      "@type": "ImageObject",
+      "caption": "AdsPower",
+      "contentUrl": "https://img.adspower.net/top-browser/logo/logo_bycle.png",
+      "inLanguage": "zh-CN",
+      "url": "https://img.adspower.net/top-browser/logo/logo_bycle.png"
+    },
+    {
+      "@id": "https://www.adspower.net/#organization",
+      "@type": "Organization",
+      "logo": "https://img.adspower.net/top-browser/logo/logo_bycle.png",
+      "name": "AdsPower",
+      "url": "https://www.adspower.net",
+      "sameAs": [
+        "https://twitter.com/AdsPowerBrowser",
+        "https://www.youtube.com/channel/UCinVdq4FoJO0s-lSlcLumiw",
+        "https://space.bilibili.com/619999649?from=search&seid=18389146445095016964&spm_id_from=333.337.0.0"
+      ]
+    },
+    {
+      "@id": "https://www.adspower.net/#/schema/image/6aacb0a",
+      "@type": "ImageObject",
+      "contentUrl": "https://img.adspower.net/top-browser/logo/logo_bycle.jpg",
+      "inLanguage": "zh-CN",
+      "url": "https://img.adspower.net/top-browser/logo/logo_bycle.jpg"
+    }
+  ]
+}

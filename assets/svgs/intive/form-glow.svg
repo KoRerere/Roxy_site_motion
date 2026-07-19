@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="799" height="713" viewBox="0 0 799 713" fill="none">
+  <g opacity="0.8" filter="url(#filter0_f_invite_form_glow)">
+    <path d="M137.313 334.696C87.3129 248.696 154.056 180.78 230.056 143.78C306.056 106.78 323.256 121.88 446.056 130.28C599.556 140.78 701.056 299.78 674.056 411.28C647.056 522.78 572.813 566.196 453.813 588.196C334.813 610.196 253.556 551.28 241.556 492.28C229.556 433.28 187.313 420.696 137.313 334.696Z" fill="url(#paint0_linear_invite_form_glow)"/>
+  </g>
+  <defs>
+    <filter id="filter0_f_invite_form_glow" x="0" y="0" width="798.404" height="712.909" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="60" result="effect1_foregroundBlur_invite_form_glow"/>
+    </filter>
+    <linearGradient id="paint0_linear_invite_form_glow" x1="119.056" y1="168.28" x2="617.556" y2="597.78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4CA4F4"/>
+      <stop offset="1" stop-color="#F28CB1"/>
+    </linearGradient>
+  </defs>
+</svg>

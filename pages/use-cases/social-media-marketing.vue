@@ -1,7 +1,3 @@
-<template>
-  <PageUseCases :headerPanel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :whyChoose="whyChoose" :footerPanel="footerPanel" />
-</template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: $t('安全扩展社交媒体营销规模 | RoxyBrowser'),
@@ -14,7 +10,7 @@ const headerPanel = computed(() => ({
   title: $t('用指纹浏览器，安全高效扩大社媒营销影响力'),
   desc: $t('RoxyBrowser 让社交媒体营销团队轻松管理多个账号、自动化执行任务，不被平台风控系统识别。\n不管你是做广告投放、私信拓客，还是增长运营，都能安全扩量、不留痕迹。'),
   coverImage: '/use-cases/social-media-marketing/0.png',
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce = computed(() => ({
@@ -23,36 +19,36 @@ const introduce = computed(() => ({
   items: [
     {
       title: $t('安全管理多个社媒账号'),
-      desc: $t('每个账号都在独立浏览器环境中运行，配有独立指纹、cookie 和代理设置。\n\n不论你运营 10 个还是 1000 个账号，RoxyBrowser 都能让它们互不关联，不被平台串号识别。'),
+      desc: $t('每个账号都在独立浏览器环境中运行，配有独立指纹、cookie 和指定代理 IP 设置。\n\n不论你运营 10 个还是 1000 个账号，RoxyBrowser 都能让它们互不关联，不被平台串号识别。'),
       image: '/use-cases/social-media-marketing/1.png',
     },
     {
       title: $t('每个账号都是一个“真实用户”'),
-      desc: $t('你可以自定义浏览器指纹、时区、系统设置等，加上住宅或移动代理，模拟真实设备访问社交平台。\n\n每个账号都具备完整“人设”，不再轻易被平台判定为机器操作。'),
+      desc: $t('你可以自定义浏览器指纹、时区、系统设置等，加上住宅或移动代理 IP，模拟真实设备访问社交平台。\n\n每个账号都具备完整“人设”，不再轻易被平台判定为机器操作。'),
       image: '/use-cases/social-media-marketing/2.png',
-      wrapperClass: 'bg-white'
+      wrapperClass: 'bg-white',
     },
     {
       title: $t('跨地区运营，轻松做本地化'),
       desc: $t('扩展到新市场，需要切换不同 IP、时区和语言环境？RoxyBrowser 支持模拟全球任意地区的访问环境，\n\n帮你运营本地账号、测试内容投放，而不会触发平台的地理风控。'),
       image: '/use-cases/social-media-marketing/3.png',
       wrapperClass: 'bg-[linear-gradient(261deg,_#373749_13.82%,_#2C2C3F_86.18%)]',
-      textColor: '#fff'
+      textColor: '#fff',
     },
     {
       title: $t('自动化执行，不担心被封号 '),
       desc: $t('发帖、点赞、数据抓取这些重复动作，不用再手动做。\n\nRoxyBrowser 支持 Puppeteer、Selenium 等自动化工具，让你一边扩量，一边保持“真人”行为轨迹，降低封号风险。'),
       image: '/use-cases/social-media-marketing/4.png',
-      wrapperClass: 'bg-white'
-    }
+      wrapperClass: 'bg-white',
+    },
   ],
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce2 = computed(() => ({
   title: $t('高效扩展社交媒体营销，从 RoxyBrowser 开始'),
   desc: $t('启动投放、管理账号、扩大受众，全都更轻松。\nRoxyBrowser 给你的营销团队提供安全、干净的操作环境，放心跑量，不被平台干扰。'),
-  primaryColor: primaryColor,
+  primaryColor,
   image: '/use-cases/social-media-marketing/5.png',
   alt: $t('启动投放、管理账号、扩大受众，全都更轻松。\nRoxyBrowser 给你的营销团队提供安全、干净的操作环境，放心跑量，不被平台干扰。'),
 }))
@@ -77,7 +73,7 @@ const faq = computed(() => ({
       title: $t('一个账号多人用，协作方便但容易触发风控？ '),
       desc: $t('团队成员共同运营一个账号，频繁更换 IP 和设备，很容易被平台当成“异常登录”。RoxyBrowser 提供浏览器环境共享功能，同一个账号环境可以多人协作、权限分明，不易被风控识别，大大降低封号风险。'),
     },
-  ]
+  ],
 }))
 
 const whyChoose = computed(() => ({
@@ -91,7 +87,7 @@ const whyChoose = computed(() => ({
     },
     {
       title: $t('多账号隔离运行，防止关联封号'),
-      desc: $t('同一设备频繁切换账号容易触发风控。RoxyBrowser 为每个账号建立独立环境，有效防止 Facebook、Instagram 等平台的账号关联。'),
+      desc: $t('同一设备频繁切换账号容易触发风控。RoxyBrowser 为每个账号建立独立环境，有效防止各大社媒平台的账号关联。'),
       icon: '/use-cases/profile.svg',
     },
     {
@@ -111,15 +107,19 @@ const whyChoose = computed(() => ({
     },
     {
       title: $t('流畅运行多账号，适合矩阵增长'),
-      desc: $t('无论是几十个账号还是上百个账号同时在线，RoxyBrowser 都能保持稳定、高性能运行，适合做规模化社媒矩阵、裂变增长与全渠道投放。'),
+      desc: $t('即便是上百个账号同时在线，RoxyBrowser 都能保持稳定、高性能运行，适合做规模化社媒矩阵、裂变增长与全渠道投放。'),
       icon: '/use-cases/security.svg',
     },
-  ]
+  ],
 }))
 
 const footerPanel = computed(() => ({
   title: $t('从今天开始，提升社媒运营的效率和安全性'),
   desc: $t('从发帖排程、广告测试到账号管理，一站式完成。\n用 RoxyBrowser，打造安全、高效、可扩展的社交媒体运营体系。'),
-  alt: $t('从发帖排程、广告测试到账号管理，一站式完成。\n用 RoxyBrowser，打造安全、高效、可扩展的社交媒体运营体系。')
+  alt: $t('从发帖排程、广告测试到账号管理，一站式完成。\n用 RoxyBrowser，打造安全、高效、可扩展的社交媒体运营体系。'),
 }))
 </script>
+
+<template>
+  <PageUseCases :header-panel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :why-choose="whyChoose" :footer-panel="footerPanel" />
+</template>

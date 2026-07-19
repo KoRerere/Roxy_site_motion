@@ -1,7 +1,7 @@
 import { usePreferredDark } from '@vueuse/core'
 
-const mode = ref('light')
-export const useTheme = () => {
+export function useTheme() {
+  const mode = ref('light')
   const isDark = usePreferredDark()
 
   const toggle = () => {
@@ -13,24 +13,20 @@ export const useTheme = () => {
   watch(isDark, (value) => {
     if (value) {
       mode.value = 'dark'
-    } else {
+    }
+    else {
       mode.value = 'light'
     }
 
     if (import.meta.client) {
-      // toggle()
       document.documentElement.setAttribute('data-theme', isDark.value ? 'dark' : 'light')
       document.documentElement.classList.toggle('dark', isDark.value)
     }
   }, { immediate: true })
 
-  // watch(() => route.path, () => {
-  //   if (import.meta.client) document.documentElement.setAttribute('data-path', route.path)
-  // }, { immediate: true })
-
   return {
-    isDark: computed(() => mode.value === 'dark'),
-    isLight: computed(() => mode.value === 'light'),
+    isDark,
+    isLight: !isDark.value,
     mode,
     toggle,
   }

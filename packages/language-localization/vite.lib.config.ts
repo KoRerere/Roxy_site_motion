@@ -12,7 +12,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     lib: {
-      // entry: [resolve(packageDir, 'src/index.ts'), resolve(packageDir, 'src/bin/index.ts')],
+      // entry: [resolve(__dirname, 'src/index.ts'), resolve(__dirname, 'src/bin/index.ts')],
       entry: {
         'vite/index': resolve(packageDir, 'src/index.ts'),
         'bin/index': resolve(packageDir, 'src/bin/index.ts'),
@@ -31,15 +31,9 @@ export default defineConfig({
       ],
     },
   },
-  plugins: [
-    dts({
-      rollupTypes: true,
-      tsconfigPath: resolve(packageDir, 'tsconfig.app.json'),
-      include: [
-        'src/index.ts',
-        'src/bin/**/*.ts',
-        'src/utils/**/*.ts',
-      ],
-    }),
-  ],
+  plugins: [dts({
+    rollupTypes: true,
+    tsconfigPath: resolve(packageDir, 'tsconfig.app.json'),
+    include: ['src/index.ts', 'src/bin/**/*.ts', 'src/utils/**/*.ts'],
+  })],
 })

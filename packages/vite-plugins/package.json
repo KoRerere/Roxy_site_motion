@@ -1,5 +1,6 @@
 {
   "name": "@roxy/vite-plugins",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "author": "",

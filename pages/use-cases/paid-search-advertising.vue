@@ -1,7 +1,3 @@
-<template>
-  <PageUseCases :headerPanel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :whyChoose="whyChoose" :footerPanel="footerPanel" />
-</template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: $t('智能管理PPC与SEM广告活动 | RoxyBrowser'),
@@ -14,7 +10,7 @@ const headerPanel = computed(() => ({
   title: $t('用指纹浏览器，稳定提升付费广告投放效率'),
   desc: $t('指纹浏览器为广告投手打造隔离、安全的测试环境，避免账户被封、数据异常，让广告更高效、更可控。'),
   coverImage: '/use-cases/sem-ppc/0.png',
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce = computed(() => ({
@@ -28,31 +24,31 @@ const introduce = computed(() => ({
     },
     {
       title: $t('多账户投放，一键“防关联”'),
-      desc: $t('一个电脑管多个广告账户，最怕被平台识别成同一个人。\n\nRoxyBrowser 为每个账户生成独立浏览环境，数据隔离，不被串号。'),
+      desc: $t('一个电脑管多个广告账户，最怕被平台识别成同一个人。\n\nRoxyBrowser 为每个账户生成独立的浏览环境，安全隔离数据，保护每个账号不被关联。'),
       image: '/use-cases/sem-ppc/2.png',
-      wrapperClass: 'bg-white'
+      wrapperClass: 'bg-white',
     },
     {
       title: $t('跨区域投放，轻松验证本地效果'),
-      desc: $t('投放全球市场，想知道不同国家/城市是否真看到广告？\n\nRoxyBrowser 支持任意地理位置模拟，帮你从“当地用户”的视角确认投放效果。'),
+      desc: $t('投放全球市场，想知道不同国家/城市是否真看到广告？\n\nRoxyBrowser 通过代理 IP 模拟任意地理位置，帮你从“当地用户”的视角确认投放效果。'),
       image: '/use-cases/sem-ppc/3.png',
       wrapperClass: 'bg-[linear-gradient(261deg,_#373749_13.82%,_#2C2C3F_86.18%)]',
-      textColor: '#fff'
+      textColor: '#fff',
     },
     {
       title: $t('悄悄查看竞品广告，不被察觉'),
       desc: $t('频繁查看竞争对手广告，容易被追踪、触发限制？\n\nRoxyBrowser 让你匿名访问广告内容、落地页和漏斗流程，像隐身一样做竞品调研。'),
       image: '/use-cases/sem-ppc/4.png',
-      wrapperClass: 'bg-white'
-    }
+      wrapperClass: 'bg-white',
+    },
   ],
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce2 = computed(() => ({
   title: $t('用 RoxyBrowser，跑广告更高效'),
   desc: $t('测试创意、切换地区、管理多个账户，全部在独立干净的浏览器环境中完成。为投手量身打造的专属浏览器，效率、安全两不误。'),
-  primaryColor: primaryColor,
+  primaryColor,
   image: '/use-cases/sem-ppc/5.png',
   alt: $t('测试创意、切换地区、管理多个账户，全部在独立干净的浏览器环境中完成。为投手量身打造的专属浏览器，效率、安全两不误。'),
 }))
@@ -77,7 +73,7 @@ const faq = computed(() => ({
       title: $t('想验证某一地区定向广告在目标市场是否真的命中'),
       desc: $t('你人可能在国内或海外总部，但广告要打到日本、澳洲或东南亚市场，怎么确认当地人能看到？RoxyBrowser 能模拟真实的当地用户，从设备、语言、IP 到地理位置，真实还原用户体验，让你在办公室就能测试目标市场的广告投放情况。'),
     },
-  ]
+  ],
 }))
 
 const whyChoose = computed(() => ({
@@ -111,10 +107,10 @@ const whyChoose = computed(() => ({
     },
     {
       title: $t('高性能浏览体验，不卡顿不掉线'),
-      desc: $t('无论你同时开几个窗口，RoxyBrowser 都能稳定运行，不卡顿、不掉线，特别适合同时进行 A/B 测试、素材审查、账户检查等密集操作。'),
+      desc: $t('无论你同时开几个窗口，RoxyBrowser 都能稳定运行，不卡顿、不掉线，适合同时进行 A/B 测试、素材审查、账户检查等密集操作。'),
       icon: '/use-cases/security.svg',
     },
-  ]
+  ],
 }))
 
 const footerPanel = computed(() => ({
@@ -123,3 +119,7 @@ const footerPanel = computed(() => ({
   alt: $t('精准测试、账号安全、操作高效，一切都在你的掌控之中。'),
 }))
 </script>
+
+<template>
+  <PageUseCases :header-panel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :why-choose="whyChoose" :footer-panel="footerPanel" />
+</template>

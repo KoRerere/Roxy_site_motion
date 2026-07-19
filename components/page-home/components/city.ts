@@ -1,3 +1,12 @@
+export interface ArcInput {
+  order: number
+  startLat: number
+  startLng: number
+  endLat: number
+  endLng: number
+  color?: string
+}
+
 const colors = [
   "#33A9FF",
   "#9A7AF9",
@@ -8,7 +17,7 @@ const colors = [
   "#EBA93F",
 ]
 
-const cityConnections = [
+const CITY_CONNECTIONS_BASE = [
   {
     order: 1,
     startLat: 39.9042, // 北京
@@ -711,13 +720,20 @@ const cityConnections = [
     endLat: 26.0722, // 厦门
     endLng: 119.2965,
   },
-];
+]
 
-export function rangRandom(min: number, max: number): number {return Math.floor(Math.random() * (max - min + 1) + min)}
+export function rangRandom(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
-cityConnections.forEach((item, index) => {
-  item['color'] = colors[rangRandom(0, colors.length - 1)];
-  item['arcAlt'] = 0.25;
-});
+let cityConnectionsCache: ArcInput[] | null = null
 
-export { cityConnections };
+export function getCityConnections(): ArcInput[] {
+  if (cityConnectionsCache)
+    return cityConnectionsCache
+  cityConnectionsCache = CITY_CONNECTIONS_BASE.map(item => ({
+    ...item,
+    color: colors[rangRandom(0, colors.length - 1)],
+  }))
+  return cityConnectionsCache
+}

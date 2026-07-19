@@ -1,82 +1,11 @@
-<template>
-  <div class="bg-[#050F1E] text-white">
-    <Container
-      class="min-h-100vh xl:max-h-950px xl:h-100vh grid grid-cols-1 xl:grid-cols-2 items-center gap-10"
-    >
-      <div class="col-span-1 mt-5 xl:mt-0 flex justify-center">
-        <ClientOnly>
-          <FingerprintTechnologyCanvas
-            :duch="duch"
-            :mainColor="'#41B1FF'"
-            :otherColor="'#485F7F'"
-            :changeColor="'#425166'"
-            :fontSize="12"
-            :lineHeight="14"
-            :changeNumber="150"
-            :changeSpeed="80"
-          />
-        </ClientOnly>
-      </div>
-      <div class="col-span-1 flex justify-center">
-        <div class="flex flex-col items-center md:items-start md:w-80% xl:w-auto">
-          <div
-            class="flex justify-center md:justify-start items-center min-h-10 w-full"
-            ref="textContainer"
-          >
-            <ClientOnly>
-              <template v-if="showText">
-                <HyperMotionText
-                  tag="h2"
-                  class="text-4 md:text-6 font-400 text-chivo-mono"
-                  :text="$t('何以信赖 RoxyBrowser?')"
-                  :typingSpeed="50"
-                  randomText="!@#$%^&*()_+=1234567890abcdefghijkl"
-                  :randomRefreshSpeed="40"
-                />
-                <Cursor />
-              </template>
-            </ClientOnly>
-          </div>
-          <p class="text-14px md:text-4 mt-4 text-center sm:text-left text-white/60">
-            {{ $t('我们通过多种安全措施保护您的在线数据。') }}
-          </p>
-          <ul class="mt-6 md:mt-4">
-            <li 
-              v-for="item in list" 
-              class="flex flex-col md:flex-row gap-5 md:gap-22px py-6 relative stack-item"
-            >
-              <div class="w-full flex gap-4">
-                <div class="h-25px flex items-center justify-center">
-                  <img src="/home/tech-icon.svg" alt="" class="select-none" draggable="false" />
-                </div>
-                <div class="flex flex-col gap-2px">
-                  <h3 class="text-5 text-nowrap font-400 text-chivo-mono">
-                    {{ item.title }}
-                  </h3>
-                  <p class="text-white/80 text-14px leading-[22.4px]">
-                    {{ item.content }}
-                  </p>
-                </div>
-              </div>
-              <div class="max-w-325px md:max-w-240px pl-25px md:pl-0 flex md:justify-end">
-                <RxResponsiveImage :name='item.img' class="w-full" alt="" />
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </Container>
-  </div>
-</template>
-
 <script setup>
-import HyperMotionText from "./components/HyperMotionText.vue";
-import Cursor from "./components/Cursor.vue";
-import FingerprintTechnologyCanvas from "./components/FingerprintTechnologyCanvas.vue";
-import { ref } from "vue";
-import { useIntersectionObserver } from "@vueuse/core";
+import { useIntersectionObserver } from '@vueuse/core'
+import { ref } from 'vue'
+import Cursor from './components/Cursor.vue'
+import FingerprintTechnologyCanvas from './components/FingerprintTechnologyCanvas.vue'
+import HyperMotionText from './components/HyperMotionText.vue'
 
-const breakpoints = useRxBreakpoints();
+const breakpoints = useRxBreakpoints()
 const mdWidth = breakpoints.smallerOrEqual('md')
 
 const duch = computed(() => {
@@ -124,12 +53,13 @@ const duch = computed(() => {
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,Roxybrowser creates a unique digital identity for each account,,,,,,
+,,,,,,RoxyBrowser creates a unique digital identity for each account,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,`
-  } else {
+  }
+  else {
     return `,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -157,11 +87,11 @@ const duch = computed(() => {
   }
 })
 
-const textContainer = useTemplateRef("textContainer");
-const showText = ref(false);
+const textContainer = useTemplateRef('textContainer')
+const showText = ref(false)
 useIntersectionObserver(textContainer, ([{ isIntersecting }]) => {
-  showText.value = isIntersecting;
-});
+  showText.value = isIntersecting
+})
 
 const { $t } = useRxI18n()
 
@@ -172,113 +102,94 @@ const list = computed(() => {
       content: $t('海量指纹参数供自定义调试，根据业务需求轻松模拟真实环境，为多账号提供完全保障。'),
       // title: 'Account Protection_',
       // content: 'Duis nisi tellus, auctor et cursus id, mollis non neque. Donec vel placerat nisi, vitae molestie ligula. Nam nec metus efficitur, tempor ante at, ornare erat.',
-      img: 'home/tech-item-1'
+      img: 'home/tech-item-1',
     },
     {
-      title: $t('量子级加密传输_'),
+      title: $t('端到端加密传输_'),
       content: $t('采用 AES-256、RSA、SHA-512 等加密协议，实现端到端数据加密隧道。'),
       // title: 'Encryption Transfer_',
       // content: 'Duis nisi tellus, auctor et cursus id, mollis non neque. Donec vel placerat nisi, vitae molestie ligula. Nam nec metus efficitur, tempor ante at, ornare erat.',
-      img: 'home/tech-item-2'
+      img: 'home/tech-item-2',
     },
     {
       title: $t('行业领先匿名技术_'),
       content: $t('内核通过知名指纹检测工具，包括 Fingerprint，CreepJS 等权威站点。'),
       // title: 'Industry-leading Anonymity_',
       // content: 'Duis nisi tellus, auctor et cursus id, mollis non neque. Donec vel placerat nisi, vitae molestie ligula. Nam nec metus efficitur, tempor ante at, ornare erat.',
-      img: 'home/tech-item-3'
-    }
+      img: 'home/tech-item-3',
+    },
   ]
 })
 </script>
 
-<style lang="scss" scoped>
-.tech-container {
-  width: 100%;
-  height: 100vh;
-  background: #050f1e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.description {
-  font-weight: 400;
-  font-size: 20px;
-  color: #ffffff5e;
-}
-
-.content-container {
-  width: 1440px;
-  display: flex;
-  flex-direction: row;
-  flex-direction: flex-start;
-  gap: 48px;
-
-  .ascii-container {
-    width: 50%;
-    height: 100%;
-  }
-}
-
-.stack-item:not(:last-child) {
-  &::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 1px;
-    opacity: 0.2;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 20%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-
-  .stack-left {
-    // width: 60%;
-    // display: flex;
-    // flex-direction: row;
-    // gap: 16px;
-
-    .stack-icon {
-      height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .stack-content {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .caption {
-      color: #fff;
-      font-family: "Chivo Mono";
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 25.6px;
-    }
-
-    .details {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.5;
-    }
-  }
-}
-
-.text-chivo-mono {
-  font-family: 'Chivo Mono';
-}
-</style>
+<template>
+  <div class="tech-container text-white bg-[#050F1E] w-full">
+    <Container
+      class="gap-10 grid grid-cols-1 min-h-100vh items-center xl:grid-cols-2 xl:h-100vh xl:max-h-950px"
+    >
+      <div class="mt-5 flex col-span-1 justify-center xl:mt-0">
+        <ClientOnly>
+          <FingerprintTechnologyCanvas
+            :duch="duch"
+            main-color="#41B1FF"
+            other-color="#485F7F"
+            change-color="#425166"
+            :font-size="12"
+            :line-height="14"
+            :change-number="150"
+            :change-speed="80"
+          />
+        </ClientOnly>
+      </div>
+      <div class="flex col-span-1 justify-start">
+        <div class="flex flex-col items-center md:w-80% xl:w-auto md:items-start">
+          <div
+            ref="textContainer"
+            class="flex min-h-10 w-full items-center justify-center md:justify-start"
+          >
+            <ClientOnly>
+              <template v-if="showText">
+                <HyperMotionText
+                  tag="h2"
+                  class="text-JetBrains-mono text-4 font-400 md:text-6 en-US:font-[JetBrains_Mono] ru-RU:font-[Montserrat]"
+                  :text="$t('何以信赖 RoxyBrowser?')"
+                  :typing-speed="50"
+                  random-text="!@#$%^&*()_+=1234567890abcdefghijkl"
+                  :random-refresh-speed="40"
+                />
+                <Cursor />
+              </template>
+            </ClientOnly>
+          </div>
+          <p class="description text-[20px] text-[#ffffff5e] font-400 mt-4 text-center sm:text-left">
+            {{ $t('我们通过多种安全措施保护您的在线数据。') }}
+          </p>
+          <ul class="mt-6 md:mt-4">
+            <li
+              v-for="item in list"
+              :key="item.title"
+              class="stack-item py-6 flex flex-col gap-5 relative after:bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_20%,rgba(255,255,255,0)_100%)] after:opacity-20 md:flex-row md:gap-22px after:h-px after:w-full after:block after:pointer-events-none after:content-[''] after:bottom-0 after:left-0 after:absolute last:after:hidden"
+            >
+              <div class="stack-left flex gap-4 w-full">
+                <div class="stack-icon flex h-25px items-center justify-center">
+                  <img src="/home/tech-icon.svg" alt="" class="max-w-unset select-none" draggable="false">
+                </div>
+                <div class="stack-content flex flex-col gap-3">
+                  <h3 class="caption text-5 text-white leading-[25.6px] font-400 not-italic en-US:font-[JetBrains_Mono] ru-RU:font-[Montserrat]">
+                    {{ item.title }}
+                  </h3>
+                  <p class="details text-14px text-white/60 leading-normal font-400 not-italic">
+                    {{ item.content }}
+                  </p>
+                </div>
+              </div>
+              <div class="pl-25px flex shrink-0 w-325px md:pl-0 md:w-240px md:justify-end">
+                <RxResponsiveImage :name="item.img" class="w-full" alt="" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </div>
+</template>

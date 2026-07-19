@@ -94,7 +94,7 @@ function handleCopy() {
     </el-card>
     <el-card header="译文" shadow="never">
       <el-input v-model="translateResult" show-word-limit type="textarea" placeholder="Enter translation here" />
-      <el-button type="primary" class="mt-[12px] ml-[86%]" :loading="saveLoading" :disabled="disabledSaveBtn"
+      <el-button type="primary" class="mt-3 ml-[86%]" :loading="saveLoading" :disabled="disabledSaveBtn"
         @click="saveTranslateResult">
         保存
       </el-button>

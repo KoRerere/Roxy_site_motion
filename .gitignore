@@ -5,7 +5,7 @@
 .nitro
 .cache
 dist
-
+.env.deploy
 # Node dependencies
 node_modules
 
@@ -17,3 +17,37 @@ logs
 .DS_Store
 .fleet
 .idea
+.cursor
+
+# AI agent skill dirs (from npx skills add - 仅保留 .cursor 使用，其余勿提交)
+.agents
+.adal
+.agent
+.augment
+.claude
+.cline
+.codebuddy
+.commandcode
+.continue
+.crush
+.factory
+.goose
+.junie
+.kilocode
+.kiro
+.kode
+.mcpjam
+.mux
+.neovate
+.openhands
+.pi
+.pochi
+.qoder
+.qwen
+.roo
+.trae
+.vibe
+.windsurf
+.zencoder
+.pnpm-store
+.env.deploy

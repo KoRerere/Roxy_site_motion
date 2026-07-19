@@ -1,13 +1,7 @@
 <script setup>
-import Matter from 'matter-js'
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
-const WALL_CATEGORY = 0x0001
-const TOP_WALL_CATEGORY = 0x0002
-const BADGE_CATEGORY = 0x0004
-const ENTRY_BADGE_MASK = WALL_CATEGORY | BADGE_CATEGORY
-const ACTIVE_BADGE_MASK = ENTRY_BADGE_MASK | TOP_WALL_CATEGORY
-const CARD_CORNER_RADIUS = 32
+const emit = defineEmits(['animationState'])
 
 const roxyVersions = [
   { label: 'Firefox 147', icon: '/home/kernel-sync/firefox.svg', tone: 'firefox', delay: 3160, startX: 0.35, angle: 0.14, drift: -0.22, spin: 0.005, density: 0.0017, friction: 0.20, restitution: 0.13, collisionPaddingX: 0.75, collisionPaddingY: 0.75 },
@@ -46,17 +40,13 @@ const roxyBadgeElements = []
 const legacyBadgeElements = []
 
 let observer
-let resizeObserver
-let animationFrame
-let previousFrameTime = 0
-let physicsAccumulator = 0
-let pendingReleaseCount = 0
-let settledFrameCount = 0
+let physicsWorker
+let animationActive = false
+let animationGeneration = 0
 const releaseTimers = []
-const scenes = []
-const FIXED_TIMESTEP = 1000 / 60
-const MAX_FRAME_DELTA = 1000 / 30
-const SETTLED_FRAME_LIMIT = 12
+const badgeAnimations = []
+const measurements = []
+const badgeElements = []
 
 function setBadgeElement(collection, element, index) {
   if (element) {
@@ -64,525 +54,108 @@ function setBadgeElement(collection, element, index) {
   }
 }
 
-function createSceneWalls(width, height, sideInset, bottomInset) {
-  const { Bodies } = Matter
-  const wallThickness = 80
-  const wallHeight = height * 4
-  const cornerRadius = CARD_CORNER_RADIUS
-  const arcRadius = cornerRadius - Math.max(sideInset, bottomInset)
-  const arcSteps = 8
-  const floorY = height - bottomInset + wallThickness / 2
-  const floorOptions = {
-    isStatic: true,
-    collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
-    friction: 0.72,
-    restitution: 0,
-  }
-  const createCornerArc = (centerX, centerY, startAngle, category) => {
-    const angleStep = (Math.PI / 2) / arcSteps
-    const segmentLength = arcRadius * angleStep * 1.8 + 4
-
-    return Array.from({ length: arcSteps }, (_, index) => {
-      const angle = startAngle + (index + 0.5) * angleStep
-      const normalX = Math.cos(angle)
-      const normalY = Math.sin(angle)
-      const boundaryX = centerX + arcRadius * normalX
-      const boundaryY = centerY + arcRadius * normalY
-
-      return Bodies.rectangle(
-        boundaryX + normalX * wallThickness / 2,
-        boundaryY + normalY * wallThickness / 2,
-        segmentLength,
-        wallThickness,
-        {
-          isStatic: true,
-          angle: angle + Math.PI / 2,
-          collisionFilter: { category, mask: BADGE_CATEGORY },
-          friction: 0.015,
-          restitution: 0,
-        },
-      )
-    })
-  }
-
-  const cornerWalls = [
-    ...createCornerArc(cornerRadius, cornerRadius, Math.PI, TOP_WALL_CATEGORY),
-    ...createCornerArc(width - cornerRadius, cornerRadius, Math.PI * 1.5, TOP_WALL_CATEGORY),
-    ...createCornerArc(width - cornerRadius, height - cornerRadius, 0, WALL_CATEGORY),
-    ...createCornerArc(cornerRadius, height - cornerRadius, Math.PI / 2, WALL_CATEGORY),
-  ]
-
-  return [
-    Bodies.rectangle(width / 2, sideInset - wallThickness / 2, width, wallThickness, {
-      isStatic: true,
-      collisionFilter: { category: TOP_WALL_CATEGORY, mask: BADGE_CATEGORY },
-      friction: 0.015,
-      restitution: 0,
-    }),
-    Bodies.rectangle(sideInset - wallThickness / 2, height - wallHeight / 2, wallThickness, wallHeight, {
-      isStatic: true,
-      collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
-      friction: 0.015,
-    }),
-    Bodies.rectangle(width - sideInset + wallThickness / 2, height - wallHeight / 2, wallThickness, wallHeight, {
-      isStatic: true,
-      collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
-      friction: 0.015,
-    }),
-    Bodies.rectangle(width / 2, floorY, width, wallThickness, floorOptions),
-    ...cornerWalls,
-  ]
+function getBadgeElements() {
+  return [...roxyBadgeElements, ...legacyBadgeElements]
 }
 
-function createScene(card, elements, versions, gravity, irregularFloor = false) {
-  if (!card || elements.length !== versions.length) {
-    return null
-  }
+function getTransform(positionX, positionY, angle, measurement) {
+  const x = positionX - measurement.visualWidth / 2
+  const y = positionY - measurement.visualHeight / 2
 
-  const { Body, Composite, Engine, Events } = Matter
-  const width = card.clientWidth
-  const height = card.clientHeight
-  const measurements = elements.map(element => ({
-    visualHeight: element.offsetHeight,
-    visualWidth: element.offsetWidth,
-  }))
-  const sideInset = irregularFloor ? 0.75 : 1.2
-  const bottomInset = irregularFloor ? 0.75 : 1.2
-  const engine = Engine.create({ enableSleeping: true })
-
-  engine.gravity.y = gravity
-  engine.gravity.scale = 0.001
-  engine.positionIterations = 9
-  engine.velocityIterations = 7
-
-  const walls = createSceneWalls(width, height, sideInset, bottomInset)
-
-  Composite.add(engine.world, walls)
-
-  const collisionDeflection = irregularFloor
-    ? { angularCap: 0.12, angularStep: 0.05, lateralForce: 0.000018, maxCount: 2 }
-    : { angularCap: 0.046, angularStep: 0.019, lateralForce: 0.0000095, maxCount: 3 }
-  const pendingEntryCollisions = new Map()
-
-  const applyCollisionInertia = (pair) => {
-    if (!irregularFloor) {
-      const lowerBody = pair.bodyA.position.y > pair.bodyB.position.y ? pair.bodyA : pair.bodyB
-      const seekCount = lowerBody.plugin.kernelSyncSeekCount ?? 0
-
-      if (seekCount < 2) {
-        const seekDirection = (lowerBody.id + pair.id.length + seekCount) % 2 === 0 ? 1 : -1
-
-        lowerBody.plugin.kernelSyncSeekCount = seekCount + 1
-        Body.applyForce(lowerBody, lowerBody.position, {
-          x: seekDirection * lowerBody.mass * 0.0000035,
-          y: 0,
-        })
-      }
-    }
-
-    for (const body of [pair.bodyA, pair.bodyB]) {
-      const deflectionCount = body.plugin.kernelSyncDeflectionCount ?? 0
-
-      if (deflectionCount >= collisionDeflection.maxCount) {
-        continue
-      }
-
-      body.plugin.kernelSyncDeflectionCount = deflectionCount + 1
-      const strength = deflectionCount === 0 ? 1 : 0.45
-      const direction = body.id % 2 === 0 ? 1 : -1
-      const angularVelocity = Math.max(
-        -collisionDeflection.angularCap,
-        Math.min(collisionDeflection.angularCap, body.angularVelocity + direction * collisionDeflection.angularStep * strength),
-      )
-
-      Body.setAngularVelocity(body, angularVelocity)
-      Body.applyForce(body, body.position, {
-        x: direction * body.mass * collisionDeflection.lateralForce * strength,
-        y: 0,
-      })
-    }
-  }
-
-  Events.on(engine, 'collisionStart', (event) => {
-    for (const pair of event.pairs) {
-      if (pair.bodyA.isStatic || pair.bodyB.isStatic) {
-        continue
-      }
-
-      const bothBodiesEntered = pair.bodyA.plugin.kernelSyncHasEntered && pair.bodyB.plugin.kernelSyncHasEntered
-
-      if (!bothBodiesEntered) {
-        pendingEntryCollisions.set(pair.id, {
-          bodyA: pair.bodyA,
-          bodyB: pair.bodyB,
-          id: pair.id,
-        })
-        continue
-      }
-
-      applyCollisionInertia(pair)
-    }
-  })
-
-  const flushPendingEntryCollisions = () => {
-    for (const [pairId, pair] of pendingEntryCollisions) {
-      const bothBodiesEntered = pair.bodyA.plugin.kernelSyncHasEntered && pair.bodyB.plugin.kernelSyncHasEntered
-
-      if (bothBodiesEntered) {
-        pendingEntryCollisions.delete(pairId)
-        applyCollisionInertia(pair)
-      }
-    }
-  }
-
-  Events.on(engine, 'collisionEnd', (event) => {
-    for (const pair of event.pairs) {
-      pendingEntryCollisions.delete(pair.id)
-    }
-  })
-
-  return {
-    card,
-    elements,
-    engine,
-    height,
-    versions,
-    width,
-    bodies: [],
-    bottomInset,
-    cohesionStrength: irregularFloor ? 0.00018 : 0.00036,
-    frictionAir: irregularFloor ? 0.0038 : 0.0045,
-    flushPendingEntryCollisions,
-    irregularFloor,
-    measurements,
-    preparedBadges: [],
-    sideInset,
-    sleepThreshold: irregularFloor ? 65 : 50,
-    walls,
-  }
+  return `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${angle.toFixed(4)}rad)`
 }
 
-function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.card.clientHeight) {
-  if (Math.abs(width - scene.width) < 0.5 && Math.abs(height - scene.height) < 0.5) {
+function finishAnimation() {
+  if (!animationActive) {
     return
   }
 
-  for (const wall of scene.walls) {
-    Matter.Composite.remove(scene.engine.world, wall)
-  }
-  scene.walls = createSceneWalls(width, height, scene.sideInset, scene.bottomInset)
-  Matter.Composite.add(scene.engine.world, scene.walls)
-  scene.width = width
-  scene.height = height
+  animationActive = false
+  emit('animationState', false)
+}
 
-  for (const item of scene.bodies) {
-    let shiftX = 0
-    let shiftY = 0
+function applyPhysicsState(state) {
+  for (let index = 0; index < badgeElements.length; index += 1) {
+    const element = badgeElements[index]
+    const measurement = measurements[index]
 
-    if (item.body.bounds.min.x < scene.sideInset) {
-      shiftX = scene.sideInset - item.body.bounds.min.x
-    }
-    else if (item.body.bounds.max.x > width - scene.sideInset) {
-      shiftX = width - scene.sideInset - item.body.bounds.max.x
-    }
-
-    if (item.body.bounds.max.y > height - scene.bottomInset) {
-      shiftY = height - scene.bottomInset - item.body.bounds.max.y
-    }
-
-    if (shiftX || shiftY) {
-      Matter.Body.setPosition(item.body, {
-        x: item.body.position.x + shiftX,
-        y: item.body.position.y + shiftY,
-      })
-      item.previousPositionX = item.body.position.x
-      item.previousPositionY = item.body.position.y
-    }
-  }
-
-  for (const item of scene.preparedBadges) {
-    if (!item || item.isReleased) {
+    if (!element || !measurement) {
       continue
     }
 
-    const { x, y } = getBadgeSpawn(scene, item.bodyWidth, item.bodyHeight, item.version)
+    const offset = index * 5
+    const positionX = state[offset]
+    const positionY = state[offset + 1]
+    const angle = state[offset + 2]
+    const isReleased = state[offset + 3] === 1
+    element.style.transform = getTransform(positionX, positionY, angle, measurement)
 
-    Matter.Body.setPosition(item.body, { x, y })
-    item.previousPositionX = x
-    item.previousPositionY = y
-    item.element.style.transform = `translate3d(${x - item.visualWidth / 2}px, ${y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
-  }
-}
-
-function getBadgeSpawn(scene, bodyWidth, bodyHeight, version) {
-  const angle = Math.abs(version.angle ?? 0)
-  const rotatedHalfWidth = Math.abs(Math.cos(angle)) * bodyWidth / 2 + Math.abs(Math.sin(angle)) * bodyHeight / 2
-  const rotatedHalfHeight = Math.abs(Math.sin(angle)) * bodyWidth / 2 + Math.abs(Math.cos(angle)) * bodyHeight / 2
-  const entryClearance = scene.irregularFloor ? CARD_CORNER_RADIUS : 0
-  const horizontalHalfExtent = scene.irregularFloor ? rotatedHalfWidth : bodyWidth / 2
-  const minX = scene.sideInset + horizontalHalfExtent + entryClearance
-  const maxX = scene.width - scene.sideInset - horizontalHalfExtent - entryClearance
-  const x = Math.min(maxX, Math.max(minX, scene.width * version.startX))
-  const spawnGap = scene.irregularFloor ? 8 : 52
-  const verticalHalfExtent = scene.irregularFloor ? rotatedHalfHeight : bodyHeight / 2
-  const y = -verticalHalfExtent - spawnGap
-
-  return { x, y }
-}
-
-function prepareBadge(scene, index) {
-  if (scene.preparedBadges[index]) {
-    return scene.preparedBadges[index]
-  }
-
-  const { Body, Bodies } = Matter
-  const element = scene.elements[index]
-  const version = scene.versions[index]
-  const measurement = scene.measurements[index]
-
-  if (!element || !version || !measurement) {
-    return null
-  }
-
-  const { visualHeight, visualWidth } = measurement
-  const defaultCollisionPadding = 0
-  const bodyWidth = visualWidth + (version.collisionPaddingX ?? defaultCollisionPadding) * 2
-  const bodyHeight = visualHeight + (version.collisionPaddingY ?? defaultCollisionPadding) * 2
-  const { x, y } = getBadgeSpawn(scene, bodyWidth, bodyHeight, version)
-  const body = Bodies.rectangle(x, y, bodyWidth, bodyHeight, {
-    angle: version.angle,
-    collisionFilter: {
-      category: BADGE_CATEGORY,
-      mask: scene.irregularFloor ? WALL_CATEGORY : ENTRY_BADGE_MASK,
-    },
-    density: version.density ?? 0.0016,
-    friction: (version.friction ?? 0.18) * (scene.irregularFloor ? 1 : 0.62),
-    frictionAir: scene.frictionAir,
-    frictionStatic: (version.frictionStatic ?? 0.45) * (scene.irregularFloor ? 1 : 0.42),
-    restitution: scene.irregularFloor ? (version.restitution ?? 0.14) : 0,
-    sleepThreshold: scene.sleepThreshold,
-    slop: 0.01,
-    chamfer: {
-      radius: Math.max(2, bodyHeight / 2 - 1),
-      quality: 10,
-      qualityMax: 12,
-      qualityMin: 8,
-    },
-  })
-
-  Body.setAngularVelocity(body, version.spin ?? version.angle * 0.012)
-  body.plugin.kernelSyncHasEntered = false
-  Body.setVelocity(body, {
-    x: version.drift ?? (version.startX - 0.5) * 0.55,
-    y: scene.irregularFloor ? 0.05 : 0.35,
-  })
-  const item = {
-    body,
-    bodyHeight,
-    bodyWidth,
-    element,
-    gravityScale: version.gravityScale ?? 1,
-    hasEntered: false,
-    isReleased: false,
-    isComposited: true,
-    lastTransform: '',
-    previousAngle: body.angle,
-    previousPositionX: body.position.x,
-    previousPositionY: body.position.y,
-    releasedAt: 0,
-    version,
-    visualHeight,
-    visualWidth,
-  }
-
-  scene.preparedBadges[index] = item
-  element.style.transform = `translate3d(${x - visualWidth / 2}px, ${y - visualHeight / 2}px, 0) rotate(${body.angle}rad)`
-
-  return item
-}
-
-function prewarmBadge(scene, index) {
-  const item = prepareBadge(scene, index)
-
-  if (item) {
-    item.element.style.willChange = 'transform, opacity'
-  }
-}
-
-function positionBadgeForRelease(scene, item) {
-  const { Body, Bounds } = Matter
-  const spawnPosition = getBadgeSpawn(scene, item.bodyWidth, item.bodyHeight, item.version)
-
-  Body.setPosition(item.body, spawnPosition)
-
-  if (!scene.irregularFloor) {
-    for (let attempt = 0; attempt < scene.bodies.length; attempt += 1) {
-      const overlappingItems = scene.bodies.filter(activeItem => Bounds.overlaps(item.body.bounds, activeItem.body.bounds))
-
-      if (!overlappingItems.length) {
-        break
-      }
-
-      const nearestOpenY = Math.min(...overlappingItems.map(activeItem => activeItem.body.bounds.min.y)) - 4
-      const overlapDepth = item.body.bounds.max.y - nearestOpenY
-
-      Body.translate(item.body, { x: 0, y: -overlapDepth })
+    if (isReleased) {
+      element.classList.add('is-released')
     }
-  }
 
-  item.element.style.transform = `translate3d(${item.body.position.x - item.visualWidth / 2}px, ${item.body.position.y - item.visualHeight / 2}px, 0) rotate(${item.body.angle}rad)`
-  item.previousAngle = item.body.angle
-  item.previousPositionX = item.body.position.x
-  item.previousPositionY = item.body.position.y
+    element.style.willChange = 'auto'
+  }
 }
 
-function releaseBadge(scene, index) {
-  const item = prepareBadge(scene, index)
+function playTimeline({ frameCount, itemCount, timeline, timestep }) {
+  const generation = animationGeneration
 
-  if (!item || item.isReleased) {
+  if (itemCount !== badgeElements.length || frameCount < 2) {
+    finishAnimation()
     return
   }
 
-  positionBadgeForRelease(scene, item)
-  item.isReleased = true
-  item.releasedAt = scene.engine.timing.timestamp
-  Matter.Composite.add(scene.engine.world, item.body)
-  scene.bodies.push(item)
-  item.element.classList.add('is-released')
-}
+  const duration = (frameCount - 1) * timestep
+  const versions = [...roxyVersions, ...legacyVersions]
 
-function renderScene(scene, interpolation = 1) {
-  for (const item of scene.bodies) {
-    const { body } = item
-    const positionX = item.previousPositionX + (body.position.x - item.previousPositionX) * interpolation
-    const positionY = item.previousPositionY + (body.position.y - item.previousPositionY) * interpolation
-    const angle = item.previousAngle + (body.angle - item.previousAngle) * interpolation
-    const x = positionX - item.visualWidth / 2
-    const y = positionY - item.visualHeight / 2
-    const transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${angle.toFixed(4)}rad)`
+  for (let index = 0; index < itemCount; index += 1) {
+    const element = badgeElements[index]
+    const measurement = measurements[index]
+    const keyframes = Array.from({ length: frameCount })
 
-    if (transform !== item.lastTransform) {
-      item.element.style.transform = transform
-      item.lastTransform = transform
-    }
+    for (let frameIndex = 0; frameIndex < frameCount; frameIndex += 1) {
+      const offset = (frameIndex * itemCount + index) * 3
 
-    const shouldComposite = !body.isSleeping
-
-    if (shouldComposite !== item.isComposited) {
-      item.element.style.willChange = shouldComposite ? 'transform' : 'auto'
-      item.isComposited = shouldComposite
-    }
-  }
-}
-
-function updateScene(scene, delta, shouldRender = true) {
-  let didBodyEnter = false
-
-  for (const item of scene.bodies) {
-    item.previousAngle = item.body.angle
-    item.previousPositionX = item.body.position.x
-    item.previousPositionY = item.body.position.y
-
-    if (!item.hasEntered && item.body.bounds.min.y >= scene.sideInset + 0.75) {
-      item.hasEntered = true
-      item.body.plugin.kernelSyncHasEntered = true
-      item.body.collisionFilter.mask = ACTIVE_BADGE_MASK
-      didBodyEnter = true
-    }
-
-    if (item.gravityScale < 1 && !item.body.isSleeping) {
-      Matter.Body.applyForce(item.body, item.body.position, {
-        x: 0,
-        y: -item.body.mass * scene.engine.gravity.y * scene.engine.gravity.scale * (1 - item.gravityScale),
-      })
-    }
-
-    const releaseAge = scene.engine.timing.timestamp - item.releasedAt
-
-    if (!item.body.isSleeping && releaseAge < 2400 && item.body.position.y > scene.height * 0.35) {
-      let nearestItem = null
-      let nearestDistance = Number.POSITIVE_INFINITY
-
-      for (const candidate of scene.bodies) {
-        if (candidate === item || candidate.body.position.y <= scene.height * 0.35) {
-          continue
-        }
-
-        const distanceX = candidate.body.position.x - item.body.position.x
-        const distanceY = candidate.body.position.y - item.body.position.y
-        const distance = distanceX * distanceX + distanceY * distanceY
-
-        if (distance < nearestDistance) {
-          nearestDistance = distance
-          nearestItem = candidate
-        }
-      }
-
-      if (nearestItem && Matter.Query.collides(item.body, [nearestItem.body]).length === 0) {
-        const distanceX = nearestItem.body.position.x - item.body.position.x
-        const distanceY = nearestItem.body.position.y - item.body.position.y
-        const horizontalPull = Math.max(-1, Math.min(1, distanceX / scene.width))
-        const downwardPull = Math.max(0, Math.min(1, distanceY / scene.height))
-
-        Matter.Body.applyForce(item.body, item.body.position, {
-          x: item.body.mass * scene.cohesionStrength * horizontalPull,
-          y: item.body.mass * scene.cohesionStrength * downwardPull * 0.12,
-        })
+      keyframes[frameIndex] = {
+        transform: getTransform(timeline[offset], timeline[offset + 1], timeline[offset + 2], measurement),
       }
     }
+
+    element.style.willChange = 'transform, opacity'
+    badgeAnimations.push(element.animate(keyframes, {
+      duration,
+      easing: 'linear',
+      fill: 'forwards',
+    }))
+
+    const releaseTimer = window.setTimeout(() => {
+      element.classList.add('is-released')
+    }, versions[index].delay)
+
+    releaseTimers.push(releaseTimer)
   }
 
-  if (didBodyEnter) {
-    scene.flushPendingEntryCollisions()
-  }
+  physicsWorker?.terminate()
+  physicsWorker = undefined
 
-  Matter.Engine.update(scene.engine, delta)
-
-  const maxAngle = scene.irregularFloor ? 0.56 : 0.96
-
-  for (const item of scene.bodies) {
-    if (item.body.angle > maxAngle) {
-      Matter.Body.setAngle(item.body, maxAngle)
-      Matter.Body.setAngularVelocity(item.body, 0)
+  Promise.allSettled(badgeAnimations.map(animation => animation.finished)).then(() => {
+    if (generation !== animationGeneration) {
+      return
     }
-    else if (item.body.angle < -maxAngle) {
-      Matter.Body.setAngle(item.body, -maxAngle)
-      Matter.Body.setAngularVelocity(item.body, 0)
+
+    for (let index = 0; index < badgeAnimations.length; index += 1) {
+      const element = badgeElements[index]
+      const offset = ((frameCount - 1) * itemCount + index) * 3
+
+      element.style.transform = getTransform(timeline[offset], timeline[offset + 1], timeline[offset + 2], measurements[index])
+      element.style.willChange = 'auto'
+      badgeAnimations[index].cancel()
     }
-  }
 
-  if (shouldRender) {
-    renderScene(scene)
-  }
-}
-
-function tick(time) {
-  const frameDelta = previousFrameTime ? Math.min(MAX_FRAME_DELTA, time - previousFrameTime) : FIXED_TIMESTEP
-  previousFrameTime = time
-  physicsAccumulator = Math.min(physicsAccumulator + frameDelta, MAX_FRAME_DELTA)
-
-  while (physicsAccumulator >= FIXED_TIMESTEP) {
-    for (const scene of scenes) {
-      updateScene(scene, FIXED_TIMESTEP, false)
-    }
-    physicsAccumulator -= FIXED_TIMESTEP
-  }
-
-  const interpolation = physicsAccumulator / FIXED_TIMESTEP
-
-  for (const scene of scenes) {
-    renderScene(scene, interpolation)
-  }
-
-  const hasActiveBody = scenes.some(scene => scene.bodies.some(item => !item.body.isSleeping))
-  settledFrameCount = pendingReleaseCount > 0 || hasActiveBody ? 0 : settledFrameCount + 1
-
-  if (settledFrameCount < SETTLED_FRAME_LIMIT) {
-    animationFrame = requestAnimationFrame(tick)
-  }
-  else {
-    animationFrame = undefined
-  }
+    badgeAnimations.splice(0, badgeAnimations.length)
+    finishAnimation()
+  })
 }
 
 function startPhysics(instant = false) {
@@ -592,74 +165,63 @@ function startPhysics(instant = false) {
 
   isAnimated.value = true
   nextTick(() => {
-    const roxyScene = createScene(roxyCardRef.value, roxyBadgeElements, roxyVersions, 1.08)
-    const legacyScene = createScene(legacyCardRef.value, legacyBadgeElements, legacyVersions, 1.02, true)
+    const cards = [roxyCardRef.value, legacyCardRef.value]
+    const elementGroups = [roxyBadgeElements, legacyBadgeElements]
 
-    if (!roxyScene || !legacyScene) {
+    if (cards.some(card => !card) || elementGroups.some((elements, index) => elements.length !== [roxyVersions, legacyVersions][index].length)) {
       return
     }
 
-    scenes.push(roxyScene, legacyScene)
+    badgeElements.splice(0, badgeElements.length, ...getBadgeElements())
+    measurements.splice(0, measurements.length, ...badgeElements.map(element => ({
+      visualHeight: element.offsetHeight,
+      visualWidth: element.offsetWidth,
+    })))
+    animationActive = true
+    animationGeneration += 1
+    emit('animationState', true)
 
-    const badgeQueue = scenes
-      .flatMap(scene => scene.versions.map((version, index) => ({ index, scene, version })))
-      .sort((badgeA, badgeB) => badgeA.version.delay - badgeB.version.delay)
-
-    badgeQueue.forEach(({ index, scene }) => prepareBadge(scene, index))
-
-    resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const scene = scenes.find(candidate => candidate.card === entry.target)
-
-        if (!scene) {
-          continue
-        }
-
-        syncSceneBounds(scene, entry.contentRect.width, entry.contentRect.height)
-        renderScene(scene)
+    physicsWorker = new Worker(new URL('./kernel-sync.worker.js', import.meta.url), { type: 'module' })
+    physicsWorker.addEventListener('message', (event) => {
+      if (event.data.type === 'frame') {
+        applyPhysicsState(event.data.state)
+      }
+      else if (event.data.type === 'timeline') {
+        playTimeline(event.data)
+      }
+      else if (event.data.type === 'done') {
+        finishAnimation()
       }
     })
-    scenes.forEach(scene => resizeObserver.observe(scene.card))
+    physicsWorker.addEventListener('error', (event) => {
+      console.error('Kernel sync worker failed', event)
+      finishAnimation()
+    })
 
-    if (instant) {
-      const releasedBadges = scenes.map(scene => scene.versions.map(() => false))
+    const sceneConfigs = [
+      {
+        gravity: 1.08,
+        height: cards[0].clientHeight,
+        irregularFloor: false,
+        measurements: measurements.slice(0, roxyVersions.length),
+        versions: roxyVersions,
+        width: cards[0].clientWidth,
+      },
+      {
+        gravity: 1.02,
+        height: cards[1].clientHeight,
+        irregularFloor: true,
+        measurements: measurements.slice(roxyVersions.length),
+        versions: legacyVersions,
+        width: cards[1].clientWidth,
+      },
+    ]
 
-      for (let step = 0; step < 900; step += 1) {
-        const simulatedTime = step * 16.67
-
-        scenes.forEach((scene, sceneIndex) => {
-          scene.versions.forEach((version, index) => {
-            if (!releasedBadges[sceneIndex][index] && version.delay <= simulatedTime) {
-              releasedBadges[sceneIndex][index] = true
-              releaseBadge(scene, index)
-            }
-          })
-          updateScene(scene, 16.67, false)
-        })
-      }
-
-      scenes.forEach(renderScene)
-      return
-    }
-
-    for (const scene of scenes) {
-      scene.versions.forEach((version, index) => {
-        pendingReleaseCount += 1
-        const prewarmTimer = window.setTimeout(() => {
-          prewarmBadge(scene, index)
-        }, Math.max(0, version.delay - 120))
-        const timer = window.setTimeout(() => {
-          pendingReleaseCount -= 1
-          releaseBadge(scene, index)
-        }, version.delay)
-        releaseTimers.push(prewarmTimer, timer)
-      })
-    }
-
-    previousFrameTime = 0
-    physicsAccumulator = 0
-    settledFrameCount = 0
-    animationFrame = requestAnimationFrame(tick)
+    physicsWorker.postMessage({
+      type: 'init',
+      instant,
+      scenes: sceneConfigs,
+    })
   })
 }
 
@@ -682,11 +244,12 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  animationGeneration += 1
+  finishAnimation()
   observer?.disconnect()
-  resizeObserver?.disconnect()
-  cancelAnimationFrame(animationFrame)
   releaseTimers.forEach(timer => window.clearTimeout(timer))
-  scenes.forEach(scene => Matter.Engine.clear(scene.engine))
+  badgeAnimations.forEach(animation => animation.cancel())
+  physicsWorker?.terminate()
 })
 </script>
 

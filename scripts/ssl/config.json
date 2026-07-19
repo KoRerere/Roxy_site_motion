@@ -1,0 +1,16 @@
+{
+  "version": "v1.4.4",
+  "record": {
+    "hosts": [
+      "localhost",
+      "198.18.0.1",
+      "192.168.1.60",
+      "127.0.0.1"
+    ],
+    "hash": {
+      "key": "db70dc8821d4500be7bad2eea6a2d1f93d473766bbe74ded8f0de0d595aa5981",
+      "cert": "3bdba422f7be9108df0a0e01277fa2acd71a2b44fc3281f6b336686489b68a92"
+    }
+  },
+  "configFilePath": "D:\\projects\\roxy-home-next\\scripts\\ssl\\config.json"
+}

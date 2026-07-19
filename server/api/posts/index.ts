@@ -1,77 +1,126 @@
 // server/api/posts.ts
 import { defineEventHandler } from 'h3'
-import { ghostApi } from '~/server/utils/api'
 import { DEFAULT_BLOG_POST_LIMIT, DEFAULT_LANGUAGE } from '~/constants'
+import { ghostApi, GHOST_EXCLUDE_FAQ_FILTER } from '~/server/utils/api'
+
+const GHOST_ASSET_PREFIX = '/__ghost__/'
+const BLOG_ASSET_PREFIX = '/static/'
+
+function replaceGhostAssetPathsDeep(value: unknown): unknown {
+  if (value === null || value === undefined)
+    return value
+  if (typeof value === 'string')
+    return value.split(GHOST_ASSET_PREFIX).join(BLOG_ASSET_PREFIX)
+  if (Array.isArray(value))
+    return value.map(replaceGhostAssetPathsDeep)
+  if (typeof value === 'object')
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, replaceGhostAssetPathsDeep(v)]))
+  return value
+}
 
 export function formatPost(posts: any[], language: string) {
+  const withBlogAssets = posts.map(post => replaceGhostAssetPathsDeep(post) as any)
   if (language === DEFAULT_LANGUAGE) {
-    return posts;
+    return withBlogAssets
   }
-  return posts.map((post) => {
+  return withBlogAssets.map((post) => {
     return {
       ...post,
-      tags: post.tags.map((item: any) => {
-        item.slug = item.slug.replace(`${language}-`, '');
-        return item;
-      })
+      tags: post.tags?.map((item: any) => {
+        item.slug = item.slug.replace(`${language}-`, '')
+        return item
+      }),
     }
   })
 }
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
-  const headers = event.node.req.headers;
-  const language = headers['language'] as string;
-  let filter = `tag:${language}+status:[published,sent]`;
+  const headers = event.node.req.headers
+  const language = headers.language as string
+  let filter = `tag:${language}+status:[published,sent]${GHOST_EXCLUDE_FAQ_FILTER}`
   if (query.tag) {
-    let tag = query.tag;
+    let tag = query.tag
     if (language !== DEFAULT_LANGUAGE) {
       tag = `${language}-${query.tag}`
     }
-    filter = `tag:${tag}+status:[published,sent]`
+    filter = `tag:${tag}+status:[published,sent]${GHOST_EXCLUDE_FAQ_FILTER}`
   }
 
-  const fields = 'id,slug,title,updated_at,excerpt,visibility,feature_image,status,reading_time,custom_excerpt,updated_at,published_at,html,lexical';
-  const include = 'tags,authors';
-  const order = 'published_at desc';
+  const fields = 'id,slug,title,updated_at,excerpt,visibility,feature_image,status,reading_time,custom_excerpt,updated_at,published_at,html,lexical'
+  const include = 'tags,authors'
+  const order = 'featured desc, published_at desc'
 
-  // ghost 使用 NQL 查询，暂时不支持 like
-  // https://ghost.org/docs/content-api/#filtering
-  if (query.search) {
-    const page = (query.page || 1) as number;
-    const posts = await ghostApi.posts.browse({
-      page: 1,
-      limit: 'all',
-      order,
-      filter: filter,
-      fields,
-      include
-    });
-    const searchText = query.search!.toString().toLowerCase()
-    const searchPosts = posts.posts.filter((post: any) => {
-      return post.title?.toLowerCase().includes(searchText) || 
-        (post.custom_excerpt || post.excerpt)?.toLowerCase().includes(searchText) ||
-        post.lexical.includes(query.search)
+  // Ghost NQL 无全文/like，在已按语言与 tag 过滤的结果集上做内存匹配（分页拉取，每页最多 100 条）
+  const searchRaw = query.search != null ? String(query.search).trim() : ''
+  if (searchRaw) {
+    const page = Number(query.page) || 1
+    const limit = Number(query.limit) || DEFAULT_BLOG_POST_LIMIT
+    const searchText = searchRaw.toLowerCase()
+
+    const allPosts: any[] = []
+    let apiPage = 1
+    let totalPages = 1
+    do {
+      const batch = await ghostApi.posts.browse({
+        page: apiPage,
+        limit: 100,
+        order,
+        filter,
+        fields,
+        include,
+      })
+      allPosts.push(...(batch.posts || []))
+      totalPages = batch.meta?.pagination?.pages ?? 1
+      apiPage++
+    } while (apiPage <= totalPages)
+
+    const lexicalNeedle = (needle: string, lexical: unknown) => {
+      if (lexical == null)
+        return false
+      const s = typeof lexical === 'string' ? lexical : JSON.stringify(lexical)
+      return s.toLowerCase().includes(needle)
+    }
+
+    const searchPosts = allPosts.filter((post: any) => {
+      const title = (post.title || '').toLowerCase()
+      const excerpt = ((post.custom_excerpt || post.excerpt) || '').toLowerCase()
+      const html = (post.html || '').toLowerCase()
+      return title.includes(searchText)
+        || excerpt.includes(searchText)
+        || html.includes(searchText)
+        || lexicalNeedle(searchText, post.lexical)
     })
-    // console.log('发起搜索，搜索到：' + searchPosts.length + '条')
-    posts.posts = searchPosts.slice((page - 1) * DEFAULT_BLOG_POST_LIMIT, page * DEFAULT_BLOG_POST_LIMIT)
-    posts.meta.pagination.page = Number(page);
-    posts.meta.pagination.limit = DEFAULT_BLOG_POST_LIMIT;
-    posts.meta.pagination.pages = Math.ceil(searchPosts.length / DEFAULT_BLOG_POST_LIMIT);
-    posts.meta.pagination.total = searchPosts.length;
-    posts.posts = formatPost(posts.posts, language);
-    return posts
+
+    const total = searchPosts.length
+    const pages = Math.max(1, Math.ceil(total / limit))
+    const sliceStart = (page - 1) * limit
+    const sliced = searchPosts.slice(sliceStart, sliceStart + limit)
+
+    return {
+      posts: formatPost(sliced, language),
+      meta: {
+        pagination: {
+          page,
+          limit,
+          pages,
+          total,
+          next: page < pages ? page + 1 : null,
+          prev: page > 1 ? page - 1 : null,
+        },
+      },
+    }
   }
 
   const result = await ghostApi.posts.browse({
     page: query.page || 1,
     limit: query.limit || DEFAULT_BLOG_POST_LIMIT,
     order,
-    filter: filter,
+    filter,
     fields,
-    include
-  });
-  result.posts = formatPost(result.posts, language);
+    include,
+  })
+  result.posts = formatPost(result.posts, language)
   // result.posts = [];
-  return result;
-});
+  return result
+})

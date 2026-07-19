@@ -36,8 +36,13 @@ export default defineNuxtPlugin((nuxtApp) => {
           headers,
         });
       },
-      read: async (slug: string, headers?: any) => {
-        return await api(`/api/posts/slug/${slug}`, { method: "GET", headers });
+      read: async (slug: string, headers?: any, params?: any) => {
+        const language = headers?.language
+        return await api(`/api/posts/slug/${slug}`, {
+          method: 'GET',
+          headers: language ? { language } : headers,
+          params: { ...params, ...(language ? { language } : {}) },
+        })
       },
     },
     tags: {
@@ -47,6 +52,15 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     search: async (params?: any, headers?: any) => {
       return await api("/api/search", { method: "GET", params, headers });
+    },
+    authors: {
+      read: async (slug: string, headers?: any, params?: any) => {
+        return await api(`/api/authors/slug/${encodeURIComponent(slug)}`, {
+          method: "GET",
+          headers,
+          params,
+        });
+      },
     },
   };
 

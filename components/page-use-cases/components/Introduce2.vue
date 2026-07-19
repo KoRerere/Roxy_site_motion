@@ -1,33 +1,8 @@
-<template>
-  <div class="bg-gradient relative">
-    <Container class="sm:px-5 md:px-10 lg:px-15 xl:px-22 relative z-10">
-      <div class="flex gap-10 flex-col lg:flex-row py-6 md:py-0">
-        <div class="flex flex-col justify-between py-0 md:py-8 lg:py-12 xl:py-15 flex-1">
-          <div class="flex flex-col gap-3">
-            <p class="text-6 xl:text-h3 text-black font-[Archivo] font-600">{{ title }}</p>
-            <p class="text-4 xl:text-4.5 leading-[1.6] xl:leading-7 font-400 whitespace-pre-line text-secondary">{{ desc }}</p>
-          </div>
-          <div class="pt-6 lg:pt-0 flex">
-            <TryItNow class="try-now" />
-          </div>
-        </div>
-        <div class="py-0 w-full lg:py-5 lg:w-542px">
-          <!-- <NuxtImg :src="image" format="avif" class="w-full"  densities="x1 x2"
-            loading="lazy"
-            alt=""
-          />  -->
-          <img :alt="alt" :src="image" class="w-full" loading="lazy" />
-        </div>
-      </div>
-    </Container>
-    <Grid :primaryColor="primaryColor" class="block absolute left-1/2 bottom-0 -translate-x-1/2 w-2000px h-400px z-9" />
-  </div>
-</template>
-
 <script setup lang="ts">
-import type { Introduce2Props } from './interface';
-import TryItNow from './TryItNow.vue';
-import Grid from './Grid.vue';
+import type { Introduce2Props } from './interface'
+import Grid from './Grid.vue'
+import TryItNow from './TryItNow.vue'
+
 const props = defineProps<Introduce2Props>()
 const rgba = computed(() => hexToRgba(props.primaryColor, 0.08))
 const rgba2 = computed(() => hexToRgba(props.primaryColor, 0.14))
@@ -36,14 +11,43 @@ const tryBtnColor = computed(() => hexToRgba(props.primaryColor, 0.9))
 const tryBtnshadowColor = computed(() => hexToRgba(props.primaryColor, 0.3))
 </script>
 
+<template>
+  <div class="relative bg-gradient">
+    <Container class="relative z-10 lg:px-15 md:px-10 sm:px-5 xl:px-22">
+      <div class="py-6 flex flex-col gap-10 md:py-0 lg:flex-row">
+        <div class="py-0 flex flex-1 flex-col justify-between lg:py-12 md:py-8 xl:py-15">
+          <div class="flex flex-col gap-3">
+            <p class="text-6 text-black font-600 multilingual-text xl:text-h3 ru-RU:(leading-40px xl:text-8)">
+              {{ title }}
+            </p>
+            <p class="text-4 text-secondary leading-[1.6] font-400 whitespace-pre-line xl:text-4.5 xl:leading-7">
+              {{ desc }}
+            </p>
+          </div>
+          <div class="pt-6 flex lg:pt-0">
+            <TryItNow class="try-now" />
+          </div>
+        </div>
+        <div class="py-0 w-full lg:py-5 lg:w-542px">
+          <!-- <NuxtImg :src="image" format="avif" class="w-full"  densities="x1 x2"
+            loading="lazy"
+            alt=""
+          />  -->
+          <img :alt="alt" :src="image" class="w-full" loading="lazy">
+        </div>
+      </div>
+    </Container>
+    <Grid :primary-color="primaryColor" class="h-400px w-2000px block bottom-0 left-1/2 absolute z-9 -translate-x-1/2" />
+  </div>
+</template>
+
 <style scoped>
 .bg-gradient {
-  background: linear-gradient(180deg, v-bind(rgba) 0%, v-bind(rgba2) 100%), #FFF;
+  background: linear-gradient(180deg, v-bind(rgba) 0%, v-bind(rgba2) 100%), #fff;
 }
 
-
 .try-now {
-  color: #FFF;
+  color: #fff;
   background-color: v-bind(tryBtnColor);
 }
 

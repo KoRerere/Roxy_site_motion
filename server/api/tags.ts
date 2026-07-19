@@ -1,6 +1,6 @@
 import { ghostApi, langTags } from '../utils/api'
 
-type TagItem = {
+interface TagItem {
   accent_color: null
   canonical_url: null
   codeinjection_foot: null
@@ -26,20 +26,20 @@ type TagItem = {
 }
 
 export default defineEventHandler(async (event) => {
-  const headers = event.node.req.headers;
-  const language = headers['language'];
+  const headers = event.node.req.headers
+  const language = headers.language
   const result = await ghostApi.tags.browse({
     page: 1,
     limit: 200,
-    filter: 'visibility:public'
-  });
+    filter: 'visibility:public',
+  })
   return (result.tags as TagItem[])
-    .filter((item) => !langTags.includes(item.name))
-    .filter((item) => item.description.includes(`{${language}}`))
+    .filter(item => !langTags.includes(item.name))
+    .filter(item => item.description?.includes(`{${language}}`))
     .map((item) => {
       if (item.slug.startsWith(`${language}-`)) {
         item.slug = item.slug.replace(`${language}-`, '')
       }
-      return item;
+      return item
     })
-});
+})

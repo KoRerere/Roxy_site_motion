@@ -4,7 +4,7 @@
       class="bg-white rounded-2 lg:rounded-3 border-1 border-solid border-white hover:border-[#11A3FD] py-3 lg:py-5 px-4 lg:px-6 accordion-item cursor-pointer transition-all duration-500"
       @click="moduleValue === item.key ? moduleValue = '' : moduleValue = item.key" :key="item.key">
       <div :class="cn('flex items-center justify-between', moduleValue === item.key && 'accordion-item-active')">
-        <h3 class="text-4 leading-[22px] lg:text-5 lg:leading-[36px] font-500 text-primary accordion-item-title">
+        <h3 class="text-4 leading-22px lg:text-5 lg:leading-[36px] font-500 text-primary accordion-item-title">
           <template v-if="typeof item.title === 'string'">{{ item.title }}</template>
           <component v-else :is="item.title"></component>
         </h3>

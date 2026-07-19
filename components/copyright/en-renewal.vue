@@ -1,10 +1,10 @@
 <template>
   <div class="mb-100px">
     <p class="text-indent">
-      Auto-Renewal Service Agreement (hereinafter referred to as "this Agreement"), as a supplement to the Roxybrowser User Agreement, is an integral part of it and forms a unified whole with it. In case of conflict between this Agreement and the Roxybrowser User Agreement, this Agreement shall prevail.
+      Auto-Renewal Service Agreement (hereinafter referred to as "this Agreement"), as a supplement to the RoxyBrowser User Agreement, is an integral part of it and forms a unified whole with it. In case of conflict between this Agreement and the RoxyBrowser User Agreement, this Agreement shall prevail.
     </p>
     <p class="mt-2">
-      By using in any methods (including but limited to: Clicking to subscribe, opening, or using) the Roxybrowser Auto-Renewal Service (hereinafter referred to as the "Service"), you reach an agreement with Roxybrowser and voluntarily accept all the contents herein.
+      By using in any methods (including but limited to: Clicking to subscribe, opening, or using) the RoxyBrowser Auto-Renewal Service (hereinafter referred to as the "Service"), you reach an agreement with RoxyBrowser and voluntarily accept all the contents herein.
     </p>
 
     <h3 class="my-4">You understand and agree that:</h3>
@@ -17,7 +17,7 @@
         If you open the auto-renewal service, you will be deemed to agree that the payment channel can deduct the service fee for the next billing cycle from your bound account without verifying your account password, payment password, SMS verification code, etc. You understand and agree that if you use a third-party payment channel to pay, you will also be subject to the third-party service terms and usage rules.
       </li>
       <li>
-        To facilitate you to know the auto-renewal status, Roxybrowser will notify you by [station letter or email] or other means before the next subscription period is deducted according to the law, please pay attention to receive it. You are reminded that due to the characteristics of the Service, the deduction of subscriptions for some of the deduction methods will be completed within 24 hours before the start of the next subscription period. The instruction on Auto-Renewal of service fee deduction entrusted by you to Roxybrowser shall still remain valid before you choose to terminate the Service, and any fees deducted based on such instruction, in principle, will not be refundable to you and any responsibilities therefrom shall be borne by you.
+        To facilitate you to know the auto-renewal status, RoxyBrowser will notify you by [station letter or email] or other means before the next subscription period is deducted according to the law, please pay attention to receive it. You are reminded that due to the characteristics of the Service, the deduction of subscriptions for some of the deduction methods will be completed within 24 hours before the start of the next subscription period. The instruction on Auto-Renewal of service fee deduction entrusted by you to RoxyBrowser shall still remain valid before you choose to terminate the Service, and any fees deducted based on such instruction, in principle, will not be refundable to you and any responsibilities therefrom shall be borne by you.
       </li>
       <li>
         Subscription period: 30 days, 1 month or any other period if any (subject to the settings on the subscription page).
@@ -26,28 +26,28 @@
         Auto-renewal users can choose to terminate the Services at your sole discretion.
         <br />
         <p class="mt-1">
-          Open Roxybrowser --> Click "Billing Center" --> Click "Manage Subscription" --> Unsubscribe to the renewal service following the instructions on the page, after which the service will not be automatically renewed when it expires. Please refer to the auto-renewal sign-up status of the payment method as there may be a delay in updating the auto-renewal status. If the auto-renewal function is not canceled before the service expiry date, you are deemed to allow Roxybrowser to deduct service fees from your payment account in accordance with this agreement. We shall not be responsible for any loss caused by failure to cancel the 
+          Open RoxyBrowser --> Click "Billing Center" --> Click "Manage Subscription" --> Unsubscribe to the renewal service following the instructions on the page, after which the service will not be automatically renewed when it expires. Please refer to the auto-renewal sign-up status of the payment method as there may be a delay in updating the auto-renewal status. If the auto-renewal function is not canceled before the service expiry date, you are deemed to allow RoxyBrowser to deduct service fees from your payment account in accordance with this agreement. We shall not be responsible for any loss caused by failure to cancel the 
         </p>
       </li>
       <li>
-        Roxybrowser may choose to terminate this Service based on its own operational strategy and other reasons, and your Roxybrowser service will expire on the date of expiry of the current billing period.
+        RoxyBrowser may choose to terminate this Service based on its own operational strategy and other reasons, and your RoxyBrowser service will expire on the date of expiry of the current billing period.
       </li>
       <li>
-        The subscription services provided by Roxybrowser are virtual goods. Once the fees are deducted, no refund is supported unless due to force majeure. However, you can choose to cancel the automatic renewal and choose a non-automatic renewal method to subscribe to the Roxybrowser service.
+        The subscription services provided by RoxyBrowser are virtual goods. Once the fees are deducted, no refund is supported unless due to force majeure. However, you can choose to cancel the automatic renewal and choose a non-automatic renewal method to subscribe to the RoxyBrowser service.
         <br />
-        To facilitate your understanding of automatic renewal, Roxybrowser may notify you by in-app message or email before the agreed automatic deduction time according to legal provisions and relevant service rules. Please pay attention to receiving it.
+        To facilitate your understanding of automatic renewal, RoxyBrowser may notify you by in-app message or email before the agreed automatic deduction time according to legal provisions and relevant service rules. Please pay attention to receiving it.
       </li>
       <li>
-        Unless otherwise agreed in this Agreement or otherwise provided in the relevant rules of Roxybrowser, this automatic renewal service will be valid for a long time from the date of your activation until you choose to cancel this automatic renewal service.
+        Unless otherwise agreed in this Agreement or otherwise provided in the relevant rules of RoxyBrowser, this automatic renewal service will be valid for a long time from the date of your activation until you choose to cancel this automatic renewal service.
       </li>
       <li>
-        If you violate this Agreement or the Roxybrowser platform rules, we have the right to stop providing you with automatic renewal services based on your breach of contract, and you shall bear the legal responsibilities and consequences arising therefrom.
+        If you violate this Agreement or the RoxyBrowser platform rules, we have the right to stop providing you with automatic renewal services based on your breach of contract, and you shall bear the legal responsibilities and consequences arising therefrom.
       </li>
       <li>
-        Link of Roxybrowser User Agreement shall be <NuxtLinkLocale class="text-blue-500" to="/copyright/user">{{$t("使用条款")}}</NuxtLinkLocale>
+        Link of RoxyBrowser User Agreement shall be <NuxtLinkLocale class="text-blue-500" to="/copyright/user">{{$t("使用条款")}}</NuxtLinkLocale>
       </li>
       <li>
-        Link of Roxybrowser Privacy Agreement shall be <NuxtLinkLocale class="text-blue-500" to="/copyright/privacy">{{$t("隐私政策")}}</NuxtLinkLocale>
+        Link of RoxyBrowser Privacy Agreement shall be <NuxtLinkLocale class="text-blue-500" to="/copyright/privacy">{{$t("隐私政策")}}</NuxtLinkLocale>
       </li>
     </ol>
   </div>

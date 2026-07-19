@@ -1,7 +1,3 @@
-<template>
-  <PageUseCases :headerPanel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :whyChoose="whyChoose" :footerPanel="footerPanel" />
-</template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: $t('大规模进行安全高效网络爬虫 | RoxyBrowser'),
@@ -14,7 +10,7 @@ const headerPanel = computed(() => ({
   title: $t('用指纹浏览器扩展数据抓取规模，高效安全'),
   desc: $t('无需担心封号或被封锁，RoxyBrowser 让你像真实用户一样抓取数据，并支持全流程自动化。'),
   coverImage: '/use-cases/web-scraping/0.png',
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce = computed(() => ({
@@ -23,47 +19,47 @@ const introduce = computed(() => ({
   items: [
     {
       title: $t('避开网站的机器人识别系统'),
-      desc: $t('网站会检测用户指纹信息，比如 user agent、字体、Canvas、WebGL、时区等。\n\nRoxyBrowser 精准伪装这些参数，让每一次访问看起来都像真实用户。'),
+      desc: $t('网站会检测用户指纹信息，比如 user agent、字体、Canvas、WebGL、时区等。\n\nRoxyBrowser 精准伪装浏览器参数，让你的每一次浏览看起来都像独立真实的用户。'),
       image: '/use-cases/web-scraping/1.png',
     },
     {
       title: $t('轻松安全地轮换浏览器身份'),
       desc: $t('通过为每个浏览器配置唯一身份，避免账号被封。\n\nRoxyBrowser 为每个抓取环境分配不同的 IP、Cookies 和设备指纹，适合进行大规模的数据抓取行为。'),
       image: '/use-cases/web-scraping/2.png',
-      wrapperClass: 'bg-white'
+      wrapperClass: 'bg-white',
     },
     {
       title: $t('模拟真实用户浏览器行为'),
       desc: $t('与基础脚本不同，RoxyBrowser 支持完整、启用 JavaScript 的浏览体验，可通过行为校验，访问动态页面和反爬机制后的内容。'),
       image: '/use-cases/web-scraping/3.png',
       wrapperClass: 'bg-[linear-gradient(261deg,_#373749_13.82%,_#2C2C3F_86.18%)]',
-      textColor: '#fff'
+      textColor: '#fff',
     },
     {
       title: $t('全新浏览器指纹，突破抓取限制'),
-      desc: $t('即便使用相同 IP，重复模式也容易被识别。\n\nRoxyBrowser 将每个代理配对一个全新的浏览器指纹，降低风险，提升数据吞吐效率。'),
+      desc: $t('即便使用相同 IP，重复模式也容易被识别。\n\nRoxyBrowser 将每个 IP 配对一个全新的浏览器指纹，降低风险，提升数据吞吐效率。'),
       image: '/use-cases/web-scraping/4.png',
-      wrapperClass: 'bg-white'
-    }
+      wrapperClass: 'bg-white',
+    },
   ],
-  primaryColor: primaryColor,
+  primaryColor,
 }))
 
 const introduce2 = computed(() => ({
   title: $t('让大规模的数据抓取更高效、更安全 '),
-  desc: $t('通过 RoxyBrowser 高效抓取干净可靠的数据。不被封、不被拦，只收获结果。'),
-  primaryColor: primaryColor,
+  desc: $t('通过 RoxyBrowser 高效抓取干净可靠的数据，不再担心存在被封禁或拦截的风险！'),
+  primaryColor,
   image: '/use-cases/web-scraping/5.png',
-  alt: $t('通过 RoxyBrowser 高效抓取干净可靠的数据。不被封、不被拦，只收获结果。'),
+  alt: $t('通过 RoxyBrowser 高效抓取干净可靠的数据，不再担心存在被封禁或拦截的风险！'),
 }))
 
 const faq = computed(() => ({
-  title: $t('什么时候用指纹浏览器保证大规模获取数据的进程？'),
-  desc: $t('常规抓取工具能提取数据，却无法做到真正隐藏自己。没有像 RoxyBrowser 这样的隐形保护层，你的抓取工作很容易被封、被限或失败。'),
+  title: $t('什么时候用指纹浏览器进行大规模的数据爬取？'),
+  desc: $t('常规抓取工具能提取数据，却无法做到真正隐藏身份信息。有了 RoxyBrowser 的保护，进行数据爬取时不再担心被封禁或拦截！'),
   items: [
     {
       title: $t('用同一IP提交了几次请求，结果被限制访问或直接封禁'),
-      desc: $t('大多数网站都不喜欢你用同一个 IP 反复抓取，轻则限速，重则直接封掉。如果你的工具不支持代理轮换和指纹伪装，几次请求就会被盯上。RoxyBrowser 每次抓取都用不同代理和浏览器身份，持续稳定不掉线。'),
+      desc: $t('大多数网站都不喜欢你用同一个 IP 反复抓取，轻则限速，重则直接封掉。如果你的工具不支持 IP 轮换和指纹伪装，几次请求就会被盯上。RoxyBrowser 每次抓取都用不同代理 IP 和浏览器身份，持续稳定不掉线。'),
     },
     {
       title: $t('设备指纹太相似，导致平台快速关联账户并封号'),
@@ -74,10 +70,10 @@ const faq = computed(() => ({
       desc: $t('仅靠 VPN 抓取受地理限制的页面或本地化优惠往往无法成功。网站会检测你完整的访问环境，而不仅是 IP 地址。RoxyBrowser 通过调整设备语言、时区和系统设置，让你模拟任何国家的真实用户，从而稳定获取区域数据。'),
     },
     {
-      title: $t('已经用了共享或公共代理，但仍然暴露身份 '),
-      desc: $t('即使使用轮换代理，如果浏览器指纹没有变化，也可能暴露你的真实访问会话。网站会忽略 IP，直接识别出重复的环境。RoxyBrowser 每次都会为代理分配一个全新指纹和干净的浏览器实例，实现全方位隐身操作。'),
+      title: $t('已经用了共享或公共代理 IP，但仍然暴露身份 '),
+      desc: $t('即使使用轮换 IP，如果浏览器指纹没有变化，也可能暴露你的真实访问会话。网站会忽略 IP，直接识别出重复的环境。RoxyBrowser 每次都会为 IP 分配一个全新指纹和干净的浏览器实例，实现全方位隐身操作。'),
     },
-  ]
+  ],
 }))
 
 const whyChoose = computed(() => ({
@@ -86,7 +82,7 @@ const whyChoose = computed(() => ({
   items: [
     {
       title: $t('伪装真实浏览器指纹'),
-      desc: $t('可自定义 WebGL、时区、字体、Canvas 等核心指纹参数，使每个自动化会话看起来都像真人操作，避免因指纹重复而被目标网站识别和封禁。'),
+      desc: $t('可自定义 WebGL、时区、字体等核心指纹参数，使每个自动化会话看起来都像真人操作，避免因指纹重复而被目标网站识别和封禁。'),
       icon: '/use-cases/fingerprint.svg',
     },
     {
@@ -96,7 +92,7 @@ const whyChoose = computed(() => ({
     },
     {
       title: $t('兼容主流爬虫框架自动化'),
-      desc: $t('RoxyBrowser 原生支持 Puppeteer、Selenium、Playwright，运行带界面的浏览器环境，有效突破 JS 限制，提升数据提取成功率。'),
+      desc: $t('RoxyBrowser 原生支持 Puppeteer、Selenium、Playwright，运行带界面的浏览器环境，有效提升数据提取成功率。'),
       icon: '/use-cases/api.svg',
     },
     {
@@ -114,7 +110,7 @@ const whyChoose = computed(() => ({
       desc: $t('无需部署资源消耗大的虚拟机，RoxyBrowser 本地运行即可提供高匿名性和稳定性，适用于高频率的数据抓取任务。'),
       icon: '/use-cases/security.svg',
     },
-  ]
+  ],
 }))
 
 const footerPanel = computed(() => ({
@@ -123,3 +119,7 @@ const footerPanel = computed(() => ({
   alt: $t('无风险开始抓取，无需担心封号或拦截。\nRoxyBrowser 让你轻松扩展抓取任务，获取干净数据。'),
 }))
 </script>
+
+<template>
+  <PageUseCases :header-panel="headerPanel" :introduce="introduce" :introduce2="introduce2" :faq="faq" :why-choose="whyChoose" :footer-panel="footerPanel" />
+</template>

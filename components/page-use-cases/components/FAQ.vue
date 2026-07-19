@@ -1,21 +1,20 @@
+<script setup lang="ts">
+import type { FAQProps } from './interface'
+import Accordion from './accordion/index.vue'
+
+defineProps<FAQProps>()
+</script>
+
 <template>
-  <Container class="px-5 md:px-10 lg:px-15 xl:px-108px flex flex-col gap-10 pb-8">
+  <Container class="px-5 pb-8 flex flex-col gap-10 lg:px-15 md:px-10 xl:px-108px">
     <div class="flex flex-col gap-2">
-      <h2 class="text-6 leading-[28px] lg:text-h3 text-primary text-center font-[Archivo]">
+      <h2 class="section-title text-primary text-center">
         {{ title }}
       </h2>
-      <p class="text-3.5 leading-[20px] lg:text-body text-tertiary text-center whitespace-pre-line">
+      <p class="text-3.5 text-tertiary text-center whitespace-pre-line lg:text-body max-lg:leading-[20px]">
         {{ desc }}
       </p>
     </div>
     <Accordion :items="items" />
   </Container>
 </template>
-
-
-<script setup lang="ts">
-import type { FAQProps } from './interface';
-import Accordion from './accordion/index.vue';
-
-defineProps<FAQProps>()
-</script>
