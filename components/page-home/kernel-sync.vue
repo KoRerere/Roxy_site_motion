@@ -64,7 +64,7 @@ function setBadgeElement(collection, element, index) {
   }
 }
 
-function createSceneWalls(width, height, sideInset, bottomInset, irregularFloor = false) {
+function createSceneWalls(width, height, sideInset, bottomInset) {
   const { Bodies } = Matter
   const wallThickness = 80
   const wallHeight = height * 4
@@ -111,22 +111,6 @@ function createSceneWalls(width, height, sideInset, bottomInset, irregularFloor 
     ...createCornerArc(width - cornerRadius, height - cornerRadius, 0, WALL_CATEGORY),
     ...createCornerArc(cornerRadius, height - cornerRadius, Math.PI / 2, WALL_CATEGORY),
   ]
-  const floorBumps = irregularFloor
-    ? [
-        Bodies.circle(width * 0.38, height - bottomInset + 7, 14, {
-          isStatic: true,
-          collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
-          friction: 0.72,
-          restitution: 0,
-        }),
-        Bodies.circle(width * 0.79, height - bottomInset + 6, 10, {
-          isStatic: true,
-          collisionFilter: { category: WALL_CATEGORY, mask: BADGE_CATEGORY },
-          friction: 0.72,
-          restitution: 0,
-        }),
-      ]
-    : []
 
   return [
     Bodies.rectangle(width / 2, sideInset - wallThickness / 2, width, wallThickness, {
@@ -147,7 +131,6 @@ function createSceneWalls(width, height, sideInset, bottomInset, irregularFloor 
     }),
     Bodies.rectangle(width / 2, floorY, width, wallThickness, floorOptions),
     ...cornerWalls,
-    ...floorBumps,
   ]
 }
 
@@ -172,7 +155,7 @@ function createScene(card, elements, versions, gravity, irregularFloor = false) 
   engine.positionIterations = 9
   engine.velocityIterations = 7
 
-  const walls = createSceneWalls(width, height, sideInset, bottomInset, irregularFloor)
+  const walls = createSceneWalls(width, height, sideInset, bottomInset)
 
   Composite.add(engine.world, walls)
 
@@ -287,7 +270,7 @@ function syncSceneBounds(scene, width = scene.card.clientWidth, height = scene.c
   for (const wall of scene.walls) {
     Matter.Composite.remove(scene.engine.world, wall)
   }
-  scene.walls = createSceneWalls(width, height, scene.sideInset, scene.bottomInset, scene.irregularFloor)
+  scene.walls = createSceneWalls(width, height, scene.sideInset, scene.bottomInset)
   Matter.Composite.add(scene.engine.world, scene.walls)
   scene.width = width
   scene.height = height
