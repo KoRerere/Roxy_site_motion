@@ -93,14 +93,6 @@ function togglePanel(value) {
 
 const languages = [
   {
-    title: 'English',
-    value: 'en',
-    icon: 'country/rx_flag_us',
-    click: () => {
-      switchLanguage('en')
-    },
-  },
-  {
     title: $t('简体中文'),
     value: 'zh',
     icon: 'country/rx_flag_cn',
@@ -109,11 +101,11 @@ const languages = [
     },
   },
   {
-    title: 'Русский',
-    value: 'ru',
-    icon: 'country/rx_flag_ru',
+    title: 'English',
+    value: 'en',
+    icon: 'country/rx_flag_us',
     click: () => {
-      switchLanguage('ru')
+      switchLanguage('en')
     },
   },
 ]

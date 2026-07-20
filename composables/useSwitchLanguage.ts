@@ -10,7 +10,7 @@ export function useSwitchLanguage() {
   const switchLocalePath = useSwitchLocalePath()
   const router = useRouter()
   const route = useRoute()
-  const { public: { isChinaSite, roxyChinaHomeUrl, roxyInternationalHomeUrl } } = useRuntimeConfig()
+  const { public: { isChinaSite, roxyInternationalHomeUrl } } = useRuntimeConfig()
   // const { $eventBus } = useNuxtApp()
   // const { locale } = useRxI18n()
 
@@ -26,21 +26,7 @@ export function useSwitchLanguage() {
     if (isChinaSite && code !== 'zh') {
       const baseUrl = roxyInternationalHomeUrl
       const targetPath = route.path
-      // 国际站去除了多语言检测、用户语言自动切换，无code路径必定是en语言
-      if (code === 'en') {
-        location.href = wrapWithSyncQuery(`${baseUrl}${targetPath}`)
-        return
-      }
-
       location.href = wrapWithSyncQuery(`${baseUrl}/${code}${targetPath === '/' ? '' : targetPath}`)
-
-      return
-    }
-
-    if (!isChinaSite && code === 'zh') {
-      const baseUrl = roxyChinaHomeUrl
-      const path = ['/en', '/ru'].includes(route.path) ? '' : route.path
-      location.href = wrapWithSyncQuery(baseUrl + path)
 
       return
     }

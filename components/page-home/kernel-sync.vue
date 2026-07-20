@@ -17,13 +17,11 @@ const roxyVersions = [
 ]
 
 const legacyVersions = [
-  { label: 'Chromium 150', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 3600, startX: 0.18, angle: -0.44, drift: -0.42, spin: -0.006, density: 0.0014, friction: 0.24, frictionStatic: 0.90, restitution: 0.03 },
-  { label: 'Chromium 149', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2840, startX: 0.84, angle: 0.30, drift: 0.62, spin: 0.008, density: 0.0026, friction: 0.12, frictionStatic: 0.68, restitution: 0.06 },
-  { label: 'Chromium 148', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2320, startX: 0.22, angle: 0.46, drift: -0.68, spin: 0.013, density: 0.0022, friction: 0.18, frictionStatic: 0.78, restitution: 0.13 },
-  { label: 'Chromium 147', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1800, startX: 0.80, angle: -0.50, drift: 0.76, spin: -0.015, density: 0.0013, friction: 0.22, frictionStatic: 0.90, restitution: 0.07 },
-  { label: 'Chromium 146', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1280, startX: 0.20, angle: -0.38, drift: 0.48, spin: -0.011, density: 0.0025, friction: 0.15, frictionStatic: 0.72, restitution: 0.12 },
-  { label: 'Chromium 145', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 760, startX: 0.72, angle: 0.31, drift: -0.44, spin: 0.009, density: 0.0015, friction: 0.22, frictionStatic: 0.86, restitution: 0.08 },
-  { label: 'Chromium 144', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 240, startX: 0.42, angle: -0.18, drift: 0.30, spin: -0.006, density: 0.0020, friction: 0.18, frictionStatic: 0.78, restitution: 0.12 },
+  { label: 'Chromium 148', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 3600, startX: 0.18, angle: -0.44, drift: -0.42, spin: -0.006, density: 0.0014, friction: 0.24, frictionStatic: 0.90, restitution: 0.03 },
+  { label: 'Chromium 147', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2840, startX: 0.84, angle: 0.30, drift: 0.62, spin: 0.008, density: 0.0026, friction: 0.12, frictionStatic: 0.68, restitution: 0.06 },
+  { label: 'Chromium 146', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 2320, startX: 0.22, angle: 0.46, drift: -0.68, spin: 0.013, density: 0.0022, friction: 0.18, frictionStatic: 0.78, restitution: 0.13 },
+  { label: 'Chromium 145', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1800, startX: 0.80, angle: -0.50, drift: 0.76, spin: -0.015, density: 0.0013, friction: 0.22, frictionStatic: 0.90, restitution: 0.07 },
+  { label: 'Chromium 144', icon: '/home/kernel-sync/chromium.svg', tone: 'legacy', delay: 1280, startX: 0.20, angle: -0.38, drift: 0.48, spin: -0.011, density: 0.0025, friction: 0.15, frictionStatic: 0.72, restitution: 0.12 },
 ]
 
 const benefits = [
@@ -269,16 +267,13 @@ onBeforeUnmount(() => {
 
       <div class="kernel-sync__copy">
         <h2 id="kernel-sync-title">
-          <span class="kernel-sync__title-line">{{ $t('永远快人一步') }}</span>
+          <span class="kernel-sync__title-line">{{ $t('始终快人一步') }}</span>
           <span class="kernel-sync__title-line">
-            {{ $t('让账号运行在') }}<strong>{{ $t('更新、更真实') }}</strong>{{ $t('的浏览器环境中') }}
+            {{ $t('让账号运行在') }}<strong>{{ $t('最新、最真实') }}</strong>{{ $t('的浏览器环境中') }}
           </span>
         </h2>
         <p>
-          <span class="kernel-sync__latin">RoxyBrowser</span>
-          {{ $t('持续跟进') }}
-          <span class="kernel-sync__latin">Chromium</span>
-          {{ $t('官方更新，减少旧版本特征暴露、网站兼容性异常和平台风控风险。') }}
+          {{ $t('Roxy浏览器持续跟进官方内核更新, 减少旧版本特征暴露、网站兼容性异常和平台风控风险') }}
         </p>
       </div>
     </div>
@@ -306,7 +301,7 @@ onBeforeUnmount(() => {
       </article>
 
       <article ref="legacyCardRef" class="kernel-sync__card kernel-sync__card--legacy">
-        <h3>{{ $t('其他指纹浏览器产品') }}</h3>
+        <h3>{{ $t('同行平均水平') }}</h3>
 
         <div
           v-for="(badge, index) in legacyVersions"
@@ -338,7 +333,7 @@ onBeforeUnmount(() => {
       <p class="kernel-sync__update-note">
         <img src="/home/kernel-sync/update.svg" alt="" draggable="false">
         <span>
-          {{ $t('官方版本持续更新，') }}<span class="kernel-sync__latin">RoxyBrowser</span>&nbsp;{{ $t('快速跟进') }}
+          {{ $t('官方版本持续更新，') }}{{ $t('Roxy浏览器') }}&nbsp;{{ $t('快速跟进') }}
         </span>
       </p>
     </div>
@@ -423,10 +418,6 @@ onBeforeUnmount(() => {
   font-weight: 400;
   line-height: 28px;
   white-space: nowrap;
-}
-
-.kernel-sync__latin {
-  font-family: Inter, Arial, sans-serif;
 }
 
 .kernel-sync__comparison {

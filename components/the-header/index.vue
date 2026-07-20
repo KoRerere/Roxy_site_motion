@@ -17,6 +17,7 @@ const route = useRoute()
 const isHomeRoute = useIsHomeRoute()
 const localePath = useLocalePath()
 const switchLanguage = useSwitchLanguage()
+const headerLanguages = SUPPORTED_LANGUAGES.filter(lang => lang.code === 'zh' || lang.code === 'en')
 // const { isDark, toggle } = useTheme()
 const textColor = ref('white')
 const { $eventBus } = useNuxtApp()
@@ -25,11 +26,11 @@ const activity = useActivity()
 const { roxyBrowserSeoUrl, openRoxyBrowser } = useOpenRoxyBrowser()
 
 const currentLang = computed(() => {
-  return (SUPPORTED_LANGUAGES.find(lang => lang.code === locale.value)?.code || 'EN').toUpperCase()
+  return (headerLanguages.find(lang => lang.code === locale.value)?.code || 'ZH').toUpperCase()
 })
 
 const langItems = computed(() => {
-  return SUPPORTED_LANGUAGES.map(lang => ({
+  return headerLanguages.map(lang => ({
     label: lang.title,
     command: () =>
       switchLanguage(lang.code, (query) => {

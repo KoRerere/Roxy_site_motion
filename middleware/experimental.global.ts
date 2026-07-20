@@ -85,13 +85,13 @@ function stripZhLocalePath(path: string): string {
 
 /** 外链直达 /en?token= 时 token 在 to.query；from 多为站外路由或空，仅有 from.query 会漏 */
 function tokenFromRouteQueries(to: { query: Record<string, unknown> }, from: { query: Record<string, unknown> }): string | undefined {
-  const pick = (q: Record<string, unknown>) => {
-    const v = q.token
-    if (v == null || v === '')
+  const pick = (query: Record<string, unknown>) => {
+    const value = query.token
+    if (value == null || value === '')
       return undefined
-    if (Array.isArray(v))
-      return v[0] != null && v[0] !== '' ? String(v[0]) : undefined
-    return String(v)
+    if (Array.isArray(value))
+      return value[0] != null && value[0] !== '' ? String(value[0]) : undefined
+    return String(value)
   }
   return pick(to.query) ?? pick(from.query)
 }
@@ -119,8 +119,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
       const token = useCookie('roxy_token')
       token.value = queryToken
     }
-
-    return navigateTo('/', { redirectCode: 301 })
   }
 
   if (!isChinaSite && (to.path === '/zh' || to.path.startsWith('/zh/'))) {

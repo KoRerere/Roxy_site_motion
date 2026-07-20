@@ -98,7 +98,7 @@ const i18nConfig: Partial<NuxtConfig['i18n']> = isChinaSite
         { code: 'en', language: 'en-US', file: { path: 'en.json', cache: false } },
         { code: 'ru', language: 'ru-RU', file: { path: 'ru.json', cache: false } },
       ],
-      defaultLocale: 'en',
+      defaultLocale: 'zh',
       strategy: 'prefix_and_default',
       detectBrowserLanguage: false,
     }
